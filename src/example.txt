@@ -1,0 +1,15 @@
+controls:
+	active User 1
+	active User 2
+	passive Room 2
+
+
+names:
+	inner miao
+	inner core
+	inner core
+	outer swablu
+
+rule r = C.User[@a] -> User[@a]
+
+model example = C.User[@swablu]
