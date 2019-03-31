@@ -22,7 +22,7 @@ public class Main {
             ParseTree tree = parser.bigraph();
             BigraphVisitor visitor = new BigraphBaseVisitor();
             visitor.visit(tree);
-
+            System.out.println(((BigraphBaseVisitor) visitor).getParseResult());
 
         } catch (IOException e) {
             e.printStackTrace();
