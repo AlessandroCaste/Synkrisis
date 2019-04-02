@@ -312,7 +312,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
     public boolean checkModelName(String fileName) {
-        if (!fileName.equals(modelName+".txt") || !fileName.equals(modelName+".bigraph")) {
+        if (!fileName.equals(modelName+".txt") && !fileName.equals(modelName+".bigraph")) {
             acceptableModel = false;
             return false;
         } else
