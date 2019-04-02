@@ -148,7 +148,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
             // An error is thrown if there's a link without context to sustain it
             else if (!controlsUsage.containsKey(identifier) && ctx.links() != null) {
-                reportError(ctx, ERROR, "Attempt to use an undeclared control");
+                reportError(ctx, ERROR, "Attempt to use an undeclared control: " + identifier);
                 lastControl = new ControlChecker(ctx,0,invalidControl);
             }
 
@@ -178,7 +178,6 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
 
     @Override public String visitLinks (BigraphParser.LinksContext ctx){
-        System.out.println("ENTERING A LINK " + lastControl.getName() + " " + ctx.IDENTIFIER() .getText() +" " +ctx.stop.getText());
         if(modelVisited && ctx.VARIABLE() != null)
             reportError(ctx,ERROR,"Variable used in model definition");
         if(ctx.IDENTIFIER() != null) {

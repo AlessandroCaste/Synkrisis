@@ -11,25 +11,28 @@ public class Main {
     private static BigraphBaseVisitor visitor;
 
     public static void main(String[] args) {
-        System.out.println(System.getProperty("user.dir"));
-        try {
+        if (args.length > 0) {
+            String filename = args[0];
+            System.out.println(System.getProperty("user.dir"));
+            try {
 
-            File inputFile = new File("example.txt");
-            InputStream inputStream = new FileInputStream(inputFile);
-            Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
-            TokenStream tokenStream = new CommonTokenStream(lexer);
-            BigraphParser parser = new BigraphParser(tokenStream);
-            ParseTree tree = parser.bigraph();
-            visitor = new BigraphBaseVisitor();
-            visitor.visit(tree);
+                File inputFile = new File(filename);
+                InputStream inputStream = new FileInputStream(inputFile);
+                Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
+                TokenStream tokenStream = new CommonTokenStream(lexer);
+                BigraphParser parser = new BigraphParser(tokenStream);
+                ParseTree tree = parser.bigraph();
+                visitor = new BigraphBaseVisitor();
+                visitor.visit(tree);
 
-            if(!visitor.checkModelName(inputFile.getName()))
-                System.out.println("[ERROR] File name and model names do not match");
-            System.out.println(visitor.checkUnusedVariables());
-            System.out.println(visitor.getParseResult());
+                if (!visitor.checkModelName(inputFile.getName()))
+                    System.out.println("[ERROR] File name and model names do not match");
+                System.out.println(visitor.checkUnusedVariables());
+                System.out.println(visitor.getParseResult());
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
