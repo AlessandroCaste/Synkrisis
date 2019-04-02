@@ -264,8 +264,10 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         String reportString = "";
         if(type == WARNING)
             reportString = "[WARNING - Line ";
-        else if(type == ERROR)
+        else if(type == ERROR) {
             reportString = "[ERROR - Line ";
+            acceptableModel = false;
+        }
         reportString = reportString + ctx.start.getLine() + "] : " + text;
         System.out.println(reportString);
     }
@@ -310,7 +312,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
     public boolean checkModelName(String fileName) {
-        if (!fileName.equals(modelName+".txt")) {
+        if (!fileName.equals(modelName+".txt") || !fileName.equals(modelName+".bigraph")) {
             acceptableModel = false;
             return false;
         } else
