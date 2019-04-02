@@ -8,8 +8,8 @@ names:
 	inner core
 	outer swablu
 
-rule r = Prova[a,b,c,d].Ramarro[b,a,c,d].User[@d] -> User[@e]
+rule r = Prova[a,b,c,d].Ramarro[b,a,c,d].User[@d,e] -> User[@e]
 
-model example = C.User[@swablu]
+model example = C.User2[@swablu]
 
 check
