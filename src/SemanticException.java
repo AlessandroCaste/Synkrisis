@@ -1,4 +1,4 @@
-import org.antlr.v4.runtime.ParserRuleContext;
+/*import org.antlr.v4.runtime.ParserRuleContext;
 
 public class SemanticException extends Exception {
 
@@ -14,3 +14,4 @@ public class SemanticException extends Exception {
     }
 
 }
+*/

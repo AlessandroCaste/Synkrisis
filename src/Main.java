@@ -1,33 +1,36 @@
-import jdk.internal.util.xml.impl.Input;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class Main {
 
+    private static BigraphBaseVisitor visitor;
+
     public static void main(String[] args) {
-
-        System.out.println("miao");
-
-        InputStream inputStream = Main.class.getResourceAsStream("/example.txt");
+        System.out.println(System.getProperty("user.dir"));
         try {
+
+            File inputFile = new File("example.txt");
+            InputStream inputStream = new FileInputStream(inputFile);
             Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
             TokenStream tokenStream = new CommonTokenStream(lexer);
             BigraphParser parser = new BigraphParser(tokenStream);
             ParseTree tree = parser.bigraph();
-            BigraphVisitor visitor = new BigraphBaseVisitor();
+            visitor = new BigraphBaseVisitor();
             visitor.visit(tree);
-            System.out.println(((BigraphBaseVisitor) visitor).getParseResult());
+
+            if(!visitor.checkModelName(inputFile.getName()))
+                System.out.println("[ERROR] File name and model names do not match");
+            System.out.println(visitor.checkUnusedVariables());
+            System.out.println(visitor.getParseResult());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 }

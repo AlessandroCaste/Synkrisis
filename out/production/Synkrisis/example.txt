@@ -1,16 +1,14 @@
 controls:
 	active User 1
-	active User 2
 	passive Room 2
-
+	active Prova 3
 
 names:
 	inner miao
 	inner core
-	inner core
 	outer swablu
 
-rule r = C.User[@a] -> User[@a]
+rule r = Prova[a,b,c,d].Ramarro[b,a,c,d].User[@d] -> User[@e]
 
 model example = C.User[@swablu]
 

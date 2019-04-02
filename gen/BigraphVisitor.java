@@ -26,7 +26,7 @@ public interface BigraphVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitControl_statements(BigraphParser.Control_statementsContext ctx) throws SemanticException;
+	T visitControl_statements(BigraphParser.Control_statementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#names}.
 	 * @param ctx the parse tree
@@ -38,13 +38,13 @@ public interface BigraphVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitName_statements(BigraphParser.Name_statementsContext ctx) throws SemanticException;
+	T visitName_statements(BigraphParser.Name_statementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#reactions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReactions(BigraphParser.ReactionsContext ctx) throws SemanticException;
+	T visitReactions(BigraphParser.ReactionsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#reaction_statement}.
 	 * @param ctx the parse tree

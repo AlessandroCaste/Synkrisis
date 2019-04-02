@@ -252,11 +252,7 @@ public class BigraphParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof BigraphVisitor ) {
-				try {
 					return ((BigraphVisitor<? extends T>)visitor).visitControl_statements(this);
-				} catch (SemanticException e) {
-					e.printStackTrace();
-				}
 			}
 			else return visitor.visitChildren(this);
 		}
