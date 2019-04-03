@@ -1,12 +1,10 @@
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
-
 import java.io.*;
 
 public class Main {
+
 
     public static void main(String[] args) {
         if (args.length > 0) {
@@ -18,6 +16,8 @@ public class Main {
                 Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
                 TokenStream tokenStream = new CommonTokenStream(lexer);
                 BigraphParser parser = new BigraphParser(tokenStream);
+                parser.removeErrorListeners();
+                parser.addErrorListener(new ErrorListener());
                 ParseTree tree = parser.bigraph();
                 BigraphBaseVisitor visitor = new BigraphBaseVisitor();
                 visitor.visit(tree);
@@ -27,11 +27,15 @@ public class Main {
                 System.out.println(visitor.checkUnusedVariables());
                 System.out.println(visitor.getParseResult());
 
-            } catch (IOException | NumberFormatException e) {
+            } catch (IOException e) {
                 //e.printStackTrace();
-                System.out.println("Parsing is impossible");
+            } catch (ParseCancellationException | NumberFormatException e) {
+                //e.printStackTrace();
+                System.out.println(e.getMessage());
+                System.out.println("Parsing can't proceed");
             }
+        } else {
+            System.out.println("Missing input!");
         }
     }
-
 }

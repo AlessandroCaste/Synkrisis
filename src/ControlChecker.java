@@ -1,4 +1,4 @@
-public class ControlChecker {
+class ControlChecker {
 
     private BigraphParser.ExpressionContext ctx;
     private int arity;
@@ -10,19 +10,19 @@ public class ControlChecker {
         this.valid = valid;
     }
 
-    public boolean isValid() {
+    boolean isValid() {
         return valid;
     }
 
-    public BigraphParser.ExpressionContext getCtx() {
+    BigraphParser.ExpressionContext getCtx() {
         return ctx;
     }
 
-    public int getArity() {
+    int getArity() {
         return arity;
     }
 
-    public String getName() {
+    String getName() {
         return ctx.IDENTIFIER().toString();
     }
 
