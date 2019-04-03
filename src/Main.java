@@ -17,7 +17,7 @@ public class Main {
                 TokenStream tokenStream = new CommonTokenStream(lexer);
                 BigraphParser parser = new BigraphParser(tokenStream);
                 parser.removeErrorListeners();
-                parser.addErrorListener(new ErrorListener());
+                parser.addErrorListener(ErrorListener.INSTANCE);
                 ParseTree tree = parser.bigraph();
                 BigraphBaseVisitor visitor = new BigraphBaseVisitor();
                 visitor.visit(tree);
