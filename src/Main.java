@@ -27,8 +27,9 @@ public class Main {
                 System.out.println(visitor.checkUnusedVariables());
                 System.out.println(visitor.getParseResult());
 
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException | NumberFormatException e) {
+                //e.printStackTrace();
+                System.out.println("Parsing is impossible");
             }
         }
     }
