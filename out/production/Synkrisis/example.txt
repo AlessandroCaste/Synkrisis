@@ -1,0 +1,15 @@
+controls:
+	active User 1
+	passive Room 2
+	active Prova 3
+
+names:
+	inner name1
+	inner name2
+	outer name3
+
+rule r = Prova[a,b,c,d].Random[b,a,c,d].User[@d,e] -> User[@e]
+
+model example = C.User2[@name3]
+
+check
