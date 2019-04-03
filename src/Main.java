@@ -8,12 +8,9 @@ import java.io.*;
 
 public class Main {
 
-    private static BigraphBaseVisitor visitor;
-
     public static void main(String[] args) {
         if (args.length > 0) {
             String filename = args[0];
-            System.out.println(System.getProperty("user.dir"));
             try {
 
                 File inputFile = new File(filename);
@@ -22,7 +19,7 @@ public class Main {
                 TokenStream tokenStream = new CommonTokenStream(lexer);
                 BigraphParser parser = new BigraphParser(tokenStream);
                 ParseTree tree = parser.bigraph();
-                visitor = new BigraphBaseVisitor();
+                BigraphBaseVisitor visitor = new BigraphBaseVisitor();
                 visitor.visit(tree);
 
                 if (!visitor.checkModelName(inputFile.getName()))

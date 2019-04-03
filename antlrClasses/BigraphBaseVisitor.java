@@ -59,11 +59,11 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
 
+    // Controls are added to the respective list
+    // If the control name is already present an error is signaled
     @Override
     public String visitControl_statements(BigraphParser.Control_statementsContext ctx) {
 
-        // Controls are added to the respective list
-        // If the control name is already present an error is signaled
         String controlsIdentifier = ctx.IDENTIFIER().toString();
         if(names.contains(controlsIdentifier))
             reportError(ctx,ERROR,"Controls can't be declared after previously declared names");
@@ -73,7 +73,6 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
             controlsUsage.put(controlsIdentifier,0);
         }
         else {
-            acceptableModel = false;
             reportError(ctx, ERROR, "Repeated control declaration");
         }
         return visitChildren(ctx);
@@ -86,19 +85,18 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         return visitChildren(ctx);
     }
 
-
+    // Names are added to the respective list
+    // If names are already present an error is signaled
     @Override
     public String visitName_statements(BigraphParser.Name_statementsContext ctx) {
 
-        // Names are added to the respective list
-        // If names are already present an error is signaled
+
         String nameIdentifier = ctx.getChild(1).toString();
         if (!names.contains(nameIdentifier)) {
             names.add(nameIdentifier);
             namesUsage.put(nameIdentifier,0);
         }
         else {
-            acceptableModel = false;
             reportError(ctx, ERROR, "Repeated name declaration");
         }
         return visitChildren(ctx);
@@ -106,13 +104,11 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
 
-
+    // Reactions rules should present distinct, unique names!
     @Override
     public String visitReactions(BigraphParser.ReactionsContext ctx) {
 
-        // Reactions rules should present distinct, unique names!
         if (ctx.RULE() != null) {
-
             String identifier = ctx.IDENTIFIER().toString();
 
             if (controlsMap.containsKey(identifier))
@@ -134,7 +130,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         return visitChildren(ctx);
     }
 
-
+    // We track usages and also save info on the current control term to verify whether its arity matches links arity
     @Override public String visitExpression (BigraphParser.ExpressionContext ctx) {
 
         // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)?
@@ -146,7 +142,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
                 namesUsage.put(identifier, namesUsage.get(identifier) + 1);
             }
 
-            // An error is thrown if there's a link without context to sustain it
+            // An error is thrown if there's a link without a control to sustain it
             else if (!controlsUsage.containsKey(identifier) && ctx.links() != null) {
                 reportError(ctx, ERROR, "Attempt to use an undeclared control: " + identifier);
                 lastControl = new ControlChecker(ctx,0,invalidControl);
@@ -159,7 +155,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
                 // ..and I eventually update the number of usages
                 controlsUsage.put(identifier, controlsUsage.get(identifier) + 1);
 
-                // Checking whether the arity of IDENTIFIER is respected I use the ControlChecker class
+                // In order to check whether the arity of IDENTIFIER is respected I set up a ControlChecker class
                 lastControl = new ControlChecker(ctx, controlArity,validControl);
             }
         }
@@ -176,10 +172,15 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         return visitChildren(ctx);
     }
 
-
+    // Links are checked for names/controls usages
+    // Links also count the identifiers they contain in order to verify arity
     @Override public String visitLinks (BigraphParser.LinksContext ctx){
+
+        // I verify a variable is not getting declared inside a model definition
         if(modelVisited && ctx.VARIABLE() != null)
             reportError(ctx,ERROR,"Variable used in model definition");
+
+        // Usage tracking
         if(ctx.IDENTIFIER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
             if(namesUsage.containsKey(identifier))
@@ -187,7 +188,8 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
             if(controlsUsage.containsKey(identifier))
                 controlsUsage.put(identifier, controlsUsage.get(identifier)+1);
         }
-        // I evaluate recursively the number of arguments in a link
+
+        // I evaluate recursively the number of arguments in a link for arity checking
         if(ctx.COMMA() != null ) {
             linkArity++;
         } else {
@@ -199,17 +201,14 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         return visitChildren(ctx);
     }
 
-
+    //
     @Override public String visitModel (BigraphParser.ModelContext ctx){
-        modelName = ctx.getChild(1).getText();
+        modelVisited = true;
+        modelName = ctx.IDENTIFIER().getText();
         return visitChildren(ctx);
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+
+
     @Override public String visitProperty (BigraphParser.PropertyContext ctx){
         return visitChildren(ctx);
     }
@@ -223,56 +222,40 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     @Override public String visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
         return visitChildren(ctx);
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+
     @Override public String visitBinary_operation (BigraphParser.Binary_operationContext ctx){
         return visitChildren(ctx);
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+
     @Override public String visitTerm (BigraphParser.TermContext ctx){
         return visitChildren(ctx);
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+
     @Override public String visitParameters_list (BigraphParser.Parameters_listContext ctx){
         return visitChildren(ctx);
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation returns the result of calling
-     * {@link #visitChildren} on {@code ctx}.</p>
-     */
+
     @Override public String visitParameter (BigraphParser.ParameterContext ctx){
         return visitChildren(ctx);
     }
 
     private void reportError (ParserRuleContext ctx, int type, String text){
-        String reportString = "";
+        StringBuilder returnString = new StringBuilder();
         if(type == WARNING)
-            reportString = "[WARNING - Line ";
+            returnString.append("[WARNING - Line ");
         else if(type == ERROR) {
-            reportString = "[ERROR - Line ";
+            returnString.append("[ERROR - Line ");
             acceptableModel = false;
         }
-        reportString = reportString + ctx.start.getLine() + "] : " + text;
-        System.out.println(reportString);
+        // We take into account the fact columns starts from 0 in ANTLR methods
+        int line = ctx.start.getLine();
+        int column = ctx.start.getCharPositionInLine() + 1;
+
+        returnString.append(line).append(":").append(column).append("] ").append(text);
+        System.out.println(returnString.toString());
     }
 
-    public String getParseResult () {
+    String getParseResult() {
         if (acceptableModel)
             return "[RESULT : PASSED] \nModel is ready";
         else
@@ -280,7 +263,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
     // This method returns all controls and names whose usage value has remained stuck to 0
-    public String checkUnusedVariables(){
+    String checkUnusedVariables(){
 
         ArrayList<String> unusedControls = new ArrayList<>();
         ArrayList<String> unusedNames	 = new ArrayList<>();
@@ -295,23 +278,24 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
                 unusedNames.add(key);
 
         if(unusedControls.size()>0) {
-            returnString.append("[WARNING] The following controls are declared and never used:\n");
+            returnString.append("[WARNING] The following controls are declared and never used: ");
             for(String s : unusedControls)
                 returnString.append(s).append(" ");
             returnString.append("\n");
         }
         if(unusedNames.size()>0) {
-            returnString.append("[WARNING] The following names are declared and never used:\n");
+            returnString.append("[WARNING] The following names are declared and never used: ");
             for(String s : unusedNames)
                 returnString.append(s).append(" ");
         }
 
-        if(unusedControls.size() == 0 && unusedNames.size() == 0)
-            returnString.append("[REPORT] All controlsMap and names declared are used");
+       // I decided not to report something that should just be the norm
+       // if(unusedControls.size() == 0 && unusedNames.size() == 0)
+       //     returnString.append("[REPORT] All controlsMap and names declared are used");
         return returnString.toString();
     }
 
-    public boolean checkModelName(String fileName) {
+    boolean checkModelName(String fileName) {
         if (!fileName.equals(modelName+".txt") && !fileName.equals(modelName+".bigraph")) {
             acceptableModel = false;
             return false;
