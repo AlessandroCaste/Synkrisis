@@ -4,7 +4,7 @@ class ControlChecker {
     private int arity;
     private boolean valid;
 
-    public ControlChecker(BigraphParser.ExpressionContext ctx, int arity, boolean valid) {
+    ControlChecker(BigraphParser.ExpressionContext ctx, int arity, boolean valid) {
         this.ctx = ctx;
         this.arity = arity;
         this.valid = valid;

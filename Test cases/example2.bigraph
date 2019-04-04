@@ -3,6 +3,7 @@ controls:
     active Room 0
     active InnerRoom 0
     active Link 2
+    active Test 0
 
 names:
     outer Alice
@@ -10,3 +11,5 @@ names:
     outer Carl
 
 rule r = Room.User[@a] -> Room.InnerRoom
+
+model example2 = Test[Carl].Room.User[Alice]

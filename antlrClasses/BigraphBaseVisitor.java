@@ -137,13 +137,8 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         if (ctx.IDENTIFIER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
 
-            // I update the number of usages of the corresponding name
-            if (namesUsage.containsKey(identifier)) {
-                namesUsage.put(identifier, namesUsage.get(identifier) + 1);
-            }
-
             // An error is thrown if there's a link without a control to sustain it
-            else if (!controlsUsage.containsKey(identifier) && ctx.links() != null) {
+            if (!controlsUsage.containsKey(identifier)) {
                 reportError(ctx, ERROR, "Attempt to use an undeclared control: " + identifier);
                 lastControl = new ControlChecker(ctx,0,invalidControl);
             }
@@ -180,14 +175,13 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         if(modelVisited && ctx.VARIABLE() != null)
             reportError(ctx,ERROR,"Variable used in model definition");
 
-        // Usage tracking
+        // Usage tracking of names
         if(ctx.IDENTIFIER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
             if(namesUsage.containsKey(identifier))
                 namesUsage.put(identifier, namesUsage.get(identifier)+1);
-            if(controlsUsage.containsKey(identifier))
-                controlsUsage.put(identifier, controlsUsage.get(identifier)+1);
         }
+
 
         // I evaluate recursively the number of arguments in a link for arity checking
         if(ctx.COMMA() != null ) {

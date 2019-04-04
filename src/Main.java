@@ -29,6 +29,7 @@ public class Main {
 
             } catch (IOException e) {
                 //e.printStackTrace();
+                System.out.println("File " + filename +" not found");
             } catch (ParseCancellationException | NumberFormatException e) {
                 //e.printStackTrace();
                 System.out.println(e.getMessage());
