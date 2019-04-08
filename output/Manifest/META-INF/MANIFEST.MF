@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: antlr4-4.7.2.jar antlr4-runtime-4.7.2.jar antlr-runtime-3.
- 5.2.jar ST4-4.1.jar org.abego.treelayout.core-1.0.3.jar javax.json-1.
- 0.4.jar icu4j-61.1.jar
-Main-Class: Main
-
