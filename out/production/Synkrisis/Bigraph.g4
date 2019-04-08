@@ -46,7 +46,7 @@ links              : IDENTIFIER          (COMMA links)?
                    | UNLINKED            (COMMA links)?
                    ;
 
-model              : MODEL IDENTIFIER ASSIGNMENT expression (property)*;
+model              : MODEL IDENTIFIER ASSIGNMENT expression (property)* EOF;
 
 property           : PROPERTY IDENTIFIER ASSIGNMENT property_statement;
 
