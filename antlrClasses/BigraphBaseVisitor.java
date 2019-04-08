@@ -15,7 +15,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     private HashMap<String,Integer> controlsMap = new HashMap<>();
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<String> ruleNames = new ArrayList<>();
-
+    private ArrayList<String> propertyNames = new ArrayList<>();
     // Maps to track usages
     private HashMap<String,Integer> controlsUsage = new HashMap<>();
     private HashMap<String,Integer> namesUsage = new HashMap<>();
@@ -86,12 +86,13 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
     // Names are added to the respective list
-    // If names are already present an error is signaled
+    // If names are already present in the model an error is signaled
     @Override
     public String visitName_statements(BigraphParser.Name_statementsContext ctx) {
 
-
         String nameIdentifier = ctx.getChild(1).toString();
+        if(controlsMap.containsKey(nameIdentifier))
+            reportError(ctx,WARNING,"Names shouldn't be named after controls!");
         if (!names.contains(nameIdentifier)) {
             names.add(nameIdentifier);
             namesUsage.put(nameIdentifier,0);
@@ -112,12 +113,12 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
             String identifier = ctx.IDENTIFIER().toString();
 
             if (controlsMap.containsKey(identifier))
-                reportError(ctx, WARNING, "Reaction rules shouldn't be named after controlsMap to avoid confusion");
+                reportError(ctx, WARNING, "Reaction rules shouldn't be named after controls to avoid confusion");
             if (names.contains(identifier))
-                reportError(ctx, WARNING, "Reaction rules shouldn't share identifier with an outer/inner name");
+                reportError(ctx, WARNING, "Reaction rules shouldn't be named after an outer/inner name");
             if (ruleNames.contains(identifier)) {
                 acceptableModel = false;
-                reportError(ctx, ERROR, "Repeated rule declaration");
+                reportError(ctx, ERROR, "Repeated rule name");
             }
             if(acceptableModel)
                 ruleNames.add(identifier);
@@ -203,7 +204,23 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
 
+    // This visitor serves the purpose of checking the uniqueness of property names
     @Override public String visitProperty (BigraphParser.PropertyContext ctx){
+        String identifier = ctx.IDENTIFIER().toString();
+        if (controlsMap.containsKey(identifier))
+            reportError(ctx, WARNING, "Properties shouldn't be named after controls to avoid confusion");
+        if (names.contains(identifier))
+            reportError(ctx, WARNING, "Properties shouldn't be named after an outer/inner name");
+        if (ruleNames.contains(identifier)) {
+            acceptableModel = false;
+            reportError(ctx, WARNING, "Properties shouldn't be named after rules");
+        }
+        if(!propertyNames.contains(identifier)) {
+            propertyNames.add(identifier);
+        } else {
+            reportError(ctx, ERROR,"Two properties share the same name!");
+        }
+
         return visitChildren(ctx);
     }
 
