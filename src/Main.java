@@ -24,7 +24,9 @@ public class Main {
 
                 if (!visitor.checkModelName(inputFile.getName()))
                     System.out.println("[ERROR] File name and model names do not match");
-                System.out.println(visitor.checkUnusedVariables());
+                String variableUsage = visitor.checkUnusedVariables();
+                if(!variableUsage.isEmpty())
+                    System.out.println(visitor.checkUnusedVariables());
                 System.out.println(visitor.getParseResult());
 
             } catch (IOException e) {

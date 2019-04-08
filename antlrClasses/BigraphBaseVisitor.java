@@ -92,7 +92,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
         String nameIdentifier = ctx.getChild(1).toString();
         if(controlsMap.containsKey(nameIdentifier))
-            reportError(ctx,WARNING,"Names shouldn't be named after controls!");
+            reportError(ctx,WARNING,"Names shouldn't share identifiers with controls!");
         if (!names.contains(nameIdentifier)) {
             names.add(nameIdentifier);
             namesUsage.put(nameIdentifier,0);
@@ -113,7 +113,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
             String identifier = ctx.IDENTIFIER().toString();
 
             if (controlsMap.containsKey(identifier))
-                reportError(ctx, WARNING, "Reaction rules shouldn't be named after controls to avoid confusion");
+                reportError(ctx, WARNING, "Reaction rules shouldn't be named after controls");
             if (names.contains(identifier))
                 reportError(ctx, WARNING, "Reaction rules shouldn't be named after an outer/inner name");
             if (ruleNames.contains(identifier)) {
@@ -208,7 +208,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     @Override public String visitProperty (BigraphParser.PropertyContext ctx){
         String identifier = ctx.IDENTIFIER().toString();
         if (controlsMap.containsKey(identifier))
-            reportError(ctx, WARNING, "Properties shouldn't be named after controls to avoid confusion");
+            reportError(ctx, WARNING, "Properties shouldn't be named after controls");
         if (names.contains(identifier))
             reportError(ctx, WARNING, "Properties shouldn't be named after an outer/inner name");
         if (ruleNames.contains(identifier)) {

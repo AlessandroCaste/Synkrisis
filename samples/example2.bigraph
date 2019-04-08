@@ -1,0 +1,21 @@
+# A controls is restated with a different arity
+controls:
+    active User 1
+    active Room 0
+    active InnerRoom 0
+    active Link 2
+    active Link 1
+    active Test 0
+
+
+# Bob is never used
+names:
+    outer Alice
+    outer Bob
+    outer Carl
+
+# This rule employs a 'Random' entity that has never been declared
+# User has been defined with arity 1
+rule r = Room.User[@a,@b] -> Room.InnerRoom.Random
+
+model example2 = Test[Carl].Room.User[Alice]
