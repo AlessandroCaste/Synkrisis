@@ -1,7 +1,13 @@
+import guru.nidi.graphviz.attribute.Color;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.MutableGraph;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.*;
+
+import static guru.nidi.graphviz.model.Factory.*;
 
 public class Main {
 
@@ -41,4 +47,6 @@ public class Main {
             System.out.println("Missing input!");
         }
     }
+
+
 }

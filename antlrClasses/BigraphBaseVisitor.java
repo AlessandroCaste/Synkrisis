@@ -1,10 +1,22 @@
+import guru.nidi.graphviz.attribute.Color;
+import guru.nidi.graphviz.attribute.Label;
+import guru.nidi.graphviz.attribute.Shape;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.MutableGraph;
+import guru.nidi.graphviz.model.Node;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.Multigraph;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static guru.nidi.graphviz.model.Factory.*;
 
 
 //Implementation adopts String in order to pass results across visitors
@@ -46,6 +58,17 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     private int linkArity = 0;
     private boolean invalidControl = false;
     private boolean validControl = true;
+
+    // Storing Graphs
+    ArrayList<Multigraph> graphs = new ArrayList<>();
+    Multigraph<Integer, DefaultEdge> currentGraph;
+    boolean nested = false;
+    boolean parallel = false;
+    int currentVertex = 0;
+    int upperVertex = 0;
+    boolean enable = false;
+    HashMap<Integer,String> nodeMapping = new HashMap<>();
+    int counter = 1;
 
     @Override
     public String visitBigraph(BigraphParser.BigraphContext ctx) {
@@ -136,7 +159,28 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
         // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)?
         if (ctx.IDENTIFIER() != null) {
+
             String identifier = ctx.IDENTIFIER().getText();
+
+            if(parallel && enable) {
+                nodeMapping.put(counter,identifier);
+                currentGraph.addVertex(counter);
+                if(upperVertex != 0)
+                    currentGraph.addEdge(upperVertex,counter);
+                currentVertex = counter;
+                counter++;
+            }
+
+            if(nested && enable) {
+                upperVertex = currentVertex;
+                nodeMapping.put(counter,identifier);
+                currentGraph.addVertex(counter);
+                if(currentVertex != 0)
+                    currentGraph.addEdge(currentVertex,counter);
+                currentVertex = counter;
+                counter++;
+                nested = false;
+            }
 
             // An error is thrown if there's a link without a control to sustain it
             if (!controlsUsage.containsKey(identifier)) {
@@ -160,11 +204,17 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
     @Override public String visitRegions (BigraphParser.RegionsContext ctx){
+        if(ctx.PAR() != null) {
+            parallel = true;
+        }
         return visitChildren(ctx);
     }
 
 
     @Override public String visitPrefix (BigraphParser.PrefixContext ctx){
+        nested = true;
+        parallel = false;
+        upperVertex = currentVertex;
         return visitChildren(ctx);
     }
 
@@ -198,6 +248,8 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
     //
     @Override public String visitModel (BigraphParser.ModelContext ctx){
+        currentGraph = new Multigraph<>(DefaultEdge.class);
+        enable = true;
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
         return visitChildren(ctx);
@@ -267,6 +319,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
     String getParseResult() {
+        System.out.println(currentGraph);
         if (acceptableModel)
             return "[RESULT : PASSED] \nModel is ready";
         else
@@ -275,7 +328,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
     // This method returns all controls and names whose usage value has remained stuck to 0
     String checkUnusedVariables(){
-
+        CreateGraphvizModel.getInstance().createModel(currentGraph,nodeMapping);
         ArrayList<String> unusedControls = new ArrayList<>();
         ArrayList<String> unusedNames	 = new ArrayList<>();
         StringBuilder returnString = new StringBuilder();
