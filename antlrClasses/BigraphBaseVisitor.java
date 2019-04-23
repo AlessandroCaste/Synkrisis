@@ -15,12 +15,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 import static guru.nidi.graphviz.model.Factory.*;
 
 
-//Implementation adopts String in order to pass results across visitors
-// While this may force some additional casting using String is a more general approach
+// Implementation technically adopts String in order to pass results across visitors
+// As of now return strings are never used, but you may further expand upon this
 public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> implements BigraphVisitor<String> {
 
     // We store identifiers in order to check repetitions and wrong uses
@@ -59,16 +60,20 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     private boolean invalidControl = false;
     private boolean validControl = true;
 
-    // Storing Graphs
+    // Graph Representation
     ArrayList<Multigraph> graphs = new ArrayList<>();
-    Multigraph<Integer, DefaultEdge> currentGraph;
-    boolean nested = false;
-    boolean parallel = false;
-    int currentVertex = 0;
-    int upperVertex = 0;
-    boolean enable = false;
-    HashMap<Integer,String> nodeMapping = new HashMap<>();
-    int counter = 1;
+    private Multigraph<Integer, DefaultEdge> currentGraph;
+    private boolean nested = false;
+    private boolean parallel = false;
+    private Stack<Integer> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
+    private int currentVertex = 0;
+    private int upperVertex = -1;                                   // Direct parent node. -1 equals 'no parent'
+    private boolean enable = false;
+    private int nodeCounter = 1;                                    // Represents the growing unique id of every node
+    private HashMap<Integer,String> nodeMapping = new HashMap<>();  // Required for storing labels (string) for nodes
+    private int nameCounter = -1;                                   // Represents the decreasing unique id of every name
+    private HashMap<Integer,String> namesMapping = new HashMap<>(); // Required for storing labels(strings) for names
+    private int depth = 0;                                          // Nesting depth
 
     @Override
     public String visitBigraph(BigraphParser.BigraphContext ctx) {
@@ -157,30 +162,15 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
     @Override public String visitExpression (BigraphParser.ExpressionContext ctx) {
 
-        // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)?
+        // GRAPH CREATION: calculating depths and nesting of parents
+        if(ctx.LPAR()!=null && enable) {
+            depth++;
+            nodeStack.push(currentVertex);
+        }
+
+        // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)
         if (ctx.IDENTIFIER() != null) {
-
             String identifier = ctx.IDENTIFIER().getText();
-
-            if(parallel && enable) {
-                nodeMapping.put(counter,identifier);
-                currentGraph.addVertex(counter);
-                if(upperVertex != 0)
-                    currentGraph.addEdge(upperVertex,counter);
-                currentVertex = counter;
-                counter++;
-            }
-
-            if(nested && enable) {
-                upperVertex = currentVertex;
-                nodeMapping.put(counter,identifier);
-                currentGraph.addVertex(counter);
-                if(currentVertex != 0)
-                    currentGraph.addEdge(currentVertex,counter);
-                currentVertex = counter;
-                counter++;
-                nested = false;
-            }
 
             // An error is thrown if there's a link without a control to sustain it
             if (!controlsUsage.containsKey(identifier)) {
@@ -197,21 +187,57 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
                 // In order to check whether the arity of IDENTIFIER is respected I set up a ControlChecker class
                 lastControl = new ControlChecker(ctx, controlArity,validControl);
+
+            // GRAPH CREATION: taking into account parallel/nesting in expressions
+            if(parallel && enable) {
+                nodeMapping.put(nodeCounter,identifier);
+                currentGraph.addVertex(nodeCounter);
+                if(upperVertex != (-1))
+                    currentGraph.addEdge(upperVertex,nodeCounter);
+                currentVertex = nodeCounter;
+                nodeCounter++;
+            }
+            if(nested && enable) {
+                nodeMapping.put(nodeCounter,identifier);
+                currentGraph.addVertex(nodeCounter);
+                if(currentVertex != 0)
+                    currentGraph.addEdge(currentVertex,nodeCounter);
+                currentVertex = nodeCounter;
+                nodeCounter++;
+                nested = false;
+            }
             }
         }
 
-            return visitChildren(ctx);
+        // GRAPH CREATION: managing depth when leaving nested expressions
+        if(ctx.RPAR()!=null && enable) {
+            String s = visit(ctx.expression());
+            depth--;
+            nodeStack.pop();
+            // Note that return Strings have no purpose at the moment, but for future uses we make sure no return is wasted
+            if(ctx.regions() != null)
+                return s + visit(ctx.regions());
+            return s;
+        }
+
+        return visitChildren(ctx);
     }
 
     @Override public String visitRegions (BigraphParser.RegionsContext ctx){
-        if(ctx.PAR() != null) {
+        // GRAPH CREATION: every time there's a parallel region I reset the parent node pointer
+        if(ctx.PAR() != null && enable) {
             parallel = true;
+            if(!nodeStack.isEmpty())
+                upperVertex = nodeStack.get(depth-1);
+            else
+                upperVertex = -1;
         }
         return visitChildren(ctx);
     }
 
 
     @Override public String visitPrefix (BigraphParser.PrefixContext ctx){
+        // GRAPH CREATION: current node becomes a parent node
         nested = true;
         parallel = false;
         upperVertex = currentVertex;
@@ -233,7 +259,6 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
                 namesUsage.put(identifier, namesUsage.get(identifier)+1);
         }
 
-
         // I evaluate recursively the number of arguments in a link for arity checking
         if(ctx.COMMA() != null ) {
             linkArity++;
@@ -243,10 +268,17 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
                 reportError(lastControl.getCtx(),ERROR,"Control " + lastControl.getName() + " has arity " + lastControl.getArity() + " not " + linkArity);
             linkArity = 0;
         }
+
+        // GRAPH CREATION: linking names to nodes
+    //    if(ctx.IDENTIFIER() != null && enable) {
+      //      currentGraph.addVertex(nodeCounter);
+     //       nodeCounter--;
+     //       namesMapping.put(nodeCounter,ctx.IDENTIFIER().toString());
+    //    }
         return visitChildren(ctx);
     }
 
-    //
+
     @Override public String visitModel (BigraphParser.ModelContext ctx){
         currentGraph = new Multigraph<>(DefaultEdge.class);
         enable = true;

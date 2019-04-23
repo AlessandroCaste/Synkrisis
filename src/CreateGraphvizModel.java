@@ -5,6 +5,7 @@ import guru.nidi.graphviz.model.MutableGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class CreateGraphvizModel {
         }
         });
         try {
-            Graphviz.fromGraph(g).width(400).render(Format.PNG).toFile(new File("example/ex1i.png"));
+            Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File("example/ex1i.svg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
