@@ -270,11 +270,12 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         }
 
         // GRAPH CREATION: linking names to nodes
-    //    if(ctx.IDENTIFIER() != null && enable) {
-      //      currentGraph.addVertex(nodeCounter);
-     //       nodeCounter--;
-     //       namesMapping.put(nodeCounter,ctx.IDENTIFIER().toString());
-    //    }
+        if(ctx.IDENTIFIER() != null && enable) {
+            currentGraph.addVertex(nameCounter);
+            namesMapping.put(nameCounter,ctx.IDENTIFIER().toString());
+            currentGraph.addEdge(currentVertex,nameCounter);
+            nameCounter--;
+        }
         return visitChildren(ctx);
     }
 
@@ -360,7 +361,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
     // This method returns all controls and names whose usage value has remained stuck to 0
     String checkUnusedVariables(){
-        CreateGraphvizModel.getInstance().createModel(currentGraph,nodeMapping);
+        CreateGraphvizModel.getInstance().createModel(currentGraph,nodeMapping,namesMapping);
         ArrayList<String> unusedControls = new ArrayList<>();
         ArrayList<String> unusedNames	 = new ArrayList<>();
         StringBuilder returnString = new StringBuilder();

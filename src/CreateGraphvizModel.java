@@ -1,3 +1,4 @@
+import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
@@ -26,24 +27,45 @@ public class CreateGraphvizModel {
         return instance;
     }
 
-    void createModel(Multigraph<Integer, DefaultEdge> currentGraph, HashMap<Integer, String> nodeMapping) {
+    void createModel(Multigraph<Integer, DefaultEdge> currentGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping) {
 
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
         //  Adjusting shapes
         nodeAttrs().add(Shape.RECTANGLE);
         nodeAttrs().add("style","rounded");
+        linkAttrs().add("arrowsize",0.8);
 
-        // Adding Nodes and links
+
+            // Adding Nodes and links
         for(int x : currentGraph.vertexSet()) {
-            mutNode(Integer.toString(x));
-            String nodeLabel = nodeMapping.get(x);
-            mutNode(Integer.toString(x)).attrs().add("label",nodeLabel);
+            if(nodeMapping.containsKey(x)) {
+                String nodeLabel = nodeMapping.get(x);
+                mutNode(Integer.toString(x)).attrs().add("label", nodeLabel);
+            }
+            else if(namesMapping.containsKey(x)) {
+                String nameLabel = namesMapping.get(x);
+                mutNode(Integer.toString(x)).attrs().add(Shape.CIRCLE)
+                                            .attrs().add(Color.RED2)
+                                            .attrs().add("size",0.8)
+                                            .attrs().add("label",nameLabel);
+            }
         }
         for(DefaultEdge edge: currentGraph.edgeSet()) {
             String edgeSource = currentGraph.getEdgeSource(edge).toString();
             String edgeTarget = currentGraph.getEdgeTarget(edge).toString();
-            mutNode(edgeSource).addLink(mutNode(edgeTarget));
+            if(!namesMapping.containsKey(Integer.parseInt(edgeTarget))) {
+                linkAttrs().add("arrowhead","normal");
+                linkAttrs().add("color","black");
+                linkAttrs().add("style","solid");
+                mutNode(edgeSource).addLink(mutNode(edgeTarget));
+            }
+            else {
+                linkAttrs().add("arrowhead","none");
+                linkAttrs().add("color","red");
+                linkAttrs().add("style","dotted");
+                mutNode(edgeSource).addLink(mutNode(edgeTarget));
+            }
         }
         });
         try {
