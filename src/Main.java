@@ -34,6 +34,9 @@ public class Main {
                 if(!variableUsage.isEmpty())
                     System.out.println(visitor.checkUnusedVariables());
                 System.out.println(visitor.getParseResult());
+                BigraphBaseVisitor2 graphvizVisitor = new BigraphBaseVisitor2();
+                graphvizVisitor.visit(tree);
+                graphvizVisitor.createGraph();
 
             } catch (IOException e) {
                 //e.printStackTrace();
