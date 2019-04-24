@@ -27,7 +27,7 @@ public class CreateGraphvizModel {
         return instance;
     }
 
-    void createModel(Multigraph<Integer, DefaultEdge> currentGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping) {
+    void createModel(Multigraph<Integer, DefaultEdge> currentGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping, String name, boolean model) {
 
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
@@ -69,7 +69,7 @@ public class CreateGraphvizModel {
         }
         });
         try {
-            Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File("example/ex1i.svg"));
+            Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File("example/"+name+".svg"));
         } catch (IOException e) {
             e.printStackTrace();
         }

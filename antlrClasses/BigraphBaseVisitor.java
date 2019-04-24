@@ -66,7 +66,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     private boolean nested = false;
     private boolean parallel = false;
     private Stack<Integer> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
-    private int currentVertex = 0;
+    private int currentVertex = 1;
     private int upperVertex = -1;                                   // Direct parent node. -1 equals 'no parent'
     private boolean enable = false;
     private int nodeCounter = 1;                                    // Represents the growing unique id of every node
@@ -200,11 +200,15 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
             if(nested && enable) {
                 nodeMapping.put(nodeCounter,identifier);
                 currentGraph.addVertex(nodeCounter);
-                if(currentVertex != 0)
+                if(currentVertex != nodeCounter)
                     currentGraph.addEdge(currentVertex,nodeCounter);
                 currentVertex = nodeCounter;
                 nodeCounter++;
                 nested = false;
+            } else if(currentVertex == nodeCounter && enable) {
+                nodeMapping.put(nodeCounter,identifier);
+                currentGraph.addVertex(nodeCounter);
+                nodeCounter++;
             }
             }
         }
@@ -231,6 +235,14 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
                 upperVertex = nodeStack.get(depth-1);
             else
                 upperVertex = -1;
+        }
+        if(ctx.LOR() != null && enable) {
+            parallel = false;
+            nested = false;
+            nodeStack.clear();
+            currentVertex = nodeCounter;
+            upperVertex = -1;
+            depth = 0;
         }
         return visitChildren(ctx);
     }
@@ -273,6 +285,18 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         if(ctx.IDENTIFIER() != null && enable) {
             currentGraph.addVertex(nameCounter);
             namesMapping.put(nameCounter,ctx.IDENTIFIER().toString());
+            currentGraph.addEdge(currentVertex,nameCounter);
+            nameCounter--;
+        }
+        if(ctx.VARIABLE() != null && enable) {
+            currentGraph.addVertex(nameCounter);
+            namesMapping.put(nameCounter,ctx.VARIABLE().toString()+ctx.IDENTIFIER());
+            currentGraph.addEdge(currentVertex,nameCounter);
+            nameCounter--;
+        }
+        if(ctx.UNLINKED() != null && enable) {
+            currentGraph.addVertex(nameCounter);
+            namesMapping.put(nameCounter,ctx.UNLINKED().toString());
             currentGraph.addEdge(currentVertex,nameCounter);
             nameCounter--;
         }
@@ -361,7 +385,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
     // This method returns all controls and names whose usage value has remained stuck to 0
     String checkUnusedVariables(){
-        CreateGraphvizModel.getInstance().createModel(currentGraph,nodeMapping,namesMapping);
+        CreateGraphvizModel.getInstance().createModel(currentGraph,nodeMapping,namesMapping,modelName,true);
         ArrayList<String> unusedControls = new ArrayList<>();
         ArrayList<String> unusedNames	 = new ArrayList<>();
         StringBuilder returnString = new StringBuilder();

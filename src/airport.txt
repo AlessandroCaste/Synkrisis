@@ -75,7 +75,7 @@ model airport =
 Landside.(
 	Zone[-,CheckIn].(Pax[Bob] | Pax[Joe] | Pax[Jane] | Pax[Mary]) |
 	Zone[CheckIn,Security]
-) |
+) ||
 Airside.(
 	Zone[Security,DutyFree] |
 	Zone[DutyFree,GateLounge] |
