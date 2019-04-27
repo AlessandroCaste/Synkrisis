@@ -32,8 +32,6 @@ public class Main {
                 // Graph Building
                 GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
                 graphvizVisitor.visit(tree);
-                // Graph Visualization
-                graphvizVisitor.createGraph();
 
             } catch (IOException e) {
                 //e.printStackTrace();

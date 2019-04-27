@@ -24,8 +24,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     }
 
     // Graph Representation
-    ArrayList<Multigraph<Integer, DefaultEdge>> graphs = new ArrayList<>();
     private Multigraph<Integer, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
+    private Multigraph<Integer,DefaultEdge> redex = new Multigraph<>(DefaultEdge.class);
+    private Multigraph<Integer,DefaultEdge> reactum = new Multigraph<>(DefaultEdge.class);
     private boolean nested = false;
     private boolean parallel = false;
     private Stack<Integer> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
@@ -38,7 +39,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     private HashMap<Integer,String> namesMapping = new HashMap<>(); // Required for storing labels(strings) for names
     private int depth = 0;                                          // Nesting depth
     boolean root = true;
-    ArrayList<String> reactionsNames = new ArrayList<>();
+    String reactionName = "";
 
 
     @Override
@@ -81,7 +82,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     public String visitReactions(BigraphParser.ReactionsContext ctx) {
         enable = true;
         if(ctx.IDENTIFIER() != null)
-            reactionsNames.add(ctx.IDENTIFIER().toString());
+            reactionName = ctx.IDENTIFIER().toString();
         return visitChildren(ctx);
     }
 
@@ -89,8 +90,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     @Override public String visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
         enable = true;
         visit(ctx.getChild(0));
-        graphs.add(currentGraph);
-
+        redex = currentGraph;
         // Reset tree info for reactum tree
         currentGraph = new Multigraph<>(DefaultEdge.class);
         parallel = false;
@@ -100,8 +100,10 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         currentVertex = nodeCounter;
         upperVertex = -1;
         depth = 0;
-
-        return visit(ctx.getChild(2));
+        visit(ctx.getChild(2));
+        reactum = currentGraph;
+        createGraph(redex,reactum,reactionName);
+        return "";
     }
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
@@ -244,8 +246,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
 
 
     @Override public String visitModel (BigraphParser.ModelContext ctx){
-        graphs.add(currentGraph);
-        createGraph();
         enable = false;
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
@@ -284,8 +284,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         return visitChildren(ctx);
     }
 
-    void createGraph() {
-        CreateGraphvizModel.getInstance().createReactions(graphs,nodeMapping,namesMapping,reactionsNames);
+    void createGraph(Multigraph<Integer,DefaultEdge> redex,Multigraph<Integer,DefaultEdge> reactum, String ruleName) {
+        CreateGraphvizModel.getInstance().createReactions(redex,reactum,nodeMapping,namesMapping,ruleName);
     }
 
 }

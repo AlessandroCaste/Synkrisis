@@ -83,11 +83,12 @@ public class CreateGraphvizModel {
     }
 
 
-    void createReactions(Multigraph<Integer,String> redexGraph,Multigraph<Integer,String> reactumGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping, String ruleName) {
+    void createReactions(Multigraph<Integer,DefaultEdge> redexGraph,Multigraph<Integer,DefaultEdge> reactumGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping, String ruleName) {
         HashMap<String,Color> colorHashMap = new HashMap<>();
         this.nodeMapping = nodeMapping;
         this.namesMapping = namesMapping;
         this.ruleName = ruleName;
+
         BufferedImage redex = null;
         BufferedImage redexAdjusted = null;
         BufferedImage reactum = null;
@@ -97,8 +98,8 @@ public class CreateGraphvizModel {
         int width2 = 0;
         int height2 = 0;
 
-        MutableGraph g1 = buildReactionGraph(redexGraph,nodeMapping,namesMapping,colorHashMap);
-        MutableGraph g2 = buildReactionGraph(reactumGraph,nodeMapping,namesMapping,colorHashMap);
+        MutableGraph g1 = buildReactionGraph(redexGraph,colorHashMap);
+        MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap);
 
         //Graphviz.fromGraph(g).width((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File("example/" + reactionsNames.get(i) + "- Match" + ".svg"));
         redex = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
@@ -137,7 +138,7 @@ public class CreateGraphvizModel {
         }
     }
 
-    private MutableGraph buildReactionGraph(Multigraph<Integer,String> currentGraph,HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping,HashMap<String,Color> colorHashMap) {
+    private MutableGraph buildReactionGraph(Multigraph<Integer,DefaultEdge> currentGraph,HashMap<String,Color> colorHashMap) {
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
             //  Adjusting shapes
