@@ -55,7 +55,7 @@ names:
 ############################## Reaction Rules ####################################
 
 # A passenger magically disappears once they board the aircraft
-rule disappear = Gate[@x].(Pax[@y] | $0) -> Gate
+rule disappear = Gate[@x].(Pax[@y] | $0) -> Gate.(Pax[@y])
 
 ############################## Airport Model  ####################################
 
@@ -79,3 +79,5 @@ Gates.(
 	PaxRecord[Bob,SK101] |
     PaxRecord[Jane,SK100]
 )
+
+property miao = !terminal()

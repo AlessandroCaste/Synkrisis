@@ -31,6 +31,7 @@ public class Main {
 
                 // Graph Building
                 GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
+                graphvizVisitor.storeFileName(visitor.getModelName());
                 graphvizVisitor.visit(tree);
 
             } catch (IOException e) {

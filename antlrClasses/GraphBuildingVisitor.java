@@ -2,8 +2,6 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -15,7 +13,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     private boolean modelVisited = false;
 
     // Model name to check file integrity
-    private String modelName = "null";
+    private String modelName;
 
 
     @Override
@@ -54,14 +52,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     }
 
 
-    // Controls are added to the respective list
-    // If the control name is already present an error is signaled
     @Override
-    public String visitControl_statements(BigraphParser.Control_statementsContext ctx) {
-
-        return visitChildren(ctx);
-
-    }
+    public String visitControl_statements(BigraphParser.Control_statementsContext ctx) {return visitChildren(ctx);}
 
 
     @Override
@@ -69,13 +61,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         return visitChildren(ctx);
     }
 
-    // Names are added to the respective list
-    // If names are already present in the model an error is signaled
     @Override
-    public String visitName_statements(BigraphParser.Name_statementsContext ctx) {
-        return visitChildren(ctx);
-
-    }
+    public String visitName_statements(BigraphParser.Name_statementsContext ctx) {return visitChildren(ctx);}
 
 
     @Override
@@ -88,22 +75,18 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
 
 
     @Override public String visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
+        // I reset the latest graph
+        currentGraph = new Multigraph<>(DefaultEdge.class);
         enable = true;
-        visit(ctx.getChild(0));
+        String expression1String = visit(ctx.getChild(0));
         redex = currentGraph;
         // Reset tree info for reactum tree
         currentGraph = new Multigraph<>(DefaultEdge.class);
-        parallel = false;
-        nested = false;
-        nodeStack.clear();
-        root = true;
-        currentVertex = nodeCounter;
-        upperVertex = -1;
-        depth = 0;
-        visit(ctx.getChild(2));
+        resetGraph();
+        String expression2String = visit(ctx.getChild(2));
         reactum = currentGraph;
-        createGraph(redex,reactum,reactionName);
-        return "";
+        createReactionGraph(redex,reactum,reactionName);
+        return expression1String + expression2String;
     }
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
@@ -142,7 +125,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
                 nested = false;
             }
         }
-
 
         if (ctx.IDENTIFIER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
@@ -198,17 +180,10 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
                 upperVertex = -1;
         }
         if(ctx.LOR() != null && enable) {
-            parallel = false;
-            nested = false;
-            nodeStack.clear();
-            root = true;
-            currentVertex = nodeCounter;
-            upperVertex = -1;
-            depth = 0;
+            resetGraph();
         }
         return visitChildren(ctx);
     }
-
 
     @Override public String visitPrefix (BigraphParser.PrefixContext ctx){
         // GRAPH CREATION: current node becomes a parent node
@@ -218,8 +193,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         return visitChildren(ctx);
     }
 
-    // Links are checked for names/controls usages
-    // Links also count the identifiers they contain in order to verify arity
     @Override public String visitLinks (BigraphParser.LinksContext ctx){
 
         // GRAPH CREATION: linking names to nodes
@@ -246,6 +219,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
 
 
     @Override public String visitModel (BigraphParser.ModelContext ctx){
+        // I reset the latest graph
+        currentGraph = new Multigraph<>(DefaultEdge.class);
+        resetGraph();
         enable = false;
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
@@ -253,8 +229,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     }
 
 
-    // This visitor serves the purpose of checking the uniqueness of property names
     @Override public String visitProperty (BigraphParser.PropertyContext ctx){
+        // GRAPH CREATION: Drawing the model here
+        createModelGraph(currentGraph);
         return visitChildren(ctx);
     }
 
@@ -284,8 +261,25 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         return visitChildren(ctx);
     }
 
-    void createGraph(Multigraph<Integer,DefaultEdge> redex,Multigraph<Integer,DefaultEdge> reactum, String ruleName) {
+    void createModelGraph(Multigraph<Integer,DefaultEdge> model) {
+        CreateGraphvizModel.getInstance().createModel(model,nodeMapping,namesMapping);
+    }
+
+    private void resetGraph() {
+        parallel = false;
+        nested = false;
+        nodeStack.clear();
+        root = true;
+        currentVertex = nodeCounter;
+        upperVertex = -1;
+        depth = 0;
+    }
+
+    void createReactionGraph(Multigraph<Integer,DefaultEdge> redex, Multigraph<Integer,DefaultEdge> reactum, String ruleName) {
         CreateGraphvizModel.getInstance().createReactions(redex,reactum,nodeMapping,namesMapping,ruleName);
     }
 
+    public void storeFileName(String fileName) {
+        CreateGraphvizModel.getInstance().setFileName(fileName);
+    }
 }

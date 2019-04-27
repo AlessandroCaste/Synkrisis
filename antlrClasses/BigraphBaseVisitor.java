@@ -305,4 +305,8 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
             return true;
     }
 
+    String getModelName(){
+        return modelName;
+    }
+
 }
