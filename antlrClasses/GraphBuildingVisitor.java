@@ -1,4 +1,3 @@
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
@@ -9,19 +8,8 @@ import java.util.HashMap;
 import java.util.Stack;
 
 
-// Implementation technically adopts String in order to pass results across visitors
-// As of now return strings are never used, but you may further expand upon this
-public class BigraphBaseVisitor2 extends AbstractParseTreeVisitor<String> implements BigraphVisitor<String> {
-
-    // We store identifiers in order to check repetitions and wrong uses
-    private HashMap<String,Integer> controlsMap = new HashMap<>();
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<String> ruleNames = new ArrayList<>();
-    private ArrayList<String> propertyNames = new ArrayList<>();
-    // Maps to track usages
-    private HashMap<String,Integer> controlsUsage = new HashMap<>();
-    private HashMap<String,Integer> namesUsage = new HashMap<>();
-
+// Return Strings are completely ignored here
+public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> implements BigraphVisitor<String> {
 
     // This differentiates analysis for models' expressions
     private boolean modelVisited = false;
@@ -36,8 +24,8 @@ public class BigraphBaseVisitor2 extends AbstractParseTreeVisitor<String> implem
     }
 
     // Graph Representation
-    ArrayList<Multigraph> graphs = new ArrayList<>();
-    private Multigraph<Integer, DefaultEdge> currentGraph;
+    ArrayList<Multigraph<Integer, DefaultEdge>> graphs = new ArrayList<>();
+    private Multigraph<Integer, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
     private boolean nested = false;
     private boolean parallel = false;
     private Stack<Integer> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
@@ -50,6 +38,7 @@ public class BigraphBaseVisitor2 extends AbstractParseTreeVisitor<String> implem
     private HashMap<Integer,String> namesMapping = new HashMap<>(); // Required for storing labels(strings) for names
     private int depth = 0;                                          // Nesting depth
     boolean root = true;
+    ArrayList<String> reactionsNames = new ArrayList<>();
 
 
     @Override
@@ -88,15 +77,31 @@ public class BigraphBaseVisitor2 extends AbstractParseTreeVisitor<String> implem
     }
 
 
-    // Reactions rules should present distinct, unique names!
     @Override
     public String visitReactions(BigraphParser.ReactionsContext ctx) {
+        enable = true;
+        if(ctx.IDENTIFIER() != null)
+            reactionsNames.add(ctx.IDENTIFIER().toString());
         return visitChildren(ctx);
     }
 
 
     @Override public String visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
-        return visitChildren(ctx);
+        enable = true;
+        visit(ctx.getChild(0));
+        graphs.add(currentGraph);
+
+        // Reset tree info for reactum tree
+        currentGraph = new Multigraph<>(DefaultEdge.class);
+        parallel = false;
+        nested = false;
+        nodeStack.clear();
+        root = true;
+        currentVertex = nodeCounter;
+        upperVertex = -1;
+        depth = 0;
+
+        return visit(ctx.getChild(2));
     }
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
@@ -108,7 +113,35 @@ public class BigraphBaseVisitor2 extends AbstractParseTreeVisitor<String> implem
             nodeStack.push(currentVertex);
         }
 
-        // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)
+        if(ctx.DOLLAR() != null) {
+            String identifier = ctx.DOLLAR().toString() + ctx.DIGIT().toString();
+            // GRAPH CREATION: taking into account parallel/nesting in expressions
+            if(root && enable) {
+                root = false;
+                nodeMapping.put(nodeCounter,identifier);
+                currentGraph.addVertex(nodeCounter);
+                nodeCounter++;
+            }
+            else if(parallel && enable) {
+                nodeMapping.put(nodeCounter,identifier);
+                currentGraph.addVertex(nodeCounter);
+                if(upperVertex != (-1))
+                    currentGraph.addEdge(upperVertex,nodeCounter);
+                currentVertex = nodeCounter;
+                nodeCounter++;
+            }
+            else if(nested && enable) {
+                nodeMapping.put(nodeCounter,identifier);
+                currentGraph.addVertex(nodeCounter);
+                if(currentVertex != nodeCounter)
+                    currentGraph.addEdge(currentVertex,nodeCounter);
+                currentVertex = nodeCounter;
+                nodeCounter++;
+                nested = false;
+            }
+        }
+
+
         if (ctx.IDENTIFIER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
 
@@ -211,8 +244,9 @@ public class BigraphBaseVisitor2 extends AbstractParseTreeVisitor<String> implem
 
 
     @Override public String visitModel (BigraphParser.ModelContext ctx){
-        currentGraph = new Multigraph<>(DefaultEdge.class);
-        enable = true;
+        graphs.add(currentGraph);
+        createGraph();
+        enable = false;
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
         return visitChildren(ctx);
@@ -250,8 +284,8 @@ public class BigraphBaseVisitor2 extends AbstractParseTreeVisitor<String> implem
         return visitChildren(ctx);
     }
 
-    public void createGraph() {
-        CreateGraphvizModel.getInstance().createModel(this.currentGraph,nodeMapping,namesMapping,modelName,true);
+    void createGraph() {
+        CreateGraphvizModel.getInstance().createReactions(graphs,nodeMapping,namesMapping,reactionsNames);
     }
 
 }

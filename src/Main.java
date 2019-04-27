@@ -1,13 +1,7 @@
-import guru.nidi.graphviz.attribute.Color;
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.MutableGraph;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.*;
-
-import static guru.nidi.graphviz.model.Factory.*;
 
 public class Main {
 
@@ -34,8 +28,11 @@ public class Main {
                 if(!variableUsage.isEmpty())
                     System.out.println(visitor.checkUnusedVariables());
                 System.out.println(visitor.getParseResult());
-                BigraphBaseVisitor2 graphvizVisitor = new BigraphBaseVisitor2();
+
+                // Graph Building
+                GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
                 graphvizVisitor.visit(tree);
+                // Graph Visualization
                 graphvizVisitor.createGraph();
 
             } catch (IOException e) {
