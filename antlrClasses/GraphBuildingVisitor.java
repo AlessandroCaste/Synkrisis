@@ -36,8 +36,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     private int nameCounter = -1;                                   // Represents the decreasing unique id of every name
     private HashMap<Integer,String> namesMapping = new HashMap<>(); // Required for storing labels(strings) for names
     private int depth = 0;                                          // Nesting depth
-    boolean root = true;
-    String reactionName = "";
+    private boolean root = true;
+    private String reactionName = "";
 
 
     @Override
@@ -77,6 +77,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     @Override public String visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
+        resetGraph();
         enable = true;
         String expression1String = visit(ctx.getChild(0));
         redex = currentGraph;
@@ -222,16 +223,17 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
-        enable = false;
+        enable = true;
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
-        return visitChildren(ctx);
+        visitChildren(ctx);
+        createModelGraph(currentGraph);
+        enable = false;
+        return "";
     }
 
 
     @Override public String visitProperty (BigraphParser.PropertyContext ctx){
-        // GRAPH CREATION: Drawing the model here
-        createModelGraph(currentGraph);
         return visitChildren(ctx);
     }
 
@@ -261,7 +263,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         return visitChildren(ctx);
     }
 
-    void createModelGraph(Multigraph<Integer,DefaultEdge> model) {
+    private void createModelGraph(Multigraph<Integer,DefaultEdge> model) {
         CreateGraphvizModel.getInstance().createModel(model,nodeMapping,namesMapping);
     }
 
@@ -275,11 +277,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         depth = 0;
     }
 
-    void createReactionGraph(Multigraph<Integer,DefaultEdge> redex, Multigraph<Integer,DefaultEdge> reactum, String ruleName) {
+    private void createReactionGraph(Multigraph<Integer,DefaultEdge> redex, Multigraph<Integer,DefaultEdge> reactum, String ruleName) {
         CreateGraphvizModel.getInstance().createReactions(redex,reactum,nodeMapping,namesMapping,ruleName);
     }
 
-    public void storeFileName(String fileName) {
+    void storeFileName(String fileName) {
         CreateGraphvizModel.getInstance().setFileName(fileName);
     }
 }

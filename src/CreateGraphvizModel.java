@@ -16,14 +16,13 @@ import java.util.Random;
 import static guru.nidi.graphviz.model.Factory.*;
 import static guru.nidi.graphviz.model.Factory.mutNode;
 
-public class CreateGraphvizModel {
+class CreateGraphvizModel {
 
     private static CreateGraphvizModel instance;
 
     // Attributes for rules drawing
     private HashMap<Integer, String> nodeMapping;
     private HashMap<Integer,String> namesMapping;
-    private String ruleName;
     private String modelName;
 
     private CreateGraphvizModel() {}
@@ -55,7 +54,7 @@ public class CreateGraphvizModel {
                             .attrs().add("label", nameLabel);
                 }
             }
-            // Adding links
+            // Adding edges
             for (DefaultEdge edge : currentGraph.edgeSet()) {
                 String edgeSource = currentGraph.getEdgeSource(edge).toString();
                 String edgeTarget = currentGraph.getEdgeTarget(edge).toString();
@@ -84,7 +83,6 @@ public class CreateGraphvizModel {
         HashMap<String,Color> colorHashMap = new HashMap<>();
         this.nodeMapping = nodeMapping;
         this.namesMapping = namesMapping;
-        this.ruleName = ruleName;
 
         MutableGraph g1 = buildReactionGraph(redexGraph,colorHashMap);
         MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap);
@@ -109,7 +107,7 @@ public class CreateGraphvizModel {
             nodeAttrs().add("style", "rounded");
             linkAttrs().add("arrowsize", 0.8);
 
-            // Adding Nodes and links
+            // Adding Nodes (first standard vertices, then name vertices)
             for (int x : currentGraph.vertexSet()) {
                 if (nodeMapping.containsKey(x)) {
                     String nodeLabel = nodeMapping.get(x);
@@ -136,9 +134,9 @@ public class CreateGraphvizModel {
                     mutNode(nameLabel).attrs().add(Shape.CIRCLE)
                             .attrs().add(customColor)
                             .attrs().add("size", 0.8);
-                    //      .attrs().add("label", nameLabel);
                 }
             }
+            // Adding edges
             for (DefaultEdge edge : currentGraph.edgeSet()) {
                 String edgeSource = currentGraph.getEdgeSource(edge).toString();
                 String edgeTarget = currentGraph.getEdgeTarget(edge).toString();
@@ -149,8 +147,9 @@ public class CreateGraphvizModel {
                     linkAttrs().add("color", "black");
                     linkAttrs().add("style", "solid");
                     mutNode(edgeSource).addLink(mutNode(edgeTarget));
+                // Names share colors across redex and reactum
                 } else {
-                    linkAttrs().add("arrowhead", "normal");
+                    linkAttrs().add("arrowhead", "dot");
                     Color color = colorHashMap.get(targetLabel);
                     linkAttrs().add(color);
                     mutNode(edgeSource).addLink(mutNode(namesMapping.get(currentGraph.getEdgeTarget(edge))));
