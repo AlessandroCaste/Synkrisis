@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 
-// Return Strings are completely ignored here
-public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> implements BigraphVisitor<String> {
+public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
 
     // This differentiates analysis for models' expressions
     private boolean modelVisited = false;
@@ -17,7 +16,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
 
 
     @Override
-    public String visitChildren(RuleNode node) {
+    public Void visitChildren(RuleNode node) {
         return super.visitChildren(node);
     }
 
@@ -41,32 +40,32 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
 
 
     @Override
-    public String visitBigraph(BigraphParser.BigraphContext ctx) {
+    public Void visitBigraph(BigraphParser.BigraphContext ctx) {
         return visitChildren(ctx);
     }
 
 
     @Override
-    public String visitControls(BigraphParser.ControlsContext ctx) {
+    public Void visitControls(BigraphParser.ControlsContext ctx) {
         return visitChildren(ctx);
     }
 
 
     @Override
-    public String visitControl_statements(BigraphParser.Control_statementsContext ctx) {return visitChildren(ctx);}
+    public Void visitControl_statements(BigraphParser.Control_statementsContext ctx) {return visitChildren(ctx);}
 
 
     @Override
-    public String visitNames(BigraphParser.NamesContext ctx) {
+    public Void visitNames(BigraphParser.NamesContext ctx) {
         return visitChildren(ctx);
     }
 
     @Override
-    public String visitName_statements(BigraphParser.Name_statementsContext ctx) {return visitChildren(ctx);}
+    public Void visitName_statements(BigraphParser.Name_statementsContext ctx) {return visitChildren(ctx);}
 
 
     @Override
-    public String visitReactions(BigraphParser.ReactionsContext ctx) {
+    public Void visitReactions(BigraphParser.ReactionsContext ctx) {
         enable = true;
         if(ctx.IDENTIFIER() != null)
             reactionName = ctx.IDENTIFIER().toString();
@@ -74,24 +73,24 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     }
 
 
-    @Override public String visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
+    @Override public Void visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
         enable = true;
-        String expression1String = visit(ctx.getChild(0));
+        visit(ctx.getChild(0));
         redex = currentGraph;
         // Reset tree info for reactum tree
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
-        String expression2String = visit(ctx.getChild(2));
+        visit(ctx.getChild(2));
         reactum = currentGraph;
         createReactionGraph(redex,reactum,reactionName);
-        return expression1String + expression2String;
+        return null;
     }
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
-    @Override public String visitExpression (BigraphParser.ExpressionContext ctx) {
+    @Override public Void visitExpression (BigraphParser.ExpressionContext ctx) {
 
         // GRAPH CREATION: calculating depths and nesting of parents
         if(ctx.LPAR()!=null && enable) {
@@ -159,19 +158,19 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
 
         // GRAPH CREATION: managing depth when leaving nested expressions
         if(ctx.RPAR()!=null && enable) {
-            String s = visit(ctx.expression());
+            visit(ctx.expression());
             depth--;
             nodeStack.pop();
             // Note that return Strings have no purpose at the moment, but for future uses we make sure no return is wasted
             if(ctx.regions() != null)
-                return s + visit(ctx.regions());
-            return s;
+                visit(ctx.regions());
+            return null;
         }
 
         return visitChildren(ctx);
     }
 
-    @Override public String visitRegions (BigraphParser.RegionsContext ctx){
+    @Override public Void visitRegions (BigraphParser.RegionsContext ctx){
         // GRAPH CREATION: every time there's a parallel region I reset the parent node pointer
         if(ctx.PAR() != null && enable) {
             parallel = true;
@@ -186,7 +185,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         return visitChildren(ctx);
     }
 
-    @Override public String visitPrefix (BigraphParser.PrefixContext ctx){
+    @Override public Void visitPrefix (BigraphParser.PrefixContext ctx){
         // GRAPH CREATION: current node becomes a parent node
         nested = true;
         parallel = false;
@@ -194,7 +193,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         return visitChildren(ctx);
     }
 
-    @Override public String visitLinks (BigraphParser.LinksContext ctx){
+    @Override public Void visitLinks (BigraphParser.LinksContext ctx){
 
         // GRAPH CREATION: linking names to nodes
         if(ctx.IDENTIFIER() != null && enable) {
@@ -219,7 +218,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
     }
 
 
-    @Override public String visitModel (BigraphParser.ModelContext ctx){
+    @Override public Void visitModel (BigraphParser.ModelContext ctx){
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
@@ -229,37 +228,37 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<String> imple
         visitChildren(ctx);
         createModelGraph(currentGraph);
         enable = false;
-        return "";
+        return null;
     }
 
 
-    @Override public String visitProperty (BigraphParser.PropertyContext ctx){
+    @Override public Void visitProperty (BigraphParser.PropertyContext ctx){
         return visitChildren(ctx);
     }
 
 
-    @Override public String visitProperty_statement (BigraphParser.Property_statementContext ctx){
+    @Override public Void visitProperty_statement (BigraphParser.Property_statementContext ctx){
         return visitChildren(ctx);
     }
 
 
-    @Override public String visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
+    @Override public Void visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitBinary_operation (BigraphParser.Binary_operationContext ctx){
+    @Override public Void visitBinary_operation (BigraphParser.Binary_operationContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitTerm (BigraphParser.TermContext ctx){
+    @Override public Void visitTerm (BigraphParser.TermContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitParameters_list (BigraphParser.Parameters_listContext ctx){
+    @Override public Void visitParameters_list (BigraphParser.Parameters_listContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitParameter (BigraphParser.ParameterContext ctx){
+    @Override public Void visitParameter (BigraphParser.ParameterContext ctx){
         return visitChildren(ctx);
     }
 

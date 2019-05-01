@@ -8,119 +8,119 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  * @param <T> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
-public interface BigraphVisitor<T> extends ParseTreeVisitor<T> {
+public interface BigraphVisitor<Void> extends ParseTreeVisitor<Void> {
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#bigraph}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBigraph(BigraphParser.BigraphContext ctx);
+	Void visitBigraph(BigraphParser.BigraphContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#controls}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitControls(BigraphParser.ControlsContext ctx);
+	Void visitControls(BigraphParser.ControlsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#control_statements}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitControl_statements(BigraphParser.Control_statementsContext ctx);
+	Void visitControl_statements(BigraphParser.Control_statementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#names}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNames(BigraphParser.NamesContext ctx);
+	Void visitNames(BigraphParser.NamesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#name_statements}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitName_statements(BigraphParser.Name_statementsContext ctx);
+	Void visitName_statements(BigraphParser.Name_statementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#reactions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReactions(BigraphParser.ReactionsContext ctx);
+	Void visitReactions(BigraphParser.ReactionsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#reaction_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReaction_statement(BigraphParser.Reaction_statementContext ctx);
+	Void visitReaction_statement(BigraphParser.Reaction_statementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(BigraphParser.ExpressionContext ctx);
+	Void visitExpression(BigraphParser.ExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#regions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRegions(BigraphParser.RegionsContext ctx);
+	Void visitRegions(BigraphParser.RegionsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#prefix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrefix(BigraphParser.PrefixContext ctx);
+	Void visitPrefix(BigraphParser.PrefixContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#links}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLinks(BigraphParser.LinksContext ctx);
+	Void visitLinks(BigraphParser.LinksContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#model}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitModel(BigraphParser.ModelContext ctx);
+	Void visitModel(BigraphParser.ModelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#property}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProperty(BigraphParser.PropertyContext ctx);
+	Void visitProperty(BigraphParser.PropertyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#property_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProperty_statement(BigraphParser.Property_statementContext ctx);
+	Void visitProperty_statement(BigraphParser.Property_statementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#boolean_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoolean_expression(BigraphParser.Boolean_expressionContext ctx);
+	Void visitBoolean_expression(BigraphParser.Boolean_expressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#binary_operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBinary_operation(BigraphParser.Binary_operationContext ctx);
+	Void visitBinary_operation(BigraphParser.Binary_operationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTerm(BigraphParser.TermContext ctx);
+	Void visitTerm(BigraphParser.TermContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#parameters_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParameters_list(BigraphParser.Parameters_listContext ctx);
+	Void visitParameters_list(BigraphParser.Parameters_listContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BigraphParser#parameter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParameter(BigraphParser.ParameterContext ctx);
+	Void visitParameter(BigraphParser.ParameterContext ctx);
 }

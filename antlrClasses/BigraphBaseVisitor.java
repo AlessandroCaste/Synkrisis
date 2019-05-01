@@ -4,9 +4,7 @@ import org.antlr.v4.runtime.tree.RuleNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// Implementation technically adopts String in order to pass results across visitors
-// As of now return strings are never used, but you may further expand upon this
-public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> implements BigraphVisitor<String> {
+public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
 
     // We store identifiers in order to check repetitions and wrong uses
     private HashMap<String,Integer> controlsMap = new HashMap<>();
@@ -26,7 +24,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
 
     @Override
-    public String visitChildren(RuleNode node) {
+    public Void visitChildren(RuleNode node) {
         return super.visitChildren(node);
     }
 
@@ -45,13 +43,13 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     private final boolean validControl = true;
 
     @Override
-    public String visitBigraph(BigraphParser.BigraphContext ctx) {
+    public Void visitBigraph(BigraphParser.BigraphContext ctx) {
         return visitChildren(ctx);
     }
 
 
     @Override
-    public String visitControls(BigraphParser.ControlsContext ctx) {
+    public Void visitControls(BigraphParser.ControlsContext ctx) {
         return visitChildren(ctx);
     }
 
@@ -59,7 +57,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     // Controls are added to the respective list
     // If the control name is already present an error is signaled
     @Override
-    public String visitControl_statements(BigraphParser.Control_statementsContext ctx) {
+    public Void visitControl_statements(BigraphParser.Control_statementsContext ctx) {
 
         String controlsIdentifier = ctx.IDENTIFIER().toString();
         if(names.contains(controlsIdentifier))
@@ -78,14 +76,14 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
 
     @Override
-    public String visitNames(BigraphParser.NamesContext ctx) {
+    public Void visitNames(BigraphParser.NamesContext ctx) {
         return visitChildren(ctx);
     }
 
     // Names are added to the respective list
     // If names are already present in the model an error is signaled
     @Override
-    public String visitName_statements(BigraphParser.Name_statementsContext ctx) {
+    public Void visitName_statements(BigraphParser.Name_statementsContext ctx) {
 
         String nameIdentifier = ctx.getChild(1).toString();
         if(controlsMap.containsKey(nameIdentifier))
@@ -104,7 +102,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
     // Reactions rules should present distinct, unique names!
     @Override
-    public String visitReactions(BigraphParser.ReactionsContext ctx) {
+    public Void visitReactions(BigraphParser.ReactionsContext ctx) {
 
         if (ctx.RULE() != null) {
             String identifier = ctx.IDENTIFIER().toString();
@@ -124,12 +122,12 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
 
-    @Override public String visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
+    @Override public Void visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
         return visitChildren(ctx);
     }
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
-    @Override public String visitExpression (BigraphParser.ExpressionContext ctx) {
+    @Override public Void visitExpression (BigraphParser.ExpressionContext ctx) {
 
         // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)
         if (ctx.IDENTIFIER() != null) {
@@ -155,15 +153,15 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
         return visitChildren(ctx);
     }
 
-    @Override public String visitRegions (BigraphParser.RegionsContext ctx){return visitChildren(ctx);
+    @Override public Void visitRegions (BigraphParser.RegionsContext ctx){return visitChildren(ctx);
     }
 
 
-    @Override public String visitPrefix (BigraphParser.PrefixContext ctx){return visitChildren(ctx);}
+    @Override public Void visitPrefix (BigraphParser.PrefixContext ctx){return visitChildren(ctx);}
 
     // Links are checked for names/controls usages
     // Links also count the identifiers they contain in order to verify arity
-    @Override public String visitLinks (BigraphParser.LinksContext ctx){
+    @Override public Void visitLinks (BigraphParser.LinksContext ctx){
 
         // I verify a variable is not getting declared inside a model definition
         if(modelVisited && ctx.VARIABLE() != null)
@@ -189,7 +187,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
 
-    @Override public String visitModel (BigraphParser.ModelContext ctx){
+    @Override public Void visitModel (BigraphParser.ModelContext ctx){
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
         return visitChildren(ctx);
@@ -197,7 +195,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
 
 
     // This visitor serves the purpose of checking the uniqueness of property names
-    @Override public String visitProperty (BigraphParser.PropertyContext ctx){
+    @Override public Void visitProperty (BigraphParser.PropertyContext ctx){
         String identifier = ctx.IDENTIFIER().toString();
         if (controlsMap.containsKey(identifier))
             reportError(ctx, WARNING, "Properties shouldn't be named after controls");
@@ -217,28 +215,28 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<String> impleme
     }
 
 
-    @Override public String visitProperty_statement (BigraphParser.Property_statementContext ctx){
+    @Override public Void visitProperty_statement (BigraphParser.Property_statementContext ctx){
         return visitChildren(ctx);
     }
 
 
-    @Override public String visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
+    @Override public Void visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitBinary_operation (BigraphParser.Binary_operationContext ctx){
+    @Override public Void visitBinary_operation (BigraphParser.Binary_operationContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitTerm (BigraphParser.TermContext ctx){
+    @Override public Void visitTerm (BigraphParser.TermContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitParameters_list (BigraphParser.Parameters_listContext ctx){
+    @Override public Void visitParameters_list (BigraphParser.Parameters_listContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public String visitParameter (BigraphParser.ParameterContext ctx){
+    @Override public Void visitParameter (BigraphParser.ParameterContext ctx){
         return visitChildren(ctx);
     }
 

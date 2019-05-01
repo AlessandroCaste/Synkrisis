@@ -10,8 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3773527f-0b43-4f16-b833-858167a91ec7" name="Default Changelist" comment="DOT printing of models">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Synkrisis.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/slf4j_nop_1_7_26.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/samples/airport/airport.svg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/samples/airport/disappear - Reactum.svg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/samples/airport/disappear - Redex.svg" afterDir="false" />
@@ -19,11 +17,11 @@
       <change afterPath="$PROJECT_DIR$/samples/airport/linkedPassenger - Redex.svg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/samples/airport/movementAirport - Reactum.svg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/samples/airport/movementAirport - Redex.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateGraphvizModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateGraphvizModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/antlrClasses/BigraphVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/airport.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/airport.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="78" selection-start-line="78" selection-end-line="78" />
+            <state relative-caret-position="364">
+              <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -61,12 +59,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1329">
-              <caret line="244" column="16" selection-start-line="244" selection-start-column="16" selection-end-line="244" selection-end-column="16" />
+            <state relative-caret-position="86">
+              <caret line="79" column="13" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1215#1216#0" expanded="true" />
-                <element signature="e#1263#1264#0" expanded="true" />
+                <element signature="e#1209#1210#0" expanded="true" />
+                <element signature="e#1257#1258#0" expanded="true" />
                 <element signature="e#1892#1893#0" expanded="true" />
                 <element signature="e#1933#1934#0" expanded="true" />
                 <element signature="e#2018#2019#0" expanded="true" />
@@ -75,6 +73,8 @@
                 <element signature="e#3028#3029#0" expanded="true" />
                 <element signature="e#9000#9001#0" expanded="true" />
                 <element signature="e#9041#9042#0" expanded="true" />
+                <element signature="e#9095#9096#0" expanded="true" />
+                <element signature="e#9136#9137#0" expanded="true" />
                 <element signature="e#9258#9259#0" expanded="true" />
                 <element signature="e#9299#9300#0" expanded="true" />
               </folding>
@@ -82,30 +82,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/antlrClasses/BigraphVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+            <state relative-caret-position="364">
+              <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CreateGraphvizModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airport/airport.svg">
-          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -119,7 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>graphs</find>
       <find>dollar</find>
       <find>invalid</find>
       <find>iterator.nex</find>
@@ -147,8 +129,9 @@
       <find>visitModel</find>
       <find>LOR</find>
       <find>new Multigraph</find>
-      <find>return</find>
       <find>void</find>
+      <find>T</find>
+      <find>return</find>
     </findStrings>
     <replaceStrings>
       <replace>currentGraph</replace>
@@ -165,10 +148,11 @@
         <option value="$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor2.java" />
         <option value="$PROJECT_DIR$/src/antlrClasses/BigraphBaseVisitor.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor.java" />
-        <option value="$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java" />
         <option value="$PROJECT_DIR$/src/airport.txt" />
         <option value="$PROJECT_DIR$/src/CreateGraphvizModel.java" />
+        <option value="$PROJECT_DIR$/antlrClasses/BigraphVisitor.java" />
+        <option value="$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor.java" />
+        <option value="$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java" />
       </list>
     </option>
   </component>
@@ -346,7 +330,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556411235224</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="DOT printing of models">
+      <created>1556753544098</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1556753544099</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -360,8 +351,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="31" width="1920" height="1049" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16719915" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.16719915" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -369,7 +361,7 @@
       <window_info anchor="bottom" id="GitHub Pull Requests" weight="0.32928178" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" x="470" y="514" width="1117" height="266" id="Run" order="2" sideWeight="0.49946696" weight="0.42099446" />
+      <window_info active="true" anchor="bottom" x="470" y="514" width="1117" height="266" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.42099446" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.3480663" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -379,7 +371,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.29988974" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.3296582" />
       <window_info anchor="bottom" id="ANTLR Preview" order="11" weight="0.3572216" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.32928178" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.5292818" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -388,6 +380,34 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Coverage" order="6" side_tool="true" weight="0.32995737" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16719915" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" weight="0.32995737" />
+      <window_info anchor="bottom" id="GitHub Pull Requests" order="0" weight="0.32928178" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" x="470" y="514" width="1117" height="266" id="Run" order="3" sideWeight="0.49946696" weight="0.42099446" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49946696" weight="0.3480663" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.3296582" />
+      <window_info anchor="bottom" id="Tool Output" order="8" weight="0.3296582" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3296582" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.29988974" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296582" />
+      <window_info anchor="bottom" id="ANTLR Preview" order="12" weight="0.3572216" />
+      <window_info anchor="bottom" id="Messages" order="13" visible="true" weight="0.5292818" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.32995737" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Coverage" order="6" side_tool="true" weight="0.32995737" />
+    </layout-to-restore>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Graphviz plotting and jGraphT applications: WIP" />
@@ -413,7 +433,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java</url>
-          <line>266</line>
+          <line>263</line>
           <properties />
           <option name="timeStamp" value="98" />
         </line-breakpoint>
@@ -425,37 +445,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java</url>
-          <line>229</line>
+          <line>226</line>
           <properties />
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java</url>
-          <line>202</line>
+          <line>199</line>
           <properties />
           <option name="timeStamp" value="105" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java</url>
-          <line>182</line>
+          <line>179</line>
           <properties />
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java</url>
-          <line>78</line>
+          <line>75</line>
           <properties />
           <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java</url>
-          <line>84</line>
+          <line>81</line>
           <properties />
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java</url>
-          <line>223</line>
+          <line>220</line>
           <properties />
           <option name="timeStamp" value="110" />
         </line-breakpoint>
@@ -670,37 +690,37 @@
     <entry file="file://$PROJECT_DIR$/airport/b - Reactum.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/samples/airport/disappear - Redex.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/airport/airport.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CreateGraphvizModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="250">
+          <caret line="103" column="21" selection-start-line="103" selection-start-column="21" selection-end-line="103" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java">
+    <entry file="file://$PROJECT_DIR$/antlrClasses/BigraphVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="364">
+          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1329">
-          <caret line="244" column="16" selection-start-line="244" selection-start-column="16" selection-end-line="244" selection-end-column="16" />
+        <state relative-caret-position="86">
+          <caret line="79" column="13" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1215#1216#0" expanded="true" />
-            <element signature="e#1263#1264#0" expanded="true" />
+            <element signature="e#1209#1210#0" expanded="true" />
+            <element signature="e#1257#1258#0" expanded="true" />
             <element signature="e#1892#1893#0" expanded="true" />
             <element signature="e#1933#1934#0" expanded="true" />
             <element signature="e#2018#2019#0" expanded="true" />
@@ -709,16 +729,21 @@
             <element signature="e#3028#3029#0" expanded="true" />
             <element signature="e#9000#9001#0" expanded="true" />
             <element signature="e#9041#9042#0" expanded="true" />
+            <element signature="e#9095#9096#0" expanded="true" />
+            <element signature="e#9136#9137#0" expanded="true" />
             <element signature="e#9258#9259#0" expanded="true" />
             <element signature="e#9299#9300#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/antlrClasses/BigraphVisitor.java">
+    <entry file="file://$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        <state relative-caret-position="364">
+          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
