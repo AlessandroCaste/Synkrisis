@@ -1,7 +1,6 @@
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.engine.*;
 import guru.nidi.graphviz.model.MutableGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
@@ -34,6 +33,7 @@ class CreateGraphvizModel {
     }
 
     void createModel(Multigraph<Integer, DefaultEdge> currentGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping) {
+        Graphviz.useEngine(new GraphvizCmdLineEngine());
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
             //  Adjusting shapes
@@ -80,6 +80,7 @@ class CreateGraphvizModel {
 
 
     void createReactions(Multigraph<Integer,DefaultEdge> redexGraph,Multigraph<Integer,DefaultEdge> reactumGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping, String ruleName) {
+        Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
         this.nodeMapping = nodeMapping;
         this.namesMapping = namesMapping;
