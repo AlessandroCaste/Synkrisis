@@ -2,11 +2,12 @@ package core;
 
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
-import guru.nidi.graphviz.engine.*;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
 import guru.nidi.graphviz.model.MutableGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
-
 
 import java.awt.*;
 import java.io.File;
@@ -15,7 +16,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import static guru.nidi.graphviz.model.Factory.*;
-import static guru.nidi.graphviz.model.Factory.mutNode;
 
 class CreateGraphvizModel {
 

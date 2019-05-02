@@ -1,40 +1,27 @@
 <component name="libraryTable">
   <library name="guru.nidi:graphviz-java:0.8.3" type="repository">
-    <properties maven-id="guru.nidi:graphviz-java:0.8.3" />
+    <properties maven-id="guru.nidi:graphviz-java:0.8.3">
+      <exclude>
+        <dependency maven-id="org.webjars.npm:viz.js" />
+        <dependency maven-id="org.apache.xmlgraphics:xmlgraphics-commons" />
+        <dependency maven-id="net.arnx:nashorn-promise" />
+        <dependency maven-id="com.eclipsesource.j2v8:j2v8_macosx_x86_64" />
+        <dependency maven-id="com.eclipsesource.j2v8:j2v8_linux_x86_64" />
+        <dependency maven-id="com.eclipsesource.j2v8:j2v8_win32_x86_64" />
+        <dependency maven-id="com.eclipsesource.j2v8:j2v8_win32_x86" />
+        <dependency maven-id="com.google.code.findbugs:jsr305" />
+      </exclude>
+    </properties>
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/graphviz-java-0.8.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/viz.js-2.1.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/xmlgraphics-commons-2.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/commons-io-2.6.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/svgSalamander-1.1.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/nashorn-promise-0.1.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_macosx_x86_64-4.6.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_linux_x86_64-4.6.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_win32_x86_64-4.6.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_win32_x86-4.6.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/commons-exec-1.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/jsr305-3.0.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/jcl-over-slf4j-1.7.25.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/jul-to-slf4j-1.7.25.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/slf4j-api-1.7.25.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/guru/nidi/graphviz-java/0.8.3/graphviz-java-0.8.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-io/commons-io/2.6/commons-io-2.6.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/guru/nidi/com/kitfox/svgSalamander/1.1.2/svgSalamander-1.1.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.25/jul-to-slf4j-1.7.25.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/graphviz-java-0.8.3-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/viz.js-2.1.2-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/xmlgraphics-commons-2.3-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/commons-io-2.6-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/svgSalamander-1.1.2-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/nashorn-promise-0.1.1-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_macosx_x86_64-4.6.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_linux_x86_64-4.6.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_win32_x86_64-4.6.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/j2v8_win32_x86-4.6.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/commons-exec-1.3-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/jsr305-3.0.2-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/jcl-over-slf4j-1.7.25-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/jul-to-slf4j-1.7.25-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/graphviz/slf4j-api-1.7.25-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES />
   </library>
 </component>
