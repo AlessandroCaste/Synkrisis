@@ -20,6 +20,8 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
     private HashMap<String,Integer> controlsUsage = new HashMap<>();
     private HashMap<String,Integer> namesUsage = new HashMap<>();
 
+    // Error String built during model execution, print in main
+    private StringBuilder errorString = new StringBuilder();
 
     // This differentiates analysis for models' expressions
     private boolean modelVisited = false;
@@ -49,6 +51,8 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
 
     @Override
     public Void visitBigraph(BigraphParser.BigraphContext ctx) {
+        // String builder get reset at every run
+        errorString = new StringBuilder();
         return visitChildren(ctx);
     }
 
@@ -246,30 +250,31 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
     }
 
     private void reportError (ParserRuleContext ctx, int type, String text){
-        StringBuilder returnString = new StringBuilder();
         if(type == WARNING)
-            returnString.append("[WARNING - Line ");
+            errorString.append("[WARNING - Line ");
         else if(type == ERROR) {
-            returnString.append("[ERROR - Line ");
+            errorString.append("[ERROR - Line ");
             acceptableModel = false;
         }
         // We take into account the fact columns starts from 0 in ANTLR methods
         int line = ctx.start.getLine();
         int column = ctx.start.getCharPositionInLine() + 1;
 
-        returnString.append(line).append(":").append(column).append("] ").append(text);
-        System.out.println(returnString.toString());
+        errorString.append(line).append(":").append(column).append("] ").append(text).append("\n");
     }
 
     String getParseResult() {
+        StringBuilder returnString = new StringBuilder();
+        returnString.append(errorString);
+        returnString.append(checkUnusedVariables());
         if (acceptableModel)
-            return "[RESULT : PASSED] \nModel is ready";
+            return returnString.append("[RESULT : PASSED]\nModel is ready").toString();
         else
-            return "[RESULT : FAILED]";
+            return returnString.append("[RESULT : FAILED]").toString();
     }
 
     // This method returns all controls and names whose usage value has remained stuck to 0
-    String checkUnusedVariables(){
+    private String checkUnusedVariables(){
         ArrayList<String> unusedControls = new ArrayList<>();
         ArrayList<String> unusedNames	 = new ArrayList<>();
         StringBuilder returnString = new StringBuilder();
@@ -292,11 +297,12 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
             returnString.append("[WARNING] The following names are declared and never used: ");
             for(String s : unusedNames)
                 returnString.append(s).append(" ");
+            returnString.append("\n");
         }
 
        // I decided not to report something that should just be the norm
        // if(unusedControls.size() == 0 && unusedNames.size() == 0)
-       //     returnString.append("[REPORT] All controlsMap and names declared are used");
+       //     errorString.append("[REPORT] All controlsMap and names declared are used");
         return returnString.toString();
     }
 
@@ -312,4 +318,11 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
         return modelName;
     }
 
+    boolean getAcceptableModel() {
+        return acceptableModel;
+    }
+
+    public String getErrorString() {
+        return errorString.toString();
+    }
 }

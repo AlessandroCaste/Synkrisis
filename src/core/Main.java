@@ -28,15 +28,16 @@ public class Main {
 
                 if (!visitor.checkModelName(inputFile.getName()))
                     System.out.println("[ERROR] File name and model names do not match");
-                String variableUsage = visitor.checkUnusedVariables();
-                if(!variableUsage.isEmpty())
-                    System.out.println(visitor.checkUnusedVariables());
                 System.out.println(visitor.getParseResult());
 
                 // Graph Building
-                GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
-                graphvizVisitor.storeFileName(visitor.getModelName());
-                graphvizVisitor.visit(tree);
+                if(visitor.getAcceptableModel()) {
+                    GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
+                    graphvizVisitor.storeFileName(visitor.getModelName());
+                    graphvizVisitor.visit(tree);
+                } else {
+                    System.out.println("Can't produce graphic models");
+                }
 
             } catch (IOException e) {
                 //e.printStackTrace();
