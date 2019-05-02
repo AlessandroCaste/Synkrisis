@@ -1,3 +1,7 @@
+package core;
+
+import logic.BigraphParser;
+
 class ControlChecker {
 
     private BigraphParser.ExpressionContext ctx;

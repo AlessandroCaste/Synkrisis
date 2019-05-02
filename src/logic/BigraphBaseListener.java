@@ -1,4 +1,5 @@
 // Generated from C:/Users/caste/IdeaProjects/Synkrisis/src\Bigraph.g4 by ANTLR 4.7.2
+package logic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
