@@ -1,8 +1,7 @@
 package core;
 
-import core.CreateGraphvizModel;
-import logic.BigraphParser;
-import logic.BigraphVisitor;
+import antlr.BigraphParser;
+import antlr.BigraphVisitor;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;

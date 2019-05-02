@@ -9,25 +9,20 @@
     <bookmark url="file://$PROJECT_DIR$/src/core/CreateGraphvizModel.java" line="36" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3773527f-0b43-4f16-b833-858167a91ec7" name="Default Changelist" comment="Proper repackaging">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/Bigraph.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Bigraph.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/Bigraph.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Bigraph.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/BigraphBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/BigraphBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/BigraphLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/BigraphLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/BigraphLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/BigraphListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/BigraphParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/BigraphVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/BigraphVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/antlrClasses/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GraphBuildingVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bigraph.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/g4model/Bigraph.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ControlChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ControlChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateGraphvizModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CreateGraphvizModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ErrorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/airport.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/airport.txt" afterDir="false" />
+    <list default="true" id="3773527f-0b43-4f16-b833-858167a91ec7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/core/BigraphBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/BigraphBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ControlChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ControlChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/GraphBuildingVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/Bigraph.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/interp/Bigraph.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/Bigraph.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/tokens/Bigraph.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/BigraphBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/BigraphBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/BigraphLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/interp/BigraphLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/BigraphLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/BigraphLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/BigraphLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/tokens/BigraphLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/BigraphListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/BigraphListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/BigraphParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/BigraphParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logic/BigraphVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/BigraphVisitor.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,11 +45,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/core/GraphBuildingVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+            <state relative-caret-position="121">
+              <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/core/CreateGraphvizModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-966">
-              <caret line="103" selection-start-line="103" selection-end-line="103" />
+            <state relative-caret-position="147">
+              <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/core/BigraphBaseVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
+            <state relative-caret-position="112">
+              <caret line="47" column="26" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1043#1044#0" expanded="true" />
@@ -112,7 +107,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logic/BigraphVisitor.java">
+        <entry file="file://$PROJECT_DIR$/src/antlr/BigraphVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="156">
               <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
@@ -134,12 +129,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logic/Bigraph.interp">
+        <entry file="file://$PROJECT_DIR$/src/antlr/interp/Bigraph.interp">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logic/BigraphBaseListener.java">
+        <entry file="file://$PROJECT_DIR$/src/antlr/BigraphBaseListener.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="52">
               <caret line="2" selection-start-line="2" selection-end-line="2" />
@@ -239,8 +234,8 @@
         <option value="$PROJECT_DIR$/src/logic/ControlChecker.java" />
         <option value="$PROJECT_DIR$/src/logic/GraphBuildingVisitor.java" />
         <option value="$PROJECT_DIR$/src/logic/BigraphVisitor.java" />
-        <option value="$PROJECT_DIR$/src/core/BigraphBaseVisitor.java" />
         <option value="$PROJECT_DIR$/src/core/GraphBuildingVisitor.java" />
+        <option value="$PROJECT_DIR$/src/core/BigraphBaseVisitor.java" />
       </list>
     </option>
   </component>
@@ -273,19 +268,37 @@
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
               <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+              <item name="Synkrisis_jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="antlr" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
               <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="logic" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
@@ -312,11 +325,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/antlr/interp" />
+      <recent name="$PROJECT_DIR$/src/antlr/tokens" />
       <recent name="$PROJECT_DIR$/src/core/g4model" />
       <recent name="$PROJECT_DIR$/src/core" />
       <recent name="$PROJECT_DIR$/src/antlr" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\out" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
@@ -428,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556753544099</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Proper repackaging">
+      <created>1556818624698</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1556818624698</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -442,14 +462,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="31" width="1920" height="1049" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.17039403" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" weight="0.32995737" />
-      <window_info active="true" anchor="bottom" id="Inspection Results" visible="true" weight="0.32928178" />
+      <window_info anchor="bottom" id="Inspection Results" weight="0.32928178" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" x="470" y="514" width="1117" height="266" id="Run" order="2" sideWeight="0.49946696" weight="0.42099446" />
@@ -462,7 +481,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.29988974" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.3296582" />
       <window_info anchor="bottom" id="ANTLR Preview" order="11" weight="0.3572216" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.5292818" />
+      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.5292818" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="13" weight="0.32928178" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -720,7 +739,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logic/BigraphParser.java">
+    <entry file="file://$PROJECT_DIR$/src/antlr/BigraphParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="131" column="26" selection-start-line="131" selection-start-column="26" selection-end-line="131" selection-end-column="26" />
@@ -764,7 +783,7 @@
     <entry file="file://$PROJECT_DIR$/airport/airport.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logic/BigraphBaseListener.java">
+    <entry file="file://$PROJECT_DIR$/src/antlr/BigraphBaseListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
@@ -774,7 +793,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logic/Bigraph.interp">
+    <entry file="file://$PROJECT_DIR$/src/antlr/interp/Bigraph.interp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core/ErrorListener.java">
@@ -795,16 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/CreateGraphvizModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-966">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -815,20 +824,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logic/Bigraph.tokens">
+    <entry file="file://$PROJECT_DIR$/src/antlr/tokens/Bigraph.tokens">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logic/BigraphVisitor.java">
+    <entry file="file://$PROJECT_DIR$/src/antlr/BigraphVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/GraphBuildingVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/BigraphBaseVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
+        <state relative-caret-position="112">
+          <caret line="47" column="26" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1043#1044#0" expanded="true" />
@@ -851,10 +870,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/GraphBuildingVisitor.java">
+    <entry file="file://$PROJECT_DIR$/src/core/CreateGraphvizModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        <state relative-caret-position="147">
+          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

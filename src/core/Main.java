@@ -1,7 +1,7 @@
 package core;
 
-import logic.BigraphLexer;
-import logic.BigraphParser;
+import antlr.BigraphLexer;
+import antlr.BigraphParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;

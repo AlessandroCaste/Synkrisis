@@ -1,6 +1,6 @@
 package core;
 
-import logic.BigraphParser;
+import antlr.BigraphParser;
 
 class ControlChecker {
 
