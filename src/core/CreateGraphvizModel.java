@@ -21,9 +21,6 @@ class CreateGraphvizModel {
 
     private static CreateGraphvizModel instance;
 
-    // Attributes for rules drawing
-    private HashMap<Integer, String> nodeMapping;
-    private HashMap<Integer,String> namesMapping;
     private String modelName;
 
     private CreateGraphvizModel() {}
@@ -34,7 +31,7 @@ class CreateGraphvizModel {
         return instance;
     }
 
-    void createModel(Multigraph<Integer, DefaultEdge> currentGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping) {
+    void createModel(Multigraph<Vertex,DefaultEdge> currentGraph) {
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
@@ -44,13 +41,13 @@ class CreateGraphvizModel {
             linkAttrs().add("arrowsize", 0.8);
 
             // Adding Vertices
-            for (int x : currentGraph.vertexSet()) {
-                if (nodeMapping.containsKey(x)) {
-                    String nodeLabel = nodeMapping.get(x);
-                    mutNode(Integer.toString(x)).attrs().add("label", nodeLabel);
-                } else if (namesMapping.containsKey(x)) {
-                    String nameLabel = namesMapping.get(x);
-                    mutNode(Integer.toString(x)).attrs().add(Shape.CIRCLE)
+            for (Vertex x : currentGraph.vertexSet()) {
+                if (x.isControl()) {
+                    String nodeLabel = x.getVertexLabel();
+                    mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel);
+                } else if (!x.isControl()) {
+                    String nameLabel = x.getVertexLabel();
+                    mutNode(Integer.toString(x.getVertexId())).attrs().add(Shape.CIRCLE)
                             .attrs().add(Color.RED2)
                             .attrs().add("size", 0.8)
                             .attrs().add("label", nameLabel);
@@ -58,18 +55,18 @@ class CreateGraphvizModel {
             }
             // Adding edges
             for (DefaultEdge edge : currentGraph.edgeSet()) {
-                String edgeSource = currentGraph.getEdgeSource(edge).toString();
-                String edgeTarget = currentGraph.getEdgeTarget(edge).toString();
-                if (!namesMapping.containsKey(Integer.parseInt(edgeTarget))) {
+                Vertex edgeSource = currentGraph.getEdgeSource(edge);
+                Vertex edgeTarget = currentGraph.getEdgeTarget(edge);
+                if (edgeTarget.isControl()) {
                     linkAttrs().add("arrowhead", "normal");
                     linkAttrs().add("color", "black");
                     linkAttrs().add("style", "solid");
-                    mutNode(edgeSource).addLink(mutNode(edgeTarget));
+                    mutNode(edgeSource.getVertexLabel()).addLink(mutNode(edgeTarget.getVertexLabel()));
                 } else {
                     linkAttrs().add("arrowhead", "none");
                     linkAttrs().add("color", "red");
                     linkAttrs().add("style", "dotted");
-                    mutNode(edgeSource).addLink(mutNode(edgeTarget));
+                    mutNode(edgeSource.getVertexLabel()).addLink(mutNode(edgeTarget.getVertexLabel()));
                 }
             }
         });
@@ -81,7 +78,7 @@ class CreateGraphvizModel {
     }
 
 
-    void createReactions(Multigraph<Integer,DefaultEdge> redexGraph,Multigraph<Integer,DefaultEdge> reactumGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping, String ruleName) {
+  /*  void createReactions(Multigraph<Integer,DefaultEdge> redexGraph,Multigraph<Integer,DefaultEdge> reactumGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping, String ruleName) {
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
         this.nodeMapping = nodeMapping;
@@ -160,7 +157,7 @@ class CreateGraphvizModel {
             }
         });
         return g;
-    }
+    } */
 
     void setFileName(String modelName) {
         this.modelName = modelName;

@@ -7,8 +7,7 @@ import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 
 public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
@@ -26,14 +25,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     // Graph Representation
-    private Multigraph<Integer, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Integer,DefaultEdge> redex = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Integer,DefaultEdge> reactum = new Multigraph<>(DefaultEdge.class);
+    private Multigraph<Vertex, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
+    private Multigraph<Vertex,DefaultEdge> redex = new Multigraph<>(DefaultEdge.class);
+    private Multigraph<Vertex,DefaultEdge> reactum = new Multigraph<>(DefaultEdge.class);
     private boolean nested = false;
     private boolean parallel = false;
-    private Stack<Integer> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
-    private int currentVertex = 1;
-    private int upperVertex = -1;                                   // Direct parent node. -1 equals 'no parent'
+    private Stack<Vertex> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
+    private Vertex currentVertex = new Vertex(0,"Root",true);
+    private Vertex upperVertex = null;                                   // Direct parent node. -1 equals 'no parent'
     private boolean enable = false;
     private int nodeCounter = 1;                                    // Represents the growing unique id of every node
     private HashMap<Integer,String> nodeMapping = new HashMap<>();  // Required for storing labels (string) for nodes
@@ -90,7 +89,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         resetGraph();
         visit(ctx.getChild(2));
         reactum = currentGraph;
-        createReactionGraph(redex,reactum,reactionName);
+        //createReactionGraph(redex,reactum,reactionName);
         return null;
     }
 
@@ -105,27 +104,27 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
         if(ctx.DOLLAR() != null) {
             String identifier = ctx.DOLLAR().toString() + ctx.DIGIT().toString();
-            // GRAPH CREATION: taking into account parallel/nesting in expressions
+            // GRAPH CREATION: taking into account parallel/nesting in expressions, for $-preceded elements
             if(root && enable) {
                 root = false;
-                nodeMapping.put(nodeCounter,identifier);
-                currentGraph.addVertex(nodeCounter);
+                Vertex vertex = new Vertex(nodeCounter,identifier,true);
+                currentGraph.addVertex(vertex);
                 nodeCounter++;
             }
             else if(parallel && enable) {
-                nodeMapping.put(nodeCounter,identifier);
-                currentGraph.addVertex(nodeCounter);
-                if(upperVertex != (-1))
-                    currentGraph.addEdge(upperVertex,nodeCounter);
-                currentVertex = nodeCounter;
+                Vertex vertex = new Vertex(nodeCounter,identifier,true);
+                currentGraph.addVertex(vertex);
+                if(upperVertex != null)
+                    currentGraph.addEdge(upperVertex,vertex);
+                currentVertex = vertex;
                 nodeCounter++;
             }
             else if(nested && enable) {
-                nodeMapping.put(nodeCounter,identifier);
-                currentGraph.addVertex(nodeCounter);
-                if(currentVertex != nodeCounter)
-                    currentGraph.addEdge(currentVertex,nodeCounter);
-                currentVertex = nodeCounter;
+                Vertex vertex = new Vertex(nodeCounter,identifier,true);
+                currentGraph.addVertex(vertex);
+                if(currentVertex.getVertexId() != nodeCounter)
+                    currentGraph.addEdge(currentVertex,vertex);
+                currentVertex = vertex;
                 nodeCounter++;
                 nested = false;
             }
@@ -137,24 +136,24 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             // GRAPH CREATION: taking into account parallel/nesting in expressions
             if(root && enable) {
                 root = false;
-                nodeMapping.put(nodeCounter,identifier);
-                currentGraph.addVertex(nodeCounter);
+                Vertex vertex = new Vertex(nodeCounter,identifier,true);
+                currentGraph.addVertex(vertex);
                 nodeCounter++;
             }
             else if(parallel && enable) {
-                nodeMapping.put(nodeCounter,identifier);
-                currentGraph.addVertex(nodeCounter);
-                if(upperVertex != (-1))
-                    currentGraph.addEdge(upperVertex,nodeCounter);
-                currentVertex = nodeCounter;
+                Vertex vertex = new Vertex(nodeCounter,identifier,true);
+                currentGraph.addVertex(vertex);
+                if(upperVertex != null)
+                    currentGraph.addEdge(upperVertex,vertex);
+                currentVertex = vertex;
                 nodeCounter++;
             }
             else if(nested && enable) {
-                nodeMapping.put(nodeCounter,identifier);
-                currentGraph.addVertex(nodeCounter);
-                if(currentVertex != nodeCounter)
-                    currentGraph.addEdge(currentVertex,nodeCounter);
-                currentVertex = nodeCounter;
+                Vertex vertex = new Vertex(nodeCounter,identifier,true);
+                currentGraph.addVertex(vertex);
+                if(currentVertex != vertex)
+                    currentGraph.addEdge(currentVertex,vertex);
+                currentVertex = vertex;
                 nodeCounter++;
                 nested = false;
             }
@@ -182,7 +181,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             if(!nodeStack.isEmpty())
                 upperVertex = nodeStack.get(depth-1);
             else
-                upperVertex = -1;
+                upperVertex = null;
         }
         if(ctx.LOR() != null && enable) {
             resetGraph();
@@ -200,23 +199,24 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override public Void visitLinks (BigraphParser.LinksContext ctx){
 
+
         // GRAPH CREATION: linking names to nodes
         if(ctx.IDENTIFIER() != null && enable) {
-            currentGraph.addVertex(nameCounter);
-            namesMapping.put(nameCounter,ctx.IDENTIFIER().toString());
-            currentGraph.addEdge(currentVertex,nameCounter);
+            Vertex vertex = new Vertex(nameCounter,ctx.IDENTIFIER().toString(),false);
+            currentGraph.addVertex(vertex);
+            currentGraph.addEdge(currentVertex,vertex);
             nameCounter--;
         }
         if(ctx.VARIABLE() != null && enable) {
-            currentGraph.addVertex(nameCounter);
-            namesMapping.put(nameCounter,ctx.VARIABLE().toString()+ctx.IDENTIFIER());
-            currentGraph.addEdge(currentVertex,nameCounter);
+            Vertex vertex = new Vertex(nameCounter,ctx.VARIABLE().toString()+ctx.IDENTIFIER(),false);
+            currentGraph.addVertex(vertex);
+            currentGraph.addEdge(currentVertex,vertex);
             nameCounter--;
         }
         if(ctx.UNLINKED() != null && enable) {
-            currentGraph.addVertex(nameCounter);
-            namesMapping.put(nameCounter,ctx.UNLINKED().toString());
-            currentGraph.addEdge(currentVertex,nameCounter);
+            Vertex vertex = new Vertex(nameCounter,ctx.UNLINKED().toString(),false);
+            currentGraph.addVertex(vertex);
+            currentGraph.addEdge(currentVertex,vertex);
             nameCounter--;
         }
         return visitChildren(ctx);
@@ -267,8 +267,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return visitChildren(ctx);
     }
 
-    private void createModelGraph(Multigraph<Integer,DefaultEdge> model) {
-        CreateGraphvizModel.getInstance().createModel(model,nodeMapping,namesMapping);
+    private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {
+        CreateGraphvizModel.getInstance().createModel(model);
     }
 
     private void resetGraph() {
@@ -276,13 +276,22 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         nested = false;
         nodeStack.clear();
         root = true;
-        currentVertex = nodeCounter;
-        upperVertex = -1;
+        Vertex vertex = new Vertex(0,"Root",false);
+        /*for(Iterator<Vertex> it = currentGraph.vertexSet().iterator(); it.hasNext(); ) {
+            Vertex next = it.next();
+            if(next.getVertexId() == nodeCounter)
+                vertex = next;
+            else
+                currentGraph.addVertex(vertex);
+        }*/
+        currentGraph.addVertex(vertex);
+        currentVertex = vertex;
+        upperVertex = null;
         depth = 0;
     }
 
     private void createReactionGraph(Multigraph<Integer,DefaultEdge> redex, Multigraph<Integer,DefaultEdge> reactum, String ruleName) {
-        CreateGraphvizModel.getInstance().createReactions(redex,reactum,nodeMapping,namesMapping,ruleName);
+        //CreateGraphvizModel.getInstance().createReactions(redex,reactum,nodeMapping,namesMapping,ruleName);
     }
 
     void storeFileName(String fileName) {
