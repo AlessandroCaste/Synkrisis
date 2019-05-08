@@ -7,6 +7,7 @@ import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
+import guru.nidi.graphviz.engine.GraphvizJdkEngine;
 import guru.nidi.graphviz.model.MutableGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
@@ -38,7 +39,8 @@ public class CreateGraphvizModel {
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
             //  Adjusting shapes
-            nodeAttrs().add(Shape.RECTANGLE);
+            nodeAttrs().add("shape","box");
+
             nodeAttrs().add("style", "rounded");
             linkAttrs().add("arrowsize", 0.8);
 
@@ -46,8 +48,18 @@ public class CreateGraphvizModel {
             for (Vertex x : currentGraph.vertexSet()) {
                 if (x.isControl()) {
                     String nodeLabel = x.getVertexLabel();
-                    mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel);
 
+                    // Font size adjusting for more readable results
+                    double labelLength = nodeLabel.length();
+                    if(labelLength<10)
+                        nodeAttrs().add("margin","0.2,0.1");
+                    else if(labelLength<18)
+                        nodeAttrs().add("margin","0.3,0.1");
+                    else if(labelLength>18) {
+                        double differential = (labelLength / 6) * 0.1;
+                        nodeAttrs().add("margin",differential+",0.1");
+                    }
+                    mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel);
                 }
             }
             // Adding edges

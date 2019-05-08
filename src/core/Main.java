@@ -21,6 +21,7 @@ import java.io.InputStream;
 public class Main {
 
 
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
         if (args.length > 0) {
             String filename = args[0];
