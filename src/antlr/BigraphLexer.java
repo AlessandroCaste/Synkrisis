@@ -1,6 +1,4 @@
 package antlr;// Generated from C:/Users/caste/IdeaProjects/Synkrisis/src\Bigraph.g4 by ANTLR 4.7.2
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
