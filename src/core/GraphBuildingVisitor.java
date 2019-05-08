@@ -138,6 +138,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
                 root = false;
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
+                currentVertex = vertex;
                 nodeCounter++;
             }
             else if(parallel && enable) {
@@ -207,13 +208,13 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             currentGraph.addEdge(currentVertex,vertex);
             nameCounter--;
         }
-        if(ctx.VARIABLE() != null && enable) {
+        else if(ctx.VARIABLE() != null && enable) {
             Vertex vertex = new Vertex(nameCounter,ctx.VARIABLE().toString()+ctx.IDENTIFIER(),false);
             currentGraph.addVertex(vertex);
             currentGraph.addEdge(currentVertex,vertex);
             nameCounter--;
         }
-        if(ctx.UNLINKED() != null && enable) {
+        else if(ctx.UNLINKED() != null && enable) {
             Vertex vertex = new Vertex(nameCounter,ctx.UNLINKED().toString(),false);
             currentGraph.addVertex(vertex);
             currentGraph.addEdge(currentVertex,vertex);
@@ -276,16 +277,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         nested = false;
         nodeStack.clear();
         root = true;
-        Vertex vertex = new Vertex(0,"Root",false);
-        /*for(Iterator<Vertex> it = currentGraph.vertexSet().iterator(); it.hasNext(); ) {
-            Vertex next = it.next();
-            if(next.getVertexId() == nodeCounter)
-                vertex = next;
-            else
-                currentGraph.addVertex(vertex);
-        }*/
-        currentGraph.addVertex(vertex);
-        currentVertex = vertex;
+        nodeCounter = 1;
+        nameCounter = -1;
+        currentVertex = null;
         upperVertex = null;
         depth = 0;
     }
