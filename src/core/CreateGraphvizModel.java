@@ -45,12 +45,7 @@ class CreateGraphvizModel {
                 if (x.isControl()) {
                     String nodeLabel = x.getVertexLabel();
                     mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel);
-                } else if (!x.isControl()) {
-                    String nameLabel = x.getVertexLabel();
-                    mutNode(Integer.toString(x.getVertexId())).attrs().add(Shape.CIRCLE)
-                            .attrs().add(Color.RED2)
-                            .attrs().add("size", 0.8)
-                            .attrs().add("label", nameLabel);
+
                 }
             }
             // Adding edges
@@ -61,12 +56,18 @@ class CreateGraphvizModel {
                     linkAttrs().add("arrowhead", "normal");
                     linkAttrs().add("color", "black");
                     linkAttrs().add("style", "solid");
-                    mutNode(edgeSource.getVertexLabel()).addLink(mutNode(edgeTarget.getVertexLabel()));
+                    mutNode(Integer.toString(edgeSource.getVertexId())).addLink(mutNode(Integer.toString(edgeTarget.getVertexId())));
                 } else {
                     linkAttrs().add("arrowhead", "none");
                     linkAttrs().add("color", "red");
                     linkAttrs().add("style", "dotted");
-                    mutNode(edgeSource.getVertexLabel()).addLink(mutNode(edgeTarget.getVertexLabel()));
+                    mutNode(Integer.toString(edgeSource.getVertexId())).addLink(
+                            mutNode(Integer.toString(edgeTarget.getVertexId()))
+                            .attrs().add(Shape.CIRCLE)
+                                    .attrs().add(Color.RED2)
+                                    .attrs().add("size", 0.8)
+                                    .attrs().add("label", edgeTarget.getVertexLabel()));
+                    ;
                 }
             }
         });
@@ -78,11 +79,9 @@ class CreateGraphvizModel {
     }
 
 
-  /*  void createReactions(Multigraph<Integer,DefaultEdge> redexGraph,Multigraph<Integer,DefaultEdge> reactumGraph, HashMap<Integer, String> nodeMapping, HashMap<Integer,String> namesMapping, String ruleName) {
+   void createReactions(Multigraph<Vertex,DefaultEdge> redexGraph,Multigraph<Vertex,DefaultEdge> reactumGraph,String ruleName) {
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
-        this.nodeMapping = nodeMapping;
-        this.namesMapping = namesMapping;
 
         MutableGraph g1 = buildReactionGraph(redexGraph,colorHashMap);
         MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap);
@@ -99,8 +98,8 @@ class CreateGraphvizModel {
         }
     }
 
-    private MutableGraph buildReactionGraph(Multigraph<Integer,DefaultEdge> currentGraph,HashMap<String,Color> colorHashMap) {
-        MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
+    private MutableGraph buildReactionGraph(Multigraph<Vertex,DefaultEdge> currentGraph, HashMap<String,Color> colorHashMap) {
+       MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
             //  Adjusting shapes
             nodeAttrs().add(Shape.RECTANGLE);
@@ -108,56 +107,58 @@ class CreateGraphvizModel {
             linkAttrs().add("arrowsize", 0.8);
 
             // Adding Nodes (first standard vertices, then name vertices)
-            for (int x : currentGraph.vertexSet()) {
-                if (nodeMapping.containsKey(x)) {
-                    String nodeLabel = nodeMapping.get(x);
+            for (Vertex v : currentGraph.vertexSet()) {
+                String nodeLabel = v.getVertexLabel();
+                String nodeId = Integer.toString(v.getVertexId());
+                if (v.isControl()) {
                     if (nodeLabel.contains("$")) {
                         nodeAttrs().add(Shape.DOUBLE_OCTAGON);
-                        mutNode(Integer.toString(x)).attrs().add("label", nodeLabel).attrs();
+                        mutNode(nodeId).attrs().add("label", nodeLabel).attrs();
                     } else {
                         nodeAttrs().add(Shape.RECTANGLE);
-                        mutNode(Integer.toString(x)).attrs().add("label", nodeLabel);
+                        mutNode(nodeId).attrs().add("label", nodeLabel);
                     }
-                } else if (namesMapping.containsKey(x)) {
-                    Random rand = new Random();
-                    int rc = rand.nextInt();
-                    int gc = rand.nextInt();
-                    int bc = rand.nextInt();
-                    String nameLabel = namesMapping.get(x);
+                } else {
                     Color customColor;
-                    if(colorHashMap.containsKey(nameLabel))
-                        customColor = colorHashMap.get(nameLabel);
+                    if(colorHashMap.containsKey(nodeLabel))
+                        customColor = colorHashMap.get(nodeLabel);
                     else {
+                        // New random colors are assigned to names
+                        Random rand = new Random();
+                        int rc = rand.nextInt();
+                        int gc = rand.nextInt();
+                        int bc = rand.nextInt();
                         customColor = Color.rgb(rc, gc, bc);
-                        colorHashMap.put(nameLabel, customColor);
+                        colorHashMap.put(nodeLabel, customColor);
                     }
-                    mutNode(nameLabel).attrs().add(Shape.CIRCLE)
+                    mutNode(nodeLabel).attrs().add(Shape.CIRCLE)
                             .attrs().add(customColor)
                             .attrs().add("size", 0.8);
                 }
             }
+
             // Adding edges
             for (DefaultEdge edge : currentGraph.edgeSet()) {
-                String edgeSource = currentGraph.getEdgeSource(edge).toString();
-                String edgeTarget = currentGraph.getEdgeTarget(edge).toString();
-                String targetLabel = namesMapping.get(currentGraph.getEdgeTarget(edge));
-                if (!namesMapping.containsKey(Integer.parseInt(edgeTarget))) {
+                String sourceId = Integer.toString(currentGraph.getEdgeSource(edge).getVertexId());
+                String targetId = Integer.toString(currentGraph.getEdgeTarget(edge).getVertexId());
+                String targetLabel = currentGraph.getEdgeTarget(edge).getVertexLabel();
+                if (currentGraph.getEdgeTarget(edge).isControl()) {
                     linkAttrs().add("dir", "forward");
                     linkAttrs().add("arrowhead", "normal");
                     linkAttrs().add("color", "black");
                     linkAttrs().add("style", "solid");
-                    mutNode(edgeSource).addLink(mutNode(edgeTarget));
+                    mutNode(sourceId).addLink(mutNode(targetId));
                 // Names share colors across redex and reactum
                 } else {
                     linkAttrs().add("arrowhead", "dot");
                     Color color = colorHashMap.get(targetLabel);
                     linkAttrs().add(color);
-                    mutNode(edgeSource).addLink(mutNode(namesMapping.get(currentGraph.getEdgeTarget(edge))));
+                    mutNode(sourceId).addLink(mutNode(targetLabel));
                 }
             }
         });
         return g;
-    } */
+    }
 
     void setFileName(String modelName) {
         this.modelName = modelName;

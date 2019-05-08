@@ -89,7 +89,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         resetGraph();
         visit(ctx.getChild(2));
         reactum = currentGraph;
-        //createReactionGraph(redex,reactum,reactionName);
+        createReactionGraph(redex,reactum,reactionName);
         return null;
     }
 
@@ -277,15 +277,13 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         nested = false;
         nodeStack.clear();
         root = true;
-        nodeCounter = 1;
-        nameCounter = -1;
         currentVertex = null;
         upperVertex = null;
         depth = 0;
     }
 
-    private void createReactionGraph(Multigraph<Integer,DefaultEdge> redex, Multigraph<Integer,DefaultEdge> reactum, String ruleName) {
-        //CreateGraphvizModel.getInstance().createReactions(redex,reactum,nodeMapping,namesMapping,ruleName);
+    private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
+        CreateGraphvizModel.getInstance().createReactions(redex,reactum,ruleName);
     }
 
     void storeFileName(String fileName) {

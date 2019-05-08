@@ -1,6 +1,6 @@
 package core;
 
-public class Vertex {
+class Vertex {
 
     private int vertexId;
     private String vertexLabel;
@@ -9,17 +9,18 @@ public class Vertex {
     Vertex(int vertexId,String vertexLabel,boolean control) {
         this.vertexId = vertexId;
         this.vertexLabel = vertexLabel;
+        this.control = control;
     }
 
-    public int getVertexId() {
+    int getVertexId() {
         return vertexId;
     }
 
-    public String getVertexLabel() {
+    String getVertexLabel() {
         return vertexLabel;
     }
 
-    public boolean isControl() {
+    boolean isControl() {
         return control;
     }
 
