@@ -1,4 +1,4 @@
-package core;
+package core.syntaxAnalysis;
 
 import antlr.BigraphLexer;
 import antlr.BigraphParser;
@@ -18,12 +18,12 @@ import java.io.InputStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // This test checks black-box style that the execution of our models go as expected
-class BigraphBaseVisitorTest {
+class SyntaxVisitorTest {
 
-    private BigraphBaseVisitor airport;
-    private BigraphBaseVisitor example1;
-    private BigraphBaseVisitor example2;
-    private BigraphBaseVisitor example3;
+    private SyntaxVisitor airport;
+    private SyntaxVisitor example1;
+    private SyntaxVisitor example2;
+    private SyntaxVisitor example3;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -39,7 +39,7 @@ class BigraphBaseVisitorTest {
 
     }
 
-    BigraphBaseVisitor createVisitor(String path) {
+    SyntaxVisitor createVisitor(String path) {
         try {
             File inputFile = new File(path);
             InputStream inputStream = new FileInputStream(inputFile);
@@ -49,7 +49,7 @@ class BigraphBaseVisitorTest {
             parser.removeErrorListeners();
             parser.addErrorListener(ErrorListener.INSTANCE);
             ParseTree tree = parser.bigraph();
-            BigraphBaseVisitor visitor = new BigraphBaseVisitor();
+            SyntaxVisitor visitor = new SyntaxVisitor();
             visitor.visit(tree);
             return visitor;
         } catch (IOException e) {

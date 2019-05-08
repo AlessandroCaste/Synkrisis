@@ -1,6 +1,6 @@
-package core;
+package core.graphBuilding;
 
-class Vertex {
+public class Vertex {
 
     private int vertexId;
     private String vertexLabel;
@@ -12,15 +12,15 @@ class Vertex {
         this.control = control;
     }
 
-    int getVertexId() {
+    public int getVertexId() {
         return vertexId;
     }
 
-    String getVertexLabel() {
+    public String getVertexLabel() {
         return vertexLabel;
     }
 
-    boolean isControl() {
+    public boolean isControl() {
         return control;
     }
 

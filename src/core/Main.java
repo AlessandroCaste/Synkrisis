@@ -2,6 +2,10 @@ package core;
 
 import antlr.BigraphLexer;
 import antlr.BigraphParser;
+import core.graphBuilding.GraphBuildingVisitor;
+import core.graphBuilding.GraphsCollection;
+import core.syntaxAnalysis.ErrorListener;
+import core.syntaxAnalysis.SyntaxVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
@@ -21,7 +25,6 @@ public class Main {
         if (args.length > 0) {
             String filename = args[0];
             try {
-
                 File inputFile = new File(filename);
                 InputStream inputStream = new FileInputStream(inputFile);
                 Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
@@ -30,7 +33,7 @@ public class Main {
                 parser.removeErrorListeners();
                 parser.addErrorListener(ErrorListener.INSTANCE);
                 ParseTree tree = parser.bigraph();
-                BigraphBaseVisitor visitor = new BigraphBaseVisitor();
+                SyntaxVisitor visitor = new SyntaxVisitor();
                 visitor.visit(tree);
 
                 if (!visitor.checkModelName(inputFile.getName()))
@@ -40,8 +43,9 @@ public class Main {
                 // Graph Building
                 if(visitor.getAcceptableModel()) {
                     GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
-                    graphvizVisitor.storeFileName(visitor.getModelName());
                     graphvizVisitor.visit(tree);
+                    graphvizVisitor.storeModelName();
+                    GraphsCollection.getInstance().printModel();
                 } else {
                     System.out.println("Can't produce graphic models");
                 }

@@ -1,4 +1,4 @@
-package core;
+package core.syntaxAnalysis;
 
 import antlr.BigraphParser;
 

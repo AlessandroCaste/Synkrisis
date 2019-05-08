@@ -1,4 +1,4 @@
-package core;
+package core.syntaxAnalysis;
 
 import antlr.BigraphParser;
 import antlr.BigraphVisitor;
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.tree.RuleNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
+public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
 
     // We store identifiers in order to check repetitions and wrong uses
     private HashMap<String,Integer> controlsMap = new HashMap<>();
@@ -263,7 +263,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
         errorString.append(line).append(":").append(column).append("] ").append(text).append("\n");
     }
 
-    String getParseResult() {
+    public String getParseResult() {
         StringBuilder returnString = new StringBuilder();
         returnString.append(errorString);
         returnString.append(checkUnusedVariables());
@@ -306,7 +306,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
         return returnString.toString();
     }
 
-    boolean checkModelName(String fileName) {
+    public boolean checkModelName(String fileName) {
         if (!fileName.equals(modelName+".txt") && !fileName.equals(modelName+".bigraph")) {
             acceptableModel = false;
             return false;
@@ -318,7 +318,7 @@ public class BigraphBaseVisitor extends AbstractParseTreeVisitor<Void> implement
         return modelName;
     }
 
-    boolean getAcceptableModel() {
+    public boolean getAcceptableModel() {
         return acceptableModel;
     }
 

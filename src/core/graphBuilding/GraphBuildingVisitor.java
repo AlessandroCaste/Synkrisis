@@ -1,7 +1,11 @@
-package core;
+package core.graphBuilding;
 
 import antlr.BigraphParser;
 import antlr.BigraphVisitor;
+import core.graphBuilding.GraphReaction;
+import core.graphBuilding.GraphsCollection;
+import core.graphBuilding.Vertex;
+import core.graphVisualization.CreateGraphvizModel;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
@@ -269,7 +273,12 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {
-        CreateGraphvizModel.getInstance().createModel(model);
+        GraphsCollection.getInstance().addModel(model);
+    }
+
+    private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
+        GraphReaction reaction = new GraphReaction(redex,reactum,ruleName);
+        GraphsCollection.getInstance().addReaction(reaction);
     }
 
     private void resetGraph() {
@@ -282,11 +291,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         depth = 0;
     }
 
-    private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
-        CreateGraphvizModel.getInstance().createReactions(redex,reactum,ruleName);
-    }
 
-    void storeFileName(String fileName) {
-        CreateGraphvizModel.getInstance().setFileName(fileName);
+
+    public void storeModelName() {
+        CreateGraphvizModel.getInstance().setModelName(modelName);
     }
 }

@@ -1,5 +1,7 @@
-package core;
+package core.graphVisualization;
 
+import core.graphBuilding.GraphReaction;
+import core.graphBuilding.Vertex;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
@@ -17,7 +19,7 @@ import java.util.Random;
 
 import static guru.nidi.graphviz.model.Factory.*;
 
-class CreateGraphvizModel {
+public class CreateGraphvizModel {
 
     private static CreateGraphvizModel instance;
 
@@ -25,13 +27,13 @@ class CreateGraphvizModel {
 
     private CreateGraphvizModel() {}
 
-    static CreateGraphvizModel getInstance() {
+    public static CreateGraphvizModel getInstance() {
         if(instance == null)
             return (instance = new CreateGraphvizModel());
         return instance;
     }
 
-    void createModel(Multigraph<Vertex,DefaultEdge> currentGraph) {
+    public void createModel(Multigraph<Vertex,DefaultEdge> currentGraph) {
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
@@ -67,7 +69,6 @@ class CreateGraphvizModel {
                                     .attrs().add(Color.RED2)
                                     .attrs().add("size", 0.8)
                                     .attrs().add("label", edgeTarget.getVertexLabel()));
-                    ;
                 }
             }
         });
@@ -79,9 +80,14 @@ class CreateGraphvizModel {
     }
 
 
-   void createReactions(Multigraph<Vertex,DefaultEdge> redexGraph,Multigraph<Vertex,DefaultEdge> reactumGraph,String ruleName) {
+   public void createReactions(GraphReaction gr) {
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
+
+        Multigraph<Vertex,DefaultEdge> redexGraph = gr.getRedex();
+        Multigraph<Vertex,DefaultEdge> reactumGraph = gr.getReactum();
+        String ruleName = gr.getRulename();
+
 
         MutableGraph g1 = buildReactionGraph(redexGraph,colorHashMap);
         MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap);
@@ -99,7 +105,7 @@ class CreateGraphvizModel {
     }
 
     private MutableGraph buildReactionGraph(Multigraph<Vertex,DefaultEdge> currentGraph, HashMap<String,Color> colorHashMap) {
-       MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
+       MutableGraph g = mutGraph("Reactions").setDirected(true).use((gr, ctx) -> {
 
             //  Adjusting shapes
             nodeAttrs().add(Shape.RECTANGLE);
@@ -160,7 +166,7 @@ class CreateGraphvizModel {
         return g;
     }
 
-    void setFileName(String modelName) {
+    public void setModelName(String modelName) {
         this.modelName = modelName;
     }
 }
