@@ -6,24 +6,23 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" line="35" />
-    <bookmark url="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" line="106" />
-    <bookmark url="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" line="163" />
+    <bookmark url="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" line="36" />
+    <bookmark url="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" line="117" />
+    <bookmark url="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" line="174" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3773527f-0b43-4f16-b833-858167a91ec7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/core/graphBuilding/GraphReaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/graphBuilding/GraphsCollection.java" afterDir="false" />
+    <list default="true" id="3773527f-0b43-4f16-b833-858167a91ec7" name="Default Changelist" comment="Labels of arbitrary size are now supported">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_slf4j_slf4j_nop_1_7_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/hospital.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Synkrisis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Synkrisis.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/slf4j_nop_1_7_26.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/BigraphBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/syntaxAnalysis/SyntaxVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/BigraphBaseVisitorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/syntaxAnalysis/SyntaxVisitorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/ControlChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/syntaxAnalysis/ControlChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/CreateGraphvizModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/ErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/syntaxAnalysis/ErrorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/slf4j-nop-1.7.26.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphBuilding/Vertex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/airport.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/airport.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/graphBuilding/GraphReaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphBuilding/GraphReaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/graphBuilding/GraphsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphBuilding/GraphsCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,114 +44,89 @@
     <favorites_list name="Synkrisis" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/airport.bigraph">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="75" column="23" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airport/linkedPassenger - Redex.svg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airport/movementAirport - Redex.svg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="48" column="117" selection-start-line="48" selection-start-column="117" selection-end-line="48" selection-end-column="117" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/core/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="804">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airport/airport.svg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airport/movementAirport - Reactum.svg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airport/linkedPassenger - Reactum.svg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airport/disappear - Redex.svg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/core/syntaxAnalysis/ErrorListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="407">
+                  <caret line="96" column="68" selection-start-line="96" selection-start-column="68" selection-end-line="96" selection-end-column="68" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#682#683#0" expanded="true" />
+                    <element signature="e#730#731#0" expanded="true" />
+                    <element signature="e#8975#8976#0" expanded="true" />
+                    <element signature="e#9016#9017#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/antlr/BigraphParser.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="22698">
+                  <caret line="941" selection-start-line="941" selection-end-line="941" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.jar!/org/antlr/v4/runtime/tree/AbstractParseTreeVisitor.class">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="234">
+                  <caret line="12" selection-start-line="12" selection-end-line="12" />
+                  <folding>
+                    <element signature="e#347#348#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="523">
+                  <caret line="176" column="17" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#8207#8208#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/test/hospital.bigraph">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="624">
+                  <caret line="24" selection-start-line="24" selection-end-line="24" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>reportError</find>
-      <find>SYstem.out</find>
-      <find>returnString</find>
-      <find>getParser</find>
-      <find>nodeMapping</find>
-      <find>currentGr</find>
-      <find>currentGraph</find>
-      <find>create</find>
-      <find>links</find>
-      <find>reset</find>
-      <find>nodeCOunter</find>
-      <find>nodeCOunter = 0</find>
-      <find>visitModel</find>
-      <find>resetG</find>
-      <find>visitLinks</find>
-      <find>visitExpression</find>
-      <find>ROOT</find>
-      <find>vertexId</find>
-      <find>createReactionG</find>
-      <find>currentVertex</find>
-      <find>reaction</find>
-      <find>visitReaction</find>
-      <find>createReactions</find>
       <find>miao</find>
       <find>createModelGraph</find>
       <find>resetGraph</find>
@@ -160,11 +134,38 @@
       <find>createGraphviz</find>
       <find>reactum</find>
       <find>g.render</find>
+      <find>shap</find>
+      <find>airport</find>
+      <find>variables</find>
+      <find>visitReaction</find>
+      <find>variable</find>
+      <find>test</find>
+      <find>graphsCollection</find>
+      <find>modelname</find>
+      <find>model</find>
+      <find>del</find>
+      <find>RPAR</find>
+      <find>visit</find>
+      <find>regions</find>
+      <find>visitLinks</find>
+      <find>VISITeXPRESSION</find>
+      <find>VISITrEGIONS</find>
+      <find>visitExpression</find>
+      <find>Par</find>
+      <find>visitProperty</find>
+      <find>visitModel</find>
+      <find />
+      <find>&amp;&amp; enable</find>
+      <find>enable</find>
     </findStrings>
     <replaceStrings>
       <replace>currentGraph</replace>
       <replace>Void</replace>
+      <replace />
     </replaceStrings>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="ONTO" value="refs/remotes/origin/master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -192,21 +193,23 @@
         <option value="$PROJECT_DIR$/src/core/BigraphBaseVisitor.java" />
         <option value="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/src/core/g4model/Vertex.java" />
-        <option value="$PROJECT_DIR$/src/core/Main.java" />
         <option value="$PROJECT_DIR$/src/core/GraphsCollection.java" />
         <option value="$PROJECT_DIR$/src/core/GraphReaction.java" />
         <option value="$PROJECT_DIR$/src/core/Vertex.java" />
         <option value="$PROJECT_DIR$/src/core/graphBuilding/Vertex.java" />
-        <option value="$PROJECT_DIR$/src/core/graphBuilding/GraphReaction.java" />
         <option value="$PROJECT_DIR$/src/core/CreateGraphvizModel.java" />
         <option value="$PROJECT_DIR$/src/core/SyntaxVisitor.java" />
         <option value="$PROJECT_DIR$/src/core/syntaxAnalysis/SyntaxVisitor.java" />
         <option value="$PROJECT_DIR$/src/core/GraphBuildingVisitor.java" />
-        <option value="$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java" />
-        <option value="$PROJECT_DIR$/src/core/graphBuilding/GraphsCollection.java" />
         <option value="$PROJECT_DIR$/src/core/syntaxAnalysis/ErrorListener.java" />
-        <option value="$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" />
+        <option value="$PROJECT_DIR$/src/core/graphBuilding/GraphsCollection.java" />
+        <option value="$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitorTest.java" />
         <option value="$PROJECT_DIR$/src/test/airport.bigraph" />
+        <option value="$PROJECT_DIR$/src/core/Main.java" />
+        <option value="$PROJECT_DIR$/src/test/hospital.bigraph" />
+        <option value="$PROJECT_DIR$/src/core/graphBuilding/GraphReaction.java" />
+        <option value="$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" />
+        <option value="$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java" />
       </list>
     </option>
   </component>
@@ -216,11 +219,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="1047" />
-    <option name="y" value="31" />
-    <option name="width" value="2393" />
-    <option name="height" value="1409" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="563" />
+    <option name="y" value="32" />
+    <option name="width" value="2674" />
+    <option name="height" value="1408" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -229,8 +232,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -241,50 +242,19 @@
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
               <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="airport" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
               <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="graphBuilding" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="graphVisualization" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="syntaxAnalysis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -299,8 +269,8 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/src/core/test" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/out" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/core/graphBuilding" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15865384" />
     <property name="project.structure.side.proportion" value="0.25296444" />
@@ -309,6 +279,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="core.graphBuilding" />
       <recent name="core.test" />
       <recent name="core" />
     </key>
@@ -326,6 +297,8 @@
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test" />
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src" />
     </key>
   </component>
@@ -345,7 +318,23 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="src/test/airport.bigraph" />
+      <option name="PROGRAM_PARAMETERS" value="src/test/hospital.bigraph" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GraphBuildingVisitorTest.testBasic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Synkrisis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="core.graphBuilding.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="core.graphBuilding" />
+      <option name="MAIN_CLASS_NAME" value="core.graphBuilding.GraphBuildingVisitorTest" />
+      <option name="METHOD_NAME" value="testBasic" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -365,7 +354,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SyntaxVisitorTest.checkAcceptance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SyntaxVisitorTest.checkAcceptance" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Synkrisis" />
       <extension name="coverage">
         <pattern>
@@ -385,10 +374,11 @@
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
       <item itemvalue="JUnit.SyntaxVisitorTest" />
+      <item itemvalue="JUnit.GraphBuildingVisitorTest.testBasic" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
+        <item itemvalue="JUnit.GraphBuildingVisitorTest.testBasic" />
         <item itemvalue="JUnit.SyntaxVisitorTest" />
       </list>
     </recent_temporary>
@@ -407,6 +397,14 @@
       <workItem from="1557274528876" duration="1188000" />
       <workItem from="1557307905657" duration="9556000" />
       <workItem from="1557317578581" duration="2920000" />
+      <workItem from="1557336011365" duration="2006000" />
+      <workItem from="1557442494340" duration="5798000" />
+      <workItem from="1558051824418" duration="947000" />
+      <workItem from="1558294638407" duration="22000" />
+      <workItem from="1558294676190" duration="1304000" />
+      <workItem from="1558304657710" duration="6609000" />
+      <workItem from="1558371362084" duration="602000" />
+      <workItem from="1558391048895" duration="6124000" />
     </task>
     <task id="LOCAL-00001" summary="Graphviz plotting and jGraphT applications: WIP">
       <created>1555805776493</created>
@@ -513,43 +511,50 @@
       <option name="project" value="LOCAL" />
       <updated>1557315905956</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Labels of arbitrary size are now supported">
+      <created>1557337712618</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1557337712618</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 38m 24s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 30m 41s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 38m 51s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 31m 23s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 38m 53s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 32m 09s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 40m 00s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 41m 57s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 40m 02s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 42m 20s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 40m 35s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 42m 41s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 47m 55s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 44m 42s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 52m 00s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 48m 50s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest - 2019.05.02 at 23h 55m 44s.xml">
-      <configuration name="BigraphBaseVisitorTest" configurationId="JUnit" />
+    <history-entry file="GraphBuildingVisitorTest_testBasic - 2019.05.10 at 02h 48m 52s.xml">
+      <configuration name="GraphBuildingVisitorTest.testBasic" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BigraphBaseVisitorTest_checkAcceptance - 2019.05.02 at 23h 56m 42s.xml">
-      <configuration name="BigraphBaseVisitorTest.checkAcceptance" configurationId="JUnit" />
+    <history-entry file="SyntaxVisitorTest_checkAcceptance - 2019.05.19 at 21h 44m 23s.xml">
+      <configuration name="SyntaxVisitorTest.checkAcceptance" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18480000" />
+    <option name="totallyTimeSpent" value="43007000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -561,10 +566,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1047" y="31" width="2393" height="1409" extended-state="4" />
-    <editor active="true" />
+    <frame x="563" y="32" width="2674" height="1408" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12590387" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09840426" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -573,17 +577,17 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32885376" />
-      <window_info anchor="bottom" x="470" y="514" width="1117" height="266" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.19762845" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.3881423" />
+      <window_info anchor="bottom" x="470" y="514" width="1117" height="266" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.27056962" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.3789557" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3296582" />
       <window_info anchor="bottom" id="Tool Output" order="7" weight="0.3296582" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3296582" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.29988974" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3296582" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32964426" />
       <window_info anchor="bottom" id="ANTLR Preview" order="11" weight="0.3572216" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.21422926" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.21343873" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="13" weight="0.32928178" />
       <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32928178" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
@@ -655,22 +659,17 @@
     <MESSAGE value="Test in progress" />
     <MESSAGE value="Updating the GraphBuilding: model is done" />
     <MESSAGE value="Updating reactions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating reactions" />
+    <MESSAGE value="Labels of arbitrary size are now supported" />
+    <option name="LAST_COMMIT_MESSAGE" value="Labels of arbitrary size are now supported" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java</url>
-          <line>269</line>
+          <line>261</line>
           <properties />
           <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java</url>
-          <line>204</line>
-          <properties />
-          <option name="timeStamp" value="105" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/core/syntaxAnalysis/SyntaxVisitorTest.java</url>
@@ -680,12 +679,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/core/Main.java</url>
-          <line>46</line>
+          <line>54</line>
           <properties />
-          <option name="timeStamp" value="171" />
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java</url>
+          <line>41</line>
+          <properties />
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java</url>
+          <line>60</line>
+          <properties />
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java</url>
+          <line>226</line>
+          <properties />
+          <option name="timeStamp" value="177" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java</url>
+          <line>177</line>
+          <properties />
+          <option name="timeStamp" value="211" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="ctx.IDENTIFIER().toString()" language="JAVA" />
+        <watch expression="identifier" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Synkrisis$BigraphBaseVisitorTest.ic" NAME="BigraphBaseVisitorTest Coverage Results" MODIFIED="1556826695154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
@@ -695,17 +724,22 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>identifier</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>ctx.IDENTIFIER().toString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>v.getVertexId()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
         <expression-string>v.getVertexLabel()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>ctx.IDENTIFIER().toString()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -734,28 +768,9 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>currentGraph.vertexSet().contains(currentVertex)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/example/ex1i.svg" />
-    <entry file="file://$PROJECT_DIR$/src/example.txt" />
-    <entry file="file://$PROJECT_DIR$/example/modello.svg" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/util/ArrayList.java" />
-    <entry file="file://$PROJECT_DIR$/example/disappear- Match.svg" />
-    <entry file="file://$PROJECT_DIR$/example/airport.svg" />
-    <entry file="file://$PROJECT_DIR$/example/[disappear].svg" />
-    <entry file="file://$PROJECT_DIR$/example/test.png" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/jre/lib/rt.jar!/sun/nio/fs/WindowsException.class" />
-    <entry file="file://$PROJECT_DIR$/example/disappear- Redex.svg" />
-    <entry file="file://$PROJECT_DIR$/example/disappear- Reactum.svg" />
-    <entry file="jar://$MAVEN_REPOSITORY$/guru/nidi/graphviz-java/0.8.3/graphviz-java-0.8.3.jar!/guru/nidi/graphviz/model/ThrowingBiConsumer.class" />
-    <entry file="file://$PROJECT_DIR$/airport/b - Redex.svg" />
-    <entry file="file://$PROJECT_DIR$/samples/airport.bigraph" />
     <entry file="file://$PROJECT_DIR$/airport/b - Reactum.svg" />
     <entry file="file://$PROJECT_DIR$/samples/airport/disappear - Redex.svg" />
     <entry file="file://$PROJECT_DIR$/src/antlr/BigraphBaseListener.java">
@@ -794,30 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/antlr/BigraphParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1095">
-          <caret line="641" column="29" lean-forward="true" selection-start-line="641" selection-start-column="29" selection-end-line="641" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/g4model/Bigraph.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="43" column="5" selection-start-line="43" selection-end-line="43" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.jar!/org/antlr/v4/runtime/tree/AbstractParseTreeVisitor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airport/miao - Redex.svg" />
     <entry file="file://$PROJECT_DIR$/airport/miao - Reactum.svg" />
     <entry file="jar://$MAVEN_REPOSITORY$/guru/nidi/graphviz-java/0.8.3/graphviz-java-0.8.3.jar!/guru/nidi/graphviz/model/MutableGraph.class">
@@ -827,47 +818,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/Vertex.java">
+    <entry file="file://$PROJECT_DIR$/src/antlr/BigraphLexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="364">
+          <caret line="14" column="81" lean-forward="true" selection-start-line="14" selection-start-column="81" selection-end-line="14" selection-end-column="81" />
           <folding>
-            <element signature="e#323#324#0" expanded="true" />
-            <element signature="e#354#355#0" expanded="true" />
-            <element signature="e#385#386#0" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
-            <element signature="e#476#477#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/GraphReaction.java">
+    <entry file="file://$PROJECT_DIR$/airport/linkedPassenger - Reactum.svg" />
+    <entry file="file://$PROJECT_DIR$/airport/linkedPassenger - Redex.svg" />
+    <entry file="file://$PROJECT_DIR$/airport/movementAirport - Reactum.svg" />
+    <entry file="file://$PROJECT_DIR$/airport/movementAirport - Redex.svg" />
+    <entry file="file://$PROJECT_DIR$/airport/disappear - Redex.svg" />
+    <entry file="file://$PROJECT_DIR$/airport/disappear - Reactum.svg" />
+    <entry file="file://$PROJECT_DIR$/src/test/example1.bigraph">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitorTest.java" />
+    <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/util/Collections.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26364">
+          <caret line="1057" column="18" selection-start-line="1057" selection-start-column="18" selection-end-line="1057" selection-end-column="18" />
+          <folding>
+            <element signature="e#44658#44659#0" expanded="true" />
+            <element signature="e#44723#44724#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-11-oracle/lib/src.zip!/java.base/java/util/Set.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9698">
+          <caret line="396" column="12" selection-start-line="396" selection-start-column="12" selection-end-line="396" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/Vertex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/syntaxAnalysis/ErrorListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/syntaxAnalysis/SyntaxVisitorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-520">
+          <caret line="22" column="33" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#538#539#0" expanded="true" />
-            <element signature="e#597#598#0" expanded="true" />
-            <element signature="e#627#628#0" expanded="true" />
-            <element signature="e#662#663#0" expanded="true" />
-            <element signature="e#693#694#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core/syntaxAnalysis/SyntaxVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="35">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#12032#12033#0" expanded="true" />
-            <element signature="e#12064#12065#0" expanded="true" />
-            <element signature="e#12100#12101#0" expanded="true" />
-            <element signature="e#12138#12139#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -879,81 +897,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#10651#10652#0" expanded="true" />
-            <element signature="e#10724#10725#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/myfile.txt" />
     <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/GraphsCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+        <state relative-caret-position="26">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#548#549#0" expanded="true" />
-            <element signature="e#582#583#0" expanded="true" />
             <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#1056#1057#0" expanded="true" />
+            <element signature="e#1084#1085#0" expanded="true" />
+            <element signature="e#1142#1143#0" expanded="true" />
+            <element signature="e#1178#1179#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/syntaxAnalysis/SyntaxVisitorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/airport.bigraph">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="857">
+          <caret line="87" column="8" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airport/disappear - Reactum.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airport/linkedPassenger - Redex.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airport/movementAirport - Redex.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airport/movementAirport - Reactum.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airport/disappear - Redex.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airport/linkedPassenger - Reactum.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/syntaxAnalysis/ErrorListener.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/guru/nidi/graphviz-java/0.8.3/graphviz-java-0.8.3.jar!/guru/nidi/graphviz/model/ThrowingBiConsumer.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
-          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="804">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="48" column="117" selection-start-line="48" selection-start-column="117" selection-end-line="48" selection-end-column="117" />
+        <state relative-caret-position="1014">
+          <caret line="53" column="53" selection-start-line="53" selection-start-column="53" selection-end-line="53" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -963,10 +941,90 @@
     <entry file="file://$PROJECT_DIR$/airport/airport.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/airport.bigraph">
+    <entry file="file://$PROJECT_DIR$/src/test/hospital.bigraph">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="75" column="23" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
+        <state relative-caret-position="624">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/g4model/Bigraph.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="29" column="59" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/antlr/BigraphParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22698">
+          <caret line="941" selection-start-line="941" selection-end-line="941" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/GraphReaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.jar!/org/antlr/v4/runtime/tree/AbstractParseTreeVisitor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#347#348#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="176" column="17" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8207#8208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital/hospital.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital/dreamy_doctor - Redex.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital/dreamy_doctor - Reactum.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital/doctor_moves - Redex.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital/doctor_moves - Reactum.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hospital/nurse_moves - Redex.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/graphBuilding/GraphBuildingVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="96" column="68" selection-start-line="96" selection-start-column="68" selection-end-line="96" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#682#683#0" expanded="true" />
+            <element signature="e#730#731#0" expanded="true" />
+            <element signature="e#8975#8976#0" expanded="true" />
+            <element signature="e#9016#9017#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -981,7 +1039,6 @@
             <option name="proportions">
               <list>
                 <option value="0.25664622" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -1030,7 +1087,6 @@
             <option name="proportions">
               <list>
                 <option value="0.25296444" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1038,11 +1094,11 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>org.jgrapht:jgrapht-core:1.3.0</last-edited>
+          <last-edited>org.slf4j:slf4j-nop:1.7.26</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.25664622" />
+                <option value="0.25296444" />
               </list>
             </option>
           </splitter-proportions>

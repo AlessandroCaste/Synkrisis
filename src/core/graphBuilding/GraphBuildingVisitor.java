@@ -2,9 +2,6 @@ package core.graphBuilding;
 
 import antlr.BigraphParser;
 import antlr.BigraphVisitor;
-import core.graphBuilding.GraphReaction;
-import core.graphBuilding.GraphsCollection;
-import core.graphBuilding.Vertex;
 import core.graphVisualization.CreateGraphvizModel;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -37,7 +34,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private Stack<Vertex> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
     private Vertex currentVertex = new Vertex(0,"Root",true);
     private Vertex upperVertex = null;                                   // Direct parent node. -1 equals 'no parent'
-    private boolean enable = false;
     private int nodeCounter = 1;                                    // Represents the growing unique id of every node
     private HashMap<Integer,String> nodeMapping = new HashMap<>();  // Required for storing labels (string) for nodes
     private int nameCounter = -1;                                   // Represents the decreasing unique id of every name
@@ -74,7 +70,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override
     public Void visitReactions(BigraphParser.ReactionsContext ctx) {
-        enable = true;
         if(ctx.IDENTIFIER() != null)
             reactionName = ctx.IDENTIFIER().toString();
         return visitChildren(ctx);
@@ -85,7 +80,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
-        enable = true;
         visit(ctx.getChild(0));
         redex = currentGraph;
         // Reset tree info for reactum tree
@@ -101,7 +95,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitExpression (BigraphParser.ExpressionContext ctx) {
 
         // GRAPH CREATION: calculating depths and nesting of parents
-        if(ctx.LPAR()!=null && enable) {
+        if(ctx.LPAR()!=null ) {
             depth++;
             nodeStack.push(currentVertex);
         }
@@ -109,13 +103,13 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         if(ctx.DOLLAR() != null) {
             String identifier = ctx.DOLLAR().toString() + ctx.DIGIT().toString();
             // GRAPH CREATION: taking into account parallel/nesting in expressions, for $-preceded elements
-            if(root && enable) {
+            if(root ) {
                 root = false;
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 nodeCounter++;
             }
-            else if(parallel && enable) {
+            else if(parallel ) {
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 if(upperVertex != null)
@@ -123,7 +117,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
                 currentVertex = vertex;
                 nodeCounter++;
             }
-            else if(nested && enable) {
+            else if(nested ) {
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 if(currentVertex.getVertexId() != nodeCounter)
@@ -138,14 +132,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             String identifier = ctx.IDENTIFIER().getText();
 
             // GRAPH CREATION: taking into account parallel/nesting in expressions
-            if(root && enable) {
+            if(root ) {
                 root = false;
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 currentVertex = vertex;
                 nodeCounter++;
             }
-            else if(parallel && enable) {
+            else if(parallel ) {
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 if(upperVertex != null)
@@ -153,7 +147,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
                 currentVertex = vertex;
                 nodeCounter++;
             }
-            else if(nested && enable) {
+            else if(nested ) {
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 if(currentVertex != vertex)
@@ -166,7 +160,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         }
 
         // GRAPH CREATION: managing depth when leaving nested expressions
-        if(ctx.RPAR()!=null && enable) {
+        if(ctx.RPAR()!=null ) {
             visit(ctx.expression());
             depth--;
             nodeStack.pop();
@@ -181,14 +175,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override public Void visitRegions (BigraphParser.RegionsContext ctx){
         // GRAPH CREATION: every time there's a parallel region I reset the parent node pointer
-        if(ctx.PAR() != null && enable) {
+        if(ctx.PAR() != null ) {
             parallel = true;
             if(!nodeStack.isEmpty())
                 upperVertex = nodeStack.get(depth-1);
             else
                 upperVertex = null;
         }
-        if(ctx.LOR() != null && enable) {
+        if(ctx.LOR() != null ) {
             resetGraph();
         }
         return visitChildren(ctx);
@@ -206,19 +200,19 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
         // GRAPH CREATION: linking names to nodes
-        if(ctx.IDENTIFIER() != null && enable) {
+        if(ctx.IDENTIFIER() != null ) {
             Vertex vertex = new Vertex(nameCounter,ctx.IDENTIFIER().toString(),false);
             currentGraph.addVertex(vertex);
             currentGraph.addEdge(currentVertex,vertex);
             nameCounter--;
         }
-        else if(ctx.VARIABLE() != null && enable) {
+        else if(ctx.VARIABLE() != null ) {
             Vertex vertex = new Vertex(nameCounter,ctx.VARIABLE().toString()+ctx.IDENTIFIER(),false);
             currentGraph.addVertex(vertex);
             currentGraph.addEdge(currentVertex,vertex);
             nameCounter--;
         }
-        else if(ctx.UNLINKED() != null && enable) {
+        else if(ctx.UNLINKED() != null ) {
             Vertex vertex = new Vertex(nameCounter,ctx.UNLINKED().toString(),false);
             currentGraph.addVertex(vertex);
             currentGraph.addEdge(currentVertex,vertex);
@@ -232,18 +226,16 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
-        enable = true;
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
         visitChildren(ctx);
         createModelGraph(currentGraph);
-        enable = false;
         return null;
     }
 
 
     @Override public Void visitProperty (BigraphParser.PropertyContext ctx){
-        return visitChildren(ctx);
+        return null;
     }
 
 

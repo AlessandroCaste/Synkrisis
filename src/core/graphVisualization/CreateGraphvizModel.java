@@ -40,7 +40,6 @@ public class CreateGraphvizModel {
 
             //  Adjusting shapes
             nodeAttrs().add("shape","box");
-
             nodeAttrs().add("style", "rounded");
             linkAttrs().add("arrowsize", 0.8);
 

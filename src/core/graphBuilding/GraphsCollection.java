@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class GraphsCollection {
 
-    Multigraph<Vertex, DefaultEdge> model;
-    ArrayList<GraphReaction> reactionsList = new ArrayList<>();
+    private Multigraph<Vertex, DefaultEdge> model;
+    private ArrayList<GraphReaction> reactionsList = new ArrayList<>();
 
     private static GraphsCollection instance;
 
@@ -21,11 +21,11 @@ public class GraphsCollection {
         return instance;
     }
 
-    public void addModel(Multigraph<Vertex, DefaultEdge> model) {
+    void addModel(Multigraph<Vertex, DefaultEdge> model) {
         this.model = model;
     }
 
-    public void addReaction(GraphReaction reaction) {
+    void addReaction(GraphReaction reaction) {
         reactionsList.add(reaction);
     }
 
@@ -37,7 +37,11 @@ public class GraphsCollection {
         }
     }
 
+    public Multigraph<Vertex, DefaultEdge> getModel() {
+        return model;
+    }
 
-
-
+    public ArrayList<GraphReaction> getReactionsList() {
+        return reactionsList;
+    }
 }

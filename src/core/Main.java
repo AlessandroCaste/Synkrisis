@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,6 +48,19 @@ public class Main {
                     graphvizVisitor.visit(tree);
                     graphvizVisitor.storeModelName();
                     GraphsCollection.getInstance().printModel();
+
+
+                // Sending input to bigmc
+                String workingDirectory = System.getProperty("user.dir");
+                ProcessBuilder pb = new ProcessBuilder("lib/bigmc", "", filename);
+                // Fixare qua!!!
+                pb.directory(new File(System.getProperty("user.dir")));
+                pb.redirectErrorStream(true);
+                Process p = pb.start();
+                IOUtils.copy(p.getInputStream(), System.out);
+                p.waitFor();
+
+
                 } else {
                     System.out.println("Can't produce graphic models");
                 }
@@ -58,6 +72,10 @@ public class Main {
                 //e.printStackTrace();
                 System.out.println(e.getMessage());
                 System.out.println("Parsing can't proceed");
+
+             // Terminal Handling
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         } else {
             System.out.println("Missing input!");
