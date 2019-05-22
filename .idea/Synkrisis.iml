@@ -36,6 +36,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="org.slf4j:slf4j-nop:1.7.26" level="project" />
+    <orderEntry type="library" name="Simple Logging Facade for Java:1.7.26" level="project" />
+    <orderEntry type="library" name="commons-cli:commons-cli:1.4" level="project" />
   </component>
 </module>

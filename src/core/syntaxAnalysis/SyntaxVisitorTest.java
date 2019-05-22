@@ -39,6 +39,7 @@ class SyntaxVisitorTest {
 
     }
 
+    @SuppressWarnings("Duplicates")
     SyntaxVisitor createVisitor(String path) {
         try {
             File inputFile = new File(path);

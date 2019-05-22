@@ -314,7 +314,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
             return true;
     }
 
-    String getModelName(){
+    public String getModelName(){
         return modelName;
     }
 
@@ -322,7 +322,4 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
         return acceptableModel;
     }
 
-    public String getErrorString() {
-        return errorString.toString();
-    }
 }

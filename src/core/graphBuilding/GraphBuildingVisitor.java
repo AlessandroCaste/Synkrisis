@@ -230,6 +230,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         modelName = ctx.IDENTIFIER().getText();
         visitChildren(ctx);
         createModelGraph(currentGraph);
+        // Saving model name for graphviz printing
+        CreateGraphvizModel.getInstance().setModelName(modelName);
         return null;
     }
 
@@ -283,9 +285,4 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         depth = 0;
     }
 
-
-
-    public void storeModelName() {
-        CreateGraphvizModel.getInstance().setModelName(modelName);
-    }
 }
