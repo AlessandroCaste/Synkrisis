@@ -1,16 +1,15 @@
 package core;
 
-import antlr.BigraphLexer;
-import antlr.BigraphParser;
+import antlr.bigraph.BigraphLexer;
+import antlr.bigraph.BigraphParser;
+import antlr.transition.TransitionLexer;
+import antlr.transition.TransitionParser;
+import core.graphBuilding.GraphBuildingTransitionVisitor;
 import core.graphBuilding.GraphBuildingVisitor;
 import core.graphBuilding.GraphsCollection;
 import core.syntaxAnalysis.ErrorListener;
 import core.syntaxAnalysis.SyntaxVisitor;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -60,6 +59,15 @@ public class Main {
             parser.addErrorListener(ErrorListener.INSTANCE);
             modelTree = parser.bigraph();
 
+            File inputFile2 = new File("hospital.transition");
+            InputStream inputstream2= new FileInputStream(inputFile2);
+            Lexer lexer2 = new TransitionLexer(CharStreams.fromStream(inputstream2));
+            TokenStream ts = new CommonTokenStream(lexer2);
+            TransitionParser tparser = new TransitionParser(ts);
+            ParseTree transitionsTree = tparser.transition();
+            GraphBuildingTransitionVisitor gbtv = new GraphBuildingTransitionVisitor();
+            gbtv.visit(transitionsTree);
+
         } catch(FileNotFoundException e) {
             // TODO : Execution halts goes on and throws unexpected errors
             System.out.println("error");
@@ -107,6 +115,7 @@ public class Main {
         } catch (IOException | InterruptedException e) {
             logger.error("Problems interfacing with bigmc input stream");
         }
+
     }
 
 }

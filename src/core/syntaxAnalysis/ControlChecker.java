@@ -1,6 +1,6 @@
 package core.syntaxAnalysis;
 
-import antlr.BigraphParser;
+import antlr.bigraph.BigraphParser;
 
 class ControlChecker {
 

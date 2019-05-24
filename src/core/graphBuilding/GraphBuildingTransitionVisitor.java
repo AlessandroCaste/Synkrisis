@@ -1,98 +1,36 @@
+// Generated from /home/ale/Synkrisis/src/core/g4model/Transition.g4 by ANTLR 4.7.2
 package core.graphBuilding;
-
-import antlr.bigraph.BigraphParser;
-import antlr.bigraph.BigraphVisitor;
+import antlr.transition.TransitionParser;
+import antlr.transition.TransitionVisitor;
 import core.graphVisualization.CreateGraphvizModel;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
-import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
 
-
-public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
-
-    // This differentiates analysis for models' expressions
-    private boolean modelVisited = false;
-
-    // Model name to check file integrity
-    private String modelName;
-
-
-    @Override
-    public Void visitChildren(RuleNode node) {
-        return super.visitChildren(node);
-    }
+@SuppressWarnings("Duplicates")
+public class GraphBuildingTransitionVisitor<Void> extends AbstractParseTreeVisitor<Void> implements TransitionVisitor<Void> {
 
     // Graph Representation
     private Multigraph<Vertex, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Vertex,DefaultEdge> redex = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Vertex,DefaultEdge> reactum = new Multigraph<>(DefaultEdge.class);
+    int stateNumber = 1;
     private boolean nested = false;
     private boolean parallel = false;
     private Stack<Vertex> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
     private Vertex currentVertex = new Vertex(0,"Root",true);
-    private Vertex upperVertex = null;                                   // Direct parent node. -1 equals 'no parent'
+    private Vertex upperVertex = null;                              // Direct parent node. -1 equals 'no parent'
     private int nodeCounter = 1;                                    // Represents the growing unique id of every node
     private int nameCounter = -1;                                   // Represents the decreasing unique id of every name
     private int depth = 0;                                          // Nesting depth
     private boolean root = true;
-    private String reactionName = "";
+    private ArrayList<String> propertiesList = new ArrayList<>();
 
+    @Override public Void visitTransition(TransitionParser.TransitionContext ctx) { return visitChildren(ctx); }
 
-    @Override
-    public Void visitBigraph(BigraphParser.BigraphContext ctx) {
-        return visitChildren(ctx);
-    }
-
-
-    @Override
-    public Void visitControls(BigraphParser.ControlsContext ctx) {
-        return visitChildren(ctx);
-    }
-
-
-    @Override
-    public Void visitControl_statements(BigraphParser.Control_statementsContext ctx) {return visitChildren(ctx);}
-
-
-    @Override
-    public Void visitNames(BigraphParser.NamesContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Void visitName_statements(BigraphParser.Name_statementsContext ctx) {return visitChildren(ctx);}
-
-
-    @Override
-    public Void visitReactions(BigraphParser.ReactionsContext ctx) {
-        if(ctx.IDENTIFIER() != null)
-            reactionName = ctx.IDENTIFIER().toString();
-        return visitChildren(ctx);
-    }
-
-
-    @Override public Void visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
-        // I reset the latest graph
-        currentGraph = new Multigraph<>(DefaultEdge.class);
-        resetGraph();
-        visit(ctx.getChild(0));
-        redex = currentGraph;
-        // Reset tree info for reactum tree
-        currentGraph = new Multigraph<>(DefaultEdge.class);
-        resetGraph();
-        visit(ctx.getChild(2));
-        reactum = currentGraph;
-        createReactionGraph(redex,reactum,reactionName);
-        return null;
-    }
-
-    // We track usages and also save info on the current control term to verify whether its arity matches links arity
-    @SuppressWarnings("Duplicates")
-    @Override public Void visitExpression (BigraphParser.ExpressionContext ctx) {
-
+    @Override public Void visitExpression(TransitionParser.ExpressionContext ctx) {
         // GRAPH CREATION: calculating depths and nesting of parents
         if(ctx.LPAR()!=null ) {
             depth++;
@@ -172,9 +110,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return visitChildren(ctx);
     }
 
-    @SuppressWarnings("Duplicates")
-    @Override public Void visitRegions (BigraphParser.RegionsContext ctx){
-        // GRAPH CREATION: every time there's a parallel region I reset the parent node pointer
+
+    @Override public Void visitRegions(TransitionParser.RegionsContext ctx) {         // GRAPH CREATION: every time there's a parallel region I reset the parent node pointer
         if(ctx.PAR() != null ) {
             parallel = true;
             if(!nodeStack.isEmpty())
@@ -188,19 +125,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return visitChildren(ctx);
     }
 
-    @Override public Void visitPrefix (BigraphParser.PrefixContext ctx){
-        // GRAPH CREATION: current node becomes a parent node
+    @Override public Void visitPrefix(TransitionParser.PrefixContext ctx) {         // GRAPH CREATION: current node becomes a parent node
         nested = true;
         parallel = false;
         upperVertex = currentVertex;
         return visitChildren(ctx);
     }
 
-    @SuppressWarnings("Duplicates")
-    @Override public Void visitLinks (BigraphParser.LinksContext ctx){
-
-
-        // GRAPH CREATION: linking names to nodes
+    @Override public Void visitLinks(TransitionParser.LinksContext ctx) { // GRAPH CREATION: linking names to nodes
         if(ctx.IDENTIFIER() != null ) {
             Vertex vertex = new Vertex(nameCounter,ctx.IDENTIFIER().toString(),false);
             currentGraph.addVertex(vertex);
@@ -222,59 +154,24 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return visitChildren(ctx);
     }
 
-
-    @Override public Void visitModel (BigraphParser.ModelContext ctx){
+    @Override public Void visitState(TransitionParser.StateContext ctx) {
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
-        modelVisited = true;
-        modelName = ctx.IDENTIFIER().getText();
+        stateNumber = Integer.parseInt(ctx.DIGIT().getText());
+        // TODO
         visitChildren(ctx);
-        createModelGraph(currentGraph);
-        // Saving model name for graphviz printing
-        CreateGraphvizModel.getInstance().setModelName(modelName);
+        CreateGraphvizModel.getInstance().setModelName(Integer.toString(stateNumber));
+        stateNumber++;
+        CreateGraphvizModel.getInstance().createModel(currentGraph);
         return null;
     }
 
-
-    @Override public Void visitProperty (BigraphParser.PropertyContext ctx){
-        return null;
-    }
-
-
-    @Override public Void visitProperty_statement (BigraphParser.Property_statementContext ctx){
-        return visitChildren(ctx);
-    }
-
-
-    @Override public Void visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
-        return visitChildren(ctx);
-    }
-
-    @Override public Void visitBinary_operation (BigraphParser.Binary_operationContext ctx){
-        return visitChildren(ctx);
-    }
-
-    @Override public Void visitTerm (BigraphParser.TermContext ctx){
-        return visitChildren(ctx);
-    }
-
-    @Override public Void visitParameters_list (BigraphParser.Parameters_listContext ctx){
-        return visitChildren(ctx);
-    }
-
-    @Override public Void visitParameter (BigraphParser.ParameterContext ctx){
-        return visitChildren(ctx);
-    }
-
-    private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {
-        GraphsCollection.getInstance().addModel(model);
-    }
-
-    private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
-        GraphReaction reaction = new GraphReaction(redex,reactum,ruleName);
-        GraphsCollection.getInstance().addReaction(reaction);
-    }
+    @Override public Void visitProperties(TransitionParser.PropertiesContext ctx) {
+        int numberOfProperties = ctx.IDENTIFIER().size();
+        for(int i = 0; i < numberOfProperties; i++)
+            propertiesList.add(ctx.IDENTIFIER(i).getText());
+        return visitChildren(ctx); }
 
     private void resetGraph() {
         parallel = false;
@@ -284,6 +181,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         currentVertex = null;
         upperVertex = null;
         depth = 0;
+        propertiesList = new ArrayList<>();
     }
+
 
 }

@@ -1,7 +1,7 @@
 package core.syntaxAnalysis;
 
-import antlr.BigraphLexer;
-import antlr.BigraphParser;
+import antlr.bigraph.BigraphLexer;
+import antlr.bigraph.BigraphParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;

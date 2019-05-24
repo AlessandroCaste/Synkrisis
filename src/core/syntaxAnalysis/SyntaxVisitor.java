@@ -1,7 +1,7 @@
 package core.syntaxAnalysis;
 
-import antlr.BigraphParser;
-import antlr.BigraphVisitor;
+import antlr.bigraph.BigraphParser;
+import antlr.bigraph.BigraphVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
