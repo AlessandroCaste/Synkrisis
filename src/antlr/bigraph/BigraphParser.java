@@ -1,4 +1,4 @@
-package antlr.bigraph;// Generated from C:/Users/caste/IdeaProjects/Synkrisis/src\Bigraph.g4 by ANTLR 4.7.2
+package antlr.bigraph;// Generated from C:/Users/caste/IdeaProjects/Synkrisis/src\bigraph.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -93,7 +93,7 @@ public class BigraphParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "core/g4model/Bigraph.g4"; }
+	public String getGrammarFileName() { return "antlr/g4models/bigraph.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

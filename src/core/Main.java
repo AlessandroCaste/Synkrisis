@@ -2,9 +2,6 @@ package core;
 
 import antlr.bigraph.BigraphLexer;
 import antlr.bigraph.BigraphParser;
-import antlr.transition.TransitionLexer;
-import antlr.transition.TransitionParser;
-import core.graphBuilding.GraphBuildingTransitionVisitor;
 import core.graphBuilding.GraphBuildingVisitor;
 import core.graphBuilding.GraphsCollection;
 import core.syntaxAnalysis.ErrorListener;
@@ -13,11 +10,15 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedMultigraph;
+import org.jgrapht.io.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 import java.io.*;
+import java.util.Map;
 
 
 public class Main {
@@ -31,7 +32,7 @@ public class Main {
 
 
     @SuppressWarnings("Duplicates")
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ImportException {
         if (args.length > 0) {
             filename = args[0];
             setupSynk(filename);
@@ -41,14 +42,14 @@ public class Main {
             else
                 System.out.println("Can't produce graphic model with wrong specifications!");
             executeBigmc();
-
+            processTransition();
         }
 
     }
 
     // Setupping the file for analysis
     @SuppressWarnings("Duplicates")
-    private static void setupSynk(String filename)  {
+    private static void setupSynk(String filename) {
         try {
             File inputFile = new File(filename);
             InputStream inputStream = new FileInputStream(inputFile);
@@ -58,15 +59,6 @@ public class Main {
             parser.removeErrorListeners();
             parser.addErrorListener(ErrorListener.INSTANCE);
             modelTree = parser.bigraph();
-
-            File inputFile2 = new File("hospital.transition");
-            InputStream inputstream2= new FileInputStream(inputFile2);
-            Lexer lexer2 = new TransitionLexer(CharStreams.fromStream(inputstream2));
-            TokenStream ts = new CommonTokenStream(lexer2);
-            TransitionParser tparser = new TransitionParser(ts);
-            ParseTree transitionsTree = tparser.transition();
-            GraphBuildingTransitionVisitor gbtv = new GraphBuildingTransitionVisitor();
-            gbtv.visit(transitionsTree);
 
         } catch(FileNotFoundException e) {
             // TODO : Execution halts goes on and throws unexpected errors
@@ -104,10 +96,11 @@ public class Main {
     // Sending input to bigmc
     private static void executeBigmc() {
         String workingDirectory = System.getProperty("user.dir");
-        ProcessBuilder pb = new ProcessBuilder("lib/bigmc", "", filename);
+        ProcessBuilder pb = new ProcessBuilder("lib/bigmc", "-G hospital", filename);
         // Fixare qua!!!
         pb.directory(new File(workingDirectory));
         pb.redirectErrorStream(true);
+
         try {
             Process p = pb.start();
             IOUtils.copy(p.getInputStream(), System.out);
@@ -115,7 +108,35 @@ public class Main {
         } catch (IOException | InterruptedException e) {
             logger.error("Problems interfacing with bigmc input stream");
         }
+    }
 
+    private static void processTransition() {
+        try {
+            DirectedMultigraph<String, DefaultEdge> graph = new DirectedMultigraph<>(DefaultEdge.class);
+            VertexProvider<String> vertexProvider = new VertexProvider<String>() {
+                @Override
+                public String buildVertex(String s, Map<String, Attribute> map) {
+                    return s;
+                }
+            };
+            EdgeProvider<String, DefaultEdge> edgeEdgeProvider = new EdgeProvider<String, DefaultEdge>() {
+                @Override
+                public DefaultEdge buildEdge(String s, String v1, String s2, Map<String, Attribute> map) {
+                    DefaultEdge de = new DefaultEdge();
+                    graph.addEdge(s, v1);
+                    return de;
+                }
+            };
+            DOTImporter<String, DefaultEdge> importer = new DOTImporter<>(vertexProvider, edgeEdgeProvider);
+            FileReader miao = new FileReader(modelName + ".dot");
+            importer.importGraph(graph, miao);
+            //TODO
+            // Specify a more complex behavior for exception management
+        } catch (FileNotFoundException fe) {
+            System.err.println(fe.getMessage());
+        } catch (ImportException ie) {
+            System.err.println(ie.getMessage());
+        }
     }
 
 }

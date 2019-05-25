@@ -1,4 +1,4 @@
-// Generated from C:/Users/caste/IdeaProjects/Synkrisis/src\Bigraph.g4 by ANTLR 4.7.2
+// Generated from C:/Users/caste/IdeaProjects/Synkrisis/src\bigraph.g4 by ANTLR 4.7.2
 package antlr.bigraph;
 
 import org.antlr.v4.runtime.ParserRuleContext;

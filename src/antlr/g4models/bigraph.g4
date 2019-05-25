@@ -1,4 +1,4 @@
-grammar Bigraph;
+grammar bigraph;
 
 /*
 Parser

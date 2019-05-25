@@ -1,5 +1,6 @@
 package core.graphBuilding;
 
+
 public class Vertex {
 
     private int vertexId;
@@ -10,6 +11,7 @@ public class Vertex {
         this.vertexId = vertexId;
         this.vertexLabel = vertexLabel;
         this.control = control;
+
     }
 
     public int getVertexId() {
