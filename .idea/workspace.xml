@@ -11,13 +11,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" line="190" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3773527f-0b43-4f16-b833-858167a91ec7" name="Default Changelist" comment="Execution Flow Synkrisis -&gt; Bigmc now works">
-      <change beforePath="$PROJECT_DIR$/.idea/Synkrisis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Synkrisis.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" afterDir="false" />
+    <list default="true" id="3773527f-0b43-4f16-b833-858167a91ec7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/graphVisualization/CreateGraphvizModel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,12 +39,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/core/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="168" column="126" selection-start-line="168" selection-start-column="126" selection-end-line="168" selection-end-column="126" />
+            <state relative-caret-position="149">
+              <caret line="104" column="53" selection-start-line="104" selection-start-column="53" selection-end-line="104" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7570#7605#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hospital/hospital.transition">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="13" column="48" selection-end-line="88" />
             </state>
           </provider>
         </entry>
@@ -87,7 +91,6 @@
       <find>instance</find>
       <find>g4model</find>
       <find>T</find>
-      <find>bigmc</find>
       <find>properties</find>
       <find>hospital</find>
       <find>1719</find>
@@ -110,6 +113,7 @@
       <find>equals</find>
       <find>-s</find>
       <find>adjustMargin</find>
+      <find>bigmc</find>
     </findStrings>
     <replaceStrings>
       <replace>currentGraph</replace>
@@ -210,12 +214,12 @@
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
               <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="hospital" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
               <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
@@ -305,7 +309,7 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="src/test/airporat.bigraph" />
+      <option name="PROGRAM_PARAMETERS" value="src/test/hospital.bigraph" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -408,7 +412,7 @@
       <workItem from="1558890209173" duration="1225000" />
       <workItem from="1558891912547" duration="319000" />
       <workItem from="1558952790920" duration="3549000" />
-      <workItem from="1558957278801" duration="23645000" />
+      <workItem from="1558957278801" duration="24830000" />
     </task>
     <task id="LOCAL-00001" summary="Graphviz plotting and jGraphT applications: WIP">
       <created>1555805776493</created>
@@ -543,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558978569043</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Execution Flow Synkrisis -&gt; Bigmc now works">
+      <created>1558998743313</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1558998743313</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -579,7 +590,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104966000" />
+    <option name="totallyTimeSpent" value="106151000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -604,7 +615,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32747254" />
       <window_info anchor="bottom" x="470" y="514" width="1117" height="266" id="Run" order="2" sideWeight="0.49946696" weight="0.2736264" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.4054945" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" visible="true" weight="0.4054945" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32960895" />
@@ -613,7 +624,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.29988974" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32964426" />
       <window_info anchor="bottom" id="ANTLR Preview" order="11" weight="0.35714287" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.21098901" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.21098901" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="13" weight="0.32928178" />
       <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32928178" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
@@ -710,15 +721,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/core/Main.java</url>
-          <line>108</line>
+          <line>107</line>
           <properties />
           <option name="timeStamp" value="235" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/core/Main.java</url>
-          <line>78</line>
+          <line>77</line>
           <properties />
           <option name="timeStamp" value="244" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/Main.java</url>
+          <line>110</line>
+          <properties />
+          <option name="timeStamp" value="245" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1002,11 +1019,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hospital/hospital.transition">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1326" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airport/airport.transition">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1030,13 +1042,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/hospital/hospital.transition">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="13" column="48" selection-end-line="88" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="168" column="126" selection-start-line="168" selection-start-column="126" selection-end-line="168" selection-end-column="126" />
+        <state relative-caret-position="149">
+          <caret line="104" column="53" selection-start-line="104" selection-start-column="53" selection-end-line="104" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7570#7605#0" expanded="true" />
           </folding>
         </state>
       </provider>

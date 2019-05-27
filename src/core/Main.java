@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 
 public class Main {
@@ -50,7 +49,7 @@ public class Main {
 
     }
 
-    // Setupping the file for analysis
+    // File setup for analysis
     @SuppressWarnings("Duplicates")
     private static void setupSynk(File inputFile) {
         try {
@@ -102,66 +101,54 @@ public class Main {
         try{
             String workingDirectory = System.getProperty("user.dir");
             // TODO What about implementing bigmc inside .jar?
-            ProcessBuilder pb = new ProcessBuilder("bigmc", "-s", filename);
+            ProcessBuilder pb = new ProcessBuilder("lib/bigmc", "-s", filename);
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);
             pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));
             Process p = pb.start();
             p.waitFor();
-
         } catch (IOException | InterruptedException e) {
             logger.error("Problems interfacing with bigmc input stream");
         }
     }
 
+    // Translating the transition graph to a jgrapht graph
     private static void processTransition() {
         try {
-            // Dot translation uses a special kind of vertex that stores both a label and a list of properties
             DirectedMultigraph<VertexTransitionGraph, DefaultEdge> graph = new DirectedMultigraph<>(DefaultEdge.class);
-            VertexProvider<VertexTransitionGraph> vertexProvider = new VertexProvider<VertexTransitionGraph>() {
-                @Override
-                public VertexTransitionGraph buildVertex(String s, Map<String, Attribute> map) {
-                    // Extracting attributes from dot representation
-                    Attribute label = map.get("label");
-                    Attribute properties = map.get("properties");
-                    // Creating strings and arraylist for Vertex representation
-                    String labelString;
-                    String propertiesString;
-                    ArrayList<String> propertiesList;
-                    if(label != null)
-                        labelString = label.toString();
-                    else
-                        labelString = "";
-                    if(properties != null) {
-                        propertiesString = properties.toString();
-                        propertiesList = new ArrayList<>(Arrays.asList(propertiesString.split("\\s*,\\s*")));
-                    }
-                    else
-                        propertiesList = null;
-                    return new VertexTransitionGraph(s,labelString,propertiesList);
+
+            // The following methods specify how to create vertices, edges, and update them during parsing
+            // Dot translation uses a special kind of vertex that stores an ID, a label and a list of properties
+            VertexProvider<VertexTransitionGraph> vertexProvider = (s, map) -> {
+                // Extracting attributes from dot representation
+                Attribute label = map.get("label");
+                Attribute properties = map.get("properties");
+                String labelString;
+                ArrayList<String> propertiesList;
+                if(label != null)
+                    labelString = label.toString();
+                else
+                    labelString = "";
+                if(properties != null)
+                    propertiesList = new ArrayList<>(Arrays.asList(properties.toString().split("\\s*,\\s*")));
+                else
+                    propertiesList = null;
+                return new VertexTransitionGraph(s,labelString,propertiesList);
+            };
+            EdgeProvider<VertexTransitionGraph, DefaultEdge> edgeProvider = (v1, v2, s2, map) -> new DefaultEdge();
+            ComponentUpdater<VertexTransitionGraph> vertexUpdater = (vertex, map) -> {
+                Attribute label = map.get("label");
+                Attribute properties = map.get("properties");
+                ArrayList<String> propertiesList;
+                if(label != null)
+                    vertex.setLabel(label.toString());
+                if(properties != null) {
+                    propertiesList = new ArrayList<>(Arrays.asList(properties.toString().split("\\s*,\\s*")));
+                    vertex.setProperties(propertiesList);
                 }
             };
-            EdgeProvider<VertexTransitionGraph, DefaultEdge> edgeProvider = new EdgeProvider<VertexTransitionGraph, DefaultEdge>() {
-                @Override
-                public DefaultEdge buildEdge(VertexTransitionGraph v1, VertexTransitionGraph v2, String s2, Map<String, Attribute> map) {
-                    return new DefaultEdge();
-                }
-            };
-            ComponentUpdater<VertexTransitionGraph> vertexUpdater = new ComponentUpdater<VertexTransitionGraph>() {
-                @Override
-                public void update(VertexTransitionGraph vertexTransitionGraph, Map<String, Attribute> map) {
-                    Attribute label = map.get("label");
-                    Attribute properties = map.get("properties");
-                    ArrayList<String> propertiesList;
-                    if(label != null)
-                        vertexTransitionGraph.setLabel(label.toString());
-                    if(properties != null) {
-                        propertiesList = new ArrayList<>(Arrays.asList(properties.toString().split("\\s*,\\s*")));
-                        vertexTransitionGraph.setProperties(propertiesList);
-                    }
-                }
-            };
-            DOTImporter<VertexTransitionGraph, DefaultEdge> importer = new DOTImporter<VertexTransitionGraph,DefaultEdge>(vertexProvider, edgeProvider,vertexUpdater);
+
+            DOTImporter<VertexTransitionGraph, DefaultEdge> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
             FileReader transitionFile = new FileReader(modelName+"/"+modelName+".transition");
             importer.importGraph(graph, transitionFile);
             // Testing reactions
