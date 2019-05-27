@@ -7,12 +7,14 @@ import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
-import guru.nidi.graphviz.engine.GraphvizJdkEngine;
 import guru.nidi.graphviz.model.MutableGraph;
+import guru.nidi.graphviz.model.MutableNode;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,18 +49,8 @@ public class CreateGraphvizModel {
             for (Vertex x : currentGraph.vertexSet()) {
                 if (x.isControl()) {
                     String nodeLabel = x.getVertexLabel();
-
-                    // Font size adjusting for more readable results
-                    double labelLength = nodeLabel.length();
-                    if(labelLength<10)
-                        nodeAttrs().add("margin","0.2,0.1");
-                    else if(labelLength<18)
-                        nodeAttrs().add("margin","0.3,0.1");
-                    else if(labelLength>18) {
-                        double differential = (labelLength / 6) * 0.1;
-                        nodeAttrs().add("margin",differential+",0.1");
-                    }
-                    mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel);
+                    int labelLength = nodeLabel.length();
+                    mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel).add("margin",adjustMargins(labelLength));
                 }
             }
             // Adding edges
@@ -84,7 +76,9 @@ public class CreateGraphvizModel {
             }
         });
         try {
-             Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File(modelName + "/" + modelName +".svg"));
+            // TODO : I could let users to choose
+            //Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File(modelName + "/" + modelName +".svg"));
+            Graphviz.fromGraph(g).render(Format.PNG).toFile(new File(modelName + "/" + modelName +".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,23 +94,45 @@ public class CreateGraphvizModel {
         String ruleName = gr.getRulename();
 
 
-        MutableGraph g1 = buildReactionGraph(redexGraph,colorHashMap);
-        MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap);
+        MutableGraph g1 = buildReactionGraph(redexGraph,colorHashMap,ruleName + " : Redex");
+        MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap,ruleName + " : Reactum");
 
         try {
-        Graphviz.fromGraph(g1).width((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())
-                              .height((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight())
-                               .render(Format.SVG).toFile(new File(modelName +"/" + ruleName + " - Redex" + ".svg"));
-        Graphviz.fromGraph(g2).width((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())
-                                                                      .height((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight())
-                                                                      .render(Format.SVG).toFile(new File(modelName + "/" + ruleName + " - Reactum" + ".svg"));
-        } catch (IOException e) {
+            /* OLD SVG PRINTING
+
+             Graphviz.fromGraph(g1).width((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())
+             .height((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight())
+             .render(Format.SVG).toFile(new File(modelName +"/" + ruleName + " - Redex" + ".svg"));
+             Graphviz.fromGraph(g2).width((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())
+             .height((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight())
+             .render(Format.SVG).toFile(new File(modelName + "/" + ruleName + " - Reactum" + ".svg"));
+
+             */
+
+        BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
+        BufferedImage graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
+        int maxHeight = Math.max(graphvizGraph1.getHeight(),graphvizGraph2.getHeight());
+        BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g3 = mergedImage.createGraphics();
+        g3.setPaint(java.awt.Color.WHITE);
+        g3.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
+        g3.drawImage(graphvizGraph1,null,0,0);
+        g3.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
+        g3.dispose();
+        ImageIO.write(mergedImage,"png", new File(modelName + "/" + ruleName + ".png"));
+
+        } catch (/*IO*/Exception e) {
                 e.printStackTrace();
         }
     }
 
-    private MutableGraph buildReactionGraph(Multigraph<Vertex,DefaultEdge> currentGraph, HashMap<String,Color> colorHashMap) {
+    @SuppressWarnings("Duplicates")
+    private MutableGraph buildReactionGraph(Multigraph<Vertex,DefaultEdge> currentGraph, HashMap<String,Color> colorHashMap, String ruleName) {
        MutableGraph g = mutGraph("Reactions").setDirected(true).use((gr, ctx) -> {
+
+           // Title node
+           MutableNode title = mutNode(ruleName).attrs().add(Shape.RECTANGLE).add("fontsize",16)
+                   .add("margin",adjustMargins(ruleName.length()));
 
             //  Adjusting shapes
             nodeAttrs().add(Shape.RECTANGLE);
@@ -130,10 +146,10 @@ public class CreateGraphvizModel {
                 if (v.isControl()) {
                     if (nodeLabel.contains("$")) {
                         nodeAttrs().add(Shape.DOUBLE_OCTAGON);
-                        mutNode(nodeId).attrs().add("label", nodeLabel).attrs();
+                        mutNode(nodeId).attrs().add("label", nodeLabel).attrs().add("margin",adjustMargins(nodeLabel.length()));
                     } else {
                         nodeAttrs().add(Shape.RECTANGLE);
-                        mutNode(nodeId).attrs().add("label", nodeLabel);
+                        mutNode(nodeId).attrs().add("label", nodeLabel).add("margin",adjustMargins(nodeLabel.length()));
                     }
                 } else {
                     Color customColor;
@@ -173,11 +189,24 @@ public class CreateGraphvizModel {
                     mutNode(sourceId).addLink(mutNode(targetLabel));
                 }
             }
-        });
+          });
+
+
         return g;
     }
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
+    }
+
+    private String adjustMargins(double labelLength) {
+        if(labelLength<10)
+            return("0.2,0.1");
+        else if(labelLength<18)
+            return("0.3,0.1");
+        else {
+            double differential = (labelLength / 6) * 0.1;
+            return(differential+",0.1");
+        }
     }
 }

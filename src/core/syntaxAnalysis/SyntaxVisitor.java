@@ -306,14 +306,6 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
         return returnString.toString();
     }
 
-    public boolean checkModelName(String fileName) {
-        if (!fileName.equals(modelName+".txt") && !fileName.equals(modelName+".bigraph")) {
-            acceptableModel = false;
-            return false;
-        } else
-            return true;
-    }
-
     public String getModelName(){
         return modelName;
     }
