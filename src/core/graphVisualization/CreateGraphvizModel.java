@@ -113,15 +113,15 @@ public class CreateGraphvizModel {
         BufferedImage graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
         int maxHeight = Math.max(graphvizGraph1.getHeight(),graphvizGraph2.getHeight());
         BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g3 = mergedImage.createGraphics();
-        g3.setPaint(java.awt.Color.WHITE);
-        g3.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
-        g3.drawImage(graphvizGraph1,null,0,0);
-        g3.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
-        g3.dispose();
+        Graphics2D finalPicture = mergedImage.createGraphics();
+        finalPicture.setPaint(java.awt.Color.WHITE);
+        finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
+        finalPicture.drawImage(graphvizGraph1,null,0,0);
+        finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
+        finalPicture.dispose();
         ImageIO.write(mergedImage,"png", new File(modelName + "/" + ruleName + ".png"));
 
-        } catch (/*IO*/Exception e) {
+        } catch (IOException e) {
                 e.printStackTrace();
         }
     }
@@ -199,6 +199,7 @@ public class CreateGraphvizModel {
         this.modelName = modelName;
     }
 
+    // Automatically adjusts the size of margins according to text length
     private String adjustMargins(double labelLength) {
         if(labelLength<10)
             return("0.2,0.1");
