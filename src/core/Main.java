@@ -8,6 +8,7 @@ import core.graphBuilding.VertexTransitionGraph;
 import core.syntaxAnalysis.ErrorListener;
 import core.syntaxAnalysis.SyntaxVisitor;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -32,7 +33,6 @@ public class Main {
     private static ParseTree modelTree;
     private static boolean acceptableModel;
 
-
     private static Logger logger = Logger.getLogger("Report");
     private static FileHandler fh;
 
@@ -49,9 +49,12 @@ public class Main {
                     graphvizModel();
                     executeBigmc();
                     processTransition();
-                }
+                } else
+                System.out.println("Error in syntax analysis: processing can't go any further");
             }
-            System.out.println("Model printing and transition generation can't proceed");
+            else {
+                System.out.println("Model printing and transition generation can't proceed");
+            }
         }
 
     }
@@ -61,6 +64,7 @@ public class Main {
     private static boolean setupSynk(File inputFile) {
         boolean successfullSetup = false;
         try {
+            logger.log(Level.INFO, "Parsing tree creation started");
             InputStream inputStream = new FileInputStream(inputFile);
             Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
             TokenStream tokenStream = new CommonTokenStream(lexer);
@@ -71,45 +75,49 @@ public class Main {
             successfullSetup = true;
         } catch(FileNotFoundException e) {
             // TODO : Execution halts goes on and throws unexpected errors
-            System.out.println("[ERROR] File \"" + inputFile.getPath() + "\" not found");
-            logger.log(Level.SEVERE,"Couldn't find the requested file " + inputFile.getAbsolutePath() );
-
+            System.out.println("[FATAL ERROR] File \"" + inputFile.getPath() + "\" not found");
+            logger.log(Level.SEVERE,"Couldn't find the requested file " + inputFile.getAbsolutePath() + "\nStack trace:" + e.getMessage());
         } catch (IOException e) {
-            // TODO : LexerStream errors are not managed
-            System.out.println("Error");
+            System.out.println("[FATAL ERROR] Can't create the Lexer to start analysis" + inputFile.getName());
+            logger.log(Level.SEVERE, "Can't create CharStreams from the InputStream of " + inputFile.getName() + "\nStack trace:" + e.getMessage());
+        } catch (ParseCancellationException | NumberFormatException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Parsing can't proceed");
+            logger.log(Level.SEVERE,e.getMessage());
         }
+        logger.log(Level.INFO,"Parsing tree creation concluded");
         return successfullSetup;
     }
 
     // Syntax Visitor execution
     private static boolean syntaxAnalysis(String inputFileName) {
+        logger.log(Level.INFO,"Syntax visitor started");
         SyntaxVisitor syntaxVisitor = new SyntaxVisitor();
         syntaxVisitor.visit(modelTree);
         modelName = syntaxVisitor.getModelName();
         if (!inputFileName.equals(modelName+".bigraph")) {
-            System.out.println("[ERROR] File name and model names do not match");
+            System.out.println("[FATAL ERROR] File name and model names do not match : " + inputFileName + " vs " + modelName +".bigraph");
+            logger.log(Level.SEVERE,"Execution suspended since model name and file name do not match: " + inputFileName + " vs " + modelName +".bigraph.\nCan't run visitor until it's fixed");
             return false;
         }
         System.out.println(syntaxVisitor.getParseResult());
+        logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();
-        // TODO : Throws errors because of uncompleted exception management
     }
-
-    /*  } catch (ParseCancellationException | NumberFormatException e) {
-                //e.printStackTrace();
-                System.out.println(e.getMessage());
-                System.out.println("Parsing can't proceed"); */
 
     // Outputting pictures!
     private static void graphvizModel() {
+        logger.log(Level.INFO,"Jgraph translation from parsetree started");
         GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
         graphvizVisitor.visit(modelTree);
+        logger.log(Level.INFO, "Jgraph translation from parsetree completed. Launching graphviz printing...");
         GraphsCollection.getInstance().printModel();
     }
 
     // Sending input to bigmc
     private static void executeBigmc() {
         try{
+            logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
             // TODO What about implementing bigmc inside .jar?
             ProcessBuilder pb = new ProcessBuilder("lib/bigmc", "-s", filename);
@@ -117,9 +125,11 @@ public class Main {
             pb.redirectErrorStream(true);
             pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));
             Process p = pb.start();
+            logger.log(Level.INFO, "Waiting for bigmc process..");
             p.waitFor();
         } catch (IOException | InterruptedException e) {
-            logger.log(Level.SEVERE,"Problems interfacing with bigmc input stream");
+            System.out.println("Can't work with bigmc: is it correctly installed?");
+            logger.log(Level.SEVERE,"Can't interface with bigmc input stream, probably has to do with the terminal commands not being properly recognized");
         }
     }
 
@@ -162,15 +172,14 @@ public class Main {
             DOTImporter<VertexTransitionGraph, DefaultEdge> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
             FileReader transitionFile = new FileReader(modelName+"/"+modelName+".transition");
             importer.importGraph(graph, transitionFile);
-            // Testing reactions
-            // for(DefaultEdge de : graph.edgeSet())
-            // System.out.println(graph.getEdgeSource(de).getVertexID() + " -> " + graph.getEdgeTarget(de).getVertexID());
-            // TODO
-            // Specify a more complex behavior for exception management
+            logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
+
         } catch (FileNotFoundException fe) {
-            System.err.println(fe.getMessage());
+            System.out.println("[FATAL ERROR] Transition system hasn't been successfully created; problems with the model checker?");
+            logger.log(Level.SEVERE, "Missing transition file; something went wrong when reading the output of the model checker (bigmc?) and printing it to file\nStack trace: " + fe.getMessage());
         } catch (ImportException ie) {
-            System.err.println(ie.getMessage());
+            System.out.println("[FATAL ERROR] Error while importing dot transition file: check for syntax problems");
+            logger.log(Level.SEVERE, "JgraphT parsing of dot file failed; this may have to do with vertex/edge providers, but it probably boils down to wrong dot specifications\n Stack trace: " + ie.getMessage());
         }
     }
 
@@ -178,7 +187,8 @@ public class Main {
         try {
             // This block configure the logger with handler and formatter
             logger.setUseParentHandlers(false);
-            fh = new FileHandler(FilenameUtils.removeExtension(filename) + ".log");
+            filename = FilenameUtils.removeExtension(filename);
+            fh = new FileHandler(filename + "/" + filename +".log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -186,7 +196,8 @@ public class Main {
             logger.info("Log started");
 
         } catch (SecurityException | IOException e) {
-            e.printStackTrace();
+            System.out.println("[FATAL ERROR] Can't setup the logger");
+            logger.log(Level.SEVERE, "Error raised when creating a .log file +\nStack trace: " + e.getMessage());
         }
     }
 

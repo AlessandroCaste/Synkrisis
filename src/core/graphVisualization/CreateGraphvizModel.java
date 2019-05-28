@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static guru.nidi.graphviz.model.Factory.*;
 
@@ -27,6 +29,8 @@ public class CreateGraphvizModel {
     private static CreateGraphvizModel instance;
 
     private String modelName;
+
+    private static Logger logger = Logger.getLogger("Report");
 
     private CreateGraphvizModel() {}
 
@@ -37,8 +41,16 @@ public class CreateGraphvizModel {
     }
 
     public void createModel(Multigraph<Vertex,DefaultEdge> currentGraph) {
+        logger.log(Level.INFO,"Model drawing started");
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
+
+            // Title node
+            MutableNode title = mutNode(modelName + " model").attrs().add(Shape.RECTANGLE).add("fontsize",16)
+                    .add("margin",adjustMargins(modelName.length()));
+
+            // Required only for better spacing
+            mutNode("a").add(Shape.RECTANGLE).add("style","invis");
 
             //  Adjusting shapes
             nodeAttrs().add("shape","box");
@@ -79,13 +91,17 @@ public class CreateGraphvizModel {
             // TODO : I could let users to choose
             //Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File(modelName + "/" + modelName +".svg"));
             Graphviz.fromGraph(g).render(Format.PNG).toFile(new File(modelName + "/" + modelName +".png"));
+            logger.log(Level.INFO,"Graphviz model successfully drawn");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("[GRAPHVIZ ERROR] Can't print out model");
+            logger.log(Level.SEVERE,"Impossible to draw the model\nStack trace: " + e.getMessage());
         }
+        logger.log(Level.INFO,"Model drawing completed");
     }
 
 
    public void createReactions(GraphReaction gr) {
+        logger.log(Level.INFO,"Graphviz reactions drawing started");
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
 
@@ -120,9 +136,10 @@ public class CreateGraphvizModel {
         finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
         finalPicture.dispose();
         ImageIO.write(mergedImage,"png", new File(modelName + "/" + ruleName + ".png"));
-
+        logger.log(Level.INFO,"Reactions successfully drawn and merged");
         } catch (IOException e) {
-                e.printStackTrace();
+            System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
+            logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
         }
     }
 
@@ -190,8 +207,6 @@ public class CreateGraphvizModel {
                 }
             }
           });
-
-
         return g;
     }
 
