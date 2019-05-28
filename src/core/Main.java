@@ -9,17 +9,20 @@ import core.syntaxAnalysis.ErrorListener;
 import core.syntaxAnalysis.SyntaxVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.io.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 
 public class Main {
@@ -29,29 +32,34 @@ public class Main {
     private static ParseTree modelTree;
     private static boolean acceptableModel;
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
+    private static Logger logger = Logger.getLogger("Report");
+    private static FileHandler fh;
 
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
+
         if (args.length > 0) {
             filename = args[0];
             File inputFile = new File(filename);
-            setupSynk(inputFile);
-            acceptableModel = syntaxAnalysis(FilenameUtils.removeExtension(inputFile.getName()));   // String is required to check model name against filename
-            if (acceptableModel)
-                graphvizModel();
-            else
-                System.out.println("Can't produce graphic model with wrong specifications!");
-            executeBigmc();
-            processTransition();
+            setupLogger(inputFile.getName());
+            if(setupSynk(inputFile)) {
+                acceptableModel = syntaxAnalysis(inputFile.getName());   // String is required to check model name against filename
+                if (acceptableModel) {
+                    graphvizModel();
+                    executeBigmc();
+                    processTransition();
+                }
+            }
+            System.out.println("Model printing and transition generation can't proceed");
         }
 
     }
 
     // File setup for analysis
     @SuppressWarnings("Duplicates")
-    private static void setupSynk(File inputFile) {
+    private static boolean setupSynk(File inputFile) {
+        boolean successfullSetup = false;
         try {
             InputStream inputStream = new FileInputStream(inputFile);
             Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
@@ -60,14 +68,17 @@ public class Main {
             parser.removeErrorListeners();
             parser.addErrorListener(ErrorListener.INSTANCE);
             modelTree = parser.bigraph();
-
+            successfullSetup = true;
         } catch(FileNotFoundException e) {
             // TODO : Execution halts goes on and throws unexpected errors
-            logger.error("There's no file like that");
+            System.out.println("[ERROR] File \"" + inputFile.getPath() + "\" not found");
+            logger.log(Level.SEVERE,"Couldn't find the requested file " + inputFile.getAbsolutePath() );
+
         } catch (IOException e) {
             // TODO : LexerStream errors are not managed
             System.out.println("Error");
         }
+        return successfullSetup;
     }
 
     // Syntax Visitor execution
@@ -75,7 +86,7 @@ public class Main {
         SyntaxVisitor syntaxVisitor = new SyntaxVisitor();
         syntaxVisitor.visit(modelTree);
         modelName = syntaxVisitor.getModelName();
-        if (!inputFileName.equals(modelName)) {
+        if (!inputFileName.equals(modelName+".bigraph")) {
             System.out.println("[ERROR] File name and model names do not match");
             return false;
         }
@@ -108,7 +119,7 @@ public class Main {
             Process p = pb.start();
             p.waitFor();
         } catch (IOException | InterruptedException e) {
-            logger.error("Problems interfacing with bigmc input stream");
+            logger.log(Level.SEVERE,"Problems interfacing with bigmc input stream");
         }
     }
 
@@ -153,7 +164,7 @@ public class Main {
             importer.importGraph(graph, transitionFile);
             // Testing reactions
             // for(DefaultEdge de : graph.edgeSet())
-                // System.out.println(graph.getEdgeSource(de).getVertexID() + " -> " + graph.getEdgeTarget(de).getVertexID());
+            // System.out.println(graph.getEdgeSource(de).getVertexID() + " -> " + graph.getEdgeTarget(de).getVertexID());
             // TODO
             // Specify a more complex behavior for exception management
         } catch (FileNotFoundException fe) {
@@ -163,5 +174,20 @@ public class Main {
         }
     }
 
-}
+    private static void setupLogger(String filename) {
+        try {
+            // This block configure the logger with handler and formatter
+            logger.setUseParentHandlers(false);
+            fh = new FileHandler(FilenameUtils.removeExtension(filename) + ".log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+            // the following statement is used to log any messages
+            logger.info("Log started");
 
+        } catch (SecurityException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
