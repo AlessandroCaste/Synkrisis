@@ -188,6 +188,7 @@ public class Main {
             // This block configure the logger with handler and formatter
             logger.setUseParentHandlers(false);
             filename = FilenameUtils.removeExtension(filename);
+            new File(filename).mkdirs();
             fh = new FileHandler(filename + "/" + filename +".log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
