@@ -1,25 +1,25 @@
 package core.graphBuilding;
 
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 public class GraphReaction {
 
-    private Multigraph<Vertex, DefaultEdge> redex;
-    private Multigraph<Vertex, DefaultEdge> reactum;
+    private SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> redex;
+    private SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> reactum;
     private String rulename;
 
-    GraphReaction(Multigraph<Vertex, DefaultEdge> redex, Multigraph<Vertex, DefaultEdge> reactum, String rulename) {
+    GraphReaction(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> redex, SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> reactum, String rulename) {
         this.redex = redex;
         this.reactum = reactum;
         this.rulename = rulename;
     }
 
-    public Multigraph<Vertex, DefaultEdge> getRedex() {
+    public SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> getRedex() {
         return redex;
     }
 
-    public Multigraph<Vertex, DefaultEdge> getReactum() {
+    public SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> getReactum() {
         return reactum;
     }
 

@@ -1,14 +1,14 @@
 package core.graphBuilding;
 
 import core.graphVisualization.CreateGraphvizModel;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.ArrayList;
 
 public class GraphsCollection {
 
-    private Multigraph<Vertex, DefaultEdge> model;
+    private SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> model;
     private ArrayList<GraphReaction> reactionsList = new ArrayList<>();
 
     private static GraphsCollection instance;
@@ -21,7 +21,7 @@ public class GraphsCollection {
         return instance;
     }
 
-    void addModel(Multigraph<Vertex, DefaultEdge> model) {
+    void addModel(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> model) {
         this.model = model;
     }
 
@@ -37,7 +37,7 @@ public class GraphsCollection {
         }
     }
 
-    public Multigraph<Vertex, DefaultEdge> getModel() {
+    public SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> getModel() {
         return model;
     }
 

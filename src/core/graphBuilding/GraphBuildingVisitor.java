@@ -5,10 +5,10 @@ import antlr.bigraph.BigraphVisitor;
 import core.graphVisualization.CreateGraphvizModel;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
-import java.util.*;
+import java.util.Stack;
 
 
 public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
@@ -26,9 +26,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     // Graph Representation
-    private Multigraph<Vertex, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Vertex,DefaultEdge> redex = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Vertex,DefaultEdge> reactum = new Multigraph<>(DefaultEdge.class);
+    private SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> currentGraph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+    private SimpleDirectedWeightedGraph<Vertex,DefaultWeightedEdge> redex = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+    private SimpleDirectedWeightedGraph<Vertex,DefaultWeightedEdge> reactum = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
     private boolean nested = false;
     private boolean parallel = false;
     private Stack<Vertex> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
@@ -76,12 +76,12 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override public Void visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
         // I reset the latest graph
-        currentGraph = new Multigraph<>(DefaultEdge.class);
+        currentGraph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
         resetGraph();
         visit(ctx.getChild(0));
         redex = currentGraph;
         // Reset tree info for reactum tree
-        currentGraph = new Multigraph<>(DefaultEdge.class);
+        currentGraph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
         resetGraph();
         visit(ctx.getChild(2));
         reactum = currentGraph;
@@ -225,7 +225,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override public Void visitModel (BigraphParser.ModelContext ctx){
         // I reset the latest graph
-        currentGraph = new Multigraph<>(DefaultEdge.class);
+        currentGraph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
         resetGraph();
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
@@ -267,11 +267,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return visitChildren(ctx);
     }
 
-    private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {
+    private void createModelGraph(SimpleDirectedWeightedGraph<Vertex,DefaultWeightedEdge> model) {
         GraphsCollection.getInstance().addModel(model);
     }
 
-    private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
+    private void createReactionGraph(SimpleDirectedWeightedGraph<Vertex,DefaultWeightedEdge> redex, SimpleDirectedWeightedGraph<Vertex,DefaultWeightedEdge> reactum, String ruleName) {
         GraphReaction reaction = new GraphReaction(redex,reactum,ruleName);
         GraphsCollection.getInstance().addReaction(reaction);
     }

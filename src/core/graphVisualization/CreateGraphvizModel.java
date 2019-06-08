@@ -9,8 +9,8 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class CreateGraphvizModel {
         return instance;
     }
 
-    public void createModel(Multigraph<Vertex,DefaultEdge> currentGraph) {
+    public void createModel(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> currentGraph) {
         logger.log(Level.INFO,"Model drawing started");
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
@@ -66,7 +66,7 @@ public class CreateGraphvizModel {
                 }
             }
             // Adding edges
-            for (DefaultEdge edge : currentGraph.edgeSet()) {
+            for (DefaultWeightedEdge edge : currentGraph.edgeSet()) {
                 Vertex edgeSource = currentGraph.getEdgeSource(edge);
                 Vertex edgeTarget = currentGraph.getEdgeTarget(edge);
                 if (edgeTarget.isControl()) {
@@ -105,8 +105,8 @@ public class CreateGraphvizModel {
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
 
-        Multigraph<Vertex,DefaultEdge> redexGraph = gr.getRedex();
-        Multigraph<Vertex,DefaultEdge> reactumGraph = gr.getReactum();
+        SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> redexGraph = gr.getRedex();
+        SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge>  reactumGraph = gr.getReactum();
         String ruleName = gr.getRulename();
 
 
@@ -144,8 +144,8 @@ public class CreateGraphvizModel {
     }
 
     @SuppressWarnings("Duplicates")
-    private MutableGraph buildReactionGraph(Multigraph<Vertex,DefaultEdge> currentGraph, HashMap<String,Color> colorHashMap, String ruleName) {
-       MutableGraph g = mutGraph("Reactions").setDirected(true).use((gr, ctx) -> {
+    private MutableGraph buildReactionGraph(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge>  currentGraph, HashMap<String,Color> colorHashMap, String ruleName) {
+        MutableGraph g = mutGraph("Reactions").setDirected(true).use((gr, ctx) -> {
 
            // Title node
            MutableNode title = mutNode(ruleName).attrs().add(Shape.RECTANGLE).add("fontsize",16)
@@ -188,7 +188,7 @@ public class CreateGraphvizModel {
             }
 
             // Adding edges
-            for (DefaultEdge edge : currentGraph.edgeSet()) {
+            for (DefaultWeightedEdge edge : currentGraph.edgeSet()) {
                 String sourceId = Integer.toString(currentGraph.getEdgeSource(edge).getVertexId());
                 String targetId = Integer.toString(currentGraph.getEdgeTarget(edge).getVertexId());
                 String targetLabel = currentGraph.getEdgeTarget(edge).getVertexLabel();
