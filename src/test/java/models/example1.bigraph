@@ -1,0 +1,14 @@
+# A fatal error arises: the model itself is missing!!
+
+controls:
+    active User 1
+    active Room 0
+    active InnerRoom 0
+    active Link 2
+
+names:
+    outer Alice
+    outer Bob
+    outer Carl
+
+rule r = Room.User[@a] -> Room.InnerRoom
