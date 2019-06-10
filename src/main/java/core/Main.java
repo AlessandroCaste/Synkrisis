@@ -120,8 +120,6 @@ public class Main {
     // Sending input to bigmc
     private static void executeBigmc() {
 
-        deleteDirectory();
-
         try{
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
@@ -143,7 +141,6 @@ public class Main {
 
         Scanner sc = null;
         try {
-
             sc = new Scanner(new File(modelName+"/"+modelName+".temp"));
             boolean endFlag = false;
 
@@ -174,6 +171,12 @@ public class Main {
             transition.close();
             File lastTransition = new File(modelName + "/" + modelName + ".transition(" + (transition_systems - 1) + ")");
             lastTransition.renameTo(new File(modelName + "/" + modelName + ".transition"));
+
+            // In case I generated multiple transition systems I move them to a separate folder
+            if(transition_systems > 0)
+                for(int counter = 0; counter < transition_systems - 1; counter++)
+                    FileUtils.moveFile(new File(modelName + "/" + modelName + ".transition(" + counter + ")"),
+                                       new File(modelName + "/" + "intermediate transitions/" + modelName + ".transition(" + counter + ")"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -239,34 +242,27 @@ public class Main {
             // This block configure the logger with handler and formatter
             logger.setUseParentHandlers(false);
             filename = FilenameUtils.removeExtension(filename);
+            deleteDirectory(filename+"/");
+            //noinspection ResultOfMethodCallIgnored
             new File(filename).mkdirs();
             fh = new FileHandler(filename + "/" + filename +".log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
-            // the following statement is used to log any messages
+            // Here starts the logging
             logger.info("Log started");
 
         } catch (SecurityException | IOException e) {
             System.out.println("[FATAL ERROR] Can't setup the logger");
-            logger.log(Level.SEVERE, "Error raised when creating a .log file +\nStack trace: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error raised while initializing " + filename + " directory and the logging procedures" + "\nStack trace: " + e.getMessage());
         }
     }
 
-    private static boolean deleteDirectory() {
-        boolean result = false;
-        File tempFile = new File(modelName);
+    private static void deleteDirectory(String filename) throws IOException {
+        File tempFile = new File(filename);
         boolean exists = tempFile.exists();
-        if(exists) {
-            try {
-                FileUtils.deleteDirectory(new File(modelName));
-                result = true;
-            } catch (IOException e) {
-                System.out.println("An error occured while removing the old output folder");
-                logger.log(Level.SEVERE,"Removal of old directory failed. Possibly something wrong with name of the model/path?\n" + e.getMessage());
-            }
-        }
-        return true;
+        if(exists)
+            FileUtils.deleteDirectory(new File(filename));
     }
 
 }
