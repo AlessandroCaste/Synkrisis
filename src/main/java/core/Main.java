@@ -13,6 +13,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedMultigraph;
@@ -21,6 +22,7 @@ import org.jgrapht.io.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,21 +119,69 @@ public class Main {
 
     // Sending input to bigmc
     private static void executeBigmc() {
+
+        deleteDirectory();
+
         try{
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
             // TODO What about implementing bigmc inside .jar?
-            ProcessBuilder pb = new ProcessBuilder("lib/bigmc", "-s", filename);
+            ProcessBuilder pb = new ProcessBuilder("lib/bigmc", "-m 100", "-s", "-r 2", filename);
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);
-            pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));
+           // pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));
+
+            // I redirect bigmc output to a temp file in order to scan it
+            pb.redirectOutput(new File(modelName+"/"+modelName+".temp"));
             Process p = pb.start();
             logger.log(Level.INFO, "Waiting for bigmc process..");
             p.waitFor();
-        } catch (IOException | InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
             System.out.println("Can't work with bigmc: is it correctly installed?");
             logger.log(Level.SEVERE,"Can't interface with bigmc input stream, probably has to do with the terminal commands not being properly recognized");
         }
+
+        Scanner sc = null;
+        try {
+
+            sc = new Scanner(new File(modelName+"/"+modelName+".temp"));
+            boolean endFlag = false;
+
+            int transition_systems = 0;
+            BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".transition(" + transition_systems +")",true));
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                if(line.equals("Transition system:")) {
+                    endFlag = true;
+                    line = sc.nextLine();
+                    if(transition_systems > 0) {
+                        transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".transition(" + transition_systems + ")",true));
+                    }
+                    transition.write(line + "\n");
+                }
+                else if(line.equals("End of the transition system")) {
+                    endFlag = false;
+                    transition.close();
+                    transition_systems++;
+                } else if(line.matches("bigmc::report] ")) {
+
+                }else if(!endFlag)
+                    System.out.println(line);
+                else if(endFlag)
+                    transition.write(line +"\n");
+            }
+            sc.close();
+            transition.close();
+            File lastTransition = new File(modelName + "/" + modelName + ".transition(" + (transition_systems - 1) + ")");
+            lastTransition.renameTo(new File(modelName + "/" + modelName + ".transition"));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) { // Per il writer
+            e.printStackTrace();
+        }
+
+
     }
 
     // Translating the transition graph to a jgrapht graph
@@ -201,6 +251,22 @@ public class Main {
             System.out.println("[FATAL ERROR] Can't setup the logger");
             logger.log(Level.SEVERE, "Error raised when creating a .log file +\nStack trace: " + e.getMessage());
         }
+    }
+
+    private static boolean deleteDirectory() {
+        boolean result = false;
+        File tempFile = new File(modelName);
+        boolean exists = tempFile.exists();
+        if(exists) {
+            try {
+                FileUtils.deleteDirectory(new File(modelName));
+                result = true;
+            } catch (IOException e) {
+                System.out.println("An error occured while removing the old output folder");
+                logger.log(Level.SEVERE,"Removal of old directory failed. Possibly something wrong with name of the model/path?\n" + e.getMessage());
+            }
+        }
+        return true;
     }
 
 }
