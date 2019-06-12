@@ -6,12 +6,13 @@
 
     <groupId>groupId</groupId>
     <artifactId>Synkrisis</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.55-SNAPSHOT</version>
 
 
     <!-- maven-compiler-plugin -->
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -20,8 +21,22 @@
                     <release>11</release>
                 </configuration>
             </plugin>
+
+            <!-- Jar Building -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
+
 
 
     <dependencies>
@@ -84,5 +99,7 @@
         </dependency>
 
     </dependencies>
+
+
 
 </project>
