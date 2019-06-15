@@ -29,7 +29,7 @@ public class Bigmc {
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
             // TODO What about implementing bigmc inside .jar?
-            ProcessBuilder pb = new ProcessBuilder("src/main/resources/bigmc", "-s", filename);
+            ProcessBuilder pb = new ProcessBuilder("src/main/resources/bigmc", "-r 2","-s", filename);
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);
             // pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));
@@ -57,18 +57,18 @@ public class Bigmc {
 
             // We'll have a BufferedWriter to store the output print on the terminal and a BufferedWriter for transition files
             BufferedWriter outputTxt = new BufferedWriter(new FileWriter(modelName + "/bigmc output.txt"));
-            BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".transition(" + transition_counter +")",true));
+            BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".transition",true));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
 
-                if(line.equals("Transition system:")) {
+                if(line.equals("digraph reaction_graph {")) {
                     isTransition = true;
-                    line = sc.nextLine();
                     if(transition_counter > 0)
-                        transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".transition(" + transition_counter +")",true));
+                        transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".transition",true));
                     transition.write(line + "\n");
-                }else if(line.equals("End of the transition system")) {
+                }else if(line.equals("}")) {
                     isTransition = false;
+                    transition.write(line);
                     transition.close();
                     transition_counter++;
                 }else if(isTransition)
@@ -84,16 +84,18 @@ public class Bigmc {
             outputTxt.close();
 
             //Rename lost output transition
-            File lastTransitionFile = new File(modelName + "/" + modelName + ".transition(" + (transition_counter - 1) + ")");
+            File lastTransitionFile = new File(modelName + "/" + modelName +"-" + (transition_counter - 1) + ".transition");
             boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".transition"));
             if(!renameResult)
                 logger.log(Level.WARNING,"Couldn't correctly rename the last.transition file!");
+            else
+                logger.log(Level.INFO,"Renaming of the last .transition file successful");
 
             // In case I generated multiple transition systems I move them to a separate folder
             if(transition_counter > 0)
                 for(int counter = 0; counter < transition_counter - 1; counter++)
-                    FileUtils.moveFile(new File(modelName + "/" + modelName + ".transition(" + counter + ")"),
-                            new File(modelName + "/" + "intermediate transitions/" + modelName + ".transition(" + counter + ")"));
+                    FileUtils.moveFile(new File(modelName + "/" + modelName + "-" + counter + ".transition" ),
+                            new File(modelName + "/" + "intermediate transitions/" + modelName + "-" + counter + ".transition" ));
 
             // Deleting the temp file
             boolean deletionResult;
