@@ -51,36 +51,39 @@ public class Bigmc {
             File tempFile = new File(modelName+"/"+modelName+".temp");
             sc = new Scanner(tempFile);
             // When transition is true we're scanning a transition graph (a dot file)
-            boolean trasition = false;
+            boolean isTransition = false;
+            // We may have multiple transition file, so we keep a counter
             int transition_counter = 0;
 
             // We'll have a BufferedWriter to store the output print on the terminal and a BufferedWriter for transition files
-            BufferedWriter outputTxt = new BufferedWriter(new FileWriter(modelName + "/Bigmc output.txt"));
+            BufferedWriter outputTxt = new BufferedWriter(new FileWriter(modelName + "/bigmc output.txt"));
             BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".transition(" + transition_counter +")",true));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
+
                 if(line.equals("Transition system:")) {
-                    trasition = true;
+                    isTransition = true;
                     line = sc.nextLine();
                     if(transition_counter > 0)
                         transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".transition(" + transition_counter +")",true));
                     transition.write(line + "\n");
-                }
-                else if(line.equals("End of the transition system")) {
-                    trasition = false;
+                }else if(line.equals("End of the transition system")) {
+                    isTransition = false;
                     transition.close();
                     transition_counter++;
-                } else if(line.matches("bigmc::report] ")) {
-
-                }else if(!trasition)
-                    System.out.println(line);
-                else //if(trasition)
-                    transition.write(line +"\n");
+                }else if(isTransition)
+                    transition.write(line + "\n");
+                else {
+                    System.out.println(line);           // I print out non-transition lines
+                    outputTxt.write(line + "\n");
+                }
             }
             //Closing everything
             sc.close();
             transition.close();
             outputTxt.close();
+
+            //Rename lost output transition
             File lastTransitionFile = new File(modelName + "/" + modelName + ".transition(" + (transition_counter - 1) + ")");
             boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".transition"));
             if(!renameResult)
@@ -91,6 +94,7 @@ public class Bigmc {
                 for(int counter = 0; counter < transition_counter - 1; counter++)
                     FileUtils.moveFile(new File(modelName + "/" + modelName + ".transition(" + counter + ")"),
                             new File(modelName + "/" + "intermediate transitions/" + modelName + ".transition(" + counter + ")"));
+
             // Deleting the temp file
             boolean deletionResult;
             deletionResult = tempFile.delete();

@@ -135,7 +135,8 @@ public class CreateGraphvizModel {
         finalPicture.drawImage(graphvizGraph1,null,0,0);
         finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
         finalPicture.dispose();
-        ImageIO.write(mergedImage,"png", new File(modelName + "/" + ruleName + ".png"));
+        new File(modelName + "/" + "rules").mkdir();
+        ImageIO.write(mergedImage,"png", new File(modelName + "/rules/" + ruleName + ".png"));
         logger.log(Level.INFO,"Reactions successfully drawn and merged");
         } catch (IOException e) {
             System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
