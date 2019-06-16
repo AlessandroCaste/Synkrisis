@@ -9,6 +9,7 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
+import org.apache.commons.lang3.SystemUtils;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
@@ -43,6 +44,7 @@ public class CreateGraphvizModel {
     public void createModel(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> currentGraph) {
         logger.log(Level.INFO,"Model drawing started");
         Graphviz.useEngine(new GraphvizCmdLineEngine());
+
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
             // Title node
@@ -95,6 +97,13 @@ public class CreateGraphvizModel {
         } catch (IOException e) {
             System.out.println("[GRAPHVIZ ERROR] Can't print out model");
             logger.log(Level.SEVERE,"Impossible to draw the model\nStack trace: " + e.getMessage());
+        } catch(guru.nidi.graphviz.engine.GraphvizException e) {
+            System.out.println("Couldn't find dot: unable to print model and reactions!");
+            if(SystemUtils.IS_OS_WINDOWS)
+                System.out.println("Be sure to add graphviz folder to your path before trying again");
+            else
+                System.out.println("Install graphviz before trying again");
+            logger.log(Level.SEVERE,"Couldn't find graphviz, so no models can be output. Check you've installed it and, if you're using windows, that you've added to your path\nStack trace: " + e.getMessage());
         }
         logger.log(Level.INFO,"Model drawing completed");
     }
@@ -124,24 +133,23 @@ public class CreateGraphvizModel {
              .render(Format.SVG).toFile(new File(modelName + "/" + ruleName + " - Reactum" + ".svg"));
 
              */
-
-        BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
-        BufferedImage graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
-        int maxHeight = Math.max(graphvizGraph1.getHeight(),graphvizGraph2.getHeight());
-        BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
-        Graphics2D finalPicture = mergedImage.createGraphics();
-        finalPicture.setPaint(java.awt.Color.WHITE);
-        finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
-        finalPicture.drawImage(graphvizGraph1,null,0,0);
-        finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
-        finalPicture.dispose();
-        new File(modelName + "/" + "rules").mkdir();
-        ImageIO.write(mergedImage,"png", new File(modelName + "/rules/" + ruleName + ".png"));
-        logger.log(Level.INFO,"Reactions successfully drawn and merged");
-        } catch (IOException e) {
-            System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
-            logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
-        }
+            BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
+            BufferedImage graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
+            int maxHeight = Math.max(graphvizGraph1.getHeight(),graphvizGraph2.getHeight());
+            BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
+            Graphics2D finalPicture = mergedImage.createGraphics();
+            finalPicture.setPaint(java.awt.Color.WHITE);
+            finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
+            finalPicture.drawImage(graphvizGraph1,null,0,0);
+            finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
+            finalPicture.dispose();
+            new File(modelName + "/" + "rules").mkdir();
+            ImageIO.write(mergedImage,"png", new File(modelName + "/rules/" + ruleName + ".png"));
+            logger.log(Level.INFO,"Reactions successfully drawn and merged");
+            } catch (IOException e) {
+                System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
+                logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
+            }
     }
 
     @SuppressWarnings("Duplicates")

@@ -1,6 +1,7 @@
 package core.setup;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
 import java.util.Scanner;
@@ -29,7 +30,20 @@ public class Bigmc {
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
             // TODO What about implementing bigmc inside .jar?
-            ProcessBuilder pb = new ProcessBuilder("src/main/resources/bigmc", "-r 2","-s", filename);
+
+            // Linux case (standard case)
+
+            ProcessBuilder pb;
+            //TODO Pengwin setup is temporary
+            if(SystemUtils.IS_OS_WINDOWS)
+                pb = new ProcessBuilder("pengwin", "-c", "src/main/resources/bigmc","-r 2","-s", filename);
+            //TODO Don't know what to do with osx and has of now as the same linux commands
+            else if (SystemUtils.IS_OS_MAC_OSX)
+                pb = new ProcessBuilder("src/main/resources/bigmc", "-r 2","-s", filename);
+            // Linux case!
+            else
+                pb = new ProcessBuilder("src/main/resources/bigmc", "-r 2","-s", filename);
+
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);
             // pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));
@@ -41,7 +55,7 @@ public class Bigmc {
             p.waitFor();
         } catch (IOException | InterruptedException e) {
             System.out.println("Can't work with bigmc: is it correctly installed?");
-            logger.log(Level.SEVERE,"Can't interface with bigmc input stream, probably has to do with the terminal commands not being properly recognized");
+            logger.log(Level.SEVERE, "Can't interface with bigmc input stream, probably has to do with the terminal commands not being properly recognized");
         }
 
         // The scanner will separate the transition system from all the other messages (that get output to CLI)
