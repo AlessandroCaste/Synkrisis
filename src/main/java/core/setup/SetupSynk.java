@@ -24,12 +24,12 @@ public class SetupSynk {
 
     public SetupSynk(File inputFile) {
         this.inputFile = inputFile;
-        this.successfulSetup = setupSynk(inputFile);
+        this.successfulSetup = setupSynk();
     }
 
     // File setup for analysis
     @SuppressWarnings("Duplicates")
-    private boolean setupSynk(File inputFile) {
+    private boolean setupSynk() {
         boolean successfulSetup = false;
         try {
             logger.log(Level.INFO, "Parsing tree creation started");
@@ -57,7 +57,7 @@ public class SetupSynk {
         return successfulSetup;
     }
 
-    public boolean isSuccessfulSetup() {
+    public boolean isSuccessful() {
         return successfulSetup;
     }
 

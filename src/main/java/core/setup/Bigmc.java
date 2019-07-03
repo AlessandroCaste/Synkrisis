@@ -1,5 +1,6 @@
 package core.setup;
 
+import core.ExecutionSettings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 
@@ -15,17 +16,40 @@ public class Bigmc {
 
     private String filename;
     private String modelName;
-    //TODO Args parameters to pass to bigmc binaries
+    private ExecutionSettings loadedSettings;
 
-    public Bigmc(String filename,String modelName) {
-        this.filename = filename;
+
+    public Bigmc(ExecutionSettings settings, String modelName) {
+
         this.modelName = modelName;
+        this.loadedSettings = settings;
+        String input = createInputString();
         executeBigmc();
+    }
+
+    // I build up a command line string for bigmc
+    private String createInputString() {
+        StringBuilder input = new StringBuilder();
+
+        // Basic model checking functionality
+        input.append(loadedSettings.getFileName());
+
+        // Setting a maximum number of steps. 0 means user didn't specify any
+        if(loadedSettings.getSteps() != 0)
+            input.append(" -m ").append(loadedSettings.getSteps());
+
+        // Settings the number of threads. 2 means user didn't specify any
+        if(loadedSettings.getThreads() != 2)
+            input.append(" -t ").append(loadedSettings.getThreads());
+
+        // Setting frequency statistics
+        return input.toString();
+
     }
 
     // Sending input to bigmc
     private void executeBigmc() {
-
+        System.out.println("Bigmc is running...");
         try{
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
