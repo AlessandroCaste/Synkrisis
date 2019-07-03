@@ -6,7 +6,7 @@ import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
+import guru.nidi.graphviz.engine.GraphvizV8Engine;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import org.apache.commons.lang3.SystemUtils;
@@ -43,7 +43,7 @@ public class CreateGraphvizModel {
 
     public void createModel(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> currentGraph) {
         logger.log(Level.INFO,"Model drawing started");
-        Graphviz.useEngine(new GraphvizCmdLineEngine());
+        Graphviz.useEngine(new GraphvizV8Engine());
 
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
 
@@ -111,7 +111,7 @@ public class CreateGraphvizModel {
 
    public void createReactions(GraphReaction gr) {
         logger.log(Level.INFO,"Graphviz reactions drawing started");
-        Graphviz.useEngine(new GraphvizCmdLineEngine());
+        Graphviz.useEngine(new GraphvizV8Engine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
 
         SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> redexGraph = gr.getRedex();
@@ -145,7 +145,7 @@ public class CreateGraphvizModel {
             finalPicture.dispose();
             new File(modelName + "/" + "rules").mkdir();
             ImageIO.write(mergedImage,"png", new File(modelName + "/rules/" + ruleName + ".png"));
-            logger.log(Level.INFO,"Reactions successfully drawn and merged");
+            logger.log(Level.INFO,"Reaction " + ruleName + "successfully drawn");
             } catch (IOException e) {
                 System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
                 logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
