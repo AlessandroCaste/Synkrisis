@@ -24,7 +24,7 @@ reactions          : RULE IDENTIFIER ASSIGNMENT reaction_statement reactions
                    | model
                    ;
 
-reaction_statement : expression ARROW expression
+reaction_statement : expression ARROW (LPAR PROBABILITY RPAR)? expression
                    ;
 
 expression         : IDENTIFIER (LSQ links RSQ)?   (regions | prefix)?
@@ -133,6 +133,7 @@ TRUE    : 'true' ;
 FALSE   : 'false';
 
 DIGIT       : ('0'..'9')+ ;
+PROBABILITY : ('0' DOT DIGIT+) | '1' ;
 IDENTIFIER  : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')* ;
 
 

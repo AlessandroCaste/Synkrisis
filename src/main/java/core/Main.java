@@ -12,6 +12,13 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/* This is the application flow:
+1) Read arguments from CLI
+2) Syntax Analysis
+3) Model and reaction printing
+4) Translation from transition graph into Jgraph
+5) Translation from transition graph into PRISM model
+ */
 
 public class Main {
 
@@ -46,7 +53,6 @@ public class Main {
                         System.out.println("ciao");
                         //new PrismExporter(modelName);
                 }
-
             } else
             System.out.println("Error in syntax analysis: processing can't go any further");
         }
