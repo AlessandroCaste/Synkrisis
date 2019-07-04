@@ -20,19 +20,21 @@ public class Bigmc {
 
 
     public Bigmc(ExecutionSettings settings, String modelName) {
-
+        System.out.println("Bigmc is running...");
         this.modelName = modelName;
         this.loadedSettings = settings;
         String input = createInputString();
-        executeBigmc();
+        executeBigmc(input);
     }
 
     // I build up a command line string for bigmc
     private String createInputString() {
         StringBuilder input = new StringBuilder();
 
-        // Basic model checking functionality
-        input.append(loadedSettings.getFileName());
+        //TODO Embedding bigmc?
+
+        // Bigmc location is set
+        input.append("src/main/resources/bigmc");
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)
@@ -43,13 +45,22 @@ public class Bigmc {
             input.append(" -t ").append(loadedSettings.getThreads());
 
         // Setting frequency statistics
+        if(loadedSettings.getStatisticsFrequency() > 0)
+            input.append(" -r ").append(loadedSettings.getStatisticsFrequency());
+
+        // Print new states
+        if(loadedSettings.canPrintNewStates())
+            input.append(" -p");
+
+        // Basic model checking functionality
+        input.append(" ").append(loadedSettings.getFileName());
+
         return input.toString();
 
     }
 
     // Sending input to bigmc
-    private void executeBigmc() {
-        System.out.println("Bigmc is running...");
+    private void executeBigmc(String input) {
         try{
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
@@ -60,13 +71,13 @@ public class Bigmc {
             ProcessBuilder pb;
             //TODO Pengwin setup is temporary
             if(SystemUtils.IS_OS_WINDOWS)
-                pb = new ProcessBuilder("pengwin", "-c", "src/main/resources/bigmc","-r 2","-s", filename);
+                pb = new ProcessBuilder("pengwin", "-c", input);
             //TODO Don't know what to do with osx and has of now as the same linux commands
             else if (SystemUtils.IS_OS_MAC_OSX)
-                pb = new ProcessBuilder("src/main/resources/bigmc", "-r 2","-s", filename);
+                pb = new ProcessBuilder(input);
             // Linux case!
             else
-                pb = new ProcessBuilder("src/main/resources/bigmc", "-r 2","-s", filename);
+                pb = new ProcessBuilder(input);
 
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);

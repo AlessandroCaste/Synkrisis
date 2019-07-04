@@ -13,6 +13,8 @@ import java.util.logging.SimpleFormatter;
 
 class CLI {
 
+    private String[] args;
+
     private Options options = new Options();
     private static Logger logger = Logger.getLogger("Report");
     private static FileHandler fh;
@@ -30,9 +32,8 @@ class CLI {
         options.addOption("g","print",false,"print model and reactions graphs");
         options.addOption("m","steps",true,"maximum number of steps");
         options.addOption("t","threads",true,"number of threads");
-        options.addOption("p","print-states",false,"print newly discovered states during execution");
+        options.addOption("p","print",false,"print newly discovered states during execution");
         options.addOption("r","statistics",true,"set frequency (steps) with which statistics about graph and transitions are output");
-        options.addOption("rg","statistics-printing",true,"set frequency (steps), with which statistics about graph and transitions are output and print");
         options.addOption("gt","transition-printing",false,"print the transition graph via bigmc");
         options.addOption("G","print-everything",false,"print all graphs produced");
         options.addOption("h", "help", false, "show help.");
@@ -41,7 +42,7 @@ class CLI {
 
     // Values are set inside the ExecutionSettings class. Logger is started when the filename is parsed
     void parse() {
-        
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
         try {
@@ -79,12 +80,12 @@ class CLI {
             }
             if(cmd.hasOption("p"))
                 settings.enablePrintNewState();
-            if(cmd.hasOption("r"))
-                settings.setStatistics(Integer.parseInt(cmd.getOptionValue("r")));
-            if(cmd.hasOption("rg")) {
-                //TODO No intermediate printing is actually set as of now
-                settings.setStatistics(Integer.parseInt(cmd.getOptionValue("rg")));
-                settings.enablePrintIntermediate();
+            if(cmd.hasOption("r")) {
+                int frequency = Integer.parseInt(cmd.getOptionValue("r"));
+                if(frequency > 0)
+                    settings.setStatisticsFrequency(frequency);
+                else
+                    System.out.println("Invalid frequency of transitions print: it's been set to 0");
             }
             if(cmd.hasOption("gt"))
                 settings.enablePrintTransition();

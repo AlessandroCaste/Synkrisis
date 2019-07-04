@@ -5,7 +5,7 @@ public class ExecutionSettings {
     private String fileName;
     private int threads = 2;
     private int steps = 0;
-    private int statistics;
+    private int statisticsFrequency = 0;
     private boolean printSteps;
     private boolean printNewStates = false;
     private String outputModelChecker;
@@ -29,8 +29,8 @@ public class ExecutionSettings {
         return steps;
     }
 
-    public int getStatistics() {
-        return statistics;
+    public int getStatisticsFrequency() {
+        return statisticsFrequency;
     }
 
     public boolean canPrintSteps() {
@@ -61,8 +61,8 @@ public class ExecutionSettings {
         this.steps = steps;
     }
 
-    void setStatistics(int statistics) {
-        this.statistics = statistics;
+    void setStatisticsFrequency(int statisticsFrequency) {
+        this.statisticsFrequency = statisticsFrequency;
     }
 
     void setPrintSteps(boolean printSteps) {

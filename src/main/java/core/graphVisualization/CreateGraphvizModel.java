@@ -42,6 +42,7 @@ public class CreateGraphvizModel {
     }
 
     public void createModel(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> currentGraph) {
+        System.out.println("Printing model and reactions");
         logger.log(Level.INFO,"Model drawing started");
         Graphviz.useEngine(new GraphvizV8Engine());
 
