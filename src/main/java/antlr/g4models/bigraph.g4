@@ -133,7 +133,7 @@ TRUE    : 'true' ;
 FALSE   : 'false';
 
 DIGIT       : ('0'..'9')+ ;
-PROBABILITY : ('0' DOT DIGIT+) | '1' ;
+PROBABILITY : ('0' DOT DIGIT+) ;
 IDENTIFIER  : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')* ;
 
 

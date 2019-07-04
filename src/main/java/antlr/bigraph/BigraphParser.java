@@ -1,4 +1,4 @@
-package antlr.bigraph;// Generated from C:/Users/caste/IdeaProjects/Synkrisis/src\bigraph.g4 by ANTLR 4.7.2
+package antlr.bigraph;// Generated from C:/Users/Utente/Documents/GitHub/untitled/src\bigraph.g4 by ANTLR 4.7.2
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;
@@ -26,7 +26,7 @@ public class BigraphParser extends Parser {
 		PASSIVE=23, NAMES=24, INNER=25, OUTER=26, RULE=27, VARIABLE=28, MODEL=29, 
 		PROPERTY=30, AND=31, NOT=32, IF=33, THEN=34, ELSE=35, LEQ=36, GEQ=37, 
 		LT=38, GT=39, EQ=40, NEQ=41, FORALL=42, EXISTS=43, TRUE=44, FALSE=45, 
-		DIGIT=46, IDENTIFIER=47;
+		DIGIT=46, PROBABILITY=47, IDENTIFIER=48;
 	public static final int
 		RULE_bigraph = 0, RULE_controls = 1, RULE_control_statements = 2, RULE_names = 3, 
 		RULE_name_statements = 4, RULE_reactions = 5, RULE_reaction_statement = 6, 
@@ -62,7 +62,7 @@ public class BigraphParser extends Parser {
 			"ARROW", "NIL", "COMMENT", "LINE_COMMENT", "CONTROLS", "ACTIVE", "PASSIVE", 
 			"NAMES", "INNER", "OUTER", "RULE", "VARIABLE", "MODEL", "PROPERTY", "AND", 
 			"NOT", "IF", "THEN", "ELSE", "LEQ", "GEQ", "LT", "GT", "EQ", "NEQ", "FORALL", 
-			"EXISTS", "TRUE", "FALSE", "DIGIT", "IDENTIFIER"
+			"EXISTS", "TRUE", "FALSE", "DIGIT", "PROBABILITY", "IDENTIFIER"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -100,7 +100,7 @@ public class BigraphParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "antlr/g4models/bigraph.g4"; }
+	public String getGrammarFileName() { return "bigraph.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -549,6 +549,9 @@ public class BigraphParser extends Parser {
 			return getRuleContext(ExpressionContext.class,i);
 		}
 		public TerminalNode ARROW() { return getToken(BigraphParser.ARROW, 0); }
+		public TerminalNode LPAR() { return getToken(BigraphParser.LPAR, 0); }
+		public TerminalNode PROBABILITY() { return getToken(BigraphParser.PROBABILITY, 0); }
+		public TerminalNode RPAR() { return getToken(BigraphParser.RPAR, 0); }
 		public Reaction_statementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -578,7 +581,21 @@ public class BigraphParser extends Parser {
 			expression();
 			setState(75);
 			match(ARROW);
-			setState(76);
+			setState(79);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			case 1:
+				{
+				setState(76);
+				match(LPAR);
+				setState(77);
+				match(PROBABILITY);
+				setState(78);
+				match(RPAR);
+				}
+				break;
+			}
+			setState(81);
 			expression();
 			}
 		}
@@ -638,62 +655,28 @@ public class BigraphParser extends Parser {
 		enterRule(_localctx, 14, RULE_expression);
 		int _la;
 		try {
-			setState(110);
+			setState(115);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(78);
-				match(IDENTIFIER);
 				setState(83);
+				match(IDENTIFIER);
+				setState(88);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==LSQ) {
 					{
-					setState(79);
+					setState(84);
 					match(LSQ);
-					setState(80);
+					setState(85);
 					links();
-					setState(81);
+					setState(86);
 					match(RSQ);
 					}
 				}
 
-				setState(87);
-				_errHandler.sync(this);
-				switch (_input.LA(1)) {
-				case LOR:
-				case PAR:
-					{
-					setState(85);
-					regions();
-					}
-					break;
-				case DOT:
-					{
-					setState(86);
-					prefix();
-					}
-					break;
-				case EOF:
-				case COMMA:
-				case RPAR:
-				case ARROW:
-				case RULE:
-				case MODEL:
-				case PROPERTY:
-					break;
-				default:
-					break;
-				}
-				}
-				break;
-			case DIGIT:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(89);
-				match(DIGIT);
 				setState(92);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
@@ -723,26 +706,60 @@ public class BigraphParser extends Parser {
 				}
 				}
 				break;
-			case DOLLAR:
-				enterOuterAlt(_localctx, 3);
+			case DIGIT:
+				enterOuterAlt(_localctx, 2);
 				{
 				setState(94);
-				match(DOLLAR);
-				setState(95);
 				match(DIGIT);
-				setState(98);
+				setState(97);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case LOR:
 				case PAR:
 					{
-					setState(96);
+					setState(95);
 					regions();
 					}
 					break;
 				case DOT:
 					{
-					setState(97);
+					setState(96);
+					prefix();
+					}
+					break;
+				case EOF:
+				case COMMA:
+				case RPAR:
+				case ARROW:
+				case RULE:
+				case MODEL:
+				case PROPERTY:
+					break;
+				default:
+					break;
+				}
+				}
+				break;
+			case DOLLAR:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(99);
+				match(DOLLAR);
+				setState(100);
+				match(DIGIT);
+				setState(103);
+				_errHandler.sync(this);
+				switch (_input.LA(1)) {
+				case LOR:
+				case PAR:
+					{
+					setState(101);
+					regions();
+					}
+					break;
+				case DOT:
+					{
+					setState(102);
 					prefix();
 					}
 					break;
@@ -762,18 +779,18 @@ public class BigraphParser extends Parser {
 			case LPAR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(100);
+				setState(105);
 				match(LPAR);
-				setState(101);
+				setState(106);
 				expression();
-				setState(102);
+				setState(107);
 				match(RPAR);
-				setState(104);
+				setState(109);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==LOR || _la==PAR) {
 					{
-					setState(103);
+					setState(108);
 					regions();
 					}
 				}
@@ -783,14 +800,14 @@ public class BigraphParser extends Parser {
 			case NIL:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(106);
+				setState(111);
 				match(NIL);
-				setState(108);
+				setState(113);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==LOR || _la==PAR) {
 					{
-					setState(107);
+					setState(112);
 					regions();
 					}
 				}
@@ -841,24 +858,24 @@ public class BigraphParser extends Parser {
 		RegionsContext _localctx = new RegionsContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_regions);
 		try {
-			setState(116);
+			setState(121);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LOR:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(112);
+				setState(117);
 				match(LOR);
-				setState(113);
+				setState(118);
 				expression();
 				}
 				break;
 			case PAR:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(114);
+				setState(119);
 				match(PAR);
-				setState(115);
+				setState(120);
 				expression();
 				}
 				break;
@@ -907,9 +924,9 @@ public class BigraphParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(118);
+			setState(123);
 			match(DOT);
-			setState(119);
+			setState(124);
 			expression();
 			}
 		}
@@ -956,22 +973,22 @@ public class BigraphParser extends Parser {
 		enterRule(_localctx, 20, RULE_links);
 		int _la;
 		try {
-			setState(137);
+			setState(142);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(121);
+				setState(126);
 				match(IDENTIFIER);
-				setState(124);
+				setState(129);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==COMMA) {
 					{
-					setState(122);
+					setState(127);
 					match(COMMA);
-					setState(123);
+					setState(128);
 					links();
 					}
 				}
@@ -981,18 +998,18 @@ public class BigraphParser extends Parser {
 			case VARIABLE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(126);
+				setState(131);
 				match(VARIABLE);
-				setState(127);
+				setState(132);
 				match(IDENTIFIER);
-				setState(130);
+				setState(135);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==COMMA) {
 					{
-					setState(128);
+					setState(133);
 					match(COMMA);
-					setState(129);
+					setState(134);
 					links();
 					}
 				}
@@ -1002,16 +1019,16 @@ public class BigraphParser extends Parser {
 			case UNLINKED:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(132);
+				setState(137);
 				match(UNLINKED);
-				setState(135);
+				setState(140);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==COMMA) {
 					{
-					setState(133);
+					setState(138);
 					match(COMMA);
-					setState(134);
+					setState(139);
 					links();
 					}
 				}
@@ -1073,29 +1090,29 @@ public class BigraphParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(139);
+			setState(144);
 			match(MODEL);
-			setState(140);
+			setState(145);
 			match(IDENTIFIER);
-			setState(141);
-			match(ASSIGNMENT);
-			setState(142);
-			expression();
 			setState(146);
+			match(ASSIGNMENT);
+			setState(147);
+			expression();
+			setState(151);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==PROPERTY) {
 				{
 				{
-				setState(143);
+				setState(148);
 				property();
 				}
 				}
-				setState(148);
+				setState(153);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(149);
+			setState(154);
 			match(EOF);
 			}
 		}
@@ -1142,13 +1159,13 @@ public class BigraphParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(151);
+			setState(156);
 			match(PROPERTY);
-			setState(152);
+			setState(157);
 			match(IDENTIFIER);
-			setState(153);
+			setState(158);
 			match(ASSIGNMENT);
-			setState(154);
+			setState(159);
 			property_statement();
 			}
 		}
@@ -1205,7 +1222,7 @@ public class BigraphParser extends Parser {
 		Property_statementContext _localctx = new Property_statementContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_property_statement);
 		try {
-			setState(172);
+			setState(177);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPAR:
@@ -1214,24 +1231,24 @@ public class BigraphParser extends Parser {
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(156);
-				boolean_expression();
 				setState(161);
+				boolean_expression();
+				setState(166);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case AND:
 					{
-					setState(157);
+					setState(162);
 					match(AND);
-					setState(158);
+					setState(163);
 					boolean_expression();
 					}
 					break;
 				case LOR:
 					{
-					setState(159);
+					setState(164);
 					match(LOR);
-					setState(160);
+					setState(165);
 					boolean_expression();
 					}
 					break;
@@ -1249,26 +1266,26 @@ public class BigraphParser extends Parser {
 			case NOT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(163);
+				setState(168);
 				match(NOT);
-				setState(164);
+				setState(169);
 				property_statement();
 				}
 				break;
 			case IF:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(165);
-				match(IF);
-				setState(166);
-				property_statement();
-				setState(167);
-				match(THEN);
-				setState(168);
-				property_statement();
-				setState(169);
-				match(ELSE);
 				setState(170);
+				match(IF);
+				setState(171);
+				property_statement();
+				setState(172);
+				match(THEN);
+				setState(173);
+				property_statement();
+				setState(174);
+				match(ELSE);
+				setState(175);
 				property_statement();
 				}
 				break;
@@ -1323,16 +1340,16 @@ public class BigraphParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(174);
+			setState(179);
 			term();
-			setState(178);
+			setState(183);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LEQ) | (1L << GEQ) | (1L << LT) | (1L << GT) | (1L << EQ) | (1L << NEQ))) != 0)) {
 				{
-				setState(175);
+				setState(180);
 				binary_operation();
-				setState(176);
+				setState(181);
 				term();
 				}
 			}
@@ -1383,7 +1400,7 @@ public class BigraphParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(180);
+			setState(185);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LEQ) | (1L << GEQ) | (1L << LT) | (1L << GT) | (1L << EQ) | (1L << NEQ))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1446,56 +1463,56 @@ public class BigraphParser extends Parser {
 		enterRule(_localctx, 32, RULE_term);
 		int _la;
 		try {
-			setState(199);
+			setState(204);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPAR:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(182);
+				setState(187);
 				match(LPAR);
-				setState(183);
+				setState(188);
 				property_statement();
-				setState(184);
+				setState(189);
 				match(RPAR);
 				}
 				break;
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(186);
+				setState(191);
 				match(IDENTIFIER);
-				setState(187);
+				setState(192);
 				match(LPAR);
-				setState(189);
+				setState(194);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAR) | (1L << DOLLAR) | (1L << NIL) | (1L << DIGIT) | (1L << IDENTIFIER))) != 0)) {
 					{
-					setState(188);
+					setState(193);
 					parameters_list();
 					}
 				}
 
-				setState(191);
+				setState(196);
 				match(RPAR);
 				}
 				break;
 			case DOLLAR:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(192);
+				setState(197);
 				match(DOLLAR);
-				setState(193);
+				setState(198);
 				match(IDENTIFIER);
-				setState(196);
+				setState(201);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==ARROW) {
 					{
-					setState(194);
+					setState(199);
 					match(ARROW);
-					setState(195);
+					setState(200);
 					term();
 					}
 				}
@@ -1505,7 +1522,7 @@ public class BigraphParser extends Parser {
 			case DIGIT:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(198);
+				setState(203);
 				match(DIGIT);
 				}
 				break;
@@ -1561,21 +1578,21 @@ public class BigraphParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(201);
-			parameter();
 			setState(206);
+			parameter();
+			setState(211);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(202);
+				setState(207);
 				match(COMMA);
-				setState(203);
+				setState(208);
 				parameter();
 				}
 				}
-				setState(208);
+				setState(213);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1622,29 +1639,29 @@ public class BigraphParser extends Parser {
 		ParameterContext _localctx = new ParameterContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_parameter);
 		try {
-			setState(213);
+			setState(218);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,25,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,26,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(209);
+				setState(214);
 				match(DIGIT);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(210);
+				setState(215);
 				match(DOLLAR);
-				setState(211);
+				setState(216);
 				match(IDENTIFIER);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(212);
+				setState(217);
 				expression();
 				}
 				break;
@@ -1662,76 +1679,78 @@ public class BigraphParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\61\u00da\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\62\u00df\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\3\2\3\2\3\3\3\3\3\3\3\3\5\3/\n\3\3\4\3\4\3\4\3\4"+
 		"\3\4\5\4\66\n\4\3\5\3\5\3\5\3\5\5\5<\n\5\3\6\3\6\3\6\3\6\5\6B\n\6\3\7"+
-		"\3\7\3\7\3\7\3\7\3\7\3\7\5\7K\n\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t"+
-		"\5\tV\n\t\3\t\3\t\5\tZ\n\t\3\t\3\t\3\t\5\t_\n\t\3\t\3\t\3\t\3\t\5\te\n"+
-		"\t\3\t\3\t\3\t\3\t\5\tk\n\t\3\t\3\t\5\to\n\t\5\tq\n\t\3\n\3\n\3\n\3\n"+
-		"\5\nw\n\n\3\13\3\13\3\13\3\f\3\f\3\f\5\f\177\n\f\3\f\3\f\3\f\3\f\5\f\u0085"+
-		"\n\f\3\f\3\f\3\f\5\f\u008a\n\f\5\f\u008c\n\f\3\r\3\r\3\r\3\r\3\r\7\r\u0093"+
-		"\n\r\f\r\16\r\u0096\13\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3"+
-		"\17\3\17\3\17\5\17\u00a4\n\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17"+
-		"\3\17\5\17\u00af\n\17\3\20\3\20\3\20\3\20\5\20\u00b5\n\20\3\21\3\21\3"+
-		"\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00c0\n\22\3\22\3\22\3\22\3\22"+
-		"\3\22\5\22\u00c7\n\22\3\22\5\22\u00ca\n\22\3\23\3\23\3\23\7\23\u00cf\n"+
-		"\23\f\23\16\23\u00d2\13\23\3\24\3\24\3\24\3\24\5\24\u00d8\n\24\3\24\2"+
-		"\2\25\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&\2\5\3\2\30\31\3\2\33"+
-		"\34\3\2&+\2\u00ec\2(\3\2\2\2\4.\3\2\2\2\6\60\3\2\2\2\b;\3\2\2\2\n=\3\2"+
-		"\2\2\fJ\3\2\2\2\16L\3\2\2\2\20p\3\2\2\2\22v\3\2\2\2\24x\3\2\2\2\26\u008b"+
-		"\3\2\2\2\30\u008d\3\2\2\2\32\u0099\3\2\2\2\34\u00ae\3\2\2\2\36\u00b0\3"+
-		"\2\2\2 \u00b6\3\2\2\2\"\u00c9\3\2\2\2$\u00cb\3\2\2\2&\u00d7\3\2\2\2()"+
-		"\5\4\3\2)\3\3\2\2\2*+\7\27\2\2+,\7\5\2\2,/\5\6\4\2-/\5\b\5\2.*\3\2\2\2"+
-		".-\3\2\2\2/\5\3\2\2\2\60\61\t\2\2\2\61\62\7\61\2\2\62\65\7\60\2\2\63\66"+
-		"\5\6\4\2\64\66\5\b\5\2\65\63\3\2\2\2\65\64\3\2\2\2\66\7\3\2\2\2\678\7"+
-		"\32\2\289\7\5\2\29<\5\n\6\2:<\5\f\7\2;\67\3\2\2\2;:\3\2\2\2<\t\3\2\2\2"+
-		"=>\t\3\2\2>A\7\61\2\2?B\5\n\6\2@B\5\f\7\2A?\3\2\2\2A@\3\2\2\2B\13\3\2"+
-		"\2\2CD\7\35\2\2DE\7\61\2\2EF\7\7\2\2FG\5\16\b\2GH\5\f\7\2HK\3\2\2\2IK"+
-		"\5\30\r\2JC\3\2\2\2JI\3\2\2\2K\r\3\2\2\2LM\5\20\t\2MN\7\23\2\2NO\5\20"+
-		"\t\2O\17\3\2\2\2PU\7\61\2\2QR\7\13\2\2RS\5\26\f\2ST\7\f\2\2TV\3\2\2\2"+
-		"UQ\3\2\2\2UV\3\2\2\2VY\3\2\2\2WZ\5\22\n\2XZ\5\24\13\2YW\3\2\2\2YX\3\2"+
-		"\2\2YZ\3\2\2\2Zq\3\2\2\2[^\7\60\2\2\\_\5\22\n\2]_\5\24\13\2^\\\3\2\2\2"+
-		"^]\3\2\2\2^_\3\2\2\2_q\3\2\2\2`a\7\21\2\2ad\7\60\2\2be\5\22\n\2ce\5\24"+
-		"\13\2db\3\2\2\2dc\3\2\2\2de\3\2\2\2eq\3\2\2\2fg\7\r\2\2gh\5\20\t\2hj\7"+
-		"\16\2\2ik\5\22\n\2ji\3\2\2\2jk\3\2\2\2kq\3\2\2\2ln\7\24\2\2mo\5\22\n\2"+
-		"nm\3\2\2\2no\3\2\2\2oq\3\2\2\2pP\3\2\2\2p[\3\2\2\2p`\3\2\2\2pf\3\2\2\2"+
-		"pl\3\2\2\2q\21\3\2\2\2rs\7\17\2\2sw\5\20\t\2tu\7\20\2\2uw\5\20\t\2vr\3"+
-		"\2\2\2vt\3\2\2\2w\23\3\2\2\2xy\7\6\2\2yz\5\20\t\2z\25\3\2\2\2{~\7\61\2"+
-		"\2|}\7\3\2\2}\177\5\26\f\2~|\3\2\2\2~\177\3\2\2\2\177\u008c\3\2\2\2\u0080"+
-		"\u0081\7\36\2\2\u0081\u0084\7\61\2\2\u0082\u0083\7\3\2\2\u0083\u0085\5"+
-		"\26\f\2\u0084\u0082\3\2\2\2\u0084\u0085\3\2\2\2\u0085\u008c\3\2\2\2\u0086"+
-		"\u0089\7\22\2\2\u0087\u0088\7\3\2\2\u0088\u008a\5\26\f\2\u0089\u0087\3"+
-		"\2\2\2\u0089\u008a\3\2\2\2\u008a\u008c\3\2\2\2\u008b{\3\2\2\2\u008b\u0080"+
-		"\3\2\2\2\u008b\u0086\3\2\2\2\u008c\27\3\2\2\2\u008d\u008e\7\37\2\2\u008e"+
-		"\u008f\7\61\2\2\u008f\u0090\7\7\2\2\u0090\u0094\5\20\t\2\u0091\u0093\5"+
-		"\32\16\2\u0092\u0091\3\2\2\2\u0093\u0096\3\2\2\2\u0094\u0092\3\2\2\2\u0094"+
-		"\u0095\3\2\2\2\u0095\u0097\3\2\2\2\u0096\u0094\3\2\2\2\u0097\u0098\7\2"+
-		"\2\3\u0098\31\3\2\2\2\u0099\u009a\7 \2\2\u009a\u009b\7\61\2\2\u009b\u009c"+
-		"\7\7\2\2\u009c\u009d\5\34\17\2\u009d\33\3\2\2\2\u009e\u00a3\5\36\20\2"+
-		"\u009f\u00a0\7!\2\2\u00a0\u00a4\5\36\20\2\u00a1\u00a2\7\17\2\2\u00a2\u00a4"+
-		"\5\36\20\2\u00a3\u009f\3\2\2\2\u00a3\u00a1\3\2\2\2\u00a3\u00a4\3\2\2\2"+
-		"\u00a4\u00af\3\2\2\2\u00a5\u00a6\7\"\2\2\u00a6\u00af\5\34\17\2\u00a7\u00a8"+
-		"\7#\2\2\u00a8\u00a9\5\34\17\2\u00a9\u00aa\7$\2\2\u00aa\u00ab\5\34\17\2"+
-		"\u00ab\u00ac\7%\2\2\u00ac\u00ad\5\34\17\2\u00ad\u00af\3\2\2\2\u00ae\u009e"+
-		"\3\2\2\2\u00ae\u00a5\3\2\2\2\u00ae\u00a7\3\2\2\2\u00af\35\3\2\2\2\u00b0"+
-		"\u00b4\5\"\22\2\u00b1\u00b2\5 \21\2\u00b2\u00b3\5\"\22\2\u00b3\u00b5\3"+
-		"\2\2\2\u00b4\u00b1\3\2\2\2\u00b4\u00b5\3\2\2\2\u00b5\37\3\2\2\2\u00b6"+
-		"\u00b7\t\4\2\2\u00b7!\3\2\2\2\u00b8\u00b9\7\r\2\2\u00b9\u00ba\5\34\17"+
-		"\2\u00ba\u00bb\7\16\2\2\u00bb\u00ca\3\2\2\2\u00bc\u00bd\7\61\2\2\u00bd"+
-		"\u00bf\7\r\2\2\u00be\u00c0\5$\23\2\u00bf\u00be\3\2\2\2\u00bf\u00c0\3\2"+
-		"\2\2\u00c0\u00c1\3\2\2\2\u00c1\u00ca\7\16\2\2\u00c2\u00c3\7\21\2\2\u00c3"+
-		"\u00c6\7\61\2\2\u00c4\u00c5\7\23\2\2\u00c5\u00c7\5\"\22\2\u00c6\u00c4"+
-		"\3\2\2\2\u00c6\u00c7\3\2\2\2\u00c7\u00ca\3\2\2\2\u00c8\u00ca\7\60\2\2"+
-		"\u00c9\u00b8\3\2\2\2\u00c9\u00bc\3\2\2\2\u00c9\u00c2\3\2\2\2\u00c9\u00c8"+
-		"\3\2\2\2\u00ca#\3\2\2\2\u00cb\u00d0\5&\24\2\u00cc\u00cd\7\3\2\2\u00cd"+
-		"\u00cf\5&\24\2\u00ce\u00cc\3\2\2\2\u00cf\u00d2\3\2\2\2\u00d0\u00ce\3\2"+
-		"\2\2\u00d0\u00d1\3\2\2\2\u00d1%\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d3\u00d8"+
-		"\7\60\2\2\u00d4\u00d5\7\21\2\2\u00d5\u00d8\7\61\2\2\u00d6\u00d8\5\20\t"+
-		"\2\u00d7\u00d3\3\2\2\2\u00d7\u00d4\3\2\2\2\u00d7\u00d6\3\2\2\2\u00d8\'"+
-		"\3\2\2\2\34.\65;AJUY^djnpv~\u0084\u0089\u008b\u0094\u00a3\u00ae\u00b4"+
-		"\u00bf\u00c6\u00c9\u00d0\u00d7";
+		"\3\7\3\7\3\7\3\7\3\7\3\7\5\7K\n\7\3\b\3\b\3\b\3\b\3\b\5\bR\n\b\3\b\3\b"+
+		"\3\t\3\t\3\t\3\t\3\t\5\t[\n\t\3\t\3\t\5\t_\n\t\3\t\3\t\3\t\5\td\n\t\3"+
+		"\t\3\t\3\t\3\t\5\tj\n\t\3\t\3\t\3\t\3\t\5\tp\n\t\3\t\3\t\5\tt\n\t\5\t"+
+		"v\n\t\3\n\3\n\3\n\3\n\5\n|\n\n\3\13\3\13\3\13\3\f\3\f\3\f\5\f\u0084\n"+
+		"\f\3\f\3\f\3\f\3\f\5\f\u008a\n\f\3\f\3\f\3\f\5\f\u008f\n\f\5\f\u0091\n"+
+		"\f\3\r\3\r\3\r\3\r\3\r\7\r\u0098\n\r\f\r\16\r\u009b\13\r\3\r\3\r\3\16"+
+		"\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\5\17\u00a9\n\17\3\17\3\17"+
+		"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\5\17\u00b4\n\17\3\20\3\20\3\20\3\20"+
+		"\5\20\u00ba\n\20\3\21\3\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00c5"+
+		"\n\22\3\22\3\22\3\22\3\22\3\22\5\22\u00cc\n\22\3\22\5\22\u00cf\n\22\3"+
+		"\23\3\23\3\23\7\23\u00d4\n\23\f\23\16\23\u00d7\13\23\3\24\3\24\3\24\3"+
+		"\24\5\24\u00dd\n\24\3\24\2\2\25\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36"+
+		" \"$&\2\5\3\2\30\31\3\2\33\34\3\2&+\2\u00f2\2(\3\2\2\2\4.\3\2\2\2\6\60"+
+		"\3\2\2\2\b;\3\2\2\2\n=\3\2\2\2\fJ\3\2\2\2\16L\3\2\2\2\20u\3\2\2\2\22{"+
+		"\3\2\2\2\24}\3\2\2\2\26\u0090\3\2\2\2\30\u0092\3\2\2\2\32\u009e\3\2\2"+
+		"\2\34\u00b3\3\2\2\2\36\u00b5\3\2\2\2 \u00bb\3\2\2\2\"\u00ce\3\2\2\2$\u00d0"+
+		"\3\2\2\2&\u00dc\3\2\2\2()\5\4\3\2)\3\3\2\2\2*+\7\27\2\2+,\7\5\2\2,/\5"+
+		"\6\4\2-/\5\b\5\2.*\3\2\2\2.-\3\2\2\2/\5\3\2\2\2\60\61\t\2\2\2\61\62\7"+
+		"\62\2\2\62\65\7\60\2\2\63\66\5\6\4\2\64\66\5\b\5\2\65\63\3\2\2\2\65\64"+
+		"\3\2\2\2\66\7\3\2\2\2\678\7\32\2\289\7\5\2\29<\5\n\6\2:<\5\f\7\2;\67\3"+
+		"\2\2\2;:\3\2\2\2<\t\3\2\2\2=>\t\3\2\2>A\7\62\2\2?B\5\n\6\2@B\5\f\7\2A"+
+		"?\3\2\2\2A@\3\2\2\2B\13\3\2\2\2CD\7\35\2\2DE\7\62\2\2EF\7\7\2\2FG\5\16"+
+		"\b\2GH\5\f\7\2HK\3\2\2\2IK\5\30\r\2JC\3\2\2\2JI\3\2\2\2K\r\3\2\2\2LM\5"+
+		"\20\t\2MQ\7\23\2\2NO\7\r\2\2OP\7\61\2\2PR\7\16\2\2QN\3\2\2\2QR\3\2\2\2"+
+		"RS\3\2\2\2ST\5\20\t\2T\17\3\2\2\2UZ\7\62\2\2VW\7\13\2\2WX\5\26\f\2XY\7"+
+		"\f\2\2Y[\3\2\2\2ZV\3\2\2\2Z[\3\2\2\2[^\3\2\2\2\\_\5\22\n\2]_\5\24\13\2"+
+		"^\\\3\2\2\2^]\3\2\2\2^_\3\2\2\2_v\3\2\2\2`c\7\60\2\2ad\5\22\n\2bd\5\24"+
+		"\13\2ca\3\2\2\2cb\3\2\2\2cd\3\2\2\2dv\3\2\2\2ef\7\21\2\2fi\7\60\2\2gj"+
+		"\5\22\n\2hj\5\24\13\2ig\3\2\2\2ih\3\2\2\2ij\3\2\2\2jv\3\2\2\2kl\7\r\2"+
+		"\2lm\5\20\t\2mo\7\16\2\2np\5\22\n\2on\3\2\2\2op\3\2\2\2pv\3\2\2\2qs\7"+
+		"\24\2\2rt\5\22\n\2sr\3\2\2\2st\3\2\2\2tv\3\2\2\2uU\3\2\2\2u`\3\2\2\2u"+
+		"e\3\2\2\2uk\3\2\2\2uq\3\2\2\2v\21\3\2\2\2wx\7\17\2\2x|\5\20\t\2yz\7\20"+
+		"\2\2z|\5\20\t\2{w\3\2\2\2{y\3\2\2\2|\23\3\2\2\2}~\7\6\2\2~\177\5\20\t"+
+		"\2\177\25\3\2\2\2\u0080\u0083\7\62\2\2\u0081\u0082\7\3\2\2\u0082\u0084"+
+		"\5\26\f\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0091\3\2\2\2"+
+		"\u0085\u0086\7\36\2\2\u0086\u0089\7\62\2\2\u0087\u0088\7\3\2\2\u0088\u008a"+
+		"\5\26\f\2\u0089\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a\u0091\3\2\2\2"+
+		"\u008b\u008e\7\22\2\2\u008c\u008d\7\3\2\2\u008d\u008f\5\26\f\2\u008e\u008c"+
+		"\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u0091\3\2\2\2\u0090\u0080\3\2\2\2\u0090"+
+		"\u0085\3\2\2\2\u0090\u008b\3\2\2\2\u0091\27\3\2\2\2\u0092\u0093\7\37\2"+
+		"\2\u0093\u0094\7\62\2\2\u0094\u0095\7\7\2\2\u0095\u0099\5\20\t\2\u0096"+
+		"\u0098\5\32\16\2\u0097\u0096\3\2\2\2\u0098\u009b\3\2\2\2\u0099\u0097\3"+
+		"\2\2\2\u0099\u009a\3\2\2\2\u009a\u009c\3\2\2\2\u009b\u0099\3\2\2\2\u009c"+
+		"\u009d\7\2\2\3\u009d\31\3\2\2\2\u009e\u009f\7 \2\2\u009f\u00a0\7\62\2"+
+		"\2\u00a0\u00a1\7\7\2\2\u00a1\u00a2\5\34\17\2\u00a2\33\3\2\2\2\u00a3\u00a8"+
+		"\5\36\20\2\u00a4\u00a5\7!\2\2\u00a5\u00a9\5\36\20\2\u00a6\u00a7\7\17\2"+
+		"\2\u00a7\u00a9\5\36\20\2\u00a8\u00a4\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a8"+
+		"\u00a9\3\2\2\2\u00a9\u00b4\3\2\2\2\u00aa\u00ab\7\"\2\2\u00ab\u00b4\5\34"+
+		"\17\2\u00ac\u00ad\7#\2\2\u00ad\u00ae\5\34\17\2\u00ae\u00af\7$\2\2\u00af"+
+		"\u00b0\5\34\17\2\u00b0\u00b1\7%\2\2\u00b1\u00b2\5\34\17\2\u00b2\u00b4"+
+		"\3\2\2\2\u00b3\u00a3\3\2\2\2\u00b3\u00aa\3\2\2\2\u00b3\u00ac\3\2\2\2\u00b4"+
+		"\35\3\2\2\2\u00b5\u00b9\5\"\22\2\u00b6\u00b7\5 \21\2\u00b7\u00b8\5\"\22"+
+		"\2\u00b8\u00ba\3\2\2\2\u00b9\u00b6\3\2\2\2\u00b9\u00ba\3\2\2\2\u00ba\37"+
+		"\3\2\2\2\u00bb\u00bc\t\4\2\2\u00bc!\3\2\2\2\u00bd\u00be\7\r\2\2\u00be"+
+		"\u00bf\5\34\17\2\u00bf\u00c0\7\16\2\2\u00c0\u00cf\3\2\2\2\u00c1\u00c2"+
+		"\7\62\2\2\u00c2\u00c4\7\r\2\2\u00c3\u00c5\5$\23\2\u00c4\u00c3\3\2\2\2"+
+		"\u00c4\u00c5\3\2\2\2\u00c5\u00c6\3\2\2\2\u00c6\u00cf\7\16\2\2\u00c7\u00c8"+
+		"\7\21\2\2\u00c8\u00cb\7\62\2\2\u00c9\u00ca\7\23\2\2\u00ca\u00cc\5\"\22"+
+		"\2\u00cb\u00c9\3\2\2\2\u00cb\u00cc\3\2\2\2\u00cc\u00cf\3\2\2\2\u00cd\u00cf"+
+		"\7\60\2\2\u00ce\u00bd\3\2\2\2\u00ce\u00c1\3\2\2\2\u00ce\u00c7\3\2\2\2"+
+		"\u00ce\u00cd\3\2\2\2\u00cf#\3\2\2\2\u00d0\u00d5\5&\24\2\u00d1\u00d2\7"+
+		"\3\2\2\u00d2\u00d4\5&\24\2\u00d3\u00d1\3\2\2\2\u00d4\u00d7\3\2\2\2\u00d5"+
+		"\u00d3\3\2\2\2\u00d5\u00d6\3\2\2\2\u00d6%\3\2\2\2\u00d7\u00d5\3\2\2\2"+
+		"\u00d8\u00dd\7\60\2\2\u00d9\u00da\7\21\2\2\u00da\u00dd\7\62\2\2\u00db"+
+		"\u00dd\5\20\t\2\u00dc\u00d8\3\2\2\2\u00dc\u00d9\3\2\2\2\u00dc\u00db\3"+
+		"\2\2\2\u00dd\'\3\2\2\2\35.\65;AJQZ^ciosu{\u0083\u0089\u008e\u0090\u0099"+
+		"\u00a8\u00b3\u00b9\u00c4\u00cb\u00ce\u00d5\u00dc";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

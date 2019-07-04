@@ -29,6 +29,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
     // Model name to check file integrity
     private String modelName = "null";
 
+    // Verifies the model can be submitted as it is to bigmc
+    private boolean bigmcReady = true;
+
 
     @Override
     public Void visitChildren(RuleNode node) {
@@ -132,6 +135,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
 
 
     @Override public Void visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
+        if(ctx.PROBABILITY() != null)
+            bigmcReady = false;
         return visitChildren(ctx);
     }
 
@@ -313,5 +318,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
     public boolean getAcceptableModel() {
         return acceptableModel;
     }
+
+    public boolean isBigmcReady() { return bigmcReady; }
 
 }

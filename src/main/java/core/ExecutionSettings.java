@@ -2,7 +2,7 @@ package core;
 
 public class ExecutionSettings {
 
-    private String fileName;
+    private String filePath;
     private int threads = 2;
     private int steps = 0;
     private int statisticsFrequency = 0;
@@ -13,12 +13,14 @@ public class ExecutionSettings {
     private boolean printEnabled = false;
     private boolean printTransition = false;
     private boolean printIntermediate = false;
+    private boolean bigmcReady = false;
+    private String bigmcFile;
 
     ExecutionSettings() { }
 
 
-    public String getFileName() {
-        return fileName;
+    public String getFilePath() {
+        return filePath;
     }
 
     public int getThreads() {
@@ -49,8 +51,12 @@ public class ExecutionSettings {
         return exporting;
     }
 
-    void setFileName(String fileName) {
-        this.fileName = fileName;
+    public String getBigmcFile() { return bigmcFile; }
+
+    public boolean isBigmcReady() { return bigmcReady; }
+
+    void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     void setThreads(int threads) {
@@ -89,6 +95,11 @@ public class ExecutionSettings {
     void enablePrintIntermediate() {
         printIntermediate = true;
     }
+
+    void setBigmcFile(String fileName) { this.bigmcFile = fileName; }
+
+    void setBigmcReady() { this.bigmcReady = true; }
+
 
 }
 

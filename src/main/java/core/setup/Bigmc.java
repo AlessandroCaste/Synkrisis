@@ -53,7 +53,11 @@ public class Bigmc {
             input.append(" -p");
 
         // Basic model checking functionality
-        input.append(" ").append(loadedSettings.getFileName());
+        // I distinguish the case the file was altered on purpose for bigmc
+        if(loadedSettings.isBigmcReady())
+            input.append(" ").append(loadedSettings.getFilePath());
+        else
+            input.append(" ").append(loadedSettings.getBigmcFile());
 
         return input.toString();
 
@@ -133,7 +137,7 @@ public class Bigmc {
             outputTxt.close();
 
             //Rename lost output transition
-            File lastTransitionFile = new File(modelName + "/" + modelName +"-" + (transition_counter - 1) + ".transition");
+            File lastTransitionFile = new File(modelName + "/" + modelName + "-" + (transition_counter) + ".transition");
             boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".transition"));
             if(!renameResult)
                 logger.log(Level.WARNING,"Couldn't correctly rename the last.transition file!");
@@ -151,7 +155,10 @@ public class Bigmc {
             deletionResult = tempFile.delete();
             if(!deletionResult)
                 logger.log(Level.WARNING,"Couldn't correctly delete .temp file!");
-
+            if(!loadedSettings.isBigmcReady()) {
+                new File(loadedSettings.getBigmcFile()).delete();
+                logger.log(Level.INFO,"Temporary bigmc translation has been eliminated successfully");
+            }
         } catch (FileNotFoundException e) {
             System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
             logger.log(Level.SEVERE, "File not found when using the scanner\n Stack trace: " + e.getMessage());

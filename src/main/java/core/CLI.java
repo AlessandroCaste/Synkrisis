@@ -50,7 +50,7 @@ class CLI {
             if(cmd.hasOption("load")) {
                 String fileName = cmd.getOptionValue("load");
                 setupLogger(fileName);
-                settings.setFileName(fileName);
+                settings.setFilePath(fileName);
             } else {
                 System.out.println("Submit a model with -load!");
                 System.out.println("Execution can't proceed");
