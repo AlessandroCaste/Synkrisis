@@ -48,7 +48,7 @@ links              : IDENTIFIER          (COMMA links)?
 
 model              : MODEL IDENTIFIER ASSIGNMENT expression marker;
 
-marker             : MARKER IDENTIFIER ASSIGNMENT marker_statement
+marker             : MARKER IDENTIFIER ASSIGNMENT marker_statement marker
                    | property
                    ;
 

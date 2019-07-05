@@ -1,8 +1,8 @@
 package core.exporting;
 
 import core.graphBuilding.Vertex;
-import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.Multigraph;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class PrismExporter {
         return instance;
     }
 
-    public void receiveLabeledState(SimpleDirectedWeightedGraph<Vertex, DefaultWeightedEdge> graph, ArrayList<String> propertyLabel) {
+    public void receiveLabeledState(Multigraph<Vertex, DefaultEdge> graph, ArrayList<String> propertyLabel) {
 
     }
 

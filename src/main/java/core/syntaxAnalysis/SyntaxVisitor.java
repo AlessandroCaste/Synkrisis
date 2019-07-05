@@ -19,6 +19,11 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     // Maps to track usages
     private HashMap<String,Integer> controlsUsage = new HashMap<>();
     private HashMap<String,Integer> namesUsage = new HashMap<>();
+    private HashMap<String,Float>   weightsMap = new HashMap<>();
+    private HashMap<String,Float>   rulesWeightMap = new HashMap<>();
+
+    // Ancillary variable to keep track of rule weights
+    private String currentRule;
 
     // Error String built during model execution, print in main
     private StringBuilder errorString = new StringBuilder();
@@ -118,26 +123,38 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     public Void visitReactions(bigraphParser.ReactionsContext ctx) {
 
         if (ctx.RULE() != null) {
-            String identifier = ctx.IDENTIFIER().toString();
+            currentRule = ctx.IDENTIFIER().toString();
 
-            if (controlsMap.containsKey(identifier))
+            if (controlsMap.containsKey(currentRule))
                 reportError(ctx, WARNING, "Reaction rules shouldn't be named after controls");
-            if (names.contains(identifier))
+            if (names.contains(currentRule))
                 reportError(ctx, WARNING, "Reaction rules shouldn't be named after an outer/inner name");
-            if (ruleNames.contains(identifier)) {
+            if (ruleNames.contains(currentRule)) {
                 acceptableModel = false;
                 reportError(ctx, ERROR, "Repeated rule name");
             }
             if(acceptableModel)
-                ruleNames.add(identifier);
+                ruleNames.add(currentRule);
         }
         return visitChildren(ctx);
     }
 
 
     @Override public Void visitReaction_statement (bigraphParser.Reaction_statementContext ctx){
-        if(ctx.PROBABILITY() != null)
+        if(ctx.PROBABILITY() != null) {
             bigmcReady = false;
+            float probability = Float.parseFloat(ctx.PROBABILITY().getText());
+
+            // Tracking of weights per rule
+            rulesWeightMap.put(currentRule,probability);
+
+            // Tracking of weights per state
+            String redex = ctx.expression().get(0).getText();
+            if (weightsMap.containsKey(redex))
+                weightsMap.put(redex,weightsMap.get(redex) + probability);
+            else
+                weightsMap.put(redex,probability);
+        }
         return visitChildren(ctx);
     }
 
@@ -214,17 +231,17 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         if(ctx.MARKER() != null) {
             String identifier = ctx.IDENTIFIER().toString();
             if (controlsMap.containsKey(identifier))
-                reportError(ctx, WARNING, "Properties shouldn't be named after controls");
+                reportError(ctx, WARNING, "Markers shouldn't be named after controls");
             if (names.contains(identifier))
-                reportError(ctx, WARNING, "Properties shouldn't be named after an outer/inner name");
+                reportError(ctx, WARNING, "Markers shouldn't be named after an outer/inner name");
             if (ruleNames.contains(identifier)) {
                 acceptableModel = false;
-                reportError(ctx, WARNING, "Properties shouldn't be named after rules");
+                reportError(ctx, WARNING, "Markers shouldn't be named after rules");
             }
             if (!propertyNames.contains(identifier)) {
                 propertyNames.add(identifier);
             } else {
-                reportError(ctx, ERROR, "Two properties share the same name!");
+                reportError(ctx, ERROR, "Two markers share the same name!");
             }
         }
         return visitChildren(ctx);
@@ -283,6 +300,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         StringBuilder returnString = new StringBuilder();
         returnString.append(errorString);
         returnString.append(checkUnusedVariables());
+        returnString.append(checkWeights());
         if (acceptableModel)
             return returnString.append("[RESULT : PASSED] Model is ready\n****************************").toString();
         else
@@ -320,6 +338,17 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
        // if(unusedControls.size() == 0 && unusedNames.size() == 0)
        //     errorString.append("[REPORT] All controlsMap and names declared are used");
         return returnString.toString();
+    }
+
+    private String checkWeights() {
+        StringBuilder resultWeight = new StringBuilder();
+        weightsMap.forEach((k,v) -> {
+            if(v != 1.0) {
+                acceptableModel = false;
+                resultWeight.append("[ERROR] Rules probabilities of redex (").append(k).append(") don't add up to 1\n");
+            }
+        });
+        return resultWeight.toString();
     }
 
     public String getModelName(){

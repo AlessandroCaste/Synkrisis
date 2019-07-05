@@ -70,7 +70,7 @@ public class Bigmc {
             String workingDirectory = System.getProperty("user.dir");
             // TODO What about implementing bigmc inside .jar?
 
-            // Linux case (standard case)
+            // Linux case is standard case
 
             ProcessBuilder pb;
             //TODO Pengwin setup is temporary
