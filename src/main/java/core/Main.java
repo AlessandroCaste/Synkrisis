@@ -29,6 +29,7 @@ public class Main {
     private static ParseTree modelTree;
     private static boolean acceptableModel;
     private static ExecutionSettings loadedSettings;
+    private static SyntaxVisitor syntaxVisitor;
 
     private static Logger logger = Logger.getLogger("Report");
 
@@ -47,6 +48,14 @@ public class Main {
             modelTree = initialization.getModelTree();
             acceptableModel = syntaxAnalysis();   // String is required to check model name against filePath
             if (acceptableModel) {
+
+                // If the model can't be submitted as-it-is then we must strip it of elements non compatible with bigmc
+                if(syntaxVisitor.isBigmcReady())
+                    loadedSettings.setBigmcReady();
+                else {
+                    bigmcTranslator(modelName);
+                    loadedSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
+                }
 
                 // Graph printing
                 if(loadedSettings.isPrintEnabled())
@@ -71,7 +80,7 @@ public class Main {
     private static boolean syntaxAnalysis() {
         logger.log(Level.INFO,"Syntax visitor started");
         String filename = FilenameUtils.getName(loadedSettings.getFilePath());
-        SyntaxVisitor syntaxVisitor = new SyntaxVisitor();
+        syntaxVisitor = new SyntaxVisitor();
         syntaxVisitor.visit(modelTree);
         modelName = syntaxVisitor.getModelName();
         if (!filename.equals(modelName+".bigraph")) {
@@ -80,18 +89,11 @@ public class Main {
             return false;
         }
         System.out.println(syntaxVisitor.getParseResult());
-
-        // If the model can't be submitted as-it-is then we must strip it of elements non compatible with bigmc
-        if(syntaxVisitor.isBigmcReady())
-            loadedSettings.setBigmcReady();
-        else {
-            bigmcTranslator(modelName);
-            loadedSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
-        }
         logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();
     }
 
+    // Translation requires only weights to be removed: properties are automatically filtered by bigmc
     private static void bigmcTranslator(String modelName){
         System.out.println("TRANSITION GRAPH GENERATION");
         System.out.println("Model can't be submitted to bigmc as it is: translation underway");

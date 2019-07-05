@@ -71,7 +71,7 @@ class SyntaxVisitorTest {
     void checkAcceptance() {
         // Airport model is a successful model
         String airportResult = airport.getParseResult();
-        assertEquals("[RESULT : PASSED]\nModel is ready",airportResult);
+        assertEquals("[RESULT : PASSED] Model is ready\n****************************",airportResult);
 
         // Example2 shows different kind of errors instead
         String example2Result = example2.getParseResult();

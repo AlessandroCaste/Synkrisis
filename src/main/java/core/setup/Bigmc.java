@@ -34,7 +34,7 @@ public class Bigmc {
         //TODO Embedding bigmc?
 
         // Bigmc location is set
-        input.append("src/main/resources/bigmc");
+        input.append("src/main/resources/bigmc -s");
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)
@@ -109,7 +109,7 @@ public class Bigmc {
             int transition_counter = 0;
 
             // We'll have a BufferedWriter to store the output print on the terminal and a BufferedWriter for transition files
-            BufferedWriter outputTxt = new BufferedWriter(new FileWriter(modelName + "/bigmc output.txt"));
+            BufferedWriter outputTxt = new BufferedWriter(new FileWriter(modelName + "/bigmc.log"));
             BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".transition",true));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
@@ -137,6 +137,7 @@ public class Bigmc {
             outputTxt.close();
 
             //Rename lost output transition
+            transition_counter = transition_counter - 1;
             File lastTransitionFile = new File(modelName + "/" + modelName + "-" + (transition_counter) + ".transition");
             boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".transition"));
             if(!renameResult)
