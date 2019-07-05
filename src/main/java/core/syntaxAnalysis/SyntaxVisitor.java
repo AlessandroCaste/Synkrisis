@@ -1,7 +1,7 @@
 package core.syntaxAnalysis;
 
-import antlr.bigraph.BigraphParser;
-import antlr.bigraph.BigraphVisitor;
+import antlr.bigraph.bigraphParser;
+import antlr.bigraph.bigraphVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.tree.RuleNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
+public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements bigraphVisitor<Void> {
 
     // We store identifiers in order to check repetitions and wrong uses
     private HashMap<String,Integer> controlsMap = new HashMap<>();
@@ -53,7 +53,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
     private final boolean validControl = true;
 
     @Override
-    public Void visitBigraph(BigraphParser.BigraphContext ctx) {
+    public Void visitBigraph(bigraphParser.BigraphContext ctx) {
+        System.out.println("SYNTAX ANALYSIS STARTED");
         // String builder get reset at every run
         errorString = new StringBuilder();
         return visitChildren(ctx);
@@ -61,7 +62,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
 
 
     @Override
-    public Void visitControls(BigraphParser.ControlsContext ctx) {
+    public Void visitControls(bigraphParser.ControlsContext ctx) {
         return visitChildren(ctx);
     }
 
@@ -69,7 +70,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
     // Controls are added to the respective list
     // If the control name is already present an error is signaled
     @Override
-    public Void visitControl_statements(BigraphParser.Control_statementsContext ctx) {
+    public Void visitControl_statements(bigraphParser.Control_statementsContext ctx) {
 
         String controlsIdentifier = ctx.IDENTIFIER().toString();
         if(names.contains(controlsIdentifier))
@@ -88,14 +89,14 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
 
 
     @Override
-    public Void visitNames(BigraphParser.NamesContext ctx) {
+    public Void visitNames(bigraphParser.NamesContext ctx) {
         return visitChildren(ctx);
     }
 
     // Names are added to the respective list
     // If names are already present in the model an error is signaled
     @Override
-    public Void visitName_statements(BigraphParser.Name_statementsContext ctx) {
+    public Void visitName_statements(bigraphParser.Name_statementsContext ctx) {
 
         String nameIdentifier = ctx.getChild(1).toString();
         if(controlsMap.containsKey(nameIdentifier))
@@ -114,7 +115,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
 
     // Reactions rules should present distinct, unique names!
     @Override
-    public Void visitReactions(BigraphParser.ReactionsContext ctx) {
+    public Void visitReactions(bigraphParser.ReactionsContext ctx) {
 
         if (ctx.RULE() != null) {
             String identifier = ctx.IDENTIFIER().toString();
@@ -134,14 +135,14 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
     }
 
 
-    @Override public Void visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
+    @Override public Void visitReaction_statement (bigraphParser.Reaction_statementContext ctx){
         if(ctx.PROBABILITY() != null)
             bigmcReady = false;
         return visitChildren(ctx);
     }
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
-    @Override public Void visitExpression (BigraphParser.ExpressionContext ctx) {
+    @Override public Void visitExpression (bigraphParser.ExpressionContext ctx) {
 
         // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)
         if (ctx.IDENTIFIER() != null) {
@@ -167,15 +168,15 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
         return visitChildren(ctx);
     }
 
-    @Override public Void visitRegions (BigraphParser.RegionsContext ctx){return visitChildren(ctx);
+    @Override public Void visitRegions (bigraphParser.RegionsContext ctx){return visitChildren(ctx);
     }
 
 
-    @Override public Void visitPrefix (BigraphParser.PrefixContext ctx){return visitChildren(ctx);}
+    @Override public Void visitPrefix (bigraphParser.PrefixContext ctx){return visitChildren(ctx);}
 
     // Links are checked for names/controls usages
     // Links also count the identifiers they contain in order to verify arity
-    @Override public Void visitLinks (BigraphParser.LinksContext ctx){
+    @Override public Void visitLinks (bigraphParser.LinksContext ctx){
 
         // I verify a variable is not getting declared inside a model definition
         if(modelVisited && ctx.VARIABLE() != null)
@@ -201,56 +202,66 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
     }
 
 
-    @Override public Void visitModel (BigraphParser.ModelContext ctx){
+    @Override public Void visitModel (bigraphParser.ModelContext ctx){
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
         return visitChildren(ctx);
     }
 
 
-    // This visitor serves the purpose of checking the uniqueness of property names
-    @Override public Void visitProperty (BigraphParser.PropertyContext ctx){
-        String identifier = ctx.IDENTIFIER().toString();
-        if (controlsMap.containsKey(identifier))
-            reportError(ctx, WARNING, "Properties shouldn't be named after controls");
-        if (names.contains(identifier))
-            reportError(ctx, WARNING, "Properties shouldn't be named after an outer/inner name");
-        if (ruleNames.contains(identifier)) {
-            acceptableModel = false;
-            reportError(ctx, WARNING, "Properties shouldn't be named after rules");
+    // This visitor serves the purpose of checking the uniqueness of marker names
+    @Override public Void visitMarker (bigraphParser.MarkerContext ctx) {
+        if(ctx.MARKER() != null) {
+            String identifier = ctx.IDENTIFIER().toString();
+            if (controlsMap.containsKey(identifier))
+                reportError(ctx, WARNING, "Properties shouldn't be named after controls");
+            if (names.contains(identifier))
+                reportError(ctx, WARNING, "Properties shouldn't be named after an outer/inner name");
+            if (ruleNames.contains(identifier)) {
+                acceptableModel = false;
+                reportError(ctx, WARNING, "Properties shouldn't be named after rules");
+            }
+            if (!propertyNames.contains(identifier)) {
+                propertyNames.add(identifier);
+            } else {
+                reportError(ctx, ERROR, "Two properties share the same name!");
+            }
         }
-        if(!propertyNames.contains(identifier)) {
-            propertyNames.add(identifier);
-        } else {
-            reportError(ctx, ERROR,"Two properties share the same name!");
-        }
-
         return visitChildren(ctx);
     }
 
 
-    @Override public Void visitProperty_statement (BigraphParser.Property_statementContext ctx){
+    @Override public Void visitMarker_statement (bigraphParser.Marker_statementContext ctx){
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {
+        bigmcReady = false;
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitProperty_statements (bigraphParser.Property_statementsContext ctx) {
         return visitChildren(ctx);
     }
 
 
-    @Override public Void visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
+    @Override public Void visitBoolean_expression (bigraphParser.Boolean_expressionContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public Void visitBinary_operation (BigraphParser.Binary_operationContext ctx){
+    @Override public Void visitBinary_operation (bigraphParser.Binary_operationContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public Void visitTerm (BigraphParser.TermContext ctx){
+    @Override public Void visitTerm (bigraphParser.TermContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public Void visitParameters_list (BigraphParser.Parameters_listContext ctx){
+    @Override public Void visitParameters_list (bigraphParser.Parameters_listContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public Void visitParameter (BigraphParser.ParameterContext ctx){
+    @Override public Void visitParameter (bigraphParser.ParameterContext ctx){
         return visitChildren(ctx);
     }
 
@@ -273,7 +284,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements Big
         returnString.append(errorString);
         returnString.append(checkUnusedVariables());
         if (acceptableModel)
-            return returnString.append("[RESULT : PASSED]\nModel is ready").toString();
+            return returnString.append("[RESULT : PASSED] Model is ready\n****************************").toString();
         else
             return returnString.append("[RESULT : FAILED]").toString();
     }

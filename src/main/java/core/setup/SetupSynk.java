@@ -1,7 +1,8 @@
 package core.setup;
 
-import antlr.bigraph.BigraphLexer;
-import antlr.bigraph.BigraphParser;
+
+import antlr.bigraph.bigraphLexer;
+import antlr.bigraph.bigraphParser;
 import core.syntaxAnalysis.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -34,9 +35,9 @@ public class SetupSynk {
         try {
             logger.log(Level.INFO, "Parsing tree creation started");
             InputStream inputStream = new FileInputStream(inputFile);
-            Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
+            Lexer lexer = new bigraphLexer(CharStreams.fromStream(inputStream));
             TokenStream tokenStream = new CommonTokenStream(lexer);
-            BigraphParser parser = new BigraphParser(tokenStream);
+            bigraphParser parser = new bigraphParser(tokenStream);
             parser.removeErrorListeners();
             parser.addErrorListener(ErrorListener.INSTANCE);
             modelTree = parser.bigraph();

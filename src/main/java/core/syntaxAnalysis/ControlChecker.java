@@ -1,14 +1,13 @@
 package core.syntaxAnalysis;
-
-import antlr.bigraph.BigraphParser;
+import antlr.bigraph.bigraphParser;
 
 class ControlChecker {
 
-    private BigraphParser.ExpressionContext ctx;
+    private bigraphParser.ExpressionContext ctx;
     private int arity;
     private boolean valid;
 
-    ControlChecker(BigraphParser.ExpressionContext ctx, int arity, boolean valid) {
+    ControlChecker(bigraphParser.ExpressionContext ctx, int arity, boolean valid) {
         this.ctx = ctx;
         this.arity = arity;
         this.valid = valid;
@@ -18,7 +17,7 @@ class ControlChecker {
         return valid;
     }
 
-    BigraphParser.ExpressionContext getCtx() {
+    bigraphParser.ExpressionContext getCtx() {
         return ctx;
     }
 

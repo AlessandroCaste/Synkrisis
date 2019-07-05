@@ -1,7 +1,7 @@
 package core.syntaxAnalysis;
 
-import antlr.bigraph.BigraphLexer;
-import antlr.bigraph.BigraphParser;
+import antlr.bigraph.bigraphLexer;
+import antlr.bigraph.bigraphParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
@@ -44,9 +44,9 @@ class SyntaxVisitorTest {
         try {
             File inputFile = new File(path);
             InputStream inputStream = new FileInputStream(inputFile);
-            Lexer lexer = new BigraphLexer(CharStreams.fromStream(inputStream));
+            Lexer lexer = new bigraphLexer(CharStreams.fromStream(inputStream));
             TokenStream tokenStream = new CommonTokenStream(lexer);
-            BigraphParser parser = new BigraphParser(tokenStream);
+            bigraphParser parser = new bigraphParser(tokenStream);
             parser.removeErrorListeners();
             parser.addErrorListener(ErrorListener.INSTANCE);
             ParseTree tree = parser.bigraph();

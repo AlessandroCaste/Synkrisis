@@ -93,7 +93,8 @@ public class Main {
     }
 
     private static void bigmcTranslator(String modelName){
-        System.out.println("Model can't be submitted to bigmc as it is: translation in progress..");
+        System.out.println("TRANSITION GRAPH GENERATION");
+        System.out.println("Model can't be submitted to bigmc as it is: translation underway");
         logger.log(Level.INFO,"Starting translation of bigraph into bigmc-readable file");
         try {
             BufferedReader reader = new BufferedReader(new FileReader(loadedSettings.getFilePath()));
@@ -111,6 +112,7 @@ public class Main {
             System.out.println("Problems during bigmc translation!");
             logger.log(Level.SEVERE,"Can't translate input to bigmc-readable file.\nStack: " + e.getMessage());
         }
+        System.out.println("Translation complete");
     }
 
     // Outputting pictures!

@@ -46,13 +46,23 @@ links              : IDENTIFIER          (COMMA links)?
                    | UNLINKED            (COMMA links)?
                    ;
 
-model              : MODEL IDENTIFIER ASSIGNMENT expression (property)* EOF;
+model              : MODEL IDENTIFIER ASSIGNMENT expression marker;
 
-property           : PROPERTY IDENTIFIER ASSIGNMENT property_statement;
+marker             : MARKER IDENTIFIER ASSIGNMENT marker_statement
+                   | property
+                   ;
 
-property_statement : boolean_expression (AND boolean_expression | LOR boolean_expression)?
-                   | NOT property_statement
-                   | IF property_statement THEN property_statement ELSE property_statement
+marker_statement   : boolean_expression (AND boolean_expression | LOR boolean_expression)?
+                   | NOT marker_statement
+                   | IF marker_statement THEN marker_statement ELSE marker_statement
+                   ;
+
+property           : PROPERTIES COLON property_statements
+                   | EOF
+                   ;
+
+property_statements: .+?
+                   | EOF
                    ;
 
 boolean_expression : term (binary_operation term)?
@@ -61,7 +71,7 @@ boolean_expression : term (binary_operation term)?
 binary_operation   : (NEQ | EQ | LEQ | GEQ | LT | GT)
                    ;
 
-term               : LPAR property_statement RPAR
+term               : LPAR marker_statement RPAR
                    | IDENTIFIER LPAR (parameters_list)? RPAR
                    | DOLLAR IDENTIFIER (ARROW term)?
                    | DIGIT
@@ -99,7 +109,7 @@ PAR     : '|' ;
 DOLLAR   : '$' ;
 UNLINKED : '-' ;
 ARROW    : '->' ;
-NIL         : 'nil' ;
+NIL      : 'nil' ;
 
 COMMENT      : '/*' .*? '*/' -> skip ;
 LINE_COMMENT : '#' ~[\r\n]* -> skip;
@@ -114,7 +124,8 @@ OUTER       : 'outer';
 RULE        : 'rule';
 VARIABLE    : '@';
 MODEL       : 'model';
-PROPERTY    : 'property';
+MARKER      : 'marker';
+PROPERTIES  : 'properties';
 AND         : '&&';
 NOT         : '!';
 
@@ -127,11 +138,8 @@ LT      : '<' ;
 GT      : '>' ;
 EQ      : '==' ;
 NEQ     : '!=' ;
-FORALL  : 'forall' ;
-EXISTS  : 'exists' ;
-TRUE    : 'true' ;
-FALSE   : 'false';
 
+// Closing line
 DIGIT       : ('0'..'9')+ ;
 PROBABILITY : ('0' DOT DIGIT+) ;
 IDENTIFIER  : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')* ;

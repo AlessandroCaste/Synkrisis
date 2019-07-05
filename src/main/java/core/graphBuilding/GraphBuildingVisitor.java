@@ -1,7 +1,7 @@
 package core.graphBuilding;
 
-import antlr.bigraph.BigraphParser;
-import antlr.bigraph.BigraphVisitor;
+import antlr.bigraph.bigraphParser;
+import antlr.bigraph.bigraphVisitor;
 import core.graphVisualization.CreateGraphvizModel;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -11,7 +11,7 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import java.util.Stack;
 
 
-public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> implements BigraphVisitor<Void> {
+public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> implements bigraphVisitor<Void> {
 
     // This differentiates analysis for models' expressions
     private boolean modelVisited = false;
@@ -42,39 +42,39 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override
-    public Void visitBigraph(BigraphParser.BigraphContext ctx) {
+    public Void visitBigraph(bigraphParser.BigraphContext ctx) {
         return visitChildren(ctx);
     }
 
 
     @Override
-    public Void visitControls(BigraphParser.ControlsContext ctx) {
+    public Void visitControls(bigraphParser.ControlsContext ctx) {
         return visitChildren(ctx);
     }
 
 
     @Override
-    public Void visitControl_statements(BigraphParser.Control_statementsContext ctx) {return visitChildren(ctx);}
+    public Void visitControl_statements(bigraphParser.Control_statementsContext ctx) {return visitChildren(ctx);}
 
 
     @Override
-    public Void visitNames(BigraphParser.NamesContext ctx) {
+    public Void visitNames(bigraphParser.NamesContext ctx) {
         return visitChildren(ctx);
     }
 
     @Override
-    public Void visitName_statements(BigraphParser.Name_statementsContext ctx) {return visitChildren(ctx);}
+    public Void visitName_statements(bigraphParser.Name_statementsContext ctx) {return visitChildren(ctx);}
 
 
     @Override
-    public Void visitReactions(BigraphParser.ReactionsContext ctx) {
+    public Void visitReactions(bigraphParser.ReactionsContext ctx) {
         if(ctx.IDENTIFIER() != null)
             reactionName = ctx.IDENTIFIER().toString();
         return visitChildren(ctx);
     }
 
 
-    @Override public Void visitReaction_statement (BigraphParser.Reaction_statementContext ctx){
+    @Override public Void visitReaction_statement (bigraphParser.Reaction_statementContext ctx){
         // I reset the latest graph
         currentGraph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
         resetGraph();
@@ -91,7 +91,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
     @SuppressWarnings("Duplicates")
-    @Override public Void visitExpression (BigraphParser.ExpressionContext ctx) {
+    @Override public Void visitExpression (bigraphParser.ExpressionContext ctx) {
 
         // GRAPH CREATION: calculating depths and nesting of parents
         if(ctx.LPAR()!=null ) {
@@ -173,7 +173,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @SuppressWarnings("Duplicates")
-    @Override public Void visitRegions (BigraphParser.RegionsContext ctx){
+    @Override public Void visitRegions (bigraphParser.RegionsContext ctx){
         // GRAPH CREATION: every time there's a parallel region I reset the parent node pointer
         if(ctx.PAR() != null ) {
             parallel = true;
@@ -188,7 +188,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return visitChildren(ctx);
     }
 
-    @Override public Void visitPrefix (BigraphParser.PrefixContext ctx){
+    @Override public Void visitPrefix (bigraphParser.PrefixContext ctx){
         // GRAPH CREATION: current node becomes a parent node
         nested = true;
         parallel = false;
@@ -197,7 +197,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @SuppressWarnings("Duplicates")
-    @Override public Void visitLinks (BigraphParser.LinksContext ctx){
+    @Override public Void visitLinks (bigraphParser.LinksContext ctx){
 
 
         // GRAPH CREATION: linking names to nodes
@@ -223,7 +223,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
 
-    @Override public Void visitModel (BigraphParser.ModelContext ctx){
+    @Override public Void visitModel (bigraphParser.ModelContext ctx){
         // I reset the latest graph
         currentGraph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
         resetGraph();
@@ -237,33 +237,40 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
 
-    @Override public Void visitProperty (BigraphParser.PropertyContext ctx){
+    @Override public Void visitMarker (bigraphParser.MarkerContext ctx){
         return null;
     }
 
 
-    @Override public Void visitProperty_statement (BigraphParser.Property_statementContext ctx){
+    @Override public Void visitMarker_statement (bigraphParser.Marker_statementContext ctx){
         return visitChildren(ctx);
     }
 
-
-    @Override public Void visitBoolean_expression (BigraphParser.Boolean_expressionContext ctx){
+    @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {
         return visitChildren(ctx);
     }
 
-    @Override public Void visitBinary_operation (BigraphParser.Binary_operationContext ctx){
+    @Override public Void visitProperty_statements (bigraphParser.Property_statementsContext ctx) {
         return visitChildren(ctx);
     }
 
-    @Override public Void visitTerm (BigraphParser.TermContext ctx){
+    @Override public Void visitBoolean_expression (bigraphParser.Boolean_expressionContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public Void visitParameters_list (BigraphParser.Parameters_listContext ctx){
+    @Override public Void visitBinary_operation (bigraphParser.Binary_operationContext ctx){
         return visitChildren(ctx);
     }
 
-    @Override public Void visitParameter (BigraphParser.ParameterContext ctx){
+    @Override public Void visitTerm (bigraphParser.TermContext ctx){
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitParameters_list (bigraphParser.Parameters_listContext ctx){
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitParameter (bigraphParser.ParameterContext ctx){
         return visitChildren(ctx);
     }
 
