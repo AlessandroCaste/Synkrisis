@@ -13,7 +13,7 @@ names:
     inner corridor
     inner nursestation
 
-rule doctor_moves  = Room[@a].(Doctor[pager] | $1) | Room[@b].($2) -> (0.5) Room[@a].($1) | Room[@b].($2 | Doctor[pager])
+rule doctor_moves  = Room[@a].(Doctor[pager] | $1) | Room[@b].($2) -> Room[@a].($1) | Room[@b].($2 | Doctor[pager])
 rule nurse_moves   = Room[@a].(Nurse[pager]  | $1) | Room[@b].($2) -> Room[@a].($1) | Room[@b].($2 | Nurse[pager])
 rule dreamy_doctor = Room[@a].(Doctor[pager] | $1) -> Room[@a].(Doctor[-] | $1)
 
@@ -25,5 +25,5 @@ marker nursestation_meeting = matches (Room[nursestation].( Nurse[pager] | Docto
 
 properties:
     // Some random properties for testing
-    "safe": P<0.01 [ F temperature > t_max ];
+    "safe": P<0.01? [ F temperature > t_max ];
     filter(forall, num_sensors>0 => "safe");

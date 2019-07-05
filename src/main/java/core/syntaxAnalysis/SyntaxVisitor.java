@@ -241,7 +241,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
             if (!propertyNames.contains(identifier)) {
                 propertyNames.add(identifier);
             } else {
-                reportError(ctx, ERROR, "Two markers share the same name!");
+                reportError(ctx, ERROR, "Different markers share the same name!");
             }
         }
         return visitChildren(ctx);

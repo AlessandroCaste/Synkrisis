@@ -103,16 +103,16 @@ LSQ     : '[' ;
 RSQ     : ']' ;
 LPAR    : '(' ;
 RPAR    : ')' ;
-LOR     : '||' ;
+LOR     : '||';
 PAR     : '|' ;
 
-DOLLAR   : '$' ;
-UNLINKED : '-' ;
-ARROW    : '->' ;
+DOLLAR   : '$'   ;
+UNLINKED : '-'   ;
+ARROW    : '->'  ;
 NIL      : 'nil' ;
 
 COMMENT      : '/*' .*? '*/' -> skip ;
-LINE_COMMENT : '#' ~[\r\n]* -> skip;
+LINE_COMMENT : '#' ~[\r\n]* -> skip  ;
 
 CONTROLS    : 'controls';
 ACTIVE      : 'active';
@@ -121,7 +121,7 @@ PASSIVE     : 'passive';
 NAMES       : 'names';
 INNER       : 'inner';
 OUTER       : 'outer';
-RULE        : 'rule';
+RULE        : 'rule' ;
 VARIABLE    : '@';
 MODEL       : 'model';
 MARKER      : 'marker';
@@ -134,10 +134,20 @@ THEN    : 'then';
 ELSE    : 'else';
 LEQ     : '<=' ;
 GEQ     : '>=' ;
-LT      : '<' ;
-GT      : '>' ;
+LT      : '<'  ;
+GT      : '>'  ;
 EQ      : '==' ;
 NEQ     : '!=' ;
+
+// Necessary for properties specification
+SLASH    : '/'  ;
+QUOTE    : '"'  ;
+QUESTION : '?'  ;
+PRODUCT  : '*'  ;
+ADDITION : '+'  ;
+CONJUNCTION : '&' ;
+
+
 
 // Closing line
 DIGIT       : ('0'..'9')+ ;
