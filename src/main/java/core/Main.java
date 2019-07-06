@@ -49,6 +49,21 @@ public class Main {
             acceptableModel = syntaxAnalysis();   // String is required to check model name against filePath
             if (acceptableModel) {
 
+                // I translate the graph into a JgraphT model: this way I may use different kinds of model checkers
+                logger.log(Level.INFO,"Jgraph translation from parsetree started");
+                GraphBuildingVisitor modelBuilder = new GraphBuildingVisitor();
+                modelBuilder.visit(modelTree);
+                logger.log(Level.INFO, "Jgraph translation from parsetree completed.");
+
+                // Graph printing
+                if(loadedSettings.isPrintEnabled()) {
+                    logger.log(Level.INFO,"Launching graphviz printing...");
+                    System.out.println("PRINTING MODEL AND REACTIONS");
+                    GraphsCollection.getInstance().printModel();
+                    System.out.println("****************************");
+                }
+
+                // TODO Add here other-than-bigmc support
                 // If the model can't be submitted as-it-is then we must strip it of elements non compatible with bigmc
                 if(syntaxVisitor.isBigmcReady())
                     loadedSettings.setBigmcReady();
@@ -56,11 +71,6 @@ public class Main {
                     bigmcTranslator(modelName);
                     loadedSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
                 }
-
-                // Graph printing
-                if(loadedSettings.isPrintEnabled())
-                    graphvizModel();
-
                 // Running bigmc and parsing the results
                 new Bigmc(loadedSettings,modelName);
 
@@ -83,8 +93,8 @@ public class Main {
         syntaxVisitor = new SyntaxVisitor();
         syntaxVisitor.visit(modelTree);
         modelName = syntaxVisitor.getModelName();
-        if (!filename.equals(modelName+".bigraph")) {
-            System.out.println("[FATAL ERROR] File name and model names do not match : " + filename + " vs " + modelName +".bigraph");
+        if (!filename.equals(modelName + ".bigraph")) {
+            System.out.println("[FATAL ERROR] File name and model names do not match : " + filename + " vs " + modelName + ".bigraph");
             logger.log(Level.SEVERE,"Execution suspended since model name and file name do not match: " + filename + " vs " + modelName +".bigraph.\nCan't run visitor until it's fixed");
             return false;
         }
@@ -96,7 +106,7 @@ public class Main {
     // Translation requires only weights to be removed: properties are automatically filtered by bigmc
     private static void bigmcTranslator(String modelName){
         System.out.println("TRANSITION GRAPH GENERATION");
-        System.out.println("Model can't be submitted to bigmc as it is: translation underway");
+        System.out.println("Model translation underway");
         logger.log(Level.INFO,"Starting translation of bigraph into bigmc-readable file");
         try {
             BufferedReader reader = new BufferedReader(new FileReader(loadedSettings.getFilePath()));
@@ -115,15 +125,6 @@ public class Main {
             logger.log(Level.SEVERE,"Can't translate input to bigmc-readable file.\nStack: " + e.getMessage());
         }
         System.out.println("Translation complete");
-    }
-
-    // Outputting pictures!
-    private static void graphvizModel() {
-        logger.log(Level.INFO,"Jgraph translation from parsetree started");
-        GraphBuildingVisitor graphvizVisitor = new GraphBuildingVisitor();
-        graphvizVisitor.visit(modelTree);
-        logger.log(Level.INFO, "Jgraph translation from parsetree completed. Launching graphviz printing...");
-        GraphsCollection.getInstance().printModel();
     }
 
 }

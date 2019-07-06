@@ -19,7 +19,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // Model name to check file integrity
     private String modelName;
 
-
     @Override
     public Void visitChildren(RuleNode node) {
         return super.visitChildren(node);
@@ -75,6 +74,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override public Void visitReaction_statement (bigraphParser.Reaction_statementContext ctx){
+        // Storing probabilities
+        if(ctx.PROBABILITY() != null)
+            GraphsCollection.getInstance().addReactionWeight(reactionName,Float.parseFloat(ctx.PROBABILITY().getText()));
+        else
+            GraphsCollection.getInstance().addReactionWeight(reactionName,1f);
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
@@ -83,7 +87,10 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         // Reset tree info for reactum tree
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
-        visit(ctx.getChild(2));
+        if(ctx.PROBABILITY() != null)
+            visit(ctx.getChild(5));
+        else
+            visit(ctx.getChild(2));
         reactum = currentGraph;
         createReactionGraph(redex,reactum,reactionName);
         return null;
@@ -131,14 +138,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             String identifier = ctx.IDENTIFIER().getText();
 
             // GRAPH CREATION: taking into account parallel/nesting in expressions
-            if(root ) {
+            if(root) {
                 root = false;
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 currentVertex = vertex;
                 nodeCounter++;
             }
-            else if(parallel ) {
+            else if(parallel) {
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 if(upperVertex != null)
@@ -146,7 +153,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
                 currentVertex = vertex;
                 nodeCounter++;
             }
-            else if(nested ) {
+            else if(nested) {
                 Vertex vertex = new Vertex(nodeCounter,identifier,true);
                 currentGraph.addVertex(vertex);
                 if(currentVertex != vertex)
@@ -243,7 +250,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override public Void visitMarker_statement (bigraphParser.Marker_statementContext ctx){
-        return visitChildren(ctx);
+        return null;
     }
 
     @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {

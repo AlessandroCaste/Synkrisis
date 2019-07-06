@@ -19,8 +19,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     // Maps to track usages
     private HashMap<String,Integer> controlsUsage = new HashMap<>();
     private HashMap<String,Integer> namesUsage = new HashMap<>();
-    private HashMap<String,Float>   weightsMap = new HashMap<>();
-    private HashMap<String,Float>   rulesWeightMap = new HashMap<>();
+    private HashMap<String,Float> statesWeightsMap = new HashMap<>();
 
     // Ancillary variable to keep track of rule weights
     private String currentRule;
@@ -141,19 +140,20 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
 
     @Override public Void visitReaction_statement (bigraphParser.Reaction_statementContext ctx){
+        String redex = ctx.expression().get(0).getText();
         if(ctx.PROBABILITY() != null) {
             bigmcReady = false;
             float probability = Float.parseFloat(ctx.PROBABILITY().getText());
-
-            // Tracking of weights per rule
-            rulesWeightMap.put(currentRule,probability);
-
             // Tracking of weights per state
-            String redex = ctx.expression().get(0).getText();
-            if (weightsMap.containsKey(redex))
-                weightsMap.put(redex,weightsMap.get(redex) + probability);
+            if (statesWeightsMap.containsKey(redex))
+                statesWeightsMap.put(redex, statesWeightsMap.get(redex) + probability);
             else
-                weightsMap.put(redex,probability);
+                statesWeightsMap.put(redex,probability);
+        } else {
+            if (statesWeightsMap.containsKey(redex))
+                statesWeightsMap.put(redex, statesWeightsMap.get(redex) + 1f);
+            else
+                statesWeightsMap.put(redex,1f);
         }
         return visitChildren(ctx);
     }
@@ -252,8 +252,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         return visitChildren(ctx);
     }
 
+    // Properties are automatically skipped by custom bigmc
     @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {
-        bigmcReady = false;
         return visitChildren(ctx);
     }
 
@@ -342,7 +342,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     private String checkWeights() {
         StringBuilder resultWeight = new StringBuilder();
-        weightsMap.forEach((k,v) -> {
+        statesWeightsMap.forEach((k, v) -> {
             if(v != 1.0) {
                 acceptableModel = false;
                 resultWeight.append("[ERROR] Rules probabilities of redex (").append(k).append(") don't add up to 1\n");
