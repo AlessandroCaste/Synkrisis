@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class VertexTransitionGraph {
 
-    private String vertexID;
+    private int vertexID;
     private String label;
     private ArrayList<String> properties;
 
-    public VertexTransitionGraph(String vertexID,String label,ArrayList<String> properties) {
+    public VertexTransitionGraph(int vertexID,String label,ArrayList<String> properties) {
         this.vertexID = vertexID;
         this.label = label;
         this.properties = properties;
     }
 
-    public String getVertexID() {
+    public int getVertexID() {
         return vertexID;
     }
 
@@ -26,7 +26,7 @@ public class VertexTransitionGraph {
         return properties;
     }
 
-    public void setVertexID(String vertexID) {
+    public void setVertexID(int vertexID) {
         this.vertexID = vertexID;
     }
 
@@ -37,4 +37,5 @@ public class VertexTransitionGraph {
     public void setProperties(ArrayList<String> properties) {
         this.properties = properties;
     }
+
 }

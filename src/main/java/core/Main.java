@@ -74,12 +74,13 @@ public class Main {
                 // Running bigmc and parsing the results
                 new Bigmc(loadedSettings,modelName);
 
-                if (loadedSettings.isExportingEnabled()) {
+                // Model exporting
+               // if (loadedSettings.isExportingEnabled()) {
                     new ProcessTransition(modelName); // Translating the transition graph to a jgrapht graph
-                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
-                        System.out.println("ciao");
+//                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
+//                       System.out.println("ciao");
                         //new PrismExporter(modelName);
-                }
+               // }
             } else
             System.out.println("Error in syntax analysis: processing can't go any further");
         }

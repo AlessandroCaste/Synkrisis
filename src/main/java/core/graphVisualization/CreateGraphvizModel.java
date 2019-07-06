@@ -1,7 +1,9 @@
 package core.graphVisualization;
 
+import core.graphBuilding.EdgeTransitionGraph;
 import core.graphBuilding.GraphReaction;
 import core.graphBuilding.Vertex;
+import core.graphBuilding.VertexTransitionGraph;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
@@ -10,7 +12,9 @@ import guru.nidi.graphviz.engine.GraphvizV8Engine;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import org.apache.commons.lang3.SystemUtils;
+import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.graph.Multigraph;
 
 import javax.imageio.ImageIO;
@@ -123,29 +127,7 @@ public class CreateGraphvizModel {
         MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap,ruleName + " : Reactum");
 
         try {
-            /* OLD SVG PRINTING
-
-             Graphviz.fromGraph(g1).width((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())
-             .height((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight())
-             .render(Format.SVG).toFile(new File(modelName +"/" + ruleName + " - Redex" + ".svg"));
-             Graphviz.fromGraph(g2).width((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())
-             .height((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight())
-             .render(Format.SVG).toFile(new File(modelName + "/" + ruleName + " - Reactum" + ".svg"));
-
-             */
-            BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
-            BufferedImage graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
-            int maxHeight = Math.max(graphvizGraph1.getHeight(),graphvizGraph2.getHeight());
-            BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
-            Graphics2D finalPicture = mergedImage.createGraphics();
-            finalPicture.setPaint(java.awt.Color.WHITE);
-            finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
-            finalPicture.drawImage(graphvizGraph1,null,0,0);
-            finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
-            finalPicture.dispose();
-            new File(modelName + "/" + "rules").mkdir();
-            ImageIO.write(mergedImage,"png", new File(modelName + "/rules/" + ruleName + ".png"));
-            logger.log(Level.INFO,"Reaction " + ruleName + "successfully drawn");
+            mergeGraphs(g1,g2,ruleName);
             } catch (IOException e) {
                 System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
                 logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
@@ -217,6 +199,84 @@ public class CreateGraphvizModel {
             }
           });
         return g;
+    }
+
+    public void createTransition(DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> currentGraph) {
+        logger.log(Level.INFO,"Graphviz transition drawing started");
+        MutableGraph transitionGraph =
+                mutGraph("Transitions").setDirected(true).use((gr, ctx) -> {
+                    Graphviz.useEngine(new GraphvizV8Engine());
+                    graphAttrs().add("rank","same");
+
+                    //  Adjusting shapes
+                    nodeAttrs().add("penwidth", 2.0);
+                    nodeAttrs().add(Color.LIGHTBLUE1);
+                    nodeAttrs().add("fontcolor", "black");
+                    linkAttrs().add("arrowsize", 0.7);
+                    linkAttrs().add("arrowhead", "normal");
+                    linkAttrs().add(Color.GREY3);
+                    linkAttrs().add("style", "normal");
+
+                     // Adding edges
+                    for (EdgeTransitionGraph edge : currentGraph.edgeSet()) {
+                        VertexTransitionGraph edgeSource = currentGraph.getEdgeSource(edge);
+                        VertexTransitionGraph edgeTarget = currentGraph.getEdgeTarget(edge);
+                        if (!Graphs.vertexHasSuccessors(currentGraph, edgeTarget))
+                            mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
+                                    mutNode(Integer.toString(edgeTarget.getVertexID()))
+                                            .attrs().add(Shape.CIRCLE)
+                                            .attrs().add(Color.DEEPSKYBLUE)
+                                            .attrs().add("size", 1.2));
+                        else
+                            mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
+                                    mutNode(Integer.toString(edgeTarget.getVertexID()))
+                                            .attrs().add(Shape.CIRCLE)
+                                            .attrs().add(Color.LIGHTGREY)
+                                            .attrs().add("size", 0.9));
+                    }
+                 });
+        // Labels are kept in a different graph for better graph results
+        MutableGraph labelsGraph =
+                mutGraph("labels").setDirected(true).use((gr, ctx) -> {
+                    linkAttrs().add("constraint","false");
+                    mutNode(modelName + " - Transition").attrs().add(Shape.RECTANGLE);
+                    graphAttrs().add("rank","same");
+
+                    // Displaying id->labels association
+                    StringBuilder labels = new StringBuilder();
+                    for (VertexTransitionGraph v : currentGraph.vertexSet()) {
+                        labels.append("#").append(v.getVertexID()).append(": ").append(v.getLabel()).append("\n");
+                    }
+                    graphAttrs().add("labelloc","b");
+                    graphAttrs().add("label", labels.toString());
+                });
+        try {
+            mergeGraphs(transitionGraph,labelsGraph,null);
+        } catch (IOException e) {
+            logger.log(Level.SEVERE,"Impossible to draw the transition graph");
+        }
+    }
+
+    // This function merges two graphs into a single png image
+    // Rule name arg is set to null in case we're merging a transition graph and its labels
+    private void mergeGraphs(MutableGraph g1, MutableGraph g2, String ruleName) throws IOException {
+        BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
+        BufferedImage graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
+        int maxHeight = Math.max(graphvizGraph1.getHeight(),graphvizGraph2.getHeight());
+        BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D finalPicture = mergedImage.createGraphics();
+        finalPicture.setPaint(java.awt.Color.WHITE);
+        finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
+        finalPicture.drawImage(graphvizGraph1,null,0,0);
+        finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
+        finalPicture.dispose();
+        if(ruleName != null) {
+            new File(modelName + "/" + "rules").mkdir();
+            ImageIO.write(mergedImage,"png", new File(modelName + "/rules/" + ruleName + ".png"));
+        } else {
+            ImageIO.write(mergedImage, "png", new File(modelName + "/" + "transition.png"));
+            logger.log(Level.INFO,"Transition graph successfully drawn");
+        }
     }
 
     public void setModelName(String modelName) {

@@ -1,7 +1,6 @@
 package core;
 
 import org.apache.commons.cli.*;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -118,7 +117,6 @@ class CLI {
             // This block configure the logger with handler and formatter
             filename = FilenameUtils.getName(filename);
             filename = FilenameUtils.removeExtension(filename);
-            deleteDirectory(filename+"/");
             //noinspection ResultOfMethodCallIgnored
             new File(filename).mkdirs();
             fh = new FileHandler(filename + "/" + filename +".log");
@@ -132,13 +130,6 @@ class CLI {
             System.out.println("[FATAL ERROR] Can't setup the logger");
             logger.log(Level.SEVERE, "Error raised while initializing " + filename + " directory and the logging procedures" + "\nStack trace: " + e.getMessage());
         }
-    }
-
-    private static void deleteDirectory(String filename) throws IOException {
-        File tempFile = new File(filename);
-        boolean exists = tempFile.exists();
-        if(exists)
-            FileUtils.deleteDirectory(new File(filename));
     }
 
     ExecutionSettings loadSettings() {

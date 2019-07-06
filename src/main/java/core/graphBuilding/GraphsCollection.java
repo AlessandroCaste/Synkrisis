@@ -2,6 +2,7 @@ package core.graphBuilding;
 
 import core.graphVisualization.CreateGraphvizModel;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.graph.Multigraph;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class GraphsCollection {
 
     private Multigraph<Vertex, DefaultEdge> model;
     private ArrayList<GraphReaction> reactionsList = new ArrayList<>();
+    private DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> transitionGraph;
 
     // Hashmap to track the probability of reactions
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
@@ -41,12 +43,24 @@ public class GraphsCollection {
         }
     }
 
+    public void printTransition() {
+        CreateGraphvizModel.getInstance().createTransition(transitionGraph);
+    }
+
     public Multigraph<Vertex, DefaultEdge> getModel() {
         return model;
     }
 
     void addReactionWeight(String reaction, float probability) {
         rulesWeightMap.put(reaction,probability);
+    }
+
+    public float getReactionWeight(String reaction) {
+        return rulesWeightMap.get(reaction);
+    }
+
+    public void addTransition(DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> transitionGraph) {
+        this.transitionGraph = transitionGraph;
     }
 
     public ArrayList<GraphReaction> getReactionsList() {
