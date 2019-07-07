@@ -5,10 +5,11 @@ import antlr.bigraph.bigraphVisitor;
 import core.graphVisualization.CreateGraphvizModel;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.TreeBidiMap;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-import java.util.HashMap;
 import java.util.Stack;
 
 
@@ -21,7 +22,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private String modelName;
 
     // Keeping track of markers with their ID
-    private HashMap<String,Integer> markerMap = new HashMap<>();
+    private BidiMap<Integer,String> markerMap = new TreeBidiMap<>();
     private int markerCounter = 0;
 
     @Override
@@ -254,8 +255,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitMarker (bigraphParser.MarkerContext ctx){
         if(ctx.MARKER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
-            if (!markerMap.containsKey(identifier)) {
-                markerMap.put(identifier, markerCounter);
+            if (!markerMap.containsValue(identifier)) {
+                markerMap.put(markerCounter,identifier);
                 markerCounter++;
             }
         }

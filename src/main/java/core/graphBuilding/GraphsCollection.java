@@ -1,6 +1,7 @@
 package core.graphBuilding;
 
 import core.graphVisualization.CreateGraphvizModel;
+import org.apache.commons.collections4.BidiMap;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.graph.Multigraph;
@@ -18,7 +19,7 @@ public class GraphsCollection {
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
 
     // Hashmap for markers ID
-    private HashMap<String,Integer> markerMap;
+    private BidiMap<Integer,String> markerMap;
 
     private static GraphsCollection instance;
 
@@ -54,7 +55,7 @@ public class GraphsCollection {
     }
 
 
-    public HashMap<String, Integer> getMarkerMap() {
+    public BidiMap<Integer,String> getMarkerMap() {
         return markerMap;
     }
 
@@ -72,7 +73,7 @@ public class GraphsCollection {
         reactionsList.add(reaction);
     }
 
-    void addMarkerMap(HashMap<String,Integer> markerMap) { this.markerMap = markerMap; }
+    void addMarkerMap(BidiMap<Integer,String> markerMap) { this.markerMap = markerMap; }
 
 
     public ArrayList<GraphReaction> getReactionsList() {

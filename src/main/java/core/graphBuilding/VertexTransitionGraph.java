@@ -22,8 +22,11 @@ public class VertexTransitionGraph {
         return label;
     }
 
-    public ArrayList<Integer> getProperties() {
-        return properties;
+    public String getProperties() {
+        StringBuilder builder = new StringBuilder();
+        for(int value : properties)
+            builder.append(value).append(" ");
+        return builder.toString();
     }
 
     public void setLabel(String label) {

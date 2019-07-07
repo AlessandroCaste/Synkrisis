@@ -3,6 +3,7 @@ package core.setup;
 import core.graphBuilding.EdgeTransitionGraph;
 import core.graphBuilding.GraphsCollection;
 import core.graphBuilding.VertexTransitionGraph;
+import org.apache.commons.collections4.BidiMap;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.io.*;
 
@@ -23,14 +24,13 @@ public class ProcessTransition {
     private int vertexID = 0;
 
     // Associates each properties to a unique ID
-    private HashMap<String,Integer> markerMap;
+    private BidiMap<Integer,String> markerMap;
 
     public ProcessTransition(String modelName) {
         this.modelName = modelName;
         processTransition();
     }
 
-    @SuppressWarnings("Duplicates")
     private void processTransition() {
         // I retrieve the list of markers together with their IDs
         markerMap = GraphsCollection.getInstance().getMarkerMap();
@@ -57,7 +57,7 @@ public class ProcessTransition {
                     markerLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
                     markersID = new ArrayList<>();
                     for(String propertyName : markerLabels)
-                        markersID.add(markerMap.get(propertyName));
+                        markersID.add(markerMap.inverseBidiMap().get(propertyName));
                 }
                 if(hashToId.containsKey(s) ) {
                     currentID = hashToId.get(s);
@@ -87,7 +87,7 @@ public class ProcessTransition {
                     markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
                     markersID = new ArrayList<>();
                     for(String propertyName : markersLabels)
-                        markersID.add(markerMap.get(propertyName));
+                        markersID.add(markerMap.inverseBidiMap().get(propertyName));
                     vertex.setProperties(markersID);
                 }
             };
@@ -127,8 +127,22 @@ public class ProcessTransition {
         }
     }
 
-    private void writeLabelFile(DirectedMultigraph<VertexTransitionGraph,EdgeTransitionGraph> graph) {
-
+    private void writeLabelFile(DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> graph) {
+        logger.log(Level.INFO,"Writing .lab file");
+        try {
+            BufferedWriter labWriter = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".lab",false));
+            for(String marker : markerMap.values())
+                labWriter.write(markerMap.inverseBidiMap().get(marker) + "=\"" + marker + "\" ");
+            labWriter.write("\n");
+            for(VertexTransitionGraph v : graph.vertexSet())
+                if(!v.getProperties().equals(""))
+                    labWriter.write(v.getVertexID() + ": " + v.getProperties() + "\n");
+            labWriter.close();
+        } catch (IOException e) {
+            System.out.println("Can't output the label file!");
+            logger.log(Level.SEVERE, "Can't write .lab file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
+        }
     }
+
 
 }
