@@ -76,7 +76,9 @@ public class Main {
 
                 // Model exporting
                // if (loadedSettings.isExportingEnabled()) {
-                    new ProcessTransition(modelName); // Translating the transition graph to a jgrapht graph
+                    ProcessTransition translator = new ProcessTransition(modelName); // Translating the transition graph to a jgrapht graph
+                    if(loadedSettings.isPrintTransitionEnabled())
+                        GraphsCollection.getInstance().printTransition();
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
 //                       System.out.println("ciao");
                         //new PrismExporter(modelName);

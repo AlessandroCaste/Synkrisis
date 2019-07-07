@@ -18,15 +18,23 @@ public class ProcessTransition {
     private static Logger logger = Logger.getLogger("Report");
     private String modelName;
 
+    // I associate an ID to each state
     private HashMap<String,Integer> hashToId = new HashMap<>();
     private int vertexID = 0;
+
+    // Associates each properties to a unique ID
+    private HashMap<String,Integer> markerMap;
 
     public ProcessTransition(String modelName) {
         this.modelName = modelName;
         processTransition();
     }
 
+    @SuppressWarnings("Duplicates")
     private void processTransition() {
+        // I retrieve the list of markers together with their IDs
+        markerMap = GraphsCollection.getInstance().getMarkerMap();
+
         try {
 
             DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> graph = new DirectedMultigraph<>(EdgeTransitionGraph.class);
@@ -36,17 +44,21 @@ public class ProcessTransition {
                 int currentID;
                 // Extracting attributes from dot representation
                 Attribute label = map.get("label");
-                Attribute properties = map.get("properties");
+                Attribute propertiesAttribute = map.get("properties");
                 String labelString;
-                ArrayList<String> propertiesList;
+                ArrayList<String> markerLabels;
+                ArrayList<Integer> markersID = new ArrayList<>();
+
                 if(label != null)
                     labelString = label.toString();
                 else
                     labelString = "";
-                if(properties != null)
-                    propertiesList = new ArrayList<>(Arrays.asList(properties.toString().split("\\s*,\\s*")));
-                else
-                    propertiesList = null;
+                if(propertiesAttribute != null) {
+                    markerLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
+                    markersID = new ArrayList<>();
+                    for(String propertyName : markerLabels)
+                        markersID.add(markerMap.get(propertyName));
+                }
                 if(hashToId.containsKey(s) ) {
                     currentID = hashToId.get(s);
                 } else {
@@ -54,7 +66,7 @@ public class ProcessTransition {
                     currentID = vertexID;
                     vertexID++;
                 }
-                return new VertexTransitionGraph(currentID,labelString,propertiesList);
+                return new VertexTransitionGraph(currentID,labelString,markersID);
             };
 
             EdgeProvider<VertexTransitionGraph, EdgeTransitionGraph> edgeProvider = (v1, v2, s2, map) -> {
@@ -65,16 +77,18 @@ public class ProcessTransition {
 
             ComponentUpdater<VertexTransitionGraph> vertexUpdater = (vertex, map) -> {
                 Attribute label = map.get("label");
-                Attribute properties = map.get("properties");
-                ArrayList<String> propertiesList;
-                if(label != null) {
+                Attribute propertiesAttribute = map.get("properties");
+                ArrayList<String> markersLabels;
+
+                if(label != null)
                     vertex.setLabel(label.toString());
-                   // hashToId.
-                  //  GraphsCollection.getInstance().addToTransitionMap(currentID,label.toString());
-                }
-                if(properties != null) {
-                    propertiesList = new ArrayList<>(Arrays.asList(properties.toString().split("\\s*,\\s*")));
-                    vertex.setProperties(propertiesList);
+                if(propertiesAttribute != null) {
+                    ArrayList<Integer> markersID;
+                    markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
+                    markersID = new ArrayList<>();
+                    for(String propertyName : markersLabels)
+                        markersID.add(markerMap.get(propertyName));
+                    vertex.setProperties(markersID);
                 }
             };
 
@@ -83,9 +97,9 @@ public class ProcessTransition {
             importer.importGraph(graph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
             GraphsCollection.getInstance().addTransition(graph);
-            GraphsCollection.getInstance().printTransition();
 
             writeTransitionFile(graph);
+            writeLabelFile(graph);
 
         } catch (FileNotFoundException fe) {
             System.out.println("[FATAL ERROR] Transition system hasn't been successfully created; problems with the model checker?");
@@ -99,18 +113,21 @@ public class ProcessTransition {
     private void writeTransitionFile(DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> graph) {
         logger.log(Level.INFO,"Writing .tra file");
         try {
-            BufferedWriter traWriter = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".tra",true));
+            BufferedWriter traWriter = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".tra",false));
             traWriter.write(graph.vertexSet().size() + " " + graph.edgeSet().size() + "\n");
             for(VertexTransitionGraph v : graph.vertexSet()) {
-                for(EdgeTransitionGraph e : graph.edgesOf(v)) {
+                for(EdgeTransitionGraph e : graph.outgoingEdgesOf(v)) {
                     traWriter.write(v.getVertexID() + " " + graph.getEdgeTarget(e).getVertexID() + " " + graph.getEdgeWeight(e) + "\n");
                 }
             }
             traWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Can't output the transition file!");
+            logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
         }
+    }
 
+    private void writeLabelFile(DirectedMultigraph<VertexTransitionGraph,EdgeTransitionGraph> graph) {
 
     }
 

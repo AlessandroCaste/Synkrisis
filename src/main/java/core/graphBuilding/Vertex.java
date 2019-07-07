@@ -18,7 +18,7 @@ public class Vertex {
         return vertexId;
     }
 
-    public String getVertexLabel() {
+    public String getLabel() {
         return vertexLabel;
     }
 

@@ -17,6 +17,9 @@ public class GraphsCollection {
     // Hashmap to track the probability of reactions
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
 
+    // Hashmap for markers ID
+    private HashMap<String,Integer> markerMap;
+
     private static GraphsCollection instance;
 
     private GraphsCollection() {}
@@ -26,15 +29,6 @@ public class GraphsCollection {
             return (instance = new GraphsCollection());
         return instance;
     }
-
-    void addModel(Multigraph<Vertex, DefaultEdge> model) {
-        this.model = model;
-    }
-
-    void addReaction(GraphReaction reaction) {
-        reactionsList.add(reaction);
-    }
-
 
     public void printModel() {
         CreateGraphvizModel.getInstance().createModel(model);
@@ -59,9 +53,27 @@ public class GraphsCollection {
         return rulesWeightMap.get(reaction);
     }
 
+
+    public HashMap<String, Integer> getMarkerMap() {
+        return markerMap;
+    }
+
+
     public void addTransition(DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> transitionGraph) {
         this.transitionGraph = transitionGraph;
     }
+
+
+    void addModel(Multigraph<Vertex, DefaultEdge> model) {
+        this.model = model;
+    }
+
+    void addReaction(GraphReaction reaction) {
+        reactionsList.add(reaction);
+    }
+
+    void addMarkerMap(HashMap<String,Integer> markerMap) { this.markerMap = markerMap; }
+
 
     public ArrayList<GraphReaction> getReactionsList() {
         return reactionsList;

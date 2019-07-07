@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 
@@ -18,6 +19,10 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     // Model name to check file integrity
     private String modelName;
+
+    // Keeping track of markers with their ID
+    private HashMap<String,Integer> markerMap = new HashMap<>();
+    private int markerCounter = 0;
 
     @Override
     public Void visitChildren(RuleNode node) {
@@ -231,6 +236,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override public Void visitModel (bigraphParser.ModelContext ctx){
+        // I store graph markers
+        GraphsCollection.getInstance().addMarkerMap(markerMap);
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
@@ -245,12 +252,19 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override public Void visitMarker (bigraphParser.MarkerContext ctx){
-        return null;
+        if(ctx.MARKER() != null) {
+            String identifier = ctx.IDENTIFIER().getText();
+            if (!markerMap.containsKey(identifier)) {
+                markerMap.put(identifier, markerCounter);
+                markerCounter++;
+            }
+        }
+        return visitChildren(ctx);
     }
 
 
     @Override public Void visitMarker_statement (bigraphParser.Marker_statementContext ctx){
-        return null;
+        return visitChildren(ctx);
     }
 
     @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {

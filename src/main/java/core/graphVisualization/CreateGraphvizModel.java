@@ -66,7 +66,7 @@ public class CreateGraphvizModel {
             // Adding Vertices
             for (Vertex x : currentGraph.vertexSet()) {
                 if (x.isControl()) {
-                    String nodeLabel = x.getVertexLabel();
+                    String nodeLabel = x.getLabel();
                     int labelLength = nodeLabel.length();
                     mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel).add("margin",adjustMargins(labelLength));
                 }
@@ -89,7 +89,7 @@ public class CreateGraphvizModel {
                             .attrs().add(Shape.CIRCLE)
                                     .attrs().add(Color.RED2)
                                     .attrs().add("size", 0.8)
-                                    .attrs().add("label", edgeTarget.getVertexLabel()));
+                                    .attrs().add("label", edgeTarget.getLabel()));
                 }
             }
         });
@@ -149,7 +149,7 @@ public class CreateGraphvizModel {
 
             // Adding Nodes (first standard vertices, then name vertices)
             for (Vertex v : currentGraph.vertexSet()) {
-                String nodeLabel = v.getVertexLabel();
+                String nodeLabel = v.getLabel();
                 String nodeId = Integer.toString(v.getVertexId());
                 if (v.isControl()) {
                     if (nodeLabel.contains("$")) {
@@ -182,7 +182,7 @@ public class CreateGraphvizModel {
             for (DefaultEdge edge : currentGraph.edgeSet()) {
                 String sourceId = Integer.toString(currentGraph.getEdgeSource(edge).getVertexId());
                 String targetId = Integer.toString(currentGraph.getEdgeTarget(edge).getVertexId());
-                String targetLabel = currentGraph.getEdgeTarget(edge).getVertexLabel();
+                String targetLabel = currentGraph.getEdgeTarget(edge).getLabel();
                 if (currentGraph.getEdgeTarget(edge).isControl()) {
                     linkAttrs().add("dir", "forward");
                     linkAttrs().add("arrowhead", "normal");

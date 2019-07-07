@@ -6,9 +6,9 @@ public class VertexTransitionGraph {
 
     private int vertexID;
     private String label;
-    private ArrayList<String> properties;
+    private ArrayList<Integer> properties;
 
-    public VertexTransitionGraph(int vertexID,String label,ArrayList<String> properties) {
+    public VertexTransitionGraph(int vertexID,String label,ArrayList<Integer> properties) {
         this.vertexID = vertexID;
         this.label = label;
         this.properties = properties;
@@ -22,19 +22,15 @@ public class VertexTransitionGraph {
         return label;
     }
 
-    public ArrayList<String> getProperties() {
+    public ArrayList<Integer> getProperties() {
         return properties;
-    }
-
-    public void setVertexID(int vertexID) {
-        this.vertexID = vertexID;
     }
 
     public void setLabel(String label) {
         this.label = label;
     }
 
-    public void setProperties(ArrayList<String> properties) {
+    public void setProperties(ArrayList<Integer> properties) {
         this.properties = properties;
     }
 

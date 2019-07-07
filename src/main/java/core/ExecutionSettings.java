@@ -47,6 +47,8 @@ public class ExecutionSettings {
 
     boolean isPrintEnabled() { return printEnabled; }
 
+    boolean isPrintTransitionEnabled() { return printTransition; }
+
     boolean isExportingEnabled (){
         return exporting;
     }
