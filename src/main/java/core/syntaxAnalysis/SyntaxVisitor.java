@@ -302,13 +302,15 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     }
 
     public void printProperties() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + modelName + ".prop")));
-            writer.write(propertiesString);
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("A problem happened while extracting the property file! Was " + modelName + ".prop unaccessible?");
-            logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization\nStack trace " + e.getMessage());
+        if(propertiesString != null) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + modelName + ".prop")));
+                writer.write(propertiesString);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("A problem happened while extracting the property file! Was " + modelName + ".prop unaccessible?");
+                logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization\nStack trace " + e.getMessage());
+            }
         }
     }
 

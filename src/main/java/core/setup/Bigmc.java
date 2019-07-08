@@ -34,7 +34,7 @@ public class Bigmc {
         //TODO Embedding bigmc?
 
         // Bigmc location is set
-        input.append("src/main/resources/bigmc -s");
+        input.append("bigmc -s");
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)

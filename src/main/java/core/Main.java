@@ -65,9 +65,7 @@ public class Main {
 
                 // TODO Add here other-than-bigmc support
                 // If the model can't be submitted as-it-is then we must strip it of elements non compatible with bigmc
-                if(syntaxVisitor.isBigmcReady())
-                    loadedSettings.setBigmcReady();
-                else {
+                if(!loadedSettings.isBigmcReady()); {
                     bigmcTranslator(modelName);
                     loadedSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
                 }
@@ -76,7 +74,7 @@ public class Main {
 
                 // Model exporting
                // if (loadedSettings.isExportingEnabled()) {
-                    ProcessTransition translator = new ProcessTransition(modelName); // Translating the transition graph to a jgrapht graph
+                    new ProcessTransition(modelName); // Translating the transition graph to a jgrapht graph
                     if(loadedSettings.isPrintTransitionEnabled())
                         GraphsCollection.getInstance().printTransition();
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
@@ -104,7 +102,10 @@ public class Main {
         // .prop file is extracted and print here
         // TODO add options in CLI
         // if(loadedSettings.isExportingEnabled())
-            syntaxVisitor.printProperties();
+        syntaxVisitor.printProperties();
+        if(syntaxVisitor.isBigmcReady())
+            loadedSettings.setBigmcReady();
+
         System.out.println(syntaxVisitor.getParseResult());
         logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();
