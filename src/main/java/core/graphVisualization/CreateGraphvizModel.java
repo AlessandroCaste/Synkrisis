@@ -221,6 +221,7 @@ public class CreateGraphvizModel {
                     for (EdgeTransitionGraph edge : currentGraph.edgeSet()) {
                         VertexTransitionGraph edgeSource = currentGraph.getEdgeSource(edge);
                         VertexTransitionGraph edgeTarget = currentGraph.getEdgeTarget(edge);
+                        linkAttrs().add("label",edge.getLabel());
                         if (!Graphs.vertexHasSuccessors(currentGraph, edgeTarget))
                             mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
                                     mutNode(Integer.toString(edgeTarget.getVertexID()))

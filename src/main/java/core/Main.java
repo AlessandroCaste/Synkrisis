@@ -101,6 +101,10 @@ public class Main {
             logger.log(Level.SEVERE,"Execution suspended since model name and file name do not match: " + filename + " vs " + modelName +".bigraph.\nCan't run visitor until it's fixed");
             return false;
         }
+        // .prop file is extracted and print here
+        // TODO add options in CLI
+        // if(loadedSettings.isExportingEnabled())
+            syntaxVisitor.printProperties();
         System.out.println(syntaxVisitor.getParseResult());
         logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();

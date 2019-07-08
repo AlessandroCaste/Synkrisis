@@ -139,8 +139,14 @@ public class Bigmc {
             //Rename lost output transition
             transition_counter = transition_counter - 1;
             File lastTransitionFile = new File(modelName + "/" + modelName + "-" + (transition_counter) + ".transition");
+
+            // I create a new transition file, deleting an eventual old one
+            File oldFile = new File(modelName + "/" + modelName + ".transition");
+            boolean deleteResult = true;
+            if(oldFile.exists())
+                deleteResult = oldFile.delete();
             boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".transition"));
-            if(!renameResult)
+            if(!renameResult || !deleteResult)
                 logger.log(Level.WARNING,"Couldn't correctly rename the last.transition file!");
             else
                 logger.log(Level.INFO,"Renaming of the last .transition file successful");
@@ -162,10 +168,10 @@ public class Bigmc {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
-            logger.log(Level.SEVERE, "File not found when using the scanner\n Stack trace: " + e.getMessage());
+            logger.log(Level.SEVERE, "File not found when using the scanner\nStack trace: " + e.getMessage());
         } catch (IOException e) {
             System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
-            logger.log(Level.SEVERE, "Unexpected crash due to BufferWriter object\n Stack trace: " + e.getMessage());
+            logger.log(Level.SEVERE, "Unexpected crash due to BufferWriter object\nStack trace: " + e.getMessage());
         }
     }
 

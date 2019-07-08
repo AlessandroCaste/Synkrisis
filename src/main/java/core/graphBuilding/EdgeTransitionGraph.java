@@ -10,4 +10,12 @@ public class EdgeTransitionGraph {
         this.weight = weight;
     }
 
+    public String getLabel(){
+        return label;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
 }

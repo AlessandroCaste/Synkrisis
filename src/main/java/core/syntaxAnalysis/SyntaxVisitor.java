@@ -3,13 +3,22 @@ package core.syntaxAnalysis;
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements bigraphVisitor<Void> {
+
+    private static Logger logger = Logger.getLogger("Report");
 
     // We store identifiers in order to check repetitions and wrong uses
     private HashMap<String,Integer> controlsMap = new HashMap<>();
@@ -35,6 +44,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     // Verifies the model can be submitted as it is to bigmc
     private boolean bigmcReady = true;
+
+    // Property string, for file printing
+    private String propertiesString;
 
 
     @Override
@@ -258,6 +270,13 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     }
 
     @Override public Void visitProperty_statements (bigraphParser.Property_statementsContext ctx) {
+        // Since they do vary a lot and have not a fixed, specified grammar we just print properties to file
+        if(ctx.children.size() > 1) {
+            int startPosition = ctx.start.getStartIndex();
+            int endPosition = ctx.stop.getStopIndex();
+            Interval interval = new Interval(startPosition, endPosition);
+            propertiesString = ctx.start.getInputStream().getText(interval);
+        }
         return visitChildren(ctx);
     }
 
@@ -280,6 +299,17 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     @Override public Void visitParameter (bigraphParser.ParameterContext ctx){
         return visitChildren(ctx);
+    }
+
+    public void printProperties() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + modelName + ".prop")));
+            writer.write(propertiesString);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("A problem happened while extracting the property file! Was " + modelName + ".prop unaccessible?");
+            logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization\nStack trace " + e.getMessage());
+        }
     }
 
     private void reportError (ParserRuleContext ctx, int type, String text){
