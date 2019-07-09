@@ -3,6 +3,7 @@ package core.graphBuilding;
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;
 import core.graphVisualization.CreateGraphvizModel;
+import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.apache.commons.collections4.BidiMap;
@@ -10,7 +11,13 @@ import org.apache.commons.collections4.bidimap.TreeBidiMap;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> implements bigraphVisitor<Void> {
@@ -24,6 +31,12 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // Keeping track of markers with their ID
     private BidiMap<Integer,String> markerMap = new TreeBidiMap<>();
     private int markerCounter = 0;
+
+    // Property string, for file printing
+    private String propertiesString;
+
+    private static Logger logger = Logger.getLogger("Report");
+
 
     @Override
     public Void visitChildren(RuleNode node) {
@@ -265,7 +278,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override public Void visitMarker_statement (bigraphParser.Marker_statementContext ctx){
-        return visitChildren(ctx);
+        return null;
     }
 
     @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {
@@ -273,6 +286,13 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override public Void visitProperty_statements (bigraphParser.Property_statementsContext ctx) {
+        // Since they do vary a lot and have not a fixed, specified grammar we just print properties to file
+        if(ctx.children.size() > 1) {
+            int startPosition = ctx.start.getStartIndex();
+            int endPosition = ctx.stop.getStopIndex();
+            Interval interval = new Interval(startPosition, endPosition);
+            propertiesString = ctx.start.getInputStream().getText(interval);
+        }
         return visitChildren(ctx);
     }
 
@@ -303,6 +323,19 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
         GraphReaction reaction = new GraphReaction(redex,reactum,ruleName);
         GraphsCollection.getInstance().addReaction(reaction);
+    }
+
+    public void printProperties() {
+        if(propertiesString != null) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + modelName + ".prop")));
+                writer.write(propertiesString);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("A problem happened while extracting the property file! Was " + modelName + ".prop unaccessible?");
+                logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization\nStack trace " + e.getMessage());
+            }
+        }
     }
 
     private void resetGraph() {

@@ -48,12 +48,16 @@ public class Main {
             modelTree = initialization.getModelTree();
             acceptableModel = syntaxAnalysis();   // String is required to check model name against filePath
             if (acceptableModel) {
-
                 // I translate the graph into a JgraphT model: this way I may use different kinds of model checkers
                 logger.log(Level.INFO,"Jgraph translation from parsetree started");
                 GraphBuildingVisitor modelBuilder = new GraphBuildingVisitor();
                 modelBuilder.visit(modelTree);
                 logger.log(Level.INFO, "Jgraph translation from parsetree completed.");
+
+                logger.log(Level.INFO, "Printing .prop file");
+                //TODO if exporting is enabled
+                modelBuilder.printProperties();
+                logger.log(Level.INFO, ".prop file print");
 
                 // Graph printing
                 if(loadedSettings.isPrintEnabled()) {
@@ -65,13 +69,16 @@ public class Main {
 
                 // TODO Add here other-than-bigmc support
                 // If the model can't be submitted as-it-is then we must strip it of elements non compatible with bigmc
-                if(!loadedSettings.isBigmcReady()); {
+                if(!loadedSettings.isBigmcReady()) {
                     bigmcTranslator(modelName);
                     loadedSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
                 }
                 // Running bigmc and parsing the results
                 new Bigmc(loadedSettings,modelName);
 
+                System.out.println("****************************");
+                System.out.println("MODEL EXPORTING AND ANALYSIS");
+                System.out.println("****************************");
                 // Model exporting
                // if (loadedSettings.isExportingEnabled()) {
                     new ProcessTransition(modelName); // Translating the transition graph to a jgrapht graph
@@ -102,7 +109,6 @@ public class Main {
         // .prop file is extracted and print here
         // TODO add options in CLI
         // if(loadedSettings.isExportingEnabled())
-        syntaxVisitor.printProperties();
         if(syntaxVisitor.isBigmcReady())
             loadedSettings.setBigmcReady();
 

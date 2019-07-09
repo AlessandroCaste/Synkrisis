@@ -8,6 +8,7 @@ import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.engine.GraphvizException;
 import guru.nidi.graphviz.engine.GraphvizV8Engine;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
@@ -131,7 +132,10 @@ public class CreateGraphvizModel {
             } catch (IOException e) {
                 System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
                 logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
-            }
+            } catch (GraphvizException e) {
+                System.out.println("[GRAPHVIZ ERROR] Can't print out reactions, probably run out of memory: model is too big!");
+                logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
+        }
     }
 
     @SuppressWarnings("Duplicates")
@@ -240,7 +244,7 @@ public class CreateGraphvizModel {
         MutableGraph labelsGraph =
                 mutGraph("labels").setDirected(true).use((gr, ctx) -> {
                     linkAttrs().add("constraint","false");
-                    mutNode(modelName + " - Transition").attrs().add(Shape.RECTANGLE);
+                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE);
                     graphAttrs().add("rank","same");
 
                     // Displaying id->labels association
@@ -255,6 +259,9 @@ public class CreateGraphvizModel {
             mergeGraphs(transitionGraph,labelsGraph,null);
         } catch (IOException e) {
             logger.log(Level.SEVERE,"Impossible to draw the transition graph");
+        } catch (GraphvizException e) {
+            System.out.println("[GRAPHVIZ ERROR] Can't print out transition, probably run out of memory: model is too big!");
+            logger.log(Level.SEVERE, "Impossible to draw transition graph\nStack trace: " + e.getMessage());
         }
     }
 
