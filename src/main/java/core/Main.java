@@ -36,10 +36,35 @@ public class Main {
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
 
-        // I read input args from CLI and store them into an ExecutionSettings Object
-        CLI analysis = new CLI(args);
-        analysis.parse();
-        loadedSettings = analysis.loadSettings();
+        System.out.println("****************************\nSynkrisis Toolchain (2019)\n****************************");
+        System.out.println("Input your model with the --load command.\nUse -h for further help");
+        boolean modelLoaded = false;
+
+        if(args.length != 0) {
+            // Passing args to the program via command line
+            CLI cli = new CLI(args);
+            cli.parse();
+            loadedSettings = cli.loadSettings();
+        } else {
+            // Interactive shell
+            while (!modelLoaded) {
+                System.out.print("> ");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                String[] inputString = null;
+                try {
+                    inputString = reader.readLine().split(" ");
+                } catch (IOException e) {
+                    System.out.println("Problems reading user input from System.in!");
+                }
+                CLI cli = new CLI(inputString);
+                cli.parse();
+                if (cli.isModelLoaded()) {
+                    loadedSettings = cli.loadSettings();
+                    modelLoaded = true;
+                } else
+                    System.out.println("No model was loaded!");
+            }
+        }
 
         filePath = loadedSettings.getFilePath();
         File inputFile = new File(filePath);

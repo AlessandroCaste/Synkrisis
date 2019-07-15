@@ -18,12 +18,13 @@ class CLI {
     private static Logger logger = Logger.getLogger("Report");
     private static FileHandler fh;
 
+    private boolean modelLoaded = false;
+
     private ExecutionSettings settings = new ExecutionSettings();
 
 
 
     CLI(String[] args) {
-        System.out.println("****************************\nSynkrisis Toolchain (2019)\n****************************");
         this.args = args;
 
         options.addOption("load","load-model",true,"load a .bigraph model for processing");
@@ -50,6 +51,7 @@ class CLI {
                 String fileName = cmd.getOptionValue("load");
                 setupLogger(fileName);
                 settings.setFilePath(fileName);
+                modelLoaded = true;
             } else {
                 System.out.println("Submit a model with -load!");
                 System.out.println("Execution can't proceed");
@@ -136,5 +138,8 @@ class CLI {
         return settings;
     }
 
+    boolean isModelLoaded() {
+        return modelLoaded;
+    }
 
 }
