@@ -2,13 +2,13 @@ package core.graphBuilding;
 
 import java.util.ArrayList;
 
-public class VertexTransitionGraph {
+public class TransitionVertex {
 
     private int vertexID;
     private String label;
     private ArrayList<Integer> properties;
 
-    public VertexTransitionGraph(int vertexID,String label,ArrayList<Integer> properties) {
+    public TransitionVertex(int vertexID, String label, ArrayList<Integer> properties) {
         this.vertexID = vertexID;
         this.label = label;
         this.properties = properties;

@@ -13,7 +13,7 @@ public class GraphsCollection {
 
     private Multigraph<Vertex, DefaultEdge> model;
     private ArrayList<GraphReaction> reactionsList = new ArrayList<>();
-    private DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> transitionGraph;
+    private DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph;
 
     // Hashmap to track the probability of reactions
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
@@ -60,7 +60,7 @@ public class GraphsCollection {
     }
 
 
-    public void addTransition(DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> transitionGraph) {
+    public void addTransition(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph) {
         this.transitionGraph = transitionGraph;
     }
 

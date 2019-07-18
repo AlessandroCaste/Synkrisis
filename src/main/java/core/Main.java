@@ -1,9 +1,9 @@
 package core;
 
+import core.exporting.PrismExporter;
 import core.graphBuilding.GraphBuildingVisitor;
 import core.graphBuilding.GraphsCollection;
 import core.setup.Bigmc;
-import core.setup.ProcessTransition;
 import core.setup.SetupSynk;
 import core.syntaxAnalysis.SyntaxVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -37,34 +37,12 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("****************************\nSynkrisis Toolchain (2019)\n****************************");
-        System.out.println("Input your model with the --load command.\nUse -h for further help");
-        boolean modelLoaded = false;
+        System.out.println("Use -h command for further help");
 
-        if(args.length != 0) {
-            // Passing args to the program via command line
-            CLI cli = new CLI(args);
-            cli.parse();
-            loadedSettings = cli.loadSettings();
-        } else {
-            // Interactive shell
-            while (!modelLoaded) {
-                System.out.print("> ");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                String[] inputString = null;
-                try {
-                    inputString = reader.readLine().split(" ");
-                } catch (IOException e) {
-                    System.out.println("Problems reading user input from System.in!");
-                }
-                CLI cli = new CLI(inputString);
-                cli.parse();
-                if (cli.isModelLoaded()) {
-                    loadedSettings = cli.loadSettings();
-                    modelLoaded = true;
-                } else
-                    System.out.println("No model was loaded!");
-            }
-        }
+        // Passing args to the program via command line
+        CLI cli = new CLI(args);
+        cli.parse();
+        loadedSettings = cli.loadSettings();
 
         filePath = loadedSettings.getFilePath();
         File inputFile = new File(filePath);
@@ -106,7 +84,7 @@ public class Main {
                 System.out.println("****************************");
                 // Model exporting
                // if (loadedSettings.isExportingEnabled()) {
-                    new ProcessTransition(modelName); // Translating the transition graph to a jgrapht graph
+                    new PrismExporter(modelName); // Translating the transition graph to a jgrapht graph
                     if(loadedSettings.isPrintTransitionEnabled())
                         GraphsCollection.getInstance().printTransition();
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))

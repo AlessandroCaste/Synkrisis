@@ -2,8 +2,8 @@ package core.graphVisualization;
 
 import core.graphBuilding.EdgeTransitionGraph;
 import core.graphBuilding.GraphReaction;
+import core.graphBuilding.TransitionVertex;
 import core.graphBuilding.Vertex;
-import core.graphBuilding.VertexTransitionGraph;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
@@ -205,7 +205,7 @@ public class CreateGraphvizModel {
         return g;
     }
 
-    public void createTransition(DirectedMultigraph<VertexTransitionGraph, EdgeTransitionGraph> currentGraph) {
+    public void createTransition(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> currentGraph) {
         logger.log(Level.INFO,"Graphviz transition drawing started");
         MutableGraph transitionGraph =
                 mutGraph("Transitions").setDirected(true).use((gr, ctx) -> {
@@ -223,8 +223,8 @@ public class CreateGraphvizModel {
 
                      // Adding edges
                     for (EdgeTransitionGraph edge : currentGraph.edgeSet()) {
-                        VertexTransitionGraph edgeSource = currentGraph.getEdgeSource(edge);
-                        VertexTransitionGraph edgeTarget = currentGraph.getEdgeTarget(edge);
+                        TransitionVertex edgeSource = currentGraph.getEdgeSource(edge);
+                        TransitionVertex edgeTarget = currentGraph.getEdgeTarget(edge);
                         linkAttrs().add("label",edge.getLabel());
                         if (!Graphs.vertexHasSuccessors(currentGraph, edgeTarget))
                             mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
@@ -249,7 +249,7 @@ public class CreateGraphvizModel {
 
                     // Displaying id->labels association
                     StringBuilder labels = new StringBuilder();
-                    for (VertexTransitionGraph v : currentGraph.vertexSet()) {
+                    for (TransitionVertex v : currentGraph.vertexSet()) {
                         labels.append("#").append(v.getVertexID()).append(": ").append(v.getLabel()).append("\n");
                     }
                     graphAttrs().add("labelloc","b");

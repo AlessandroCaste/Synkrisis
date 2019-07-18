@@ -210,7 +210,7 @@ class GraphBuildingTest {
 
         GraphBuildingVisitor graphBuildingVisitor = createVisitor(hospitalPath);
         Multigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
-        assertEquals(graph.vertexSet().size(),14);
+        assertEquals(graph.vertexSet().size(),13);
 
         // I compare the label to verify mapping is correct
         ArrayList<String> labels = new ArrayList<>();
@@ -227,14 +227,13 @@ class GraphBuildingTest {
         labels.add("nursestation");
         labels.add("Agent");
         labels.add("Nurse");
-        labels.add("pager");
 
 
         // Vertices are correctly set
         int i = 0;
         for(Vertex v : graph.vertexSet()) {
             assertEquals(v.getLabel(), labels.get(i));
-            if(i == 1 || i == 3 || i == 6 || i == 10 || i == 13)
+            if(i == 1 || i == 3 || i == 6 || i == 10)
                 assertFalse(v.isControl());
             else
                 assertTrue(v.isControl());
@@ -255,7 +254,6 @@ class GraphBuildingTest {
         assertEquals(graph.getEdgeSource(edgeList.get(7)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(7)).getLabel(),"Room nursestation");
         assertEquals(graph.getEdgeSource(edgeList.get(8)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(8)).getLabel(),"Room Agent");
         assertEquals(graph.getEdgeSource(edgeList.get(9)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(9)).getLabel(),"Room Nurse");
-        assertEquals(graph.getEdgeSource(edgeList.get(10)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(10)).getLabel(),"Nurse pager");
 
 
         // Verifying model gets correctly print after execution of visitor

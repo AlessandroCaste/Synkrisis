@@ -18,8 +18,6 @@ class CLI {
     private static Logger logger = Logger.getLogger("Report");
     private static FileHandler fh;
 
-    private boolean modelLoaded = false;
-
     private ExecutionSettings settings = new ExecutionSettings();
 
 
@@ -51,10 +49,9 @@ class CLI {
                 String fileName = cmd.getOptionValue("load");
                 setupLogger(fileName);
                 settings.setFilePath(fileName);
-                modelLoaded = true;
             } else {
-                System.out.println("Submit a model with -load!");
-                System.out.println("Execution can't proceed");
+                System.out.println("****************************\nSubmit a model with -load!");
+                System.out.println("Execution can't proceed\n****************************");
                 System.exit(0);
             }
             if (cmd.hasOption("o"))
@@ -136,10 +133,6 @@ class CLI {
 
     ExecutionSettings loadSettings() {
         return settings;
-    }
-
-    boolean isModelLoaded() {
-        return modelLoaded;
     }
 
 }
