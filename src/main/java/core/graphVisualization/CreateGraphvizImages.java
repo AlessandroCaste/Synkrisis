@@ -23,6 +23,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
@@ -30,19 +31,19 @@ import java.util.logging.Logger;
 
 import static guru.nidi.graphviz.model.Factory.*;
 
-public class CreateGraphvizModel {
+public class CreateGraphvizImages {
 
-    private static CreateGraphvizModel instance;
+    private static CreateGraphvizImages instance;
 
     private String modelName;
 
     private static Logger logger = Logger.getLogger("Report");
 
-    private CreateGraphvizModel() {}
+    private CreateGraphvizImages() {}
 
-    public static CreateGraphvizModel getInstance() {
+    public static CreateGraphvizImages getInstance() {
         if(instance == null)
-            return (instance = new CreateGraphvizModel());
+            return (instance = new CreateGraphvizImages());
         return instance;
     }
 
@@ -50,7 +51,19 @@ public class CreateGraphvizModel {
         logger.log(Level.INFO,"Model drawing started");
         Graphviz.useEngine(new GraphvizV8Engine());
 
+
+
         MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
+
+
+            // Counter to keep adding new nodes original node ids
+            ArrayList<Vertex> vertices = new ArrayList<>(currentGraph.vertexSet());
+            int counter = 0;
+            for(Vertex v : vertices) {
+                if(v.getVertexId() > counter)
+                    counter = v.getVertexId();
+            }
+
 
             // Title node
             MutableNode title = mutNode(modelName + " model").attrs().add(Shape.RECTANGLE).add("fontsize",16)
@@ -72,22 +85,24 @@ public class CreateGraphvizModel {
                     mutNode(Integer.toString(x.getVertexId())).attrs().add("label", nodeLabel).add("margin",adjustMargins(labelLength));
                 }
             }
+
             // Adding edges
             for (DefaultEdge edge : currentGraph.edgeSet()) {
                 Vertex edgeSource = currentGraph.getEdgeSource(edge);
                 Vertex edgeTarget = currentGraph.getEdgeTarget(edge);
+
                 if (edgeTarget.isControl()) {
                     linkAttrs().add("arrowhead", "normal");
                     linkAttrs().add("color", "black");
                     linkAttrs().add("style", "solid");
                     mutNode(Integer.toString(edgeSource.getVertexId())).addLink(mutNode(Integer.toString(edgeTarget.getVertexId())));
                 } else {
+                    counter++;
                     linkAttrs().add("arrowhead", "none");
                     linkAttrs().add("color", "red");
                     linkAttrs().add("style", "dotted");
                     mutNode(Integer.toString(edgeSource.getVertexId())).addLink(
-                            mutNode(Integer.toString(edgeTarget.getVertexId()))
-                            .attrs().add(Shape.CIRCLE)
+                            mutNode(Integer.toString(counter)).attrs().add(Shape.CIRCLE)
                                     .attrs().add(Color.RED2)
                                     .attrs().add("size", 0.8)
                                     .attrs().add("label", edgeTarget.getLabel()));
@@ -142,6 +157,14 @@ public class CreateGraphvizModel {
     private MutableGraph buildReactionGraph(Multigraph<Vertex, DefaultEdge>  currentGraph, HashMap<String,Color> colorHashMap, String ruleName) {
         MutableGraph g = mutGraph("Reactions").setDirected(true).use((gr, ctx) -> {
 
+            // Counter to keep adding new nodes ids
+            ArrayList<Vertex> vertices = new ArrayList<>(currentGraph.vertexSet());
+            int counter = 0;
+            for(Vertex v : vertices) {
+                if(v.getVertexId() > counter)
+                    counter = v.getVertexId();
+            }
+
            // Title node
            MutableNode title = mutNode(ruleName).attrs().add(Shape.RECTANGLE).add("fontsize",16)
                    .add("margin",adjustMargins(ruleName.length()));
@@ -163,8 +186,24 @@ public class CreateGraphvizModel {
                         nodeAttrs().add(Shape.RECTANGLE);
                         mutNode(nodeId).attrs().add("label", nodeLabel).add("margin",adjustMargins(nodeLabel.length()));
                     }
+                }
+            }
+
+            // Adding edges
+            for (DefaultEdge edge : currentGraph.edgeSet()) {
+                String sourceId = Integer.toString(currentGraph.getEdgeSource(edge).getVertexId());
+                String targetId = Integer.toString(currentGraph.getEdgeTarget(edge).getVertexId());
+                String nodeLabel = currentGraph.getEdgeTarget(edge).getLabel();
+                if (currentGraph.getEdgeTarget(edge).isControl()) {
+                    linkAttrs().add("dir", "forward");
+                    linkAttrs().add("arrowhead", "normal");
+                    linkAttrs().add("color", "black");
+                    linkAttrs().add("style", "solid");
+                    mutNode(sourceId).addLink(mutNode(targetId));
+                // Names share colors across redex and reactum
                 } else {
                     Color customColor;
+                    counter++;
                     if(colorHashMap.containsKey(nodeLabel))
                         customColor = colorHashMap.get(nodeLabel);
                     else {
@@ -176,29 +215,13 @@ public class CreateGraphvizModel {
                         customColor = Color.rgb(rc, gc, bc);
                         colorHashMap.put(nodeLabel, customColor);
                     }
-                    mutNode(nodeLabel).attrs().add(Shape.CIRCLE)
-                            .attrs().add(customColor)
-                            .attrs().add("size", 0.8);
-                }
-            }
-
-            // Adding edges
-            for (DefaultEdge edge : currentGraph.edgeSet()) {
-                String sourceId = Integer.toString(currentGraph.getEdgeSource(edge).getVertexId());
-                String targetId = Integer.toString(currentGraph.getEdgeTarget(edge).getVertexId());
-                String targetLabel = currentGraph.getEdgeTarget(edge).getLabel();
-                if (currentGraph.getEdgeTarget(edge).isControl()) {
-                    linkAttrs().add("dir", "forward");
-                    linkAttrs().add("arrowhead", "normal");
-                    linkAttrs().add("color", "black");
-                    linkAttrs().add("style", "solid");
-                    mutNode(sourceId).addLink(mutNode(targetId));
-                // Names share colors across redex and reactum
-                } else {
                     linkAttrs().add("arrowhead", "dot");
-                    Color color = colorHashMap.get(targetLabel);
-                    linkAttrs().add(color);
-                    mutNode(sourceId).addLink(mutNode(targetLabel));
+                    linkAttrs().add(customColor);
+                    mutNode(Integer.toString(counter)).attrs().add(Shape.CIRCLE)
+                            .attrs().add(customColor)
+                            .attrs().add("label", nodeLabel)
+                            .attrs().add("size", 0.8);
+                    mutNode(sourceId).addLink(mutNode(Integer.toString(counter)));
                 }
             }
           });

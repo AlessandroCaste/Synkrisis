@@ -2,7 +2,7 @@ package core.graphBuilding;
 
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;
-import core.graphVisualization.CreateGraphvizModel;
+import core.graphVisualization.CreateGraphvizImages;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +32,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // Keeping track of markers with their ID
     private BidiMap<Integer,String> markerMap = new TreeBidiMap<>();
     private int markerCounter = 0;
+
+    // Map to keep track of name nodes
+    private HashMap<String,Vertex> nameMap = new HashMap<>();
 
     // Property string, for file printing
     private String propertiesString;
@@ -53,7 +57,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private Vertex currentVertex = new Vertex(0,"Root",true);
     private Vertex upperVertex = null;                                   // Direct parent node. -1 equals 'no parent'
     private int nodeCounter = 1;                                    // Represents the growing unique id of every node
-    private int nameCounter = -1;                                   // Represents the decreasing unique id of every name
     private int depth = 0;                                          // Nesting depth
     private boolean root = true;
     private String reactionName = "";
@@ -228,22 +231,31 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
         // GRAPH CREATION: linking names to nodes
         if(ctx.IDENTIFIER() != null ) {
-            Vertex vertex = new Vertex(nameCounter,ctx.IDENTIFIER().toString(),false);
+            String nameLabel = ctx.IDENTIFIER().toString();
+            Vertex vertex;
+            if(!nameMap.containsKey(nameLabel)) {
+                vertex = new Vertex(nodeCounter, nameLabel, false);
+                nameMap.put(nameLabel,vertex);
+            }
+            else
+                vertex = nameMap.get(nameLabel);
             currentGraph.addVertex(vertex);
-            currentGraph.addEdge(currentVertex,vertex);
-            nameCounter--;
+            currentGraph.addEdge(currentVertex, vertex);
+            nameMap.put(nameLabel,vertex);
+            nodeCounter++;
+
         }
         else if(ctx.VARIABLE() != null ) {
-            Vertex vertex = new Vertex(nameCounter,ctx.VARIABLE().toString()+ctx.IDENTIFIER(),false);
+            Vertex vertex = new Vertex(nodeCounter,ctx.VARIABLE().toString()+ctx.IDENTIFIER(),false);
             currentGraph.addVertex(vertex);
             currentGraph.addEdge(currentVertex,vertex);
-            nameCounter--;
+            nodeCounter++;
         }
         else if(ctx.UNLINKED() != null ) {
-            Vertex vertex = new Vertex(nameCounter,ctx.UNLINKED().toString(),false);
+            Vertex vertex = new Vertex(nodeCounter,ctx.UNLINKED().toString(),false);
             currentGraph.addVertex(vertex);
             currentGraph.addEdge(currentVertex,vertex);
-            nameCounter--;
+            nodeCounter++;
         }
         return visitChildren(ctx);
     }
@@ -260,7 +272,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         visitChildren(ctx);
         createModelGraph(currentGraph);
         // Saving model name for graphviz printing
-        CreateGraphvizModel.getInstance().setModelName(modelName);
+        CreateGraphvizImages.getInstance().setModelName(modelName);
         return null;
     }
 

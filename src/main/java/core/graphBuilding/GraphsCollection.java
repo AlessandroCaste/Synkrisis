@@ -1,6 +1,6 @@
 package core.graphBuilding;
 
-import core.graphVisualization.CreateGraphvizModel;
+import core.graphVisualization.CreateGraphvizImages;
 import org.apache.commons.collections4.BidiMap;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedMultigraph;
@@ -32,14 +32,14 @@ public class GraphsCollection {
     }
 
     public void printModel() {
-        CreateGraphvizModel.getInstance().createModel(model);
+        CreateGraphvizImages.getInstance().createModel(model);
         for(GraphReaction gr : reactionsList) {
-            CreateGraphvizModel.getInstance().createReactions(gr);
+            CreateGraphvizImages.getInstance().createReactions(gr);
         }
     }
 
     public void printTransition() {
-        CreateGraphvizModel.getInstance().createTransition(transitionGraph);
+        CreateGraphvizImages.getInstance().createTransition(transitionGraph);
     }
 
     public Multigraph<Vertex, DefaultEdge> getModel() {

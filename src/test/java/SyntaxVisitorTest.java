@@ -27,7 +27,7 @@ class SyntaxVisitorTest {
 
     SyntaxVisitorTest() {
 
-        String airportPath = "src/test/java/models/airport.bigraph";
+        String airportPath = "src/test/java/models/airport2.bigraph";
         String example1Path = "src/test/java/models/example1.bigraph";
         String example2Path = "src/test/java/models/example2.bigraph";
         String example3Path = "src/test/java/models/example3.bigraph";
@@ -69,7 +69,7 @@ class SyntaxVisitorTest {
     }
 
     @Test
-    private void checkAcceptance() {
+    void checkAcceptance() {
         // Airport model is a successful model
         String airportResult = airport.getParseResult();
         assertEquals("[RESULT : PASSED] Model is ready\n****************************",airportResult);
