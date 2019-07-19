@@ -1,6 +1,6 @@
 package core;
 
-import core.exporting.PrismExporter;
+import core.exporting.TransitionDotImporter;
 import core.graphBuilding.GraphBuildingVisitor;
 import core.graphBuilding.GraphsCollection;
 import core.setup.Bigmc;
@@ -84,12 +84,13 @@ public class Main {
                 System.out.println("****************************");
                 // Model exporting
                // if (loadedSettings.isExportingEnabled()) {
-                    new PrismExporter(modelName); // Translating the transition graph to a jgrapht graph
+                    new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
                     if(loadedSettings.isPrintTransitionEnabled())
                         GraphsCollection.getInstance().printTransition();
+                    GraphsCollection.getInstance().exportToSpot();
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
 //                       System.out.println("ciao");
-                        //new PrismExporter(modelName);
+                        //new TransitionDotImporter(modelName);
                // }
             } else
             System.out.println("Error in syntax analysis: processing can't go any further");

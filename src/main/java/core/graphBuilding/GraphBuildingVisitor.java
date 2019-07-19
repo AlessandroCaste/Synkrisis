@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -38,6 +39,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     // Property string, for file printing
     private String propertiesString;
+
+    // List of rule names
+    private ArrayList<String> reactionNames = new ArrayList<>();
 
     private static Logger logger = Logger.getLogger("Report");
 
@@ -89,8 +93,10 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override
     public Void visitReactions(bigraphParser.ReactionsContext ctx) {
-        if(ctx.IDENTIFIER() != null)
+        if(ctx.IDENTIFIER() != null) {
             reactionName = ctx.IDENTIFIER().toString();
+            reactionNames.add(reactionName);
+        }
         return visitChildren(ctx);
     }
 
@@ -231,7 +237,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
         // GRAPH CREATION: linking names to nodes
         if(ctx.IDENTIFIER() != null ) {
-            String nameLabel = ctx.IDENTIFIER().toString();
+            String nameLabel;
+            if(ctx.VARIABLE() != null) {
+                nameLabel = "@" + ctx.IDENTIFIER().toString();
+            } else
+                nameLabel = ctx.IDENTIFIER().toString();
             Vertex vertex;
             if(!nameMap.containsKey(nameLabel)) {
                 vertex = new Vertex(nodeCounter, nameLabel, false);
@@ -262,6 +272,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override public Void visitModel (bigraphParser.ModelContext ctx){
+
+        // I store model name and reactions
+        GraphsCollection.getInstance().setModelName(ctx.IDENTIFIER().toString());
+        GraphsCollection.getInstance().setReactionNames(reactionNames);
+
         // I store graph markers
         GraphsCollection.getInstance().addMarkerMap(markerMap);
         // I reset the latest graph

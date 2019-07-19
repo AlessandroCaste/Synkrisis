@@ -15,7 +15,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     // We store identifiers in order to check repetitions and wrong uses
     private HashMap<String,Integer> controlsMap = new HashMap<>();
     private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<String> ruleNames = new ArrayList<>();
+    private ArrayList<String> reactionNames = new ArrayList<>();
     private ArrayList<String> propertyNames = new ArrayList<>();
     // Maps to track usages
     private HashMap<String,Integer> controlsUsage = new HashMap<>();
@@ -128,12 +128,12 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
                 reportError(ctx, WARNING, "Reaction rules shouldn't be named after controls");
             if (names.contains(currentRule))
                 reportError(ctx, WARNING, "Reaction rules shouldn't be named after an outer/inner name");
-            if (ruleNames.contains(currentRule)) {
+            if (reactionNames.contains(currentRule)) {
                 acceptableModel = false;
                 reportError(ctx, ERROR, "Repeated rule name");
             }
             if(acceptableModel)
-                ruleNames.add(currentRule);
+                reactionNames.add(currentRule);
         }
         return visitChildren(ctx);
     }
@@ -234,7 +234,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
                 reportError(ctx, WARNING, "Markers shouldn't be named after controls");
             if (names.contains(identifier))
                 reportError(ctx, WARNING, "Markers shouldn't be named after an outer/inner name");
-            if (ruleNames.contains(identifier)) {
+            if (reactionNames.contains(identifier)) {
                 acceptableModel = false;
                 reportError(ctx, WARNING, "Markers shouldn't be named after rules");
             }

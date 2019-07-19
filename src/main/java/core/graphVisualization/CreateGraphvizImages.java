@@ -217,11 +217,19 @@ public class CreateGraphvizImages {
                     }
                     linkAttrs().add("arrowhead", "dot");
                     linkAttrs().add(customColor);
-                    mutNode(Integer.toString(counter)).attrs().add(Shape.CIRCLE)
-                            .attrs().add(customColor)
-                            .attrs().add("label", nodeLabel)
-                            .attrs().add("size", 0.8);
-                    mutNode(sourceId).addLink(mutNode(Integer.toString(counter)));
+                    if (nodeLabel.contains("@")) {
+                        mutNode(Integer.toString(counter)).attrs().add(Shape.DOUBLE_CIRCLE)
+                                .attrs().add(customColor)
+                                .attrs().add("label", nodeLabel.replace("@",""))
+                                .attrs().add("size", 0.8);
+                        mutNode(sourceId).addLink(mutNode(Integer.toString(counter)));
+                    } else {
+                        mutNode(Integer.toString(counter)).attrs().add(Shape.CIRCLE)
+                                .attrs().add(customColor)
+                                .attrs().add("label", nodeLabel)
+                                .attrs().add("size", 0.8);
+                        mutNode(sourceId).addLink(mutNode(Integer.toString(counter)));
+                    }
                 }
             }
           });
@@ -248,7 +256,7 @@ public class CreateGraphvizImages {
                     for (EdgeTransitionGraph edge : currentGraph.edgeSet()) {
                         TransitionVertex edgeSource = currentGraph.getEdgeSource(edge);
                         TransitionVertex edgeTarget = currentGraph.getEdgeTarget(edge);
-                        linkAttrs().add("label",edge.getLabel());
+                        linkAttrs().add("label",edge.getLabel().substring(0, Math.min(edge.getLabel().length(), 3)));
                         if (!Graphs.vertexHasSuccessors(currentGraph, edgeTarget))
                             mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
                                     mutNode(Integer.toString(edgeTarget.getVertexID()))
