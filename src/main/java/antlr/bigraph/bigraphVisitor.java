@@ -95,17 +95,53 @@ public interface bigraphVisitor<Void> extends ParseTreeVisitor<Void> {
 	 */
 	Void visitMarker_statement(bigraphParser.Marker_statementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link bigraphParser#property}.
+	 * Visit a parse tree produced by {@link bigraphParser#properties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	Void visitProperty(bigraphParser.PropertyContext ctx);
+	Void visitProperties(bigraphParser.PropertiesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link bigraphParser#property_statements}.
+	 * Visit a parse tree produced by {@link bigraphParser#spot_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	Void visitProperty_statements(bigraphParser.Property_statementsContext ctx);
+	Void visitSpot_statement(bigraphParser.Spot_statementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link bigraphParser#acc_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Void visitAcc_name(bigraphParser.Acc_nameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link bigraphParser#acceptance}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Void visitAcceptance(bigraphParser.AcceptanceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link bigraphParser#acceptance_cond1}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Void visitAcceptance_cond1(bigraphParser.Acceptance_cond1Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link bigraphParser#acceptance_cond2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link bigraphParser#prism_properties}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link bigraphParser#prism_statements}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Void visitPrism_statements(bigraphParser.Prism_statementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link bigraphParser#boolean_expression}.
 	 * @param ctx the parse tree

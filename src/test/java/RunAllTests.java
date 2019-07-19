@@ -4,8 +4,8 @@ class RunAllTests {
 
     @Test
     void executeTests(){
-        SyntaxVisitorTest syntaxTest = new SyntaxVisitorTest();
-        GraphBuildingTest graphBuildingTest = new GraphBuildingTest();
+        new SyntaxVisitorTest();
+        new GraphBuildingTest();
     }
 
 }

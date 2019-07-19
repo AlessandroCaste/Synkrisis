@@ -25,6 +25,5 @@ marker he_forgot_the_pager = matches (Nurse[pager] | Doctor[-])
 marker nursestation_meeting = matches (Room[nursestation].( Nurse[pager] | Doctor[pager] ))
 
 properties:
-    // Some random properties for testing
-    "safe": P<0.01? [ F temperature > t_max ];
-    filter(forall, num_sensors>0 => "safe");
+    PRISM =
+        asdoijasoidujaoisudoiasudoius

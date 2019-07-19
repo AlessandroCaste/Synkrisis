@@ -16,7 +16,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     private HashMap<String,Integer> controlsMap = new HashMap<>();
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<String> reactionNames = new ArrayList<>();
-    private ArrayList<String> propertyNames = new ArrayList<>();
+    private ArrayList<String> markersNames = new ArrayList<>();
     // Maps to track usages
     private HashMap<String,Integer> controlsUsage = new HashMap<>();
     private HashMap<String,Integer> namesUsage = new HashMap<>();
@@ -56,8 +56,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     private final boolean invalidControl = false;
     private final boolean validControl = true;
 
-    @Override
-    public Void visitBigraph(bigraphParser.BigraphContext ctx) {
+    @Override public Void visitBigraph(bigraphParser.BigraphContext ctx) {
         System.out.println("SYNTAX ANALYSIS STARTED");
         // String builder get reset at every run
         errorString = new StringBuilder();
@@ -238,8 +237,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
                 acceptableModel = false;
                 reportError(ctx, WARNING, "Markers shouldn't be named after rules");
             }
-            if (!propertyNames.contains(identifier)) {
-                propertyNames.add(identifier);
+            if (!markersNames.contains(identifier)) {
+                markersNames.add(identifier);
             } else {
                 reportError(ctx, ERROR, "Different markers share the same name!");
             }
@@ -252,15 +251,43 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         return visitChildren(ctx);
     }
 
-    // Properties are automatically skipped by custom bigmc
-    @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {
+    @Override public Void visitProperties (bigraphParser.PropertiesContext ctx) {
         return visitChildren(ctx);
     }
 
-    @Override public Void visitProperty_statements (bigraphParser.Property_statementsContext ctx) {
+    @Override public Void visitSpot_statement(bigraphParser.Spot_statementContext ctx) {
         return visitChildren(ctx);
     }
 
+    @Override public Void visitAcc_name(bigraphParser.Acc_nameContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitAcceptance(bigraphParser.AcceptanceContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitAcceptance_cond1(bigraphParser.Acceptance_cond1Context ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx) {
+        if(ctx.IDENTIFIER() != null) {
+            String acceptanceIdentifier = ctx.IDENTIFIER().toString();
+            if(!markersNames.contains(acceptanceIdentifier))
+                reportError(ctx,ERROR,"");
+
+        }
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitPrism_statements(bigraphParser.Prism_statementsContext ctx) {
+        return visitChildren(ctx);
+    }
 
     @Override public Void visitBoolean_expression (bigraphParser.Boolean_expressionContext ctx){
         return visitChildren(ctx);

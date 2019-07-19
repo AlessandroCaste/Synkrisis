@@ -1,4 +1,5 @@
 package core.syntaxAnalysis;
+
 import antlr.bigraph.bigraphParser;
 
 class ControlChecker {

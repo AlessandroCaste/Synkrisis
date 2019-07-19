@@ -308,11 +308,35 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return null;
     }
 
-    @Override public Void visitProperty (bigraphParser.PropertyContext ctx) {
+    @Override public Void visitProperties (bigraphParser.PropertiesContext ctx) {
         return visitChildren(ctx);
     }
 
-    @Override public Void visitProperty_statements (bigraphParser.Property_statementsContext ctx) {
+    @Override public Void visitSpot_statement(bigraphParser.Spot_statementContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitAcc_name(bigraphParser.Acc_nameContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitAcceptance(bigraphParser.AcceptanceContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitAcceptance_cond1(bigraphParser.Acceptance_cond1Context ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override public Void visitPrism_statements (bigraphParser.Prism_statementsContext ctx) {
         // Since they do vary a lot and have not a fixed, specified grammar we just print properties to file
         if(ctx.children.size() > 1) {
             int startPosition = ctx.start.getStartIndex();

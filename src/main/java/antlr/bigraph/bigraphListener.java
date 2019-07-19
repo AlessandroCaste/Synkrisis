@@ -148,25 +148,85 @@ public interface bigraphListener extends ParseTreeListener {
 	 */
 	void exitMarker_statement(bigraphParser.Marker_statementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link bigraphParser#property}.
+	 * Enter a parse tree produced by {@link bigraphParser#properties}.
 	 * @param ctx the parse tree
 	 */
-	void enterProperty(bigraphParser.PropertyContext ctx);
+	void enterProperties(bigraphParser.PropertiesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link bigraphParser#property}.
+	 * Exit a parse tree produced by {@link bigraphParser#properties}.
 	 * @param ctx the parse tree
 	 */
-	void exitProperty(bigraphParser.PropertyContext ctx);
+	void exitProperties(bigraphParser.PropertiesContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link bigraphParser#property_statements}.
+	 * Enter a parse tree produced by {@link bigraphParser#spot_statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterProperty_statements(bigraphParser.Property_statementsContext ctx);
+	void enterSpot_statement(bigraphParser.Spot_statementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link bigraphParser#property_statements}.
+	 * Exit a parse tree produced by {@link bigraphParser#spot_statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitProperty_statements(bigraphParser.Property_statementsContext ctx);
+	void exitSpot_statement(bigraphParser.Spot_statementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link bigraphParser#acc_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcc_name(bigraphParser.Acc_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bigraphParser#acc_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcc_name(bigraphParser.Acc_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link bigraphParser#acceptance}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcceptance(bigraphParser.AcceptanceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bigraphParser#acceptance}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcceptance(bigraphParser.AcceptanceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link bigraphParser#acceptance_cond1}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcceptance_cond1(bigraphParser.Acceptance_cond1Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link bigraphParser#acceptance_cond1}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcceptance_cond1(bigraphParser.Acceptance_cond1Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link bigraphParser#acceptance_cond2}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link bigraphParser#acceptance_cond2}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link bigraphParser#prism_properties}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrism_properties(bigraphParser.Prism_propertiesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bigraphParser#prism_properties}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrism_properties(bigraphParser.Prism_propertiesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link bigraphParser#prism_statements}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrism_statements(bigraphParser.Prism_statementsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bigraphParser#prism_statements}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrism_statements(bigraphParser.Prism_statementsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link bigraphParser#boolean_expression}.
 	 * @param ctx the parse tree
