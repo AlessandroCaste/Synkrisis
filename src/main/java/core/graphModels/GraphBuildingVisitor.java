@@ -1,7 +1,9 @@
-package core.graphBuilding;
+package core.graphModels;
 
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;
+import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
@@ -11,14 +13,9 @@ import org.apache.commons.collections4.bidimap.TreeBidiMap;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -35,7 +32,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private int markerCounter = 0;
 
     // Map to keep track of name nodes
-    private HashMap<String,Vertex> nameMap = new HashMap<>();
+    private HashMap<String, Vertex> nameMap = new HashMap<>();
 
     // Property string, for file printing
     private String propertiesString;
@@ -372,21 +369,12 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
-        GraphReaction reaction = new GraphReaction(redex,reactum,ruleName);
+        RedexReactumPair reaction = new RedexReactumPair(redex,reactum,ruleName);
         GraphsCollection.getInstance().addReaction(reaction);
     }
 
-    public void printProperties() {
-        if(propertiesString != null) {
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + modelName + ".prop")));
-                writer.write(propertiesString);
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("A problem happened while extracting the property file! Was " + modelName + ".prop unaccessible?");
-                logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization\nStack trace " + e.getMessage());
-            }
-        }
+    public String getPropertiesString() {
+        return propertiesString;
     }
 
     private void resetGraph() {

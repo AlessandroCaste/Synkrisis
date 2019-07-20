@@ -1,4 +1,4 @@
-package core.graphBuilding;
+package core.graphModels.verticesAndEdges;
 
 public class EdgeTransitionGraph {
 

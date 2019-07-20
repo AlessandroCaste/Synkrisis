@@ -1,9 +1,9 @@
 package core.graphVisualization;
 
-import core.graphBuilding.EdgeTransitionGraph;
-import core.graphBuilding.GraphReaction;
-import core.graphBuilding.TransitionVertex;
-import core.graphBuilding.Vertex;
+import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
+import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.verticesAndEdges.TransitionVertex;
+import core.graphModels.verticesAndEdges.Vertex;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
@@ -129,7 +129,7 @@ public class CreateGraphvizImages {
     }
 
 
-   public void createReactions(GraphReaction gr) {
+   public void createReactions(RedexReactumPair gr) {
         logger.log(Level.INFO,"Graphviz reactions drawing started");
         Graphviz.useEngine(new GraphvizV8Engine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
@@ -310,8 +310,15 @@ public class CreateGraphvizImages {
         finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
         finalPicture.dispose();
         if(ruleName != null) {
-            new File(modelName + "/" + "rules").mkdir();
-            ImageIO.write(mergedImage,"png", new File(modelName + "/rules/" + ruleName + ".png"));
+            String rulePath = modelName + "/rules";
+            File ruleFolder = new File(rulePath);
+            if(!ruleFolder.exists()) {
+                if(!ruleFolder.mkdir()) {
+                    System.out.println("Can't create \"rules\" folder for graphviz pictures!");
+                    logger.log(Level.WARNING, "Can't create rules folder. A hideous bug");
+                }
+            }
+            ImageIO.write(mergedImage,"png", new File(rulePath + "/" + ruleName + ".png"));
         } else {
             ImageIO.write(mergedImage, "png", new File(modelName + "/" + "transition.png"));
             logger.log(Level.INFO,"Transition graph successfully drawn");

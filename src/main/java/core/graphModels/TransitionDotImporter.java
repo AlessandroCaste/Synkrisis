@@ -1,8 +1,7 @@
-package core.exporting;
+package core.graphModels;
 
-import core.graphBuilding.EdgeTransitionGraph;
-import core.graphBuilding.GraphsCollection;
-import core.graphBuilding.TransitionVertex;
+import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
+import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.apache.commons.collections4.BidiMap;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.io.*;
@@ -32,6 +31,8 @@ public class TransitionDotImporter {
     private EdgeProvider<TransitionVertex, EdgeTransitionGraph> edgeProvider;
     private ComponentUpdater<TransitionVertex> vertexUpdater;
 
+    private DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph;
+
     public TransitionDotImporter(String modelName) {
         this.modelName = modelName;
         processTransition();
@@ -39,7 +40,7 @@ public class TransitionDotImporter {
 
     private void processTransition() {
 
-        DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> graph = new DirectedMultigraph<>(EdgeTransitionGraph.class);
+        transitionGraph = new DirectedMultigraph<>(EdgeTransitionGraph.class);
 
         // I retrieve the list of markers together with their IDs
         markerMap = GraphsCollection.getInstance().getMarkerMap();
@@ -101,9 +102,9 @@ public class TransitionDotImporter {
         try {
             DOTImporter<TransitionVertex, EdgeTransitionGraph> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
             FileReader transitionFile = new FileReader(modelName+"/"+modelName+".transition");
-            importer.importGraph(graph, transitionFile);
+            importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
-            GraphsCollection.getInstance().addTransition(graph);
+            GraphsCollection.getInstance().addTransition(transitionGraph);
 
         } catch (FileNotFoundException fe) {
             System.out.println("[FATAL ERROR] Transition system hasn't been successfully created; problems with the model checker?");

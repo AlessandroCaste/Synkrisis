@@ -1,4 +1,4 @@
-package core.graphBuilding;
+package core.graphModels.verticesAndEdges;
 
 
 public class Vertex {
@@ -7,7 +7,7 @@ public class Vertex {
     private String vertexLabel;
     private boolean control;
 
-    Vertex(int vertexId,String vertexLabel,boolean control) {
+    public Vertex(int vertexId,String vertexLabel,boolean control) {
         this.vertexId = vertexId;
         this.vertexLabel = vertexLabel;
         this.control = control;

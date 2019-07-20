@@ -1,15 +1,15 @@
-package core.graphBuilding;
+package core.graphModels.verticesAndEdges;
 
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-public class GraphReaction {
+public class RedexReactumPair {
 
     private Multigraph<Vertex, DefaultEdge> redex;
     private Multigraph<Vertex, DefaultEdge> reactum;
     private String rulename;
 
-    GraphReaction(Multigraph<Vertex, DefaultEdge> redex, Multigraph<Vertex, DefaultEdge> reactum, String rulename) {
+    public RedexReactumPair(Multigraph<Vertex, DefaultEdge> redex, Multigraph<Vertex, DefaultEdge> reactum, String rulename) {
         this.redex = redex;
         this.reactum = reactum;
         this.rulename = rulename;

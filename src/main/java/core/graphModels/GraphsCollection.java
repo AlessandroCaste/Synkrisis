@@ -1,5 +1,10 @@
-package core.graphBuilding;
+package core.graphModels;
 
+import core.graphModels.exporting.PrismExporter;
+import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
+import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.verticesAndEdges.TransitionVertex;
+import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
 import org.apache.commons.collections4.BidiMap;
 import org.jgrapht.graph.DefaultEdge;
@@ -24,7 +29,7 @@ public class GraphsCollection {
 
     // Graphs
     private Multigraph<Vertex, DefaultEdge> model;
-    private ArrayList<GraphReaction> reactionsList = new ArrayList<>();
+    private ArrayList<RedexReactumPair> reactionsList = new ArrayList<>();
     private DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph;
 
     // Hashmap to track the probability of reactions
@@ -46,7 +51,7 @@ public class GraphsCollection {
 
     public void printModel() {
         CreateGraphvizImages.getInstance().createModel(model);
-        for(GraphReaction gr : reactionsList) {
+        for(RedexReactumPair gr : reactionsList) {
             CreateGraphvizImages.getInstance().createReactions(gr);
         }
     }
@@ -63,18 +68,19 @@ public class GraphsCollection {
         rulesWeightMap.put(reaction,probability);
     }
 
-    public float getReactionWeight(String reaction) {
+    float getReactionWeight(String reaction) {
         return rulesWeightMap.get(reaction);
     }
 
 
-    public BidiMap<Integer,String> getMarkerMap() {
+    BidiMap<Integer,String> getMarkerMap() {
         return markerMap;
     }
 
 
-    public void addTransition(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph) {
+    void addTransition(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph) {
         this.transitionGraph = transitionGraph;
+
     }
 
 
@@ -82,7 +88,7 @@ public class GraphsCollection {
         this.model = model;
     }
 
-    void addReaction(GraphReaction reaction) {
+    void addReaction(RedexReactumPair reaction) {
         reactionsList.add(reaction);
     }
 
@@ -96,52 +102,13 @@ public class GraphsCollection {
         this.reactionNames = reactionNames;
     }
 
-    public ArrayList<GraphReaction> getReactionsList() {
+    public ArrayList<RedexReactumPair> getReactionsList() {
         return reactionsList;
     }
 
-
-    public void exportToPrism() {
-
-        writeTransitionFile(transitionGraph);
-        writeLabelFile(transitionGraph);
-
+    public void exportToPrism(String propertiesString) {
+        new PrismExporter(transitionGraph,modelName,markerMap,propertiesString).writePrismFiles();
     }
-
-    private void writeTransitionFile(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> graph) {
-        logger.log(Level.INFO,"Writing .tra file");
-        try {
-            BufferedWriter traWriter = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".tra",false));
-            traWriter.write(graph.vertexSet().size() + " " + graph.edgeSet().size() + "\n");
-            for(TransitionVertex v : graph.vertexSet()) {
-                for(EdgeTransitionGraph e : graph.outgoingEdgesOf(v)) {
-                    traWriter.write(v.getVertexID() + " " + graph.getEdgeTarget(e).getVertexID() + " " + graph.getEdgeWeight(e) + "\n");
-                }
-            }
-            traWriter.close();
-        } catch (IOException e) {
-            System.out.println("Can't output the transition file!");
-            logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
-        }
-    }
-
-    private void writeLabelFile(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> graph) {
-        logger.log(Level.INFO,"Writing .lab file");
-        try {
-            BufferedWriter labWriter = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".lab",false));
-            for(String marker : markerMap.values())
-                labWriter.write(markerMap.inverseBidiMap().get(marker) + "=\"" + marker + "\" ");
-            labWriter.write("\n");
-            for(TransitionVertex v : graph.vertexSet())
-                if(!v.getProperties().equals(""))
-                    labWriter.write(v.getVertexID() + ": " + v.getProperties() + "\n");
-            labWriter.close();
-        } catch (IOException e) {
-            System.out.println("Can't output the label file!");
-            logger.log(Level.SEVERE, "Can't write .lab file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
-        }
-    }
-
 
     public void exportToSpot() {
         logger.log(Level.INFO,"Writing .hoa file");

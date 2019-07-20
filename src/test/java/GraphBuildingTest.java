@@ -1,9 +1,9 @@
 import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
-import core.graphBuilding.GraphBuildingVisitor;
-import core.graphBuilding.GraphReaction;
-import core.graphBuilding.GraphsCollection;
-import core.graphBuilding.Vertex;
+import core.graphModels.GraphBuildingVisitor;
+import core.graphModels.GraphsCollection;
+import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.verticesAndEdges.Vertex;
 import core.syntaxAnalysis.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -95,9 +95,9 @@ class GraphBuildingTest {
 
 
         // Checking Redex 1
-        ArrayList<GraphReaction> reactionsList = GraphsCollection.getInstance().getReactionsList();
-        GraphReaction regression1 = reactionsList.get(0);
-        GraphReaction regression2 = reactionsList.get(1);
+        ArrayList<RedexReactumPair> reactionsList = GraphsCollection.getInstance().getReactionsList();
+        RedexReactumPair regression1 = reactionsList.get(0);
+        RedexReactumPair regression2 = reactionsList.get(1);
         graph = regression1.getRedex();
 
         assertEquals(graph.vertexSet().size(),5);

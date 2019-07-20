@@ -1,8 +1,8 @@
 package core;
 
-import core.exporting.TransitionDotImporter;
-import core.graphBuilding.GraphBuildingVisitor;
-import core.graphBuilding.GraphsCollection;
+import core.graphModels.GraphBuildingVisitor;
+import core.graphModels.GraphsCollection;
+import core.graphModels.TransitionDotImporter;
 import core.setup.Bigmc;
 import core.setup.SetupSynk;
 import core.syntaxAnalysis.SyntaxVisitor;
@@ -30,6 +30,7 @@ public class Main {
     private static boolean acceptableModel;
     private static ExecutionSettings loadedSettings;
     private static SyntaxVisitor syntaxVisitor;
+    private static GraphsCollection  graphsCollection = GraphsCollection.getInstance();
 
     private static Logger logger = Logger.getLogger("Report");
 
@@ -55,18 +56,14 @@ public class Main {
                 logger.log(Level.INFO,"Jgraph translation from parsetree started");
                 GraphBuildingVisitor modelBuilder = new GraphBuildingVisitor();
                 modelBuilder.visit(modelTree);
+                String propertiesString = modelBuilder.getPropertiesString();
                 logger.log(Level.INFO, "Jgraph translation from parsetree completed.");
-
-                logger.log(Level.INFO, "Printing .prop file");
-                //TODO if exporting is enabled
-                modelBuilder.printProperties();
-                logger.log(Level.INFO, ".prop file print");
 
                 // Graph printing
                 if(loadedSettings.isPrintEnabled()) {
                     logger.log(Level.INFO,"Launching graphviz printing...");
                     System.out.println("PRINTING MODEL AND REACTIONS");
-                    GraphsCollection.getInstance().printModel();
+                    graphsCollection.printModel();
                     System.out.println("****************************");
                 }
 
@@ -86,8 +83,12 @@ public class Main {
                // if (loadedSettings.isExportingEnabled()) {
                     new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
                     if(loadedSettings.isPrintTransitionEnabled())
-                        GraphsCollection.getInstance().printTransition();
-                    GraphsCollection.getInstance().exportToSpot();
+                        graphsCollection.printTransition();
+
+                    //TODO Prism exporting dovrebbe andare e sta qua
+                    graphsCollection.exportToPrism(propertiesString);
+
+                    graphsCollection.exportToSpot();
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
 //                       System.out.println("ciao");
                         //new TransitionDotImporter(modelName);
