@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements bigraphVisitor<Void> {
@@ -263,20 +264,23 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         return visitChildren(ctx);
     }
 
-    @Override public Void visitAcceptance(bigraphParser.AcceptanceContext ctx) {
-        return visitChildren(ctx);
-    }
+    @Override public Void visitAcceptance(bigraphParser.AcceptanceContext ctx) { return visitChildren(ctx); }
 
     @Override public Void visitAcceptance_cond1(bigraphParser.Acceptance_cond1Context ctx) {
         return visitChildren(ctx);
     }
 
     @Override public Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx) {
+        // I verify markers in SPOT properties have been already specified
         if(ctx.IDENTIFIER() != null) {
             String acceptanceIdentifier = ctx.IDENTIFIER().toString();
-            if(!markersNames.contains(acceptanceIdentifier))
-                reportError(ctx,ERROR,"");
-
+            ArrayList<String> markers = new ArrayList<>(Arrays.asList(acceptanceIdentifier.replace("[","")
+                                                                          .replace("]","")
+                                                                          .split("\\s*,\\s*")));
+            for(String marker : markers) {
+                if (!markersNames.contains(marker))
+                    reportError(ctx, ERROR, marker + " does not match any marker name!");
+            }
         }
         return visitChildren(ctx);
     }

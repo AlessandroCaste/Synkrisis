@@ -13,9 +13,7 @@ import org.apache.commons.collections4.bidimap.TreeBidiMap;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 import java.util.logging.Logger;
 
 
@@ -39,6 +37,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     // List of rule names
     private ArrayList<String> reactionNames = new ArrayList<>();
+
+    // List of SPOT acceptance states
+    // Each state will be associated to an integer
+    private ArrayList<SpotAcceptanceState> acceptanceStates = new ArrayList<>();
+    private int acceptanceCounter = 0;
 
     private static Logger logger = Logger.getLogger("Report");
 
@@ -326,6 +329,23 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override public Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx) {
+        // I create a map for SPOT properties
+        if(ctx.IDENTIFIER() != null) {
+            String acceptanceIdentifier = ctx.IDENTIFIER().toString();
+            TreeSet<String> acceptanceSet = new TreeSet<>(Arrays.asList(acceptanceIdentifier.replace("[","")
+                                                                .replace("]","")
+                                                                .split("\\s*,\\s*")));
+            // Identical acceptance states are merged
+            boolean found = false;
+            for(SpotAcceptanceState s : acceptanceStates) {
+                if(s.compare(acceptanceSet))
+                    found = true;
+            }
+            if(!found) {
+                acceptanceStates.add(new SpotAcceptanceState(acceptanceCounter, acceptanceSet));
+                acceptanceCounter++;
+            }
+        }
         return visitChildren(ctx);
     }
 

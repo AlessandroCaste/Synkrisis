@@ -108,8 +108,6 @@ public class Bigmc {
             // We may have multiple transition file, so we keep a counter
             int transition_counter = 0;
 
-            // We'll have a BufferedWriter to store the output print on the terminal and a BufferedWriter for transition files
-            BufferedWriter outputTxt = new BufferedWriter(new FileWriter(modelName + "/bigmc.log"));
             BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".transition",true));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
@@ -128,13 +126,11 @@ public class Bigmc {
                     transition.write(line + "\n");
                 else {
                     System.out.println(line);           // I print out non-transition lines
-                    outputTxt.write(line + "\n");
                 }
             }
             //Closing everything
             sc.close();
             transition.close();
-            outputTxt.close();
 
             //Rename lost output transition
             transition_counter = transition_counter - 1;
