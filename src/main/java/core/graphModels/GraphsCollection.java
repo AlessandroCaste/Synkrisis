@@ -1,22 +1,19 @@
 package core.graphModels;
 
 import core.graphModels.exporting.PrismExporter;
+import core.graphModels.exporting.SpotExporter;
 import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
-import org.apache.commons.collections4.BidiMap;
+import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.graph.Multigraph;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GraphsCollection {
@@ -36,7 +33,7 @@ public class GraphsCollection {
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
 
     // Hashmap for markers ID
-    private BidiMap<Integer,String> markerMap;
+    private HashMap<String,Integer> markerMap;
 
     private static GraphsCollection instance;
 
@@ -73,14 +70,13 @@ public class GraphsCollection {
     }
 
 
-    BidiMap<Integer,String> getMarkerMap() {
+    HashMap<String,Integer> getMarkerMap() {
         return markerMap;
     }
 
 
     void addTransition(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph) {
         this.transitionGraph = transitionGraph;
-
     }
 
 
@@ -92,7 +88,7 @@ public class GraphsCollection {
         reactionsList.add(reaction);
     }
 
-    void addMarkerMap(BidiMap<Integer,String> markerMap) { this.markerMap = markerMap; }
+    void addMarkerMap(HashMap<String,Integer> markerMap) { this.markerMap = markerMap; }
 
     void setModelName(String modelName) {
         this.modelName = modelName;
@@ -110,28 +106,18 @@ public class GraphsCollection {
         new PrismExporter(transitionGraph,modelName,markerMap,propertiesString).writePrismFiles();
     }
 
-    public void exportToSpot() {
-        logger.log(Level.INFO,"Writing .hoa file");
-        try {
-            BufferedWriter hoaWriter = new BufferedWriter(new FileWriter(modelName + "/" + modelName + ".hoa",false));
-            hoaWriter.write("Hoa: v1\n");
-            hoaWriter.write("name: \"" + modelName + "\"\n");
-            hoaWriter.write("States: " + transitionGraph.vertexSet().size() + "\n");
-            hoaWriter.write("AP : " + reactionsList.size() + " " + reactionNamesFormatted() + "\n");
-            hoaWriter.write("acc-name: generalized-co-Buchi 1\n"); //transitionGraph.vertexSet().size());
-            hoaWriter.write("Acceptance: 1 Fin(0)\n");
-            hoaWriter.close();
-        } catch (IOException e) {
-            System.out.println("Can't output the transition file!");
-            logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
-        }
-    }
-
-    private String reactionNamesFormatted() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(String s : reactionNames)
-            stringBuilder.append("\"").append(s).append("\" ");
-        return stringBuilder.toString();
+    public void exportToSpot(SpotInfo spotInfo) {
+        // Check if it's not a w-automaton
+        boolean result = true;
+        for(TransitionVertex v : transitionGraph.vertexSet())
+            if(!Graphs.vertexHasSuccessors(transitionGraph,v))
+                result = false;
+        if(!result)
+            System.out.println("[SPOT-TRANSLATION] Can't translate to SPOT: transition graph is not an w-automaton");
+        if(spotInfo == null)
+            System.out.println("[SPOT-TRANSLATION] No spot Acceptance has been specified");
+        else
+            new SpotExporter(transitionGraph,modelName,reactionNames,markerMap,spotInfo);
     }
 
 }

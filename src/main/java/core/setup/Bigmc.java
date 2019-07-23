@@ -40,16 +40,12 @@ public class Bigmc {
         if(loadedSettings.getSteps() != 0)
             input.append(" -m ").append(loadedSettings.getSteps());
 
-        // Settings the number of threads. 2 means user didn't specify any
-        if(loadedSettings.getThreads() != 2)
-            input.append(" -t ").append(loadedSettings.getThreads());
-
         // Setting frequency statistics
         if(loadedSettings.getStatisticsFrequency() > 0)
             input.append(" -r ").append(loadedSettings.getStatisticsFrequency());
 
         // Print new states
-        if(loadedSettings.canPrintNewStates())
+        if(loadedSettings.isPrintNewStatesEnabled())
             input.append(" -p");
 
         // Basic model checking functionality
@@ -159,7 +155,9 @@ public class Bigmc {
             if(!deletionResult)
                 logger.log(Level.WARNING,"Couldn't correctly delete .temp file!");
             if(!loadedSettings.isBigmcReady()) {
-                new File(loadedSettings.getBigmcFile()).delete();
+                boolean result = new File(loadedSettings.getBigmcFile()).delete();
+                if(!result)
+                    throw new IOException();
                 logger.log(Level.INFO,"Temporary bigmc translation has been eliminated successfully");
             }
         } catch (FileNotFoundException e) {

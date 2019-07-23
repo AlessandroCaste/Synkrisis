@@ -2,7 +2,6 @@ package core.graphModels;
 
 import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
 import core.graphModels.verticesAndEdges.TransitionVertex;
-import org.apache.commons.collections4.BidiMap;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.io.*;
 
@@ -11,6 +10,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +23,8 @@ public class TransitionDotImporter {
     private HashMap<String,Integer> hashToId = new HashMap<>();
     private int vertexID = 0;
 
-    // Associates each properties to a unique ID
-    private BidiMap<Integer,String> markerMap;
+    // Associates each properties to a unique ID for PRISM
+    private HashMap<String,Integer> markerMap;
 
     // Classes to translate DOT specification into vertices and edges
     private VertexProvider<TransitionVertex> vertexProvider;
@@ -54,7 +54,7 @@ public class TransitionDotImporter {
             Attribute propertiesAttribute = map.get("properties");
             String labelString;
             ArrayList<String> markerLabels;
-            ArrayList<Integer> markersID = new ArrayList<>();
+            TreeSet<Integer> markersID = new TreeSet<>();
 
             if (label != null)
                 labelString = label.toString();
@@ -62,9 +62,9 @@ public class TransitionDotImporter {
                 labelString = "";
             if (propertiesAttribute != null) {
                 markerLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
-                markersID = new ArrayList<>();
+                markersID = new TreeSet<>();
                 for (String propertyName : markerLabels)
-                    markersID.add(markerMap.inverseBidiMap().get(propertyName));
+                    markersID.add(markerMap.get(propertyName));
             }
             if (hashToId.containsKey(s)) {
                 currentID = hashToId.get(s);
@@ -90,11 +90,11 @@ public class TransitionDotImporter {
             if (label != null)
                 vertex.setLabel(label.toString());
             if (propertiesAttribute != null) {
-                ArrayList<Integer> markersID;
+                TreeSet<Integer> markersID;
                 markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
-                markersID = new ArrayList<>();
+                markersID = new TreeSet<>();
                 for (String propertyName : markersLabels)
-                    markersID.add(markerMap.inverseBidiMap().get(propertyName));
+                    markersID.add(markerMap.get(propertyName));
                 vertex.setProperties(markersID);
             }
         };

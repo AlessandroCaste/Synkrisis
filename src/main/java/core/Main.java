@@ -88,9 +88,10 @@ public class Main {
                     //TODO Prism exporting dovrebbe andare e sta qua
                     graphsCollection.exportToPrism(propertiesString);
 
-                    graphsCollection.exportToSpot();
+                    //TODO Spot exporting check here
+                    if(loadedSettings.isSpotExportingEnabled())
+                        graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
-//                       System.out.println("ciao");
                         //new TransitionDotImporter(modelName);
                // }
             } else

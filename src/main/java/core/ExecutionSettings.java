@@ -3,28 +3,22 @@ package core;
 public class ExecutionSettings {
 
     private String filePath;
-    private int threads = 2;
     private int steps = 0;
     private int statisticsFrequency = 0;
-    private boolean printSteps;
-    private boolean printNewStates = false;
-    private String outputModelChecker;
-    private boolean exporting = false;
+    private boolean printStepsEnabled = false;
+    private boolean printNewStatesEnabled = false;
+    private boolean prismExportingEnabled = false;
+    private boolean spotExportingEnabled = false;
     private boolean printEnabled = false;
-    private boolean printTransition = false;
-    private boolean printIntermediate = false;
+    private boolean printTransitionEnabled = false;
+    private boolean printIntermediateEnabled = false;
     private boolean bigmcReady = false;
-    private String bigmcFile;
+    private String  bigmcFile;
 
     ExecutionSettings() { }
 
-
     public String getFilePath() {
         return filePath;
-    }
-
-    public int getThreads() {
-        return threads;
     }
 
     public int getSteps() {
@@ -35,34 +29,44 @@ public class ExecutionSettings {
         return statisticsFrequency;
     }
 
-    public boolean canPrintSteps() {
-        return printSteps;
+    public boolean isPrintStepsEnabled() {
+        return printStepsEnabled;
     }
 
-    public boolean canPrintNewStates() { return printNewStates; }
-
-    String getOutputModelChecker() {
-        return outputModelChecker;
+    public boolean isPrintNewStatesEnabled() {
+        return printNewStatesEnabled;
     }
 
-    boolean isPrintEnabled() { return printEnabled; }
-
-    boolean isPrintTransitionEnabled() { return printTransition; }
-
-    boolean isExportingEnabled (){
-        return exporting;
+    public boolean isPrismExportingEnabled() {
+        return prismExportingEnabled;
     }
 
-    public String getBigmcFile() { return bigmcFile; }
+    boolean isSpotExportingEnabled() {
+        return spotExportingEnabled;
+    }
 
-    public boolean isBigmcReady() { return bigmcReady; }
+    boolean isPrintEnabled() {
+        return printEnabled;
+    }
+
+    boolean isPrintTransitionEnabled() {
+        return printTransitionEnabled;
+    }
+
+    public boolean isPrintIntermediateEnabled() {
+        return printIntermediateEnabled;
+    }
+
+    public boolean isBigmcReady() {
+        return bigmcReady;
+    }
+
+    public String getBigmcFile() {
+        return bigmcFile;
+    }
 
     void setFilePath(String filePath) {
         this.filePath = filePath;
-    }
-
-    void setThreads(int threads) {
-        this.threads = threads;
     }
 
     void setSteps(int steps) {
@@ -73,35 +77,40 @@ public class ExecutionSettings {
         this.statisticsFrequency = statisticsFrequency;
     }
 
-    void setPrintSteps(boolean printSteps) {
-        this.printSteps = printSteps;
+    public void setPrintSteps(boolean printSteps) {
+        this.printStepsEnabled = printSteps;
     }
 
-    void setOutputModelChecker(String outputModelChecker) {
-        this.outputModelChecker = outputModelChecker;
-        exporting = true;
+    void enablePrintNewStates() {
+        this.printNewStatesEnabled = true;
     }
 
-    void enablePrintNewState() {
-        printNewStates = true;
+    void enablePrismExporting() {
+        this.prismExportingEnabled = true;
+    }
+
+    void enableSpotExporting() {
+        this.spotExportingEnabled = true;
     }
 
     void enablePrint() {
-        printEnabled = true;
+        this.printEnabled = true;
     }
 
     void enablePrintTransition() {
-        printTransition = true;
+        this.printTransitionEnabled = true;
     }
 
-    void enablePrintIntermediate() {
-        printIntermediate = true;
+    void enablePrintIntermediateTransitions() {
+        this.printIntermediateEnabled = true;
     }
 
-    void setBigmcFile(String fileName) { this.bigmcFile = fileName; }
+    void setBigmcReady() {
+        this.bigmcReady = true;
+    }
 
-    void setBigmcReady() { this.bigmcReady = true; }
-
-
+    void setBigmcFile(String bigmcFile) {
+        this.bigmcFile = bigmcFile;
+    }
 }
 

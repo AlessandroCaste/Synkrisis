@@ -23,16 +23,16 @@ class CLI {
 
 
     CLI(String[] args) {
+
+
         this.args = args;
 
-        options.addOption("load","load-model",true,"load a .bigraph model for processing");
-        options.addOption("o","output-engine",true,"choose between PRISM and SPOT for transition analysis");
-        options.addOption("g","print",false,"print model and reactions graphs");
+        options.addOption(Option.builder("l").longOpt("load").hasArg(true).desc("load a .bigraph model for processing").required(true).build());
+        options.addOption("o","output-translation",true,"feed transitions to PRISM and SPOT for transition analysis");
+        options.addOption("g","graph-print",false,"print model and reactions graphs");
         options.addOption("m","steps",true,"maximum number of steps");
-        options.addOption("t","threads",true,"number of threads");
         options.addOption("p","print",false,"print newly discovered states during execution");
         options.addOption("r","statistics",true,"set frequency (steps) with which statistics about graph and transitions are output");
-        options.addOption("gt","transition-printing",false,"print the transition graph via bigmc");
         options.addOption("G","print-everything",false,"print all graphs produced");
         options.addOption("h", "help", false, "show help.");
 
@@ -40,26 +40,20 @@ class CLI {
 
     // Values are set inside the ExecutionSettings class. Logger is started when the filename is parsed
     void parse() {
-
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
         try {
             cmd = parser.parse(options, args);
-            if(cmd.hasOption("load")) {
+            if(cmd.hasOption("l")) {
                 String fileName = cmd.getOptionValue("load");
                 setupLogger(fileName);
                 settings.setFilePath(fileName);
-            } else {
-                System.out.println("****************************\nSubmit a model with -load!");
-                System.out.println("Execution can't proceed\n****************************");
-                System.exit(0);
             }
             if (cmd.hasOption("o"))
                 if(cmd.getOptionValue("o").equalsIgnoreCase("prism"))
-                    //TODO Something nicer than a string, maybe?
-                    settings.setOutputModelChecker("PRISM");
+                    settings.enablePrismExporting();
                 else if(cmd.getOptionValue("o").equalsIgnoreCase("spot"))
-                    settings.setOutputModelChecker("SPOT");
+                    settings.enableSpotExporting();
             if(cmd.hasOption("g"))
                 settings.enablePrint();
             if(cmd.hasOption("m")) {
@@ -69,15 +63,8 @@ class CLI {
                 else
                     System.out.println("Invalid number of steps specified: no step limit has been set\n");
             }
-            if(cmd.hasOption("t")) {
-                int inputThreads = Integer.parseInt(cmd.getOptionValue("t"));
-                if (inputThreads < 1)
-                    System.out.println("Invalid number of threads specified: 2 threads will be used");
-                else
-                    settings.setThreads(inputThreads);
-            }
             if(cmd.hasOption("p"))
-                settings.enablePrintNewState();
+                settings.enablePrintNewStates();
             if(cmd.hasOption("r")) {
                 int frequency = Integer.parseInt(cmd.getOptionValue("r"));
                 if(frequency > 0)
@@ -85,18 +72,22 @@ class CLI {
                 else
                     System.out.println("Invalid frequency of transitions print: it's been set to 0");
             }
-            if(cmd.hasOption("gt"))
-                settings.enablePrintTransition();
             if (cmd.hasOption("G")) {
                 settings.enablePrint();
                 settings.enablePrintTransition();
-                settings.enablePrintIntermediate();
+                settings.enablePrintIntermediateTransitions();
             }
             if (cmd.hasOption("h"))
                 help();
 
+        } catch (MissingArgumentException e) {
+            System.out.println("Missing argument! Synkrisis can't proceed");
+            help();
+        } catch (MissingOptionException me) {
+            System.out.println("You must load a model with -l (--load) command!");
+            help();
         } catch (ParseException e) {
-            logger.log(Level.SEVERE, "Failed to parse comand line properties", e);
+            System.out.println("Problems with input args!");
             help();
         }
     }
@@ -116,8 +107,9 @@ class CLI {
             // This block configure the logger with handler and formatter
             filename = FilenameUtils.getName(filename);
             filename = FilenameUtils.removeExtension(filename);
-            //noinspection ResultOfMethodCallIgnored
-            new File(filename).mkdirs();
+            boolean result = new File(filename).mkdirs();
+            if(!result)
+                throw new IOException();
             fh = new FileHandler(filename + "/" + filename +".log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();

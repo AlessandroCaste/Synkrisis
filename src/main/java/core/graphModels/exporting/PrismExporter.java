@@ -2,13 +2,13 @@ package core.graphModels.exporting;
 
 import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
 import core.graphModels.verticesAndEdges.TransitionVertex;
-import org.apache.commons.collections4.BidiMap;
 import org.jgrapht.graph.DirectedMultigraph;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,10 +22,10 @@ public class PrismExporter {
     private DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph;
     private String modelName;
     private String propertiesString;
-    private BidiMap<Integer,String> markerMap;
+    private HashMap<String,Integer> markerMap;
     private String path;
 
-    public PrismExporter(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph, String modelName, BidiMap<Integer,String> markerMap,String propertiesString) {
+    public PrismExporter(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph, String modelName, HashMap<String,Integer> markerMap, String propertiesString) {
         this.transitionGraph = transitionGraph;
         this.modelName = modelName;
         this.markerMap = markerMap;
@@ -70,12 +70,12 @@ public class PrismExporter {
         logger.log(Level.INFO,"Writing .lab file");
         try {
             BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + modelName + ".lab",false));
-            for(String marker : markerMap.values())
-                labWriter.write(markerMap.inverseBidiMap().get(marker) + "=\"" + marker + "\" ");
+            for(String marker : markerMap.keySet())
+                labWriter.write(markerMap.get(marker) + "=\"" + marker + "\" ");
             labWriter.write("\n");
             for(TransitionVertex v : transitionGraph.vertexSet())
-                if(!v.getProperties().equals(""))
-                    labWriter.write(v.getVertexID() + ": " + v.getProperties() + "\n");
+                if(!v.getPropertiesString().equals(""))
+                    labWriter.write(v.getVertexID() + ": " + v.getPropertiesString() + "\n");
             labWriter.close();
         } catch (IOException e) {
             System.out.println("Can't output the label (.lab) file!");

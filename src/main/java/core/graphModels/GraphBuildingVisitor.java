@@ -5,15 +5,18 @@ import antlr.bigraph.bigraphVisitor;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
-import org.apache.commons.collections4.BidiMap;
-import org.apache.commons.collections4.bidimap.TreeBidiMap;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 
@@ -26,7 +29,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private String modelName;
 
     // Keeping track of markers with their ID
-    private BidiMap<Integer,String> markerMap = new TreeBidiMap<>();
+    private HashMap<String,Integer> markerMap = new HashMap<>();
     private int markerCounter = 0;
 
     // Map to keep track of name nodes
@@ -38,9 +41,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // List of rule names
     private ArrayList<String> reactionNames = new ArrayList<>();
 
-    // List of SPOT acceptance states
-    // Each state will be associated to an integer
-    private ArrayList<SpotAcceptanceState> acceptanceStates = new ArrayList<>();
+    // Reference to a class to store all SPOT info
+    private SpotInfo spotInfo;
+    private StringBuilder spotSpecifications;
+
+
+    // GraphsCollection for
+    private GraphsCollection graphsCollection = GraphsCollection.getInstance();
+
     private int acceptanceCounter = 0;
 
     private static Logger logger = Logger.getLogger("Report");
@@ -104,9 +112,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitReaction_statement (bigraphParser.Reaction_statementContext ctx){
         // Storing probabilities
         if(ctx.PROBABILITY() != null)
-            GraphsCollection.getInstance().addReactionWeight(reactionName,Float.parseFloat(ctx.PROBABILITY().getText()));
+            graphsCollection.addReactionWeight(reactionName,Float.parseFloat(ctx.PROBABILITY().getText()));
         else
-            GraphsCollection.getInstance().addReactionWeight(reactionName,1f);
+            graphsCollection.addReactionWeight(reactionName,1f);
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
@@ -274,11 +282,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitModel (bigraphParser.ModelContext ctx){
 
         // I store model name and reactions
-        GraphsCollection.getInstance().setModelName(ctx.IDENTIFIER().toString());
-        GraphsCollection.getInstance().setReactionNames(reactionNames);
+        graphsCollection.setModelName(ctx.IDENTIFIER().toString());
+        graphsCollection.setReactionNames(reactionNames);
 
         // I store graph markers
-        GraphsCollection.getInstance().addMarkerMap(markerMap);
+        graphsCollection.addMarkerMap(markerMap);
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
@@ -295,8 +303,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitMarker (bigraphParser.MarkerContext ctx){
         if(ctx.MARKER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
-            if (!markerMap.containsValue(identifier)) {
-                markerMap.put(markerCounter,identifier);
+            if (!markerMap.containsKey(identifier)) {
+                markerMap.put(identifier,markerCounter);
                 markerCounter++;
             }
         }
@@ -317,39 +325,96 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override public Void visitAcc_name(bigraphParser.Acc_nameContext ctx) {
+        spotSpecifications = new StringBuilder();
+        int startPosition = ctx.start.getStartIndex();
+        int endPosition = ctx.stop.getStopIndex();
+        Interval interval = new Interval(startPosition, endPosition);
+        spotInfo = new SpotInfo(ctx.start.getInputStream().getText(interval));
         return visitChildren(ctx);
     }
 
     @Override public Void visitAcceptance(bigraphParser.AcceptanceContext ctx) {
+        if(ctx.DIGIT() != null)
+            spotInfo.setNumberAcceptanceSets(Integer.parseInt(ctx.DIGIT().toString()));
         return visitChildren(ctx);
     }
 
+
+    // I translate acceptance state specification into simple digits
+    // spotSpecification builds the acceptance string
     @Override public Void visitAcceptance_cond1(bigraphParser.Acceptance_cond1Context ctx) {
-        return visitChildren(ctx);
+        for( ParseTree pt : ctx.children)
+            if(pt == ctx.acceptance_cond2())
+                visit(ctx.getChild(0));
+            else if (pt == ctx.acceptance_cond1(0) || ctx.acceptance_cond1(1) != null && pt == ctx.acceptance_cond1(1))
+                visit(pt);
+            else
+                spotSpecifications.append(pt.getText());
+        return null;
     }
 
+
+    // SPOT properties are read as strings, then are compared against marker map
+    // This way I can get an int <-> property binding as with prism properties, and verify if an acceptance state
+    // has already been added.
     @Override public Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx) {
         // I create a map for SPOT properties
-        if(ctx.IDENTIFIER() != null) {
-            String acceptanceIdentifier = ctx.IDENTIFIER().toString();
-            TreeSet<String> acceptanceSet = new TreeSet<>(Arrays.asList(acceptanceIdentifier.replace("[","")
-                                                                .replace("]","")
-                                                                .split("\\s*,\\s*")));
-            // Identical acceptance states are merged
-            boolean found = false;
-            for(SpotAcceptanceState s : acceptanceStates) {
-                if(s.compare(acceptanceSet))
-                    found = true;
-            }
-            if(!found) {
-                acceptanceStates.add(new SpotAcceptanceState(acceptanceCounter, acceptanceSet));
-                acceptanceCounter++;
-            }
+        TreeSet<Integer> positiveMarkers = new TreeSet<>();
+        TreeSet<Integer> negativeMarkers = new TreeSet<>();
+        String acceptanceSpecification = "";
+        int associatedID = 0;
+
+        boolean isNegative = false;
+        for(ParseTree pt : ctx.children) {
+            Token token = (Token)pt.getPayload();
+            if(token.getType() == bigraphParser.NOT)
+                isNegative = true;
+            if(isNegative && token.getType() == bigraphParser.IDENTIFIER) {
+                negativeMarkers.add(markerMap.get(pt.getText()));
+                isNegative = false;
+            } else if (token.getType() == bigraphParser.IDENTIFIER)
+                positiveMarkers.add(markerMap.get(pt.getText()));
         }
+
+        // Verifying that the acceptance state has never been inserted into our model
+        boolean found = false;
+        for(SpotAcceptanceState sp : spotInfo.getAcceptanceStates())
+            if(sp.verify(positiveMarkers,negativeMarkers)) {
+                found = true;
+                associatedID = sp.getAcceptanceStateID();
+            }
+        if(!found) {
+            int startPosition = ctx.start.getStartIndex();
+            int endPosition = ctx.stop.getStopIndex();
+            Interval interval = new Interval(startPosition, endPosition);
+            if(ctx.FIN()!=null)
+                acceptanceSpecification = ctx.start.getInputStream().getText(interval)
+                        .replaceAll("Fin","")
+                        .replaceAll("\\)","")
+                        .replaceAll("\\(","");
+            else if(ctx.INF()!=null)
+                acceptanceSpecification = ctx.start.getInputStream().getText(interval)
+                        .replaceAll("Inf","")
+                        .replaceAll("\\)","")
+                        .replaceAll("\\(","");
+            // I extract the property specification we're substituting in order to store it
+            spotInfo.addAcceptanceState(new SpotAcceptanceState(acceptanceCounter, acceptanceSpecification, positiveMarkers, negativeMarkers));
+            associatedID = acceptanceCounter;
+            acceptanceCounter++;
+        }
+        if(ctx.FIN()!=null)
+            spotSpecifications.append("Fin(").append(associatedID).append(")");
+        if(ctx.INF()!=null)
+            spotSpecifications.append("Inf(").append(associatedID).append(")");
+
         return visitChildren(ctx);
     }
 
     @Override public Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx) {
+        if(spotSpecifications!=null) {
+            spotInfo.setAcceptanceStatesSpecification(spotSpecifications.toString());
+            System.out.println(spotSpecifications.toString());
+        }
         return visitChildren(ctx);
     }
 
@@ -385,16 +450,20 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {
-        GraphsCollection.getInstance().addModel(model);
+        graphsCollection.addModel(model);
     }
 
     private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
         RedexReactumPair reaction = new RedexReactumPair(redex,reactum,ruleName);
-        GraphsCollection.getInstance().addReaction(reaction);
+        graphsCollection.addReaction(reaction);
     }
 
     public String getPropertiesString() {
         return propertiesString;
+    }
+
+    public SpotInfo getAcceptanceInfo() {
+        return spotInfo;
     }
 
     private void resetGraph() {

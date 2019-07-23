@@ -27,7 +27,7 @@ marker nursestation_meeting = matches (Room[nursestation].( Nurse[pager] | Docto
 properties:
     SPOT-ACCEPTANCE =
         acc-name: generalized-co-Buchi 2
-        Acceptance: 1 Fin(objective_met & nursestation_meeting) | Fin(nursestation_meeting & objective_met)
+        Acceptance: 1 Fin(!objective_met & nursestation_meeting & objective_met) | Fin(!nursestation_meeting & !objective_met)
 
     PRISM =
         asdoijasoidujaoisudoiasudoius

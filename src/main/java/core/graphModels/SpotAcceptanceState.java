@@ -2,17 +2,29 @@ package core.graphModels;
 
 import java.util.TreeSet;
 
-class SpotAcceptanceState {
+public class SpotAcceptanceState {
 
-    private int acceptanceID;
-    private TreeSet<String> markers;
+    private int acceptanceStateID;
+    private String acceptanceStateString;
+    private TreeSet<Integer> positiveMarker;
+    private TreeSet<Integer> negativeMarker;
 
-    SpotAcceptanceState(int acceptanceID, TreeSet<String> markers) {
-        this.acceptanceID = acceptanceID;
-        this.markers = markers;
+    SpotAcceptanceState(int acceptanceStateID, String acceptanceStateString, TreeSet<Integer> positiveMarker,TreeSet<Integer> negativeMarker) {
+        this.acceptanceStateID = acceptanceStateID;
+        this.acceptanceStateString = acceptanceStateString;
+        this.positiveMarker = positiveMarker;
+        this.negativeMarker = negativeMarker;
     }
 
-    boolean compare(TreeSet<String> markers) {
-        return this.markers.equals(markers);
+    int getAcceptanceStateID() {
+        return acceptanceStateID;
+    }
+
+    public String getAcceptanceStateString() {
+        return acceptanceStateString;
+    }
+
+    boolean verify(TreeSet<Integer> positiveMarker, TreeSet<Integer> negativeMarker) {
+        return (this.positiveMarker.equals(positiveMarker) && this.negativeMarker.equals(negativeMarker));
     }
 }
