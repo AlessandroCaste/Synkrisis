@@ -15,7 +15,7 @@ import guru.nidi.graphviz.model.MutableNode;
 import org.apache.commons.lang3.SystemUtils;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.DirectedMultigraph;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Multigraph;
 
 import javax.imageio.ImageIO;
@@ -236,7 +236,7 @@ public class CreateGraphvizImages {
         return g;
     }
 
-    public void createTransition(DirectedMultigraph<TransitionVertex, TransitionEdge> currentGraph) {
+    public void createTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> currentGraph) {
         logger.log(Level.INFO,"Graphviz transition drawing started");
         MutableGraph transitionGraph =
                 mutGraph("Transitions").setDirected(true).use((gr, ctx) -> {
@@ -256,7 +256,7 @@ public class CreateGraphvizImages {
                     for (TransitionEdge edge : currentGraph.edgeSet()) {
                         TransitionVertex edgeSource = currentGraph.getEdgeSource(edge);
                         TransitionVertex edgeTarget = currentGraph.getEdgeTarget(edge);
-                        linkAttrs().add("label",edge.getLabel().substring(0, Math.min(edge.getLabel().length(), 3)));
+                        linkAttrs().add("label",edge.getLabel().substring(0, Math.min(edge.getLabel().length(), 3)) + edge.getWeight());
                         if (!Graphs.vertexHasSuccessors(currentGraph, edgeTarget))
                             mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
                                     mutNode(Integer.toString(edgeTarget.getVertexID()))

@@ -10,7 +10,7 @@ import core.spotExporting.SpotExporter;
 import core.spotExporting.SpotInfo;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.DirectedMultigraph;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Multigraph;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class GraphsCollection {
     // Graphs
     private Multigraph<Vertex, DefaultEdge> model;
     private ArrayList<RedexReactumPair> reactionsList = new ArrayList<>();
-    private DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph;
+    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
 
     // Hashmap to track the probability of reactions
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
@@ -76,10 +76,13 @@ public class GraphsCollection {
     }
 
 
-    void addTransition(DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph) {
+    void addTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph) {
         this.transitionGraph = transitionGraph;
     }
 
+    public void printPrismTransition(DirectedWeightedPseudograph<TransitionVertex,TransitionEdge> transitionPrismGraph) {
+        CreateGraphvizImages.getInstance().createTransition(transitionPrismGraph);
+    }
 
     void addModel(Multigraph<Vertex, DefaultEdge> model) {
         this.model = model;

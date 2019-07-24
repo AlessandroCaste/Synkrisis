@@ -1,11 +1,12 @@
 package core.graphModels.verticesAndEdges;
 
+// Customized edge for further expansions
 public class TransitionEdge {
 
     private String label;
-    private float  weight;
+    private double  weight;
 
-    public TransitionEdge(String label, float weight)  {
+    public TransitionEdge(String label, double weight)  {
         this.label = label;
         this.weight = weight;
     }
@@ -14,7 +15,7 @@ public class TransitionEdge {
         return label;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 

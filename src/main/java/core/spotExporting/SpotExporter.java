@@ -2,7 +2,7 @@ package core.spotExporting;
 
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
-import org.jgrapht.graph.DirectedMultigraph;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,7 +18,7 @@ public class SpotExporter {
     private static Logger logger = Logger.getLogger("Report");
 
 
-    private DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph;
+    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
     private String modelName;
     private ArrayList<String> reactionNames;
     private HashMap<String,Integer> reactionMap;
@@ -29,7 +29,7 @@ public class SpotExporter {
     private String outputString;
 
 
-    public SpotExporter(DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph, String modelName,
+    public SpotExporter(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName,
                         ArrayList<String> reactionNames, HashMap<String,Integer> markerMap, SpotInfo spotInfo) {
         this.transitionGraph = transitionGraph;
         this.modelName = modelName;

@@ -2,7 +2,7 @@ package core.graphModels.exporting;
 
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
-import org.jgrapht.graph.DirectedMultigraph;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,13 +19,13 @@ public class PrismExporter {
 
     private static PrismExporter instance;
 
-    private DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph;
+    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
     private String modelName;
     private String propertiesString;
     private HashMap<String,Integer> markerMap;
     private String path;
 
-    public PrismExporter(DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph, String modelName, HashMap<String,Integer> markerMap, String propertiesString) {
+    public PrismExporter(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName, HashMap<String,Integer> markerMap, String propertiesString) {
         this.transitionGraph = transitionGraph;
         this.modelName = modelName;
         this.markerMap = markerMap;
@@ -43,9 +43,14 @@ public class PrismExporter {
     }
 
     public void writePrismFiles() {
+        graphNormalizer();
         writeTransitionFile();
         writeLabelFile();
         writeProperties();
+    }
+
+    private void graphNormalizer() {
+        new WeightNormalizer(transitionGraph);
     }
 
 
