@@ -1,22 +1,19 @@
 package core.graphModels.verticesAndEdges;
 
-// Customized edge for further expansions
-public class TransitionEdge {
+import org.jgrapht.graph.DefaultWeightedEdge;
+
+public class TransitionEdge extends DefaultWeightedEdge {
 
     private String label;
-    private double  weight;
 
-    public TransitionEdge(String label, double weight)  {
+    public TransitionEdge(String label)  {
         this.label = label;
-        this.weight = weight;
     }
 
     public String getLabel(){
         return label;
     }
 
-    public double getWeight() {
-        return weight;
-    }
+
 
 }

@@ -31,6 +31,8 @@ public class TransitionDotImporter {
     private EdgeProvider<TransitionVertex, TransitionEdge> edgeProvider;
     private ComponentUpdater<TransitionVertex> vertexUpdater;
 
+    private GraphsCollection graphsCollection = GraphsCollection.getInstance();
+
     private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
 
     public TransitionDotImporter(String modelName) {
@@ -77,9 +79,10 @@ public class TransitionDotImporter {
         };
 
         edgeProvider = (v1, v2, s2, map) -> {
-            String label = (map.get("label")).toString();
-            double weight = GraphsCollection.getInstance().getReactionWeight(label);
-            return new TransitionEdge(label, Math.round(weight*1e3)/1e3);
+            double weight = graphsCollection.getReactionWeight(s2);
+            TransitionEdge te = new TransitionEdge(s2);
+            transitionGraph.setEdgeWeight(te,Math.round(weight*1e3)/1e3);
+            return te;
         };
 
         vertexUpdater = (vertex, map) -> {
@@ -104,8 +107,7 @@ public class TransitionDotImporter {
             FileReader transitionFile = new FileReader(modelName+"/"+modelName+".transition");
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
-            GraphsCollection.getInstance().addTransition(transitionGraph);
-
+            graphsCollection.addTransition(transitionGraph);
         } catch (FileNotFoundException fe) {
             System.out.println("[FATAL ERROR] Transition system hasn't been successfully created; problems with the model checker?");
             logger.log(Level.SEVERE, "Missing transition file; something went wrong when reading the output of the model checker (bigmc?) and printing it to file\nStack trace: " + fe.getMessage());
