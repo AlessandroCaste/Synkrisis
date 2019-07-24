@@ -16,7 +16,7 @@ public class SpotAcceptanceState {
         this.negativeMarker = negativeMarker;
     }
 
-    int getAcceptanceStateID() {
+    public int getAcceptanceStateID() {
         return acceptanceStateID;
     }
 
@@ -26,5 +26,17 @@ public class SpotAcceptanceState {
 
     boolean verify(TreeSet<Integer> positiveMarker, TreeSet<Integer> negativeMarker) {
         return (this.positiveMarker.equals(positiveMarker) && this.negativeMarker.equals(negativeMarker));
+    }
+
+    // Method to compare if a vertex in transition graph matches the acceptance state
+    // The vertex must contain all markers in 'positive' and no markers in negative
+    public boolean verify(TreeSet<Integer> vertexMarkers) {
+        boolean containsPositive;
+        boolean containsNegative = false;
+        containsPositive = vertexMarkers.containsAll(positiveMarker);
+        for(int marker : negativeMarker)
+            if(vertexMarkers.contains(marker))
+                containsNegative = true;
+        return (containsPositive & !containsNegative);
     }
 }

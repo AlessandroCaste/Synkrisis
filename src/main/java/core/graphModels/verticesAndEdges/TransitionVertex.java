@@ -8,12 +8,13 @@ public class TransitionVertex {
     private int vertexID;
     private String label;
     private TreeSet<Integer> properties;
-    private TreeSet<Integer> acceptanceSets;
+    private TreeSet<Integer> acceptanceStates;
 
     public TransitionVertex(int vertexID, String label, TreeSet<Integer> properties) {
         this.vertexID = vertexID;
         this.label = label;
         this.properties = properties;
+        acceptanceStates = new TreeSet<>();
     }
 
     public int getVertexID() {
@@ -35,6 +36,14 @@ public class TransitionVertex {
         return properties;
     }
 
+    public void addAcceptanceState(int state) {
+        this.acceptanceStates.add(state);
+    }
+
+    public TreeSet<Integer> getSpotAcceptanceStates(){
+        return acceptanceStates;
+    }
+
     public void setLabel(String label) {
         this.label = label;
     }
@@ -43,9 +52,5 @@ public class TransitionVertex {
         this.properties = properties;
     }
 
-    public void addAcceptanceSets(int acceptanceSet) {
-        if(acceptanceSets == null)
-            acceptanceSets = new TreeSet<>();
-        acceptanceSets.add(acceptanceSet);
-    }
+
 }

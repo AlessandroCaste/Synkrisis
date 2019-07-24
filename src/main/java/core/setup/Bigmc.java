@@ -31,8 +31,6 @@ public class Bigmc {
     private String createInputString() {
         StringBuilder input = new StringBuilder();
 
-        //TODO Embedding bigmc?
-
         // Bigmc location is set
         input.append("lib/bigmc -s");
 
@@ -156,8 +154,10 @@ public class Bigmc {
                 logger.log(Level.WARNING,"Couldn't correctly delete .temp file!");
             if(!loadedSettings.isBigmcReady()) {
                 boolean result = new File(loadedSettings.getBigmcFile()).delete();
-                if(!result)
+                if(!result) {
+                    System.out.println("Can't delete bigmc-filtered file");
                     throw new IOException();
+                }
                 logger.log(Level.INFO,"Temporary bigmc translation has been eliminated successfully");
             }
         } catch (FileNotFoundException e) {

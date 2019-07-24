@@ -107,9 +107,7 @@ class CLI {
             // This block configure the logger with handler and formatter
             filename = FilenameUtils.getName(filename);
             filename = FilenameUtils.removeExtension(filename);
-            boolean result = new File(filename).mkdirs();
-            if(!result)
-                throw new IOException();
+            new File(filename).mkdirs();
             fh = new FileHandler(filename + "/" + filename +".log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();

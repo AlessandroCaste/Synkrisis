@@ -1,7 +1,7 @@
 package core.graphVisualization;
 
-import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;
 import guru.nidi.graphviz.attribute.Color;
@@ -236,7 +236,7 @@ public class CreateGraphvizImages {
         return g;
     }
 
-    public void createTransition(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> currentGraph) {
+    public void createTransition(DirectedMultigraph<TransitionVertex, TransitionEdge> currentGraph) {
         logger.log(Level.INFO,"Graphviz transition drawing started");
         MutableGraph transitionGraph =
                 mutGraph("Transitions").setDirected(true).use((gr, ctx) -> {
@@ -253,7 +253,7 @@ public class CreateGraphvizImages {
                     linkAttrs().add("style", "normal");
 
                      // Adding edges
-                    for (EdgeTransitionGraph edge : currentGraph.edgeSet()) {
+                    for (TransitionEdge edge : currentGraph.edgeSet()) {
                         TransitionVertex edgeSource = currentGraph.getEdgeSource(edge);
                         TransitionVertex edgeTarget = currentGraph.getEdgeTarget(edge);
                         linkAttrs().add("label",edge.getLabel().substring(0, Math.min(edge.getLabel().length(), 3)));

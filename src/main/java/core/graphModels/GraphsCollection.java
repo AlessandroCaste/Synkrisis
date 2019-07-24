@@ -2,8 +2,8 @@ package core.graphModels;
 
 import core.graphModels.exporting.PrismExporter;
 import core.graphModels.exporting.SpotExporter;
-import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
@@ -27,7 +27,7 @@ public class GraphsCollection {
     // Graphs
     private Multigraph<Vertex, DefaultEdge> model;
     private ArrayList<RedexReactumPair> reactionsList = new ArrayList<>();
-    private DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph;
+    private DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph;
 
     // Hashmap to track the probability of reactions
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
@@ -75,7 +75,7 @@ public class GraphsCollection {
     }
 
 
-    void addTransition(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph) {
+    void addTransition(DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph) {
         this.transitionGraph = transitionGraph;
     }
 

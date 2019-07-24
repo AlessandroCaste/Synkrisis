@@ -1,6 +1,6 @@
 package core.graphModels.exporting;
 
-import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
+import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.graph.DirectedMultigraph;
 
@@ -19,13 +19,13 @@ public class PrismExporter {
 
     private static PrismExporter instance;
 
-    private DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph;
+    private DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph;
     private String modelName;
     private String propertiesString;
     private HashMap<String,Integer> markerMap;
     private String path;
 
-    public PrismExporter(DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph, String modelName, HashMap<String,Integer> markerMap, String propertiesString) {
+    public PrismExporter(DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph, String modelName, HashMap<String,Integer> markerMap, String propertiesString) {
         this.transitionGraph = transitionGraph;
         this.modelName = modelName;
         this.markerMap = markerMap;
@@ -55,7 +55,7 @@ public class PrismExporter {
             BufferedWriter traWriter = new BufferedWriter(new FileWriter(path + modelName + ".tra",false));
             traWriter.write(transitionGraph.vertexSet().size() + " " + transitionGraph.edgeSet().size() + "\n");
             for(TransitionVertex v : transitionGraph.vertexSet()) {
-                for(EdgeTransitionGraph e : transitionGraph.outgoingEdgesOf(v)) {
+                for(TransitionEdge e : transitionGraph.outgoingEdgesOf(v)) {
                     traWriter.write(v.getVertexID() + " " + transitionGraph.getEdgeTarget(e).getVertexID() + " " + transitionGraph.getEdgeWeight(e) + "\n");
                 }
             }

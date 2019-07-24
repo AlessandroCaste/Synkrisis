@@ -1,6 +1,6 @@
 package core.graphModels;
 
-import core.graphModels.verticesAndEdges.EdgeTransitionGraph;
+import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.io.*;
@@ -28,10 +28,10 @@ public class TransitionDotImporter {
 
     // Classes to translate DOT specification into vertices and edges
     private VertexProvider<TransitionVertex> vertexProvider;
-    private EdgeProvider<TransitionVertex, EdgeTransitionGraph> edgeProvider;
+    private EdgeProvider<TransitionVertex, TransitionEdge> edgeProvider;
     private ComponentUpdater<TransitionVertex> vertexUpdater;
 
-    private DirectedMultigraph<TransitionVertex, EdgeTransitionGraph> transitionGraph;
+    private DirectedMultigraph<TransitionVertex, TransitionEdge> transitionGraph;
 
     public TransitionDotImporter(String modelName) {
         this.modelName = modelName;
@@ -40,7 +40,7 @@ public class TransitionDotImporter {
 
     private void processTransition() {
 
-        transitionGraph = new DirectedMultigraph<>(EdgeTransitionGraph.class);
+        transitionGraph = new DirectedMultigraph<>(TransitionEdge.class);
 
         // I retrieve the list of markers together with their IDs
         markerMap = GraphsCollection.getInstance().getMarkerMap();
@@ -79,7 +79,7 @@ public class TransitionDotImporter {
         edgeProvider = (v1, v2, s2, map) -> {
             String label = (map.get("label")).toString();
             float weight = GraphsCollection.getInstance().getReactionWeight(label);
-            return new EdgeTransitionGraph(label, weight);
+            return new TransitionEdge(label, weight);
         };
 
         vertexUpdater = (vertex, map) -> {
@@ -100,7 +100,7 @@ public class TransitionDotImporter {
         };
 
         try {
-            DOTImporter<TransitionVertex, EdgeTransitionGraph> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
+            DOTImporter<TransitionVertex, TransitionEdge> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
             FileReader transitionFile = new FileReader(modelName+"/"+modelName+".transition");
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");

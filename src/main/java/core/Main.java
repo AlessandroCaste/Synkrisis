@@ -95,7 +95,7 @@ public class Main {
                         //new TransitionDotImporter(modelName);
                // }
             } else
-            System.out.println("Error in syntax analysis: processing can't go any further");
+                System.out.println("Error in syntax analysis: processing can't go any further");
         }
     }
 
