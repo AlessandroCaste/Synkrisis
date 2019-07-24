@@ -85,12 +85,14 @@ public class Main {
                     if(loadedSettings.isPrintTransitionEnabled())
                         graphsCollection.printTransition();
 
-                    //TODO Prism exporting dovrebbe andare e sta qua
-                    graphsCollection.exportToPrism(propertiesString);
+                    if(loadedSettings.isPrismExportingEnabled())
+                        graphsCollection.exportToPrism(propertiesString);
 
                     //TODO Spot exporting check here
-                    if(loadedSettings.isSpotExportingEnabled())
+                    if(loadedSettings.isSpotExportingEnabled() && modelBuilder.isSpotReady())
                         graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
+                    else if(loadedSettings.isSpotExportingEnabled() && !modelBuilder.isSpotReady())
+                        System.out.println("Can't proceed with SPOT exporting: duplicate acceptance states!\n" + modelBuilder.getDuplicateSpotStates());
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
                         //new TransitionDotImporter(modelName);
                // }

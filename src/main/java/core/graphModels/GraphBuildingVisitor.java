@@ -5,6 +5,8 @@ import antlr.bigraph.bigraphVisitor;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
+import core.spotExporting.SpotAcceptanceState;
+import core.spotExporting.SpotInfo;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
@@ -44,6 +46,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // Reference to a class to store all SPOT info
     private SpotInfo spotInfo;
     private StringBuilder spotSpecifications;
+    private boolean spotReady = true;
+    private String duplicateSpotStates = "";
 
 
     // GraphsCollection for
@@ -381,7 +385,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         for(SpotAcceptanceState sp : spotInfo.getAcceptanceStates())
             if(sp.verify(positiveMarkers,negativeMarkers)) {
                 found = true;
-                associatedID = sp.getAcceptanceStateID();
+                spotReady = false;
+                duplicateSpotStates = duplicateSpotStates + sp.getAcceptanceStateString() + " ";
             }
         if(!found) {
             int startPosition = ctx.start.getStartIndex();
@@ -445,6 +450,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override public Void visitParameter (bigraphParser.ParameterContext ctx){
         return visitChildren(ctx);
+    }
+
+    public boolean isSpotReady() {
+        return spotReady;
+    }
+
+    public String getDuplicateSpotStates() {
+        return duplicateSpotStates;
     }
 
     private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {

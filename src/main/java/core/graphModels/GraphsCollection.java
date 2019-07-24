@@ -1,12 +1,13 @@
 package core.graphModels;
 
 import core.graphModels.exporting.PrismExporter;
-import core.graphModels.exporting.SpotExporter;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
+import core.spotExporting.SpotExporter;
+import core.spotExporting.SpotInfo;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedMultigraph;

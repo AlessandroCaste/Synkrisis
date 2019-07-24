@@ -331,7 +331,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         StringBuilder returnString = new StringBuilder();
         returnString.append(errorString);
         returnString.append(checkUnusedVariables());
-        returnString.append(checkWeights());
+        //returnString.append(checkWeights());
         if (acceptableModel)
             return returnString.append("[RESULT : PASSED] Model is ready\n****************************").toString();
         else

@@ -1,4 +1,4 @@
-package core.graphModels;
+package core.spotExporting;
 
 import java.util.ArrayList;
 
@@ -10,32 +10,32 @@ public class SpotInfo {
     // The string actually writen in the file
     private String outputString;
 
-    SpotInfo(String acc_name) {
+    public SpotInfo(String acc_name) {
         this.acc_name = acc_name;
         this.acceptanceStates = new ArrayList<>();
     }
 
-    void addAcceptanceState(SpotAcceptanceState acceptanceState) {
+    public void addAcceptanceState(SpotAcceptanceState acceptanceState) {
         acceptanceStates.add(acceptanceState);
     }
 
-    void setNumberAcceptanceSets (int numberAcceptanceSets) {
+    public void setNumberAcceptanceSets (int numberAcceptanceSets) {
         this.numberAcceptanceSets = numberAcceptanceSets;
     }
 
-    void setAcceptanceStatesSpecification(String specification) {
+    public void setAcceptanceStatesSpecification(String specification) {
         this.outputString = specification;
     }
 
-    public int getNumberAcceptanceSets() {
+    int getNumberAcceptanceSets() {
         return numberAcceptanceSets;
     }
 
-    public String getAcc_name() {
+    String getAcc_name() {
         return acc_name;
     }
 
-    public String getOutputString() {
+    String getOutputString() {
         return outputString;
     }
 

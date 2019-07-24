@@ -1,4 +1,4 @@
-package core.graphModels;
+package core.spotExporting;
 
 import java.util.TreeSet;
 
@@ -9,14 +9,14 @@ public class SpotAcceptanceState {
     private TreeSet<Integer> positiveMarker;
     private TreeSet<Integer> negativeMarker;
 
-    SpotAcceptanceState(int acceptanceStateID, String acceptanceStateString, TreeSet<Integer> positiveMarker,TreeSet<Integer> negativeMarker) {
+    public SpotAcceptanceState(int acceptanceStateID, String acceptanceStateString, TreeSet<Integer> positiveMarker,TreeSet<Integer> negativeMarker) {
         this.acceptanceStateID = acceptanceStateID;
         this.acceptanceStateString = acceptanceStateString;
         this.positiveMarker = positiveMarker;
         this.negativeMarker = negativeMarker;
     }
 
-    public int getAcceptanceStateID() {
+    int getAcceptanceStateID() {
         return acceptanceStateID;
     }
 
@@ -24,13 +24,13 @@ public class SpotAcceptanceState {
         return acceptanceStateString;
     }
 
-    boolean verify(TreeSet<Integer> positiveMarker, TreeSet<Integer> negativeMarker) {
+    public boolean verify(TreeSet<Integer> positiveMarker, TreeSet<Integer> negativeMarker) {
         return (this.positiveMarker.equals(positiveMarker) && this.negativeMarker.equals(negativeMarker));
     }
 
     // Method to compare if a vertex in transition graph matches the acceptance state
     // The vertex must contain all markers in 'positive' and no markers in negative
-    public boolean verify(TreeSet<Integer> vertexMarkers) {
+    boolean verify(TreeSet<Integer> vertexMarkers) {
         boolean containsPositive;
         boolean containsNegative = false;
         containsPositive = vertexMarkers.containsAll(positiveMarker);

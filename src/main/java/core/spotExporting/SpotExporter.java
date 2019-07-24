@@ -1,7 +1,5 @@
-package core.graphModels.exporting;
+package core.spotExporting;
 
-import core.graphModels.SpotAcceptanceState;
-import core.graphModels.SpotInfo;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.graph.DirectedMultigraph;
@@ -88,8 +86,9 @@ public class SpotExporter {
             hoaWriter.write(" ");
             hoaWriter.write(outputString);
             hoaWriter.write("\n");
-            hoaWriter.write("--BODY--\n");
 
+            // Printing states and edges
+            hoaWriter.write("--BODY--\n");
             for(TransitionVertex tv : transitionGraph.vertexSet()) {
                 hoaWriter.write("State: ");
                 hoaWriter.write(Integer.toString(tv.getVertexID()));
@@ -105,7 +104,6 @@ public class SpotExporter {
                     hoaWriter.write("\n");
                 }
             }
-
             hoaWriter.write("--END--\n");
 
             // Printing the acceptance - state mapping
@@ -116,6 +114,7 @@ public class SpotExporter {
                     hoaWriter.write(": ");
                     hoaWriter.write(" ");
                     hoaWriter.write(acceptanceStates.get(i).getAcceptanceStateString());
+                    hoaWriter.write("\n");
                     hoaWriter.write("\n");
                 }
             } catch (IndexOutOfBoundsException e) {
