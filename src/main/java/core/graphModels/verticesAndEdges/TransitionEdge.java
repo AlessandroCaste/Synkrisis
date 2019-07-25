@@ -14,6 +14,4 @@ public class TransitionEdge extends DefaultWeightedEdge {
         return label;
     }
 
-
-
 }

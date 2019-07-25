@@ -256,7 +256,9 @@ public class CreateGraphvizImages {
                     for (TransitionEdge edge : currentGraph.edgeSet()) {
                         TransitionVertex edgeSource = currentGraph.getEdgeSource(edge);
                         TransitionVertex edgeTarget = currentGraph.getEdgeTarget(edge);
-                        linkAttrs().add("label",edge.getLabel().substring(0, Math.min(edge.getLabel().length(), 3)) + currentGraph.getEdgeWeight(edge));
+                        linkAttrs().add("label",edge.getLabel()
+                                                           + " ("
+                                                           + currentGraph.getEdgeWeight(edge) + ")");
                         if (!Graphs.vertexHasSuccessors(currentGraph, edgeTarget))
                             mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
                                     mutNode(Integer.toString(edgeTarget.getVertexID()))

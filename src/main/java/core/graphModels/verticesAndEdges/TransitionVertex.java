@@ -40,14 +40,6 @@ public class TransitionVertex {
         this.acceptanceStates.add(state);
     }
 
-    public TreeSet<Integer> getSpotAcceptanceStates(){
-        return acceptanceStates;
-    }
-
-    public void setVertexID(int id) {
-        this.vertexID = id;
-    }
-
     public void setLabel(String label) {
         this.label = label;
     }

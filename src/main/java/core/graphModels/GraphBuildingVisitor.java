@@ -30,9 +30,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // Model name to check file integrity
     private String modelName;
 
-    // Keeping track of markers with their ID
+    // Keeping track of markers with their ID. Counter starts from 2 since 0 = 'init' and 1 = 'deadlock'
     private HashMap<String,Integer> markerMap = new HashMap<>();
-    private int markerCounter = 0;
+    private int markerCounter = 2;
 
     // Map to keep track of name nodes
     private HashMap<String, Vertex> nameMap = new HashMap<>();
