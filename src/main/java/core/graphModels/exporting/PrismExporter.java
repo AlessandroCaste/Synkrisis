@@ -75,25 +75,43 @@ public class PrismExporter {
             Set<String> set = edges.stream().map(s -> s.getLabel()).collect(Collectors.toSet());
             if (set.size() < edges.size())
                 mdp = true;
-                //choices += edges.size() - set.size();
+                choices += edges.size() - set.size();
         }
-
     }
 
+    // No string concatenation has been made for better write performance
     private void writeTransitionFile() {
         System.out.println("Writing the PRISM .tra file");
         logger.log(Level.INFO,"Writing .tra file");
         try {
             BufferedWriter traWriter = new BufferedWriter(new FileWriter(path + modelName + ".tra",false));
             if(!mdp) {
-                traWriter.write(transitionGraph.vertexSet().size() + " " + transitionGraph.edgeSet().size() + "\n");
+                // First line
+                traWriter.write(transitionGraph.vertexSet().size());
+                traWriter.write(" ");
+                traWriter.write(transitionGraph.edgeSet().size());
+                traWriter.write("\n");
                 // DTMC Case
                 for(TransitionVertex v : transitionGraph.vertexSet())
-                    for(TransitionEdge e : transitionGraph.outgoingEdgesOf(v))
-                        traWriter.write(v.getVertexID() + " " + transitionGraph.getEdgeTarget(e).getVertexID() + " " + transitionGraph.getEdgeWeight(e) + "\n");
+                    for(TransitionEdge e : transitionGraph.outgoingEdgesOf(v)) {
+                        // Transitions specification
+                        traWriter.write(Integer.toString(v.getVertexID()));
+                        traWriter.write(" ");
+                        traWriter.write(transitionGraph.getEdgeTarget(e).getVertexID());
+                        traWriter.write(" ");
+                        traWriter.write(Double.toString(transitionGraph.getEdgeWeight(e)));
+                        traWriter.write("\n");
+                    }
             } else {
-                //TODO Inserire il giusto numero di choices non sembra contare
-                traWriter.write(transitionGraph.vertexSet().size() + " 0 " + transitionGraph.edgeSet().size() + "\n");
+                // Number of choices can be omitted in PRISM -mdp specification, so we avoid an extra loop
+
+                // First line
+                traWriter.write(Integer.toString(transitionGraph.vertexSet().size()));
+                traWriter.write(" 0 ");
+                traWriter.write(Integer.toString(transitionGraph.edgeSet().size()));
+                traWriter.write("\n");
+
+                // List of MDP Reacta per non-deterministic reaction
                 ArrayList<ArrayList<MDPReactum>> lists;
                 // For each vertex we find the non-deterministic choices
                 for(TransitionVertex tv : transitionGraph.vertexSet()) {
@@ -128,8 +146,7 @@ public class PrismExporter {
                     }
                     else
                         for(MDPReactum mdpr : dReacta)
-                            traWriter.write(tv.getVertexID() + " " + choice + " " + mdpr.reactionToString() + "\n");
-
+                            writeDeterministicReacta(traWriter,tv.getVertexID(),mdpr);
                 }
 
             }
@@ -141,21 +158,27 @@ public class PrismExporter {
         }
     }
 
-    private void buildPermutations(BufferedWriter traWriter, int currentID, ArrayList<ArrayList<MDPReactum>> listone, ArrayList<MDPReactum> dReactions, int depth, String current) throws IOException {
-        String outputString;
-        if (depth == listone.size()) {
-                outputString = current;
-                for(MDPReactum s : dReactions)
-                    outputString += currentID + " " + choice + " " + s.reactionToString() + "\n";
-                traWriter.write(outputString);
+    private void buildPermutations(BufferedWriter traWriter, int currentID, ArrayList<ArrayList<MDPReactum>> lists, ArrayList<MDPReactum> dReactions, int depth, String current) throws IOException {
+        if (depth == lists.size()) {
+                traWriter.write(current);
+                for(MDPReactum mdpr: dReactions) {
+                    writeDeterministicReacta(traWriter,currentID,mdpr);
+                }
             choice++;
             return;
         }
-
-        for (int i = 0; i < listone.get(depth).size(); i++) {
-            buildPermutations(traWriter,currentID,listone, dReactions, depth + 1, current + (currentID + " " + choice + " " + listone.get(depth).get(i).reactionToString()) + "\n");
+        for (int i = 0; i < lists.get(depth).size(); i++) {
+            buildPermutations(traWriter,currentID,lists, dReactions, depth + 1, current + (currentID + " " + choice + " " + lists.get(depth).get(i).reactionToString()) + "\n");
         }
+    }
 
+    private void writeDeterministicReacta(BufferedWriter traWriter, int id, MDPReactum mdpr) throws IOException {
+        traWriter.write(Integer.toString(id));
+        traWriter.write(" ");
+        traWriter.write(Integer.toString(choice));
+        traWriter.write(" ");
+        traWriter.write(mdpr.reactionToString());
+        traWriter.write("\n");
     }
 
     private void writeLabelFile() {
@@ -169,8 +192,12 @@ public class PrismExporter {
                 labWriter.write(markerMap.get(marker) + "=\"" + marker + "\" ");
             labWriter.write("\n0: 0\n");
             for(TransitionVertex v : transitionGraph.vertexSet())
-                if(!v.getPropertiesString().equals(""))
-                    labWriter.write(v.getVertexID() + ": " + v.getPropertiesString() + "\n");
+                if(!v.getPropertiesString().equals("")) {
+                    labWriter.write(Integer.toString(v.getVertexID()));
+                    labWriter.write(": ");
+                    labWriter.write(v.getPropertiesString());
+                    labWriter.write("\n");
+                }
             labWriter.close();
         } catch (IOException e) {
             System.out.println("Can't output the label (.lab) file!");
@@ -221,7 +248,6 @@ public class PrismExporter {
                     transitionGraph.setEdgeWeight(te,weight);
                 }
             }
-            //GraphsCollection.getInstance().printPrismTransition(transitionGraph);
         }
     }
 

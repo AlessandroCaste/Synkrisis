@@ -94,9 +94,7 @@ public class Main {
 
                     else if (loadedSettings.isSpotExportingEnabled() && !modelBuilder.isSpotReady())
                         System.out.println("Can't proceed with SPOT exporting: duplicate acceptance states!\n" + modelBuilder.getDuplicateSpotStates());
-//                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
-                    //new TransitionDotImporter(modelName);
-                    // }
+
                 }
             } else
                 System.out.println("Error in syntax analysis: processing can't go any further");
