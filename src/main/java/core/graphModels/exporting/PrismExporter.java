@@ -23,10 +23,7 @@ public class PrismExporter {
 
     private static Logger logger = Logger.getLogger("Report");
 
-    private static PrismExporter instance;
-
     private boolean mdp = false;
-    private int choices = 0;
 
     private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
     private String modelName;
@@ -75,7 +72,6 @@ public class PrismExporter {
             Set<String> set = edges.stream().map(s -> s.getLabel()).collect(Collectors.toSet());
             if (set.size() < edges.size())
                 mdp = true;
-                choices += edges.size() - set.size();
         }
     }
 
@@ -142,7 +138,7 @@ public class PrismExporter {
                             dReacta.add(new MDPReactum(transitionGraph.getEdgeTarget(te).getVertexID(), transitionGraph.getEdgeWeight(te)));
                     // We generate permutations of arrival states with a recursive function (basically, a permutation)
                     if(!lists.isEmpty()) {
-                        buildPermutations(traWriter, tv.getVertexID(), lists, dReacta, 0, "");
+                        buildPermutations(traWriter, tv.getVertexID(), lists, dReacta, 0, new ArrayList<>());
                     }
                     else
                         for(MDPReactum mdpr : dReacta)
@@ -158,17 +154,20 @@ public class PrismExporter {
         }
     }
 
-    private void buildPermutations(BufferedWriter traWriter, int currentID, ArrayList<ArrayList<MDPReactum>> lists, ArrayList<MDPReactum> dReactions, int depth, String current) throws IOException {
+    private void buildPermutations(BufferedWriter traWriter, int currentID, ArrayList<ArrayList<MDPReactum>> lists, ArrayList<MDPReactum> dReacta, int depth, ArrayList<MDPReactum> ndReacta) throws IOException {
         if (depth == lists.size()) {
-                traWriter.write(current);
-                for(MDPReactum mdpr: dReactions) {
-                    writeDeterministicReacta(traWriter,currentID,mdpr);
-                }
+            for(MDPReactum mdpr : ndReacta) {
+                writeDeterministicReacta(traWriter,currentID,mdpr);
+            }
+            for(MDPReactum mdpr: dReacta)
+                writeDeterministicReacta(traWriter,currentID,mdpr);
             choice++;
             return;
         }
         for (int i = 0; i < lists.get(depth).size(); i++) {
-            buildPermutations(traWriter,currentID,lists, dReactions, depth + 1, current + (currentID + " " + choice + " " + lists.get(depth).get(i).reactionToString()) + "\n");
+            ArrayList<MDPReactum> ndReactaReset = new ArrayList<>(ndReacta);
+            ndReactaReset.add(lists.get(depth).get(i));
+            buildPermutations(traWriter,currentID,lists, dReacta, depth + 1, ndReactaReset);
         }
     }
 
@@ -249,6 +248,7 @@ public class PrismExporter {
                 }
             }
         }
+        GraphsCollection.getInstance().printPrismTransition(transitionGraph);
     }
 
 }
