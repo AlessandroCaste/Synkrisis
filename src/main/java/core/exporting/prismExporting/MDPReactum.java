@@ -1,4 +1,4 @@
-package core.graphModels.exporting;
+package core.exporting.prismExporting;
 
 class MDPReactum {
 

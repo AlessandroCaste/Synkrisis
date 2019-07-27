@@ -1,4 +1,4 @@
-package core.graphModels.exporting;
+package core.exporting.prismExporting;
 
 import core.graphModels.GraphsCollection;
 import core.graphModels.verticesAndEdges.TransitionEdge;
@@ -69,7 +69,7 @@ public class PrismExporter {
         // I also track the number of possible choices
         for(TransitionVertex tv : transitionGraph.vertexSet()) {
             ArrayList<TransitionEdge> edges = new ArrayList<>(transitionGraph.outgoingEdgesOf(tv));
-            Set<String> set = edges.stream().map(s -> s.getLabel()).collect(Collectors.toSet());
+            Set<String> set = edges.stream().map(TransitionEdge::getLabel).collect(Collectors.toSet());
             if (set.size() < edges.size())
                 mdp = true;
         }

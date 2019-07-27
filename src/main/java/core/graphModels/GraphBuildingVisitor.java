@@ -2,11 +2,11 @@ package core.graphModels;
 
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;
+import core.exporting.spotExporting.SpotAcceptanceState;
+import core.exporting.spotExporting.SpotInfo;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
-import core.spotExporting.SpotAcceptanceState;
-import core.spotExporting.SpotInfo;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;

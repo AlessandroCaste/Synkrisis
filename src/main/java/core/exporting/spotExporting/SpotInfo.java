@@ -1,4 +1,4 @@
-package core.spotExporting;
+package core.exporting.spotExporting;
 
 import java.util.ArrayList;
 

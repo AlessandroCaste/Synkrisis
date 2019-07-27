@@ -1,0 +1,20 @@
+# A dummy is moved around three rooms
+
+controls:
+    passive A    1
+    passive B    1
+    passive C    1
+    active dummy 0
+
+rule mv_A = dummy -> (0.8) A.dummy
+rule mv_B = dummy -> (0.4) B.dummy
+rule mv_C = dummy -> (0.5) C.dummy
+
+model dummy = dummy | dummy
+
+marker dummy_c = matches(C.dummy)
+marker goal_state = matches(A.dummy | dummy)
+
+properties:
+    PRISM = P=? [ F "dummy_c" ]
+

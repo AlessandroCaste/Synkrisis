@@ -1,13 +1,13 @@
 package core.graphModels;
 
-import core.graphModels.exporting.PrismExporter;
+import core.exporting.prismExporting.PrismExporter;
+import core.exporting.spotExporting.SpotExporter;
+import core.exporting.spotExporting.SpotInfo;
 import core.graphModels.verticesAndEdges.RedexReactumPair;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
-import core.spotExporting.SpotExporter;
-import core.spotExporting.SpotInfo;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
@@ -121,7 +121,7 @@ public class GraphsCollection {
         if(spotInfo == null)
             System.out.println("[SPOT-TRANSLATION] No spot Acceptance has been specified");
         else
-            new SpotExporter(transitionGraph,modelName,reactionNames,markerMap,spotInfo);
+            new SpotExporter(transitionGraph,modelName,reactionNames,spotInfo);
     }
 
 }

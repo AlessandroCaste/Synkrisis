@@ -1,4 +1,4 @@
-package core.spotExporting;
+package core.exporting.spotExporting;
 
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
@@ -22,7 +22,6 @@ public class SpotExporter {
     private String modelName;
     private ArrayList<String> reactionNames;
     private HashMap<String,Integer> reactionMap;
-    private HashMap<String,Integer> markerMap;
     private int numberAcceptanceSets;
     private String acc_name;
     private ArrayList<SpotAcceptanceState> acceptanceStates;
@@ -30,11 +29,10 @@ public class SpotExporter {
 
 
     public SpotExporter(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName,
-                        ArrayList<String> reactionNames, HashMap<String,Integer> markerMap, SpotInfo spotInfo) {
+                        ArrayList<String> reactionNames, SpotInfo spotInfo) {
         this.transitionGraph = transitionGraph;
         this.modelName = modelName;
         this.reactionNames = reactionNames;
-        this.markerMap = markerMap;
         this.acc_name = spotInfo.getAcc_name();
         this.numberAcceptanceSets = spotInfo.getNumberAcceptanceSets();
         this.acceptanceStates = spotInfo.getAcceptanceStates();
@@ -49,6 +47,7 @@ public class SpotExporter {
     }
 
     private void translate() {
+        System.out.println("Spot translation started");
         logger.log(Level.INFO,"Writing .hoa file");
         File path = new File(modelName + "/spot");
         try {
@@ -88,6 +87,7 @@ public class SpotExporter {
             hoaWriter.write("\n");
 
             // Printing states and edges
+            System.out.println("Printing SPOT states and transitions");
             hoaWriter.write("--BODY--\n");
             for(TransitionVertex tv : transitionGraph.vertexSet()) {
                 hoaWriter.write("State: ");

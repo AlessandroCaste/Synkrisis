@@ -1,0 +1,14 @@
+# Permutation tests
+
+controls:
+    active A 0
+    active B 0
+    active C 0
+    active D 0
+
+rule r1 = A.$1 -> (0.7) B
+rule r2 = A.B -> (0.3) D
+rule r3 = (B.B | A) -> D
+rule r4 = C.$1 -> D
+
+model permutation = A.B | C.D | A | C
