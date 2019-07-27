@@ -5,6 +5,8 @@ import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,11 +51,13 @@ class CLI {
                 setupLogger(fileName);
                 settings.setFilePath(fileName);
             }
-            if (cmd.hasOption("o"))
-                if(cmd.getOptionValue("o").equalsIgnoreCase("prism"))
+            if (cmd.hasOption("o")) {
+                ArrayList<String> list = new ArrayList<>(Arrays.asList(cmd.getOptionValues("o")));
+                if(list.contains("prism"))
                     settings.enablePrismExporting();
-                else if(cmd.getOptionValue("o").equalsIgnoreCase("spot"))
+                if (list.contains("spot"))
                     settings.enableSpotExporting();
+            }
             if(cmd.hasOption("g"))
                 settings.enablePrint();
             if(cmd.hasOption("m")) {

@@ -26,6 +26,7 @@ public class PrismExporter {
     private static PrismExporter instance;
 
     private boolean mdp = false;
+    private int choices = 0;
 
     private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
     private String modelName;
@@ -33,7 +34,10 @@ public class PrismExporter {
     private HashMap<String,Integer> markerMap;
     private String path;
 
+    private int choice = 0;
+
     public PrismExporter(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName, HashMap<String,Integer> markerMap, String propertiesString) {
+        System.out.println("PRISM exporting started");
         this.transitionGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
         Graphs.addAllEdges(this.transitionGraph,transitionGraph,transitionGraph.edgeSet());
         this.modelName = modelName;
@@ -65,16 +69,19 @@ public class PrismExporter {
 
     // I check if all edges are unique (= MDP)
     private void checkMDP() {
+        // I also track the number of possible choices
         for(TransitionVertex tv : transitionGraph.vertexSet()) {
             ArrayList<TransitionEdge> edges = new ArrayList<>(transitionGraph.outgoingEdgesOf(tv));
             Set<String> set = edges.stream().map(s -> s.getLabel()).collect(Collectors.toSet());
             if (set.size() < edges.size())
                 mdp = true;
+                //choices += edges.size() - set.size();
         }
 
     }
 
     private void writeTransitionFile() {
+        System.out.println("Writing the PRISM .tra file");
         logger.log(Level.INFO,"Writing .tra file");
         try {
             BufferedWriter traWriter = new BufferedWriter(new FileWriter(path + modelName + ".tra",false));
@@ -85,16 +92,74 @@ public class PrismExporter {
                     for(TransitionEdge e : transitionGraph.outgoingEdgesOf(v))
                         traWriter.write(v.getVertexID() + " " + transitionGraph.getEdgeTarget(e).getVertexID() + " " + transitionGraph.getEdgeWeight(e) + "\n");
             } else {
-                System.out.println("MDP");
+                //TODO Inserire il giusto numero di choices non sembra contare
+                traWriter.write(transitionGraph.vertexSet().size() + " 0 " + transitionGraph.edgeSet().size() + "\n");
+                ArrayList<ArrayList<MDPReactum>> lists;
+                // For each vertex we find the non-deterministic choices
+                for(TransitionVertex tv : transitionGraph.vertexSet()) {
+                    choice = 0;
+                    ArrayList<String> nonDeterminism = new ArrayList<>();
+                    ArrayList<String> visitedLabels = new ArrayList<>();
+                    lists = new ArrayList<>();
+                    for (TransitionEdge te : transitionGraph.outgoingEdgesOf(tv))
+                        if (visitedLabels.contains(te.getLabel()))
+                            nonDeterminism.add(te.getLabel());
+                        else
+                            visitedLabels.add(te.getLabel());
+
+                    // We separate reacta produced by non-deterministic reactions and states produced by all other reactions
+                    ArrayList<MDPReactum> dReacta = new ArrayList<>();
+                    ArrayList<MDPReactum> ndReacta = new ArrayList<>();
+
+                    for (String s : nonDeterminism) {
+                        for (TransitionEdge te : transitionGraph.outgoingEdgesOf(tv))
+                            if (s.equals(te.getLabel()))
+                                ndReacta.add(new MDPReactum(transitionGraph.getEdgeTarget(te).getVertexID(), transitionGraph.getEdgeWeight(te)));
+                        if(!ndReacta.isEmpty())
+                            lists.add(ndReacta);
+                        ndReacta = new ArrayList<>();
+                    }
+                    for (TransitionEdge te : transitionGraph.outgoingEdgesOf(tv))
+                        if (!nonDeterminism.contains(te.getLabel()))
+                            dReacta.add(new MDPReactum(transitionGraph.getEdgeTarget(te).getVertexID(), transitionGraph.getEdgeWeight(te)));
+                    // We generate permutations of arrival states with a recursive function (basically, a permutation)
+                    if(!lists.isEmpty()) {
+                        buildPermutations(traWriter, tv.getVertexID(), lists, dReacta, 0, "");
+                    }
+                    else
+                        for(MDPReactum mdpr : dReacta)
+                            traWriter.write(tv.getVertexID() + " " + choice + " " + mdpr.reactionToString() + "\n");
+
+                }
+
             }
             traWriter.close();
+            GraphsCollection.getInstance().printPrismTransition(transitionGraph);
         } catch (IOException e) {
             System.out.println("Can't output the transition (.tra) file!");
             logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
         }
     }
 
+    private void buildPermutations(BufferedWriter traWriter, int currentID, ArrayList<ArrayList<MDPReactum>> listone, ArrayList<MDPReactum> dReactions, int depth, String current) throws IOException {
+        String outputString;
+        if (depth == listone.size()) {
+                outputString = current;
+                for(MDPReactum s : dReactions)
+                    outputString += currentID + " " + choice + " " + s.reactionToString() + "\n";
+                traWriter.write(outputString);
+            choice++;
+            return;
+        }
+
+        for (int i = 0; i < listone.get(depth).size(); i++) {
+            buildPermutations(traWriter,currentID,listone, dReactions, depth + 1, current + (currentID + " " + choice + " " + listone.get(depth).get(i).reactionToString()) + "\n");
+        }
+
+    }
+
     private void writeLabelFile() {
+        System.out.println("Writing the PRISM .lab file");
         logger.log(Level.INFO,"Writing .lab file");
         try {
             BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + modelName + ".lab",false));
@@ -114,9 +179,12 @@ public class PrismExporter {
     }
 
     private void writeProperties() {
-        if(propertiesString != null) {
+        if(propertiesString.replaceAll("\\s+","").equals(""))
+            System.out.println("No PRISM properties have been specified");
+        else {
+            System.out.println("Writing the PRISM .prop file");
             try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(new File(path + modelName + ".prop"),false));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(new File(path + modelName + ".prop"), false));
                 writer.write(propertiesString);
                 writer.close();
             } catch (IOException e) {
@@ -127,6 +195,7 @@ public class PrismExporter {
     }
 
     private void normalization() {
+        System.out.println("Normalizing edge weights");
         ArrayList<String> reactionsAlreadyChecked;
 
         for(TransitionVertex tv : transitionGraph.vertexSet()) {
@@ -152,7 +221,7 @@ public class PrismExporter {
                     transitionGraph.setEdgeWeight(te,weight);
                 }
             }
-            GraphsCollection.getInstance().printPrismTransition(transitionGraph);
+            //GraphsCollection.getInstance().printPrismTransition(transitionGraph);
         }
     }
 

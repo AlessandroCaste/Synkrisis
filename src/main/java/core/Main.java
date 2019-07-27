@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -76,26 +77,27 @@ public class Main {
                 // Running bigmc and parsing the results
                 new Bigmc(loadedSettings,modelName);
 
-                System.out.println("****************************");
-                System.out.println("MODEL EXPORTING AND ANALYSIS");
-                System.out.println("****************************");
-                // Model exporting
-               // if (loadedSettings.isExportingEnabled()) {
+                if(loadedSettings.isPrismExportingEnabled() || loadedSettings.isSpotExportingEnabled()) {
+                    System.out.println("****************************");
+                    System.out.println("MODEL EXPORTING AND ANALYSIS");
+                    System.out.println("****************************");
+                    // Model exporting
+                    // if (loadedSettings.isExportingEnabled()) {
                     new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
-                    if(loadedSettings.isPrintTransitionEnabled())
+                    if (loadedSettings.isPrintTransitionEnabled())
                         graphsCollection.printTransition();
-
-                    if(loadedSettings.isPrismExportingEnabled())
-                        graphsCollection.exportToPrism(propertiesString);
-
-                    //TODO Spot exporting check here
-                    if(loadedSettings.isSpotExportingEnabled() && modelBuilder.isSpotReady())
+                    if (loadedSettings.isSpotExportingEnabled() && modelBuilder.isSpotReady())
                         graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
-                    else if(loadedSettings.isSpotExportingEnabled() && !modelBuilder.isSpotReady())
+                    if (loadedSettings.isPrismExportingEnabled())
+                        graphsCollection.exportToPrism(Objects.requireNonNullElse(propertiesString, ""));
+
+
+                    else if (loadedSettings.isSpotExportingEnabled() && !modelBuilder.isSpotReady())
                         System.out.println("Can't proceed with SPOT exporting: duplicate acceptance states!\n" + modelBuilder.getDuplicateSpotStates());
 //                    if(loadedSettings.getOutputModelChecker().equals("PRISM"))
-                        //new TransitionDotImporter(modelName);
-               // }
+                    //new TransitionDotImporter(modelName);
+                    // }
+                }
             } else
                 System.out.println("Error in syntax analysis: processing can't go any further");
         }
