@@ -1,9 +1,8 @@
-package core.graphModels;
+package core.graphModels.storing;
 
 import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
 import core.exporting.spotExporting.SpotInfo;
-import core.graphModels.verticesAndEdges.RedexReactumPair;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;
@@ -15,11 +14,8 @@ import org.jgrapht.graph.Multigraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 public class GraphsCollection {
-
-    private static Logger logger = Logger.getLogger("Report");
 
     // Model Info
     private String modelName;
@@ -62,21 +58,21 @@ public class GraphsCollection {
         return model;
     }
 
-    void addReactionWeight(String reaction, float probability) {
+    public void addReactionWeight(String reaction, float probability) {
         rulesWeightMap.put(reaction,probability);
     }
 
-    float getReactionWeight(String reaction) {
+    public float getReactionWeight(String reaction) {
         return rulesWeightMap.get(reaction);
     }
 
 
-    HashMap<String,Integer> getMarkerMap() {
+    public HashMap<String,Integer> getMarkerMap() {
         return markerMap;
     }
 
 
-    void addTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph) {
+    public void addTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph) {
         this.transitionGraph = transitionGraph;
     }
 
@@ -84,21 +80,21 @@ public class GraphsCollection {
         CreateGraphvizImages.getInstance().createTransition(transitionPrismGraph);
     }
 
-    void addModel(Multigraph<Vertex, DefaultEdge> model) {
+    public void addModel(Multigraph<Vertex, DefaultEdge> model) {
         this.model = model;
     }
 
-    void addReaction(RedexReactumPair reaction) {
+    public void addReaction(RedexReactumPair reaction) {
         reactionsList.add(reaction);
     }
 
-    void addMarkerMap(HashMap<String,Integer> markerMap) { this.markerMap = markerMap; }
+    public void addMarkerMap(HashMap<String,Integer> markerMap) { this.markerMap = markerMap; }
 
-    void setModelName(String modelName) {
+    public void setModelName(String modelName) {
         this.modelName = modelName;
     }
 
-    void setReactionNames(ArrayList<String> reactionNames) {
+    public void setReactionNames(ArrayList<String> reactionNames) {
         this.reactionNames = reactionNames;
     }
 

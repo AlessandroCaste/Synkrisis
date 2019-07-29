@@ -331,9 +331,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         StringBuilder returnString = new StringBuilder();
         returnString.append(errorString);
         returnString.append(checkUnusedVariables());
-        //returnString.append(checkWeights());
         if (acceptableModel)
-            return returnString.append("[RESULT : PASSED] Model is ready\n****************************").toString();
+            return returnString.append("[RESULT : PASSED] Model is ready").toString();
         else
             return returnString.append("[RESULT : FAILED]").toString();
     }
@@ -371,16 +370,6 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         return returnString.toString();
     }
 
-    private String checkWeights() {
-        StringBuilder resultWeight = new StringBuilder();
-        statesWeightsMap.forEach((k, v) -> {
-            if(v != 1.0) {
-                acceptableModel = false;
-                resultWeight.append("[ERROR] Rules probabilities of redex (").append(k).append(") don't add up to 1\n");
-            }
-        });
-        return resultWeight.toString();
-    }
 
     public String getModelName(){
         return modelName;

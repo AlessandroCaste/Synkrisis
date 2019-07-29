@@ -1,6 +1,6 @@
 package core.exporting.prismExporting;
 
-import core.graphModels.GraphsCollection;
+import core.graphModels.storing.GraphsCollection;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.Graphs;

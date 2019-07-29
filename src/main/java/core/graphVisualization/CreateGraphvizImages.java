@@ -1,6 +1,6 @@
 package core.graphVisualization;
 
-import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.storing.RedexReactumPair;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;

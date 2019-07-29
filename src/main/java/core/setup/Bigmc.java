@@ -20,7 +20,7 @@ public class Bigmc {
 
 
     public Bigmc(ExecutionSettings settings, String modelName) {
-        System.out.println("Bigmc is running...");
+        System.out.println("Interfacing Bigmc");
         this.modelName = modelName;
         this.loadedSettings = settings;
         String input = createInputString();
@@ -62,12 +62,11 @@ public class Bigmc {
         try{
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
-            // TODO What about implementing bigmc inside .jar?
 
             // Linux case is standard case
 
             ProcessBuilder pb;
-            //TODO Pengwin setup is temporary
+            //TODO wsl setup is temporary
             if(SystemUtils.IS_OS_WINDOWS)
                 pb = new ProcessBuilder("pengwin", "-c", input);
             //TODO Don't know what to do with osx and has of now as the same linux commands
@@ -102,14 +101,14 @@ public class Bigmc {
             // We may have multiple transition file, so we keep a counter
             int transition_counter = 0;
 
-            BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".transition",true));
+            BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".dot",true));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
 
                 if(line.equals("digraph reaction_graph {")) {
                     isTransition = true;
                     if(transition_counter > 0)
-                        transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".transition",true));
+                        transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".dot",true));
                     transition.write(line + "\n");
                 }else if(line.equals("}")) {
                     isTransition = false;
@@ -128,24 +127,24 @@ public class Bigmc {
 
             //Rename lost output transition
             transition_counter = transition_counter - 1;
-            File lastTransitionFile = new File(modelName + "/" + modelName + "-" + (transition_counter) + ".transition");
+            File lastTransitionFile = new File(modelName + "/" + modelName + "-" + (transition_counter) + ".dot");
 
             // I create a new transition file, deleting an eventual old one
-            File oldFile = new File(modelName + "/" + modelName + ".transition");
+            File oldFile = new File(modelName + "/" + modelName + ".dot");
             boolean deleteResult = true;
             if(oldFile.exists())
                 deleteResult = oldFile.delete();
-            boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".transition"));
+            boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".dot"));
             if(!renameResult || !deleteResult)
-                logger.log(Level.WARNING,"Couldn't correctly rename the last.transition file!");
+                logger.log(Level.WARNING,"Couldn't correctly rename the last .dot file!");
             else
-                logger.log(Level.INFO,"Renaming of the last .transition file successful");
+                logger.log(Level.INFO,"Renaming of the last .dot file successful");
 
             // In case I generated multiple transition systems I move them to a separate folder
             if(transition_counter > 0)
                 for(int counter = 0; counter < transition_counter - 1; counter++)
-                    FileUtils.moveFile(new File(modelName + "/" + modelName + "-" + counter + ".transition" ),
-                            new File(modelName + "/" + "intermediate transitions/" + modelName + "-" + counter + ".transition" ));
+                    FileUtils.moveFile(new File(modelName + "/" + modelName + "-" + counter + ".dot" ),
+                            new File(modelName + "/" + "intermediate transitions/" + modelName + "-" + counter + ".dot" ));
 
             // Deleting the temp file
             boolean deletionResult;

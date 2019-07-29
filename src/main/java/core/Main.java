@@ -1,8 +1,8 @@
 package core;
 
 import core.graphModels.GraphBuildingVisitor;
-import core.graphModels.GraphsCollection;
 import core.graphModels.TransitionDotImporter;
+import core.graphModels.storing.GraphsCollection;
 import core.setup.Bigmc;
 import core.setup.SetupSynk;
 import core.syntaxAnalysis.SyntaxVisitor;
@@ -10,7 +10,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,33 +62,40 @@ public class Main {
                 // Graph printing
                 if(loadedSettings.isPrintEnabled()) {
                     logger.log(Level.INFO,"Launching graphviz printing...");
-                    System.out.println("PRINTING MODEL AND REACTIONS");
+                    System.out.println("***************");
+                    System.out.println("MODEL ANALYSIS");
+                    System.out.println("***************");
+                    System.out.println("Printing model and reactions");
                     graphsCollection.printModel();
-                    System.out.println("****************************");
                 }
 
                 // TODO Add here other-than-bigmc support
                 // If the model can't be submitted as-it-is then we must strip it of elements non compatible with bigmc
                 if(!loadedSettings.isBigmcReady()) {
                     bigmcTranslator(modelName);
+                    //TODO hashed?
                     loadedSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
                 }
                 // Running bigmc and parsing the results
                 new Bigmc(loadedSettings,modelName);
-
+                System.out.println("Generating the transition graph");
+                new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
+                if (loadedSettings.isPrintTransitionEnabled()) {
+                    System.out.println("Printing the transition graph");
+                    graphsCollection.printTransition();
+                }
                 if(loadedSettings.isPrismExportingEnabled() || loadedSettings.isSpotExportingEnabled()) {
-                    System.out.println("****************************");
-                    System.out.println("MODEL EXPORTING AND ANALYSIS");
-                    System.out.println("****************************");
+                    System.out.println("****************");
+                    System.out.println("MODEL EXPORTING");
+                    System.out.println("****************");
                     // Model exporting
-                    // if (loadedSettings.isExportingEnabled()) {
-                    new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
-                    if (loadedSettings.isPrintTransitionEnabled())
-                        graphsCollection.printTransition();
                     if (loadedSettings.isSpotExportingEnabled() && modelBuilder.isSpotReady())
                         graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
                     if (loadedSettings.isPrismExportingEnabled())
-                        graphsCollection.exportToPrism(Objects.requireNonNullElse(propertiesString, ""));
+                        if(propertiesString!=null)
+                            graphsCollection.exportToPrism(propertiesString);
+                        else
+                            graphsCollection.exportToPrism("");
 
 
                     else if (loadedSettings.isSpotExportingEnabled() && !modelBuilder.isSpotReady())

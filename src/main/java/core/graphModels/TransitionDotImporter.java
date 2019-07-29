@@ -1,5 +1,6 @@
 package core.graphModels;
 
+import core.graphModels.storing.GraphsCollection;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
@@ -104,7 +105,7 @@ public class TransitionDotImporter {
 
         try {
             DOTImporter<TransitionVertex, TransitionEdge> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
-            FileReader transitionFile = new FileReader(modelName+"/"+modelName+".transition");
+            FileReader transitionFile = new FileReader(modelName+"/"+modelName+".dot");
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
             graphsCollection.addTransition(transitionGraph);

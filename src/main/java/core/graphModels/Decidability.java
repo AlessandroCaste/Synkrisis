@@ -1,6 +1,7 @@
 package core.graphModels;
 
-import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.storing.GraphsCollection;
+import core.graphModels.storing.RedexReactumPair;
 import core.graphModels.verticesAndEdges.Vertex;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;

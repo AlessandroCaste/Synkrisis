@@ -32,10 +32,10 @@ class CLI {
         options.addOption(Option.builder("l").longOpt("load").hasArg(true).desc("load a .bigraph model for processing").required(true).build());
         options.addOption("o","output-translation",true,"feed transitions to PRISM and SPOT for transition analysis");
         options.addOption("g","graph-print",false,"print model and reactions graphs");
-        options.addOption("m","steps",true,"maximum number of steps");
+        options.addOption("G","print-everything",false,"print all graphs produced, including transitions");
+        options.addOption("m","steps",true,"maximum number of execution steps");
         options.addOption("p","print",false,"print newly discovered states during execution");
         options.addOption("r","statistics",true,"set frequency (steps) with which statistics about graph and transitions are output");
-        options.addOption("G","print-everything",false,"print all graphs produced");
         options.addOption("h", "help", false, "show help.");
 
     }

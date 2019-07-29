@@ -1,8 +1,8 @@
 import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
 import core.graphModels.GraphBuildingVisitor;
-import core.graphModels.GraphsCollection;
-import core.graphModels.verticesAndEdges.RedexReactumPair;
+import core.graphModels.storing.GraphsCollection;
+import core.graphModels.storing.RedexReactumPair;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.syntaxAnalysis.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;
