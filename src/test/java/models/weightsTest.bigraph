@@ -1,0 +1,16 @@
+# A sample model to check weights and names
+
+controls:
+    active A 1
+    active B 2
+    active C 3
+
+names:
+    outer name1
+    outer name2
+    outer name3
+
+rule r1 = C[name1,@a,@b] -> B[name1,@b]
+rule r2 = B[name1,@b] -> A[name1]
+
+model weightsTest = C[name1,name2,name3]

@@ -1,6 +1,5 @@
 package core.exporting.prismExporting;
 
-import core.graphModels.storing.GraphsCollection;
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.Graphs;
@@ -83,9 +82,9 @@ public class PrismExporter {
             BufferedWriter traWriter = new BufferedWriter(new FileWriter(path + modelName + ".tra",false));
             if(!mdp) {
                 // First line
-                traWriter.write(transitionGraph.vertexSet().size());
+                traWriter.write(Integer.toString(transitionGraph.vertexSet().size()));
                 traWriter.write(" ");
-                traWriter.write(transitionGraph.edgeSet().size());
+                traWriter.write(Integer.toString(transitionGraph.edgeSet().size()));
                 traWriter.write("\n");
                 // DTMC Case
                 for(TransitionVertex v : transitionGraph.vertexSet())
@@ -93,7 +92,7 @@ public class PrismExporter {
                         // Transitions specification
                         traWriter.write(Integer.toString(v.getVertexID()));
                         traWriter.write(" ");
-                        traWriter.write(transitionGraph.getEdgeTarget(e).getVertexID());
+                        traWriter.write(Integer.toString(transitionGraph.getEdgeTarget(e).getVertexID()));
                         traWriter.write(" ");
                         traWriter.write(Double.toString(transitionGraph.getEdgeWeight(e)));
                         traWriter.write("\n");
@@ -147,7 +146,8 @@ public class PrismExporter {
 
             }
             traWriter.close();
-            GraphsCollection.getInstance().printPrismTransition(transitionGraph);
+            //TODO print transition prism
+            //GraphsCollection.getInstance().printPrismTransition(transitionGraph);
         } catch (IOException e) {
             System.out.println("Can't output the transition (.tra) file!");
             logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
@@ -248,7 +248,6 @@ public class PrismExporter {
                 }
             }
         }
-        GraphsCollection.getInstance().printPrismTransition(transitionGraph);
     }
 
 }

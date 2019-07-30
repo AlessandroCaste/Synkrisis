@@ -105,7 +105,8 @@ public class TransitionDotImporter {
 
         try {
             DOTImporter<TransitionVertex, TransitionEdge> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
-            FileReader transitionFile = new FileReader(modelName+"/"+modelName+".dot");
+            //TODO cambiare questa cosa
+            FileReader transitionFile = new FileReader(modelName+".dot");
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
             graphsCollection.addTransition(transitionGraph);

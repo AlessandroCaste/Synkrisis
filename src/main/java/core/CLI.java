@@ -59,7 +59,7 @@ class CLI {
                     settings.enableSpotExporting();
             }
             if(cmd.hasOption("g"))
-                settings.enablePrint();
+                settings.enablePrintModel();
             if(cmd.hasOption("m")) {
                 int steps = Integer.parseInt(cmd.getOptionValue("m"));
                 if(steps > 0)
@@ -77,9 +77,8 @@ class CLI {
                     System.out.println("Invalid frequency of transitions print: it's been set to 0");
             }
             if (cmd.hasOption("G")) {
-                settings.enablePrint();
+                settings.enablePrintModel();
                 settings.enablePrintTransition();
-                settings.enablePrintIntermediateTransitions();
             }
             if (cmd.hasOption("h"))
                 help();

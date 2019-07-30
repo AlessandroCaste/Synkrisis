@@ -38,15 +38,25 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("****************************\nSynkrisis Toolchain (2019)\n****************************");
-        System.out.println("Use -h command for further help");
+        File inputFile;
 
-        // Passing args to the program via command line
-        CLI cli = new CLI(args);
-        cli.parse();
-        loadedSettings = cli.loadSettings();
-
+        // Interactive Shell
+        if(args.length == 1) {
+            System.out.print("Type ?list command-name to get more info");
+            InteractiveShell interactiveShell = new InteractiveShell();
+            interactiveShell.setExecutionSettings(loadedSettings);
+            interactiveShell.loop();
+        }
+        // Passing args from command line
+        else {
+            System.out.println("Use -h command for further help");
+            CLI cli = new CLI(args);
+            cli.parse();
+            loadedSettings = cli.loadSettings();
+        }
         filePath = loadedSettings.getFilePath();
-        File inputFile = new File(filePath);
+        inputFile = new File(filePath);
+
         SetupSynk initialization = new SetupSynk(inputFile); // Initializing lexer, tokens etc
         if(initialization.isSuccessful()) {
             modelTree = initialization.getModelTree();
@@ -60,7 +70,7 @@ public class Main {
                 logger.log(Level.INFO, "Jgraph translation from parsetree completed.");
 
                 // Graph printing
-                if(loadedSettings.isPrintEnabled()) {
+                if(loadedSettings.isPrintModelEnabled()) {
                     logger.log(Level.INFO,"Launching graphviz printing...");
                     System.out.println("***************");
                     System.out.println("MODEL ANALYSIS");
@@ -79,7 +89,10 @@ public class Main {
                 // Running bigmc and parsing the results
                 new Bigmc(loadedSettings,modelName);
                 System.out.println("Generating the transition graph");
-                new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
+                if(loadedSettings.isProcessTransitionOnly())
+                    new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
+                else
+                    new TransitionDotImporter(loadedSettings.getTransitionFile());
                 if (loadedSettings.isPrintTransitionEnabled()) {
                     System.out.println("Printing the transition graph");
                     graphsCollection.printTransition();

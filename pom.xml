@@ -18,7 +18,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <release>11</release>
+                    <release>1.8</release>
                 </configuration>
             </plugin>
 
@@ -104,6 +104,14 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.googlecode.clichemaven/cliche -->
+        <dependency>
+            <groupId>com.googlecode.clichemaven</groupId>
+            <artifactId>cliche</artifactId>
+            <version>110413</version>
+        </dependency>
+
 
     </dependencies>
 

@@ -21,17 +21,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GraphBuildingTest {
 
     private String additionPath;
     private String hospitalPath;
-
+    private String phospitalPath;
 
     GraphBuildingTest() {
         additionPath = "src/test/java/models/addition.bigraph";
         hospitalPath = "src/test/java/models/hospital.bigraph";
+        phospitalPath = "src/test/java/models/weightsTest.bigraph";
 
         completeAdditionCheck();
         checkLinks();
@@ -260,25 +262,64 @@ class GraphBuildingTest {
         GraphsCollection.getInstance().printModel();
     }
 
+    // Testing if weights are correctly input
+    @Test
+    void checkNamesAndWeights() {
+
+        GraphBuildingVisitor graphBuildingVisitor = createVisitor(phospitalPath);
+        Multigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
+        assertEquals(graph.vertexSet().size(), 4);
+
+        // I compare the label to verify mapping is correct
+        ArrayList<String> labels = new ArrayList<>();
+        labels.add("C");
+        labels.add("name1");
+        labels.add("name2");
+        labels.add("name3");
+
+        // Vertices are correctly set
+        int i = 0;
+        for (Vertex v : graph.vertexSet()) {
+            assertEquals(v.getLabel(), labels.get(i));
+            if (i == 0 )
+                assertTrue(v.isControl());
+            else
+                assertFalse(v.isControl());
+            i++;
+        }
+
+        // Edges are correctly set
+        ArrayList<DefaultEdge> edgeList = new ArrayList<>(graph.edgeSet());
+        assertEquals(edgeList.size(), 3);
+
+        assertEquals(graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel(), "C name1");
+        assertEquals(graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel(), "C name2");
+        assertEquals(graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel(), "C name3");
+
+
+        // Verifying model gets correctly print after execution of visitor
+        GraphsCollection.getInstance().printModel();
+    }
 
 
     GraphBuildingVisitor createVisitor(String path) {
-            try {
-                File inputFile = new File(path);
-                InputStream inputStream = new FileInputStream(inputFile);
-                Lexer lexer = new bigraphLexer(CharStreams.fromStream(inputStream));
-                TokenStream tokenStream = new CommonTokenStream(lexer);
-                bigraphParser parser = new bigraphParser(tokenStream);
-                parser.removeErrorListeners();
-                parser.addErrorListener(ErrorListener.INSTANCE);
-                ParseTree tree = parser.bigraph();
-                GraphBuildingVisitor visitor = new GraphBuildingVisitor();
-                visitor.visit(tree);
-                return visitor;
-            } catch (IOException | ParseCancellationException e) {
-                e.printStackTrace();
-                return null;
+        try {
+            File inputFile = new File(path);
+            InputStream inputStream = new FileInputStream(inputFile);
+            Lexer lexer = new bigraphLexer(CharStreams.fromStream(inputStream));
+            TokenStream tokenStream = new CommonTokenStream(lexer);
+            bigraphParser parser = new bigraphParser(tokenStream);
+            parser.removeErrorListeners();
+            parser.addErrorListener(ErrorListener.INSTANCE);
+            ParseTree tree = parser.bigraph();
+            GraphBuildingVisitor visitor = new GraphBuildingVisitor();
+            visitor.visit(tree);
+            return visitor;
+        } catch (IOException | ParseCancellationException e) {
+            e.printStackTrace();
+            return null;
         }
     }
+
 
 }

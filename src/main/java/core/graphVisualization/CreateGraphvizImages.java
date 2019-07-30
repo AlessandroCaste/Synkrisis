@@ -9,7 +9,7 @@ import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizException;
-import guru.nidi.graphviz.engine.GraphvizV8Engine;
+import guru.nidi.graphviz.engine.GraphvizJdkEngine;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import org.apache.commons.lang3.SystemUtils;
@@ -49,7 +49,7 @@ public class CreateGraphvizImages {
 
     public void createModel(Multigraph<Vertex, DefaultEdge> currentGraph) {
         logger.log(Level.INFO,"Model drawing started");
-        Graphviz.useEngine(new GraphvizV8Engine());
+        Graphviz.useEngine(new GraphvizJdkEngine());
 
 
 
@@ -118,7 +118,7 @@ public class CreateGraphvizImages {
             System.out.println("[GRAPHVIZ ERROR] Can't print out model");
             logger.log(Level.SEVERE,"Impossible to draw the model\nStack trace: " + e.getMessage());
         } catch(guru.nidi.graphviz.engine.GraphvizException e) {
-            System.out.println("Couldn't find dot: unable to print model and reactions!");
+            System.out.println("Couldn't find graphviz engine or dot: unable to print model and reactions!");
             if(SystemUtils.IS_OS_WINDOWS)
                 System.out.println("Be sure to add graphviz folder to your path before trying again");
             else
@@ -131,7 +131,7 @@ public class CreateGraphvizImages {
 
    public void createReactions(RedexReactumPair gr) {
         logger.log(Level.INFO,"Graphviz reactions drawing started");
-        Graphviz.useEngine(new GraphvizV8Engine());
+        Graphviz.useEngine(new GraphvizJdkEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
 
         Multigraph<Vertex, DefaultEdge> redexGraph = gr.getRedex();
@@ -240,7 +240,7 @@ public class CreateGraphvizImages {
         logger.log(Level.INFO,"Graphviz transition drawing started");
         MutableGraph transitionGraph =
                 mutGraph("Transitions").setDirected(true).use((gr, ctx) -> {
-                    Graphviz.useEngine(new GraphvizV8Engine());
+                    Graphviz.useEngine(new GraphvizJdkEngine());
                     graphAttrs().add("rank","same");
 
                     //  Adjusting shapes

@@ -9,9 +9,10 @@ public class ExecutionSettings {
     private boolean printNewStatesEnabled = false;
     private boolean prismExportingEnabled = false;
     private boolean spotExportingEnabled = false;
-    private boolean printEnabled = false;
+    private boolean printModelEnabled = false;
     private boolean printTransitionEnabled = false;
-    private boolean printIntermediateEnabled = false;
+    private boolean processTransitionOnly = false;
+    private String  transitionFile;
     private boolean bigmcReady = false;
     private String  bigmcFile;
 
@@ -45,16 +46,20 @@ public class ExecutionSettings {
         return spotExportingEnabled;
     }
 
-    boolean isPrintEnabled() {
-        return printEnabled;
+    boolean isPrintModelEnabled() {
+        return printModelEnabled;
     }
 
     boolean isPrintTransitionEnabled() {
         return printTransitionEnabled;
     }
 
-    public boolean isPrintIntermediateEnabled() {
-        return printIntermediateEnabled;
+    public boolean isProcessTransitionOnly() {
+        return this.processTransitionOnly;
+    }
+
+    public String getTransitionFile() {
+        return this.transitionFile;
     }
 
     public boolean isBigmcReady() {
@@ -93,16 +98,20 @@ public class ExecutionSettings {
         this.spotExportingEnabled = true;
     }
 
-    void enablePrint() {
-        this.printEnabled = true;
+    void enablePrintModel() {
+        this.printModelEnabled = true;
     }
 
     void enablePrintTransition() {
         this.printTransitionEnabled = true;
     }
 
-    void enablePrintIntermediateTransitions() {
-        this.printIntermediateEnabled = true;
+    void setProcessTransitionOnly() {
+        this.processTransitionOnly = true;
+    }
+
+    void setTransitionFile(String transitionFile) {
+        this.transitionFile = transitionFile;
     }
 
     void setBigmcReady() {

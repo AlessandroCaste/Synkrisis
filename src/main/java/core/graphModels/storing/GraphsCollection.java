@@ -71,6 +71,9 @@ public class GraphsCollection {
         return markerMap;
     }
 
+    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getTransitionGraph() {
+        return transitionGraph;
+    }
 
     public void addTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph) {
         this.transitionGraph = transitionGraph;
