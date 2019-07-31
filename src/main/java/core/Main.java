@@ -41,7 +41,7 @@ public class Main {
         File inputFile;
 
         // Interactive Shell
-        if(args.length == 1) {
+        if(args.length == 0) {
             System.out.print("Type ?list command-name to get more info");
             InteractiveShell interactiveShell = new InteractiveShell();
             interactiveShell.setExecutionSettings(loadedSettings);
@@ -90,9 +90,9 @@ public class Main {
                 new Bigmc(loadedSettings,modelName);
                 System.out.println("Generating the transition graph");
                 if(loadedSettings.isProcessTransitionOnly())
-                    new TransitionDotImporter(modelName); // Translating the transition graph to a jgrapht graph
+                    new TransitionDotImporter(modelName,true); // Translating the transition graph to a jgrapht graph
                 else
-                    new TransitionDotImporter(loadedSettings.getTransitionFile());
+                    new TransitionDotImporter(modelName,false);
                 if (loadedSettings.isPrintTransitionEnabled()) {
                     System.out.println("Printing the transition graph");
                     graphsCollection.printTransition();

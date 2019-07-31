@@ -5,6 +5,8 @@ import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // I verify importing is in check with bigmc results
 class TransitionTest {
 
@@ -21,7 +23,7 @@ class TransitionTest {
 
     @Test
     void transition1Test() {
-        new TransitionDotImporter(transition1);
+        new TransitionDotImporter(transition1,true);
         DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph = GraphsCollection.getInstance().getTransitionGraph();
         assertEquals(transitionGraph.vertexSet().size(), 19);
     }

@@ -32,7 +32,7 @@ public class Bigmc {
         StringBuilder input = new StringBuilder();
 
         // Bigmc location is set
-        input.append("lib/bigmc -s");
+        input.append("lib/bigmcMan18 -s");
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)
@@ -74,8 +74,7 @@ public class Bigmc {
                 pb = new ProcessBuilder(input);
             // Linux case!
             else
-                pb = new ProcessBuilder(input);
-
+                pb = new ProcessBuilder("/usr/bin/bash","-c",input);
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);
             // pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));

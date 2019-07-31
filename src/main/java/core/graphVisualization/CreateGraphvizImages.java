@@ -8,8 +8,8 @@ import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
 import guru.nidi.graphviz.engine.GraphvizException;
-import guru.nidi.graphviz.engine.GraphvizJdkEngine;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import org.apache.commons.lang3.SystemUtils;
@@ -49,7 +49,7 @@ public class CreateGraphvizImages {
 
     public void createModel(Multigraph<Vertex, DefaultEdge> currentGraph) {
         logger.log(Level.INFO,"Model drawing started");
-        Graphviz.useEngine(new GraphvizJdkEngine());
+        Graphviz.useEngine(new GraphvizCmdLineEngine());
 
 
 
@@ -131,7 +131,7 @@ public class CreateGraphvizImages {
 
    public void createReactions(RedexReactumPair gr) {
         logger.log(Level.INFO,"Graphviz reactions drawing started");
-        Graphviz.useEngine(new GraphvizJdkEngine());
+        Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String,Color> colorHashMap = new HashMap<>();
 
         Multigraph<Vertex, DefaultEdge> redexGraph = gr.getRedex();
@@ -240,7 +240,7 @@ public class CreateGraphvizImages {
         logger.log(Level.INFO,"Graphviz transition drawing started");
         MutableGraph transitionGraph =
                 mutGraph("Transitions").setDirected(true).use((gr, ctx) -> {
-                    Graphviz.useEngine(new GraphvizJdkEngine());
+                    Graphviz.useEngine(new GraphvizCmdLineEngine());
                     graphAttrs().add("rank","same");
 
                     //  Adjusting shapes
