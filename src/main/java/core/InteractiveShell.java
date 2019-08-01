@@ -4,21 +4,25 @@ import asg.cliche.Command;
 import asg.cliche.Param;
 import asg.cliche.ShellFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class InteractiveShell {
 
     private ExecutionSettings loadedSettings = new ExecutionSettings();
-    StringBuilder sb = new StringBuilder();
+    private StringBuilder sb = new StringBuilder();
 
     @Command(name="load",abbrev = "l",description = "Load model from file") // one,
     public void load(@Param(name="path") String filePath) {
-        loadedSettings.setFilePath(filePath);
+        if(new File(filePath).exists())
+            loadedSettings.setFilePath(filePath);
+        else
+            System.out.println("Couldn't find " + filePath);
     }
 
     @Command(name="set",abbrev = "s") // two
-    public void set(@Param(name="type") String type,@Param(name="value") String value) {
+     public void set(@Param(name="type") String type,@Param(name="value") String value) {
         if(type.equalsIgnoreCase("print")) {
             if (value.equalsIgnoreCase("model"))
                 loadedSettings.enablePrintModel();
@@ -48,7 +52,7 @@ public class InteractiveShell {
     }
 
     @Command(name="output",abbrev = "o")
-    public void output(@Param(name="mchecker") String modelChecker) {
+     public void output(@Param(name="mchecker") String modelChecker) {
         if(modelChecker.equalsIgnoreCase("prism"))
             loadedSettings.enablePrismExporting();
         else if(modelChecker.equalsIgnoreCase("spot"))
@@ -56,14 +60,13 @@ public class InteractiveShell {
     }
 
     @Command(name="Output",abbrev = "O")
-    public void output() {
+     public void output() {
         loadedSettings.enablePrismExporting();
         loadedSettings.enableSpotExporting();
     }
 
-
     @Command(name = "write", abbrev = "w")
-    public void writeModel() {
+     public void writeModel() {
         Scanner sc = new Scanner(System.in);
         boolean endCondition = false;
         while(sc.hasNextLine() && !endCondition) {
@@ -75,20 +78,20 @@ public class InteractiveShell {
         }
     }
 
-    void loop() {
+    @Command(name="run", abbrev = "r")
+     public void run(){
+        if(loadedSettings.getFilePath()!=null)
+            Main.execution(loadedSettings);
+        else
+            System.out.println("You must first specify a model!");
+    }
+
+     void loop() {
         try {
             ShellFactory.createConsoleShell("Synkrisis", "", new InteractiveShell()).commandLoop();
         } catch (IOException e) {
             System.out.println("No such file exists");
         }
-    }
-
-    ExecutionSettings getLoadedSettings() {
-        return this.loadedSettings;
-    }
-
-    void setExecutionSettings(ExecutionSettings settings) {
-        this.loadedSettings = settings;
     }
 }
 

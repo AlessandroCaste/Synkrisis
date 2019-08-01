@@ -2,7 +2,7 @@
 
 controls:
     active IN 0 # for Increase or add
-    active L  0
+    active L  0 
     active R  0
     active Succ 0
     active Zero 0

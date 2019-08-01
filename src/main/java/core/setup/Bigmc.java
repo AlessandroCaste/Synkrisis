@@ -32,7 +32,7 @@ public class Bigmc {
         StringBuilder input = new StringBuilder();
 
         // Bigmc location is set
-        input.append("lib/bigmcMan18 -s");
+        input.append("lib/bigmc -s ");
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)
@@ -71,14 +71,12 @@ public class Bigmc {
                 pb = new ProcessBuilder("pengwin", "-c", input);
             //TODO Don't know what to do with osx and has of now as the same linux commands
             else if (SystemUtils.IS_OS_MAC_OSX)
-                pb = new ProcessBuilder(input);
+                pb = new ProcessBuilder("echo",input);
             // Linux case!
             else
-                pb = new ProcessBuilder("/usr/bin/bash","-c",input);
+                pb = new java.lang.ProcessBuilder("/bin/bash","-c",input);
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);
-            // pb.redirectOutput(new File(modelName+"/"+modelName+".transition"));
-
             // I redirect bigmc output to a temp file in order to scan it
             pb.redirectOutput(new File(modelName+"/"+modelName+".temp"));
             Process p = pb.start();
@@ -128,12 +126,13 @@ public class Bigmc {
             transition_counter = transition_counter - 1;
             File lastTransitionFile = new File(modelName + "/" + modelName + "-" + (transition_counter) + ".dot");
 
+            //TODO WHY
             // I create a new transition file, deleting an eventual old one
             File oldFile = new File(modelName + "/" + modelName + ".dot");
             boolean deleteResult = true;
             if(oldFile.exists())
                 deleteResult = oldFile.delete();
-            boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + modelName + ".dot"));
+            boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + "transition.dot"));
             if(!renameResult || !deleteResult)
                 logger.log(Level.WARNING,"Couldn't correctly rename the last .dot file!");
             else

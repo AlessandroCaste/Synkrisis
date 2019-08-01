@@ -24,11 +24,8 @@ import java.util.logging.Logger;
 
 public class Main {
 
-    private static String filePath;
     private static String modelName;
     private static ParseTree modelTree;
-    private static boolean acceptableModel;
-    private static ExecutionSettings loadedSettings;
     private static SyntaxVisitor syntaxVisitor;
     private static GraphsCollection  graphsCollection = GraphsCollection.getInstance();
 
@@ -36,31 +33,35 @@ public class Main {
 
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
-
         System.out.println("****************************\nSynkrisis Toolchain (2019)\n****************************");
-        File inputFile;
+        if (args.length == 0)
+            interactiveShell();
+        else
+            cli(args);
+    }
 
-        // Interactive Shell
-        if(args.length == 0) {
-            System.out.print("Type ?list command-name to get more info");
-            InteractiveShell interactiveShell = new InteractiveShell();
-            interactiveShell.setExecutionSettings(loadedSettings);
-            interactiveShell.loop();
-        }
-        // Passing args from command line
-        else {
-            System.out.println("Use -h command for further help");
-            CLI cli = new CLI(args);
-            cli.parse();
-            loadedSettings = cli.loadSettings();
-        }
-        filePath = loadedSettings.getFilePath();
-        inputFile = new File(filePath);
+    private static void interactiveShell() {
+        System.out.print("Type ?list command-name to get more info");
+        InteractiveShell interactiveShell = new InteractiveShell();
+        interactiveShell.loop();
+        // Loop happens in the Interactive shell class
+    }
+
+    private static void cli(String[] args) {
+        System.out.println("Use -h command for further help");
+        CLI cli = new CLI(args);
+        cli.parse();
+        execution(cli.loadSettings());
+    }
+
+    static void execution(ExecutionSettings executionSettings) {
+        File inputFile;
+        inputFile = new File(executionSettings.getFilePath());
 
         SetupSynk initialization = new SetupSynk(inputFile); // Initializing lexer, tokens etc
         if(initialization.isSuccessful()) {
             modelTree = initialization.getModelTree();
-            acceptableModel = syntaxAnalysis();   // String is required to check model name against filePath
+            boolean acceptableModel = syntaxAnalysis(executionSettings.getFilePath());
             if (acceptableModel) {
                 // I translate the graph into a JgraphT model: this way I may use different kinds of model checkers
                 logger.log(Level.INFO,"Jgraph translation from parsetree started");
@@ -70,7 +71,7 @@ public class Main {
                 logger.log(Level.INFO, "Jgraph translation from parsetree completed.");
 
                 // Graph printing
-                if(loadedSettings.isPrintModelEnabled()) {
+                if(executionSettings.isPrintModelEnabled()) {
                     logger.log(Level.INFO,"Launching graphviz printing...");
                     System.out.println("***************");
                     System.out.println("MODEL ANALYSIS");
@@ -81,37 +82,40 @@ public class Main {
 
                 // TODO Add here other-than-bigmc support
                 // If the model can't be submitted as-it-is then we must strip it of elements non compatible with bigmc
-                if(!loadedSettings.isBigmcReady()) {
-                    bigmcTranslator(modelName);
+                if(!syntaxVisitor.isBigmcReady()) {
+                    bigmcTranslator(executionSettings.getFilePath());
                     //TODO hashed?
-                    loadedSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
+                    executionSettings.setBigmcFile(modelName + "/" + "temp_transl_bigmc.bigraph");
+                } else {
+                    //TODO With additional model checkers?
+                    executionSettings.setBigmcFile(executionSettings.getFilePath());
+                    executionSettings.setBigmcReady();
                 }
                 // Running bigmc and parsing the results
-                new Bigmc(loadedSettings,modelName);
+                new Bigmc(executionSettings,modelName);
                 System.out.println("Generating the transition graph");
-                if(loadedSettings.isProcessTransitionOnly())
+                if(executionSettings.isProcessTransitionOnly())
                     new TransitionDotImporter(modelName,true); // Translating the transition graph to a jgrapht graph
                 else
                     new TransitionDotImporter(modelName,false);
-                if (loadedSettings.isPrintTransitionEnabled()) {
+                if (executionSettings.isPrintTransitionEnabled()) {
                     System.out.println("Printing the transition graph");
                     graphsCollection.printTransition();
                 }
-                if(loadedSettings.isPrismExportingEnabled() || loadedSettings.isSpotExportingEnabled()) {
+                if(executionSettings.isExportingEnabled()) {
                     System.out.println("****************");
                     System.out.println("MODEL EXPORTING");
                     System.out.println("****************");
                     // Model exporting
-                    if (loadedSettings.isSpotExportingEnabled() && modelBuilder.isSpotReady())
+                    if (executionSettings.isSpotExportingEnabled() && modelBuilder.isSpotReady())
                         graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
-                    if (loadedSettings.isPrismExportingEnabled())
+                    if (executionSettings.isPrismExportingEnabled())
                         if(propertiesString!=null)
                             graphsCollection.exportToPrism(propertiesString);
                         else
                             graphsCollection.exportToPrism("");
 
-
-                    else if (loadedSettings.isSpotExportingEnabled() && !modelBuilder.isSpotReady())
+                    else if (executionSettings.isSpotExportingEnabled() && !modelBuilder.isSpotReady())
                         System.out.println("Can't proceed with SPOT exporting: duplicate acceptance states!\n" + modelBuilder.getDuplicateSpotStates());
 
                 }
@@ -120,11 +124,10 @@ public class Main {
         }
     }
 
-
     // Syntax Visitor execution
-    private static boolean syntaxAnalysis() {
+    private static boolean syntaxAnalysis(String path) {
         logger.log(Level.INFO,"Syntax visitor started");
-        String filename = FilenameUtils.getName(loadedSettings.getFilePath());
+        String filename = FilenameUtils.getName(path);
         syntaxVisitor = new SyntaxVisitor();
         syntaxVisitor.visit(modelTree);
         modelName = syntaxVisitor.getModelName();
@@ -133,24 +136,18 @@ public class Main {
             logger.log(Level.SEVERE,"Execution suspended since model name and file name do not match: " + filename + " vs " + modelName +".bigraph.\nCan't run visitor until it's fixed");
             return false;
         }
-        // .prop file is extracted and print here
-        // TODO add options in CLI
-        // if(loadedSettings.isExportingEnabled())
-        if(syntaxVisitor.isBigmcReady())
-            loadedSettings.setBigmcReady();
-
         System.out.println(syntaxVisitor.getParseResult());
         logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();
     }
 
     // Translation requires only weights to be removed: properties are automatically filtered by bigmc
-    private static void bigmcTranslator(String modelName){
+    private static void bigmcTranslator(String path){
         System.out.println("TRANSITION GRAPH GENERATION");
         System.out.println("Model translation underway");
         logger.log(Level.INFO,"Starting translation of bigraph into bigmc-readable file");
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(loadedSettings.getFilePath()));
+            BufferedReader reader = new BufferedReader(new FileReader(path));
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + "temp_transl_bigmc.bigraph")));
             String line;
 

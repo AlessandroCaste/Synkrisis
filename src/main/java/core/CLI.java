@@ -98,7 +98,6 @@ class CLI {
     private void help() {
         // This prints out some help
         HelpFormatter formater = new HelpFormatter();
-
         formater.printHelp("Main", options);
         System.exit(0);
     }

@@ -9,6 +9,7 @@ public class ExecutionSettings {
     private boolean printNewStatesEnabled = false;
     private boolean prismExportingEnabled = false;
     private boolean spotExportingEnabled = false;
+    private boolean exportingEnabled = false;
     private boolean printModelEnabled = false;
     private boolean printTransitionEnabled = false;
     private boolean processTransitionOnly = false;
@@ -38,13 +39,15 @@ public class ExecutionSettings {
         return printNewStatesEnabled;
     }
 
-    public boolean isPrismExportingEnabled() {
+    boolean isPrismExportingEnabled() {
         return prismExportingEnabled;
     }
 
     boolean isSpotExportingEnabled() {
         return spotExportingEnabled;
     }
+
+    boolean isExportingEnabled() { return exportingEnabled; }
 
     boolean isPrintModelEnabled() {
         return printModelEnabled;
@@ -54,7 +57,7 @@ public class ExecutionSettings {
         return printTransitionEnabled;
     }
 
-    public boolean isProcessTransitionOnly() {
+    boolean isProcessTransitionOnly() {
         return this.processTransitionOnly;
     }
 
@@ -91,10 +94,12 @@ public class ExecutionSettings {
     }
 
     void enablePrismExporting() {
+        exportingEnabled = true;
         this.prismExportingEnabled = true;
     }
 
     void enableSpotExporting() {
+        exportingEnabled = true;
         this.spotExportingEnabled = true;
     }
 

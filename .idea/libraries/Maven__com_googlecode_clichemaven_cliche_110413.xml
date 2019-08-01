@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.googlecode.clichemaven:cliche:110413">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/clichemaven/cliche/110413/cliche-110413.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/clichemaven/cliche/110413/cliche-110413-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/clichemaven/cliche/110413/cliche-110413-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
