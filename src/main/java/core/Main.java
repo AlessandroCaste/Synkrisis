@@ -7,7 +7,6 @@ import core.setup.Bigmc;
 import core.setup.SetupSynk;
 import core.syntaxAnalysis.SyntaxVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
 import java.util.logging.Level;
@@ -61,7 +60,7 @@ public class Main {
         SetupSynk initialization = new SetupSynk(inputFile); // Initializing lexer, tokens etc
         if(initialization.isSuccessful()) {
             modelTree = initialization.getModelTree();
-            boolean acceptableModel = syntaxAnalysis(executionSettings.getFilePath());
+            boolean acceptableModel = syntaxAnalysis();
             if (acceptableModel) {
                 // I translate the graph into a JgraphT model: this way I may use different kinds of model checkers
                 logger.log(Level.INFO,"Jgraph translation from parsetree started");
@@ -125,17 +124,10 @@ public class Main {
     }
 
     // Syntax Visitor execution
-    private static boolean syntaxAnalysis(String path) {
+    private static boolean syntaxAnalysis() {
         logger.log(Level.INFO,"Syntax visitor started");
-        String filename = FilenameUtils.getName(path);
         syntaxVisitor = new SyntaxVisitor();
         syntaxVisitor.visit(modelTree);
-        modelName = syntaxVisitor.getModelName();
-        if (!filename.equals(modelName + ".bigraph")) {
-            System.out.println("[FATAL ERROR] File name and model names do not match : " + filename + " vs " + modelName + ".bigraph");
-            logger.log(Level.SEVERE,"Execution suspended since model name and file name do not match: " + filename + " vs " + modelName +".bigraph.\nCan't run visitor until it's fixed");
-            return false;
-        }
         System.out.println(syntaxVisitor.getParseResult());
         logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();

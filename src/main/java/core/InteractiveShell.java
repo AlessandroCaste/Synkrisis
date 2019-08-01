@@ -3,8 +3,12 @@ package core;
 import asg.cliche.Command;
 import asg.cliche.Param;
 import asg.cliche.ShellFactory;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -66,16 +70,29 @@ public class InteractiveShell {
     }
 
     @Command(name = "write", abbrev = "w")
-     public void writeModel() {
-        Scanner sc = new Scanner(System.in);
-        boolean endCondition = false;
-        while(sc.hasNextLine() && !endCondition) {
-            String miao = sc.nextLine();
-            sb.append(miao);
-            System.out.println(miao);
-            if(miao.equals("end"))
-                endCondition = true;
+     public void writeModel(@Param(name="filename") String filename) {
+        Scanner modelScanner = new Scanner(new CloseShieldInputStream(System.in));
+        // Normalize filename
+        filename = FilenameUtils.removeExtension(filename.replaceAll("\\W+", ""));
+        System.out.println("Input your model, type '%end' when you've done or %run to directly run the new model");
+        String line = "";
+        while(!line.equals("%end") && !line.equals("%run")) {
+            line = modelScanner.nextLine();
+            if(line.equals("%end") || line.equals("%run")) {
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(filename + ".bigraph"));
+                    writer.write(sb.toString());
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("[FATAL ERROR] Can't write model to file");
+                }
+            } else
+                sb.append(line).append("\n");
+        } if(line.equals("%run")) {
+            loadedSettings.setFilePath(filename+".bigraph");
+            Main.execution(loadedSettings);
         }
+        modelScanner.close();
     }
 
     @Command(name="run", abbrev = "r")

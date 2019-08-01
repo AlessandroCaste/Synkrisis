@@ -32,7 +32,7 @@ public class Bigmc {
         StringBuilder input = new StringBuilder();
 
         // Bigmc location is set
-        input.append("lib/bigmc -s ");
+        input.append("bigmc -s ");
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)
@@ -101,7 +101,6 @@ public class Bigmc {
             BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".dot",true));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-
                 if(line.equals("digraph reaction_graph {")) {
                     isTransition = true;
                     if(transition_counter > 0)

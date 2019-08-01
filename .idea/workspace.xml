@@ -7,19 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_clichemaven_cliche_110413.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/CLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ExecutionSettings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/InteractiveShell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphModels/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphModels/TransitionDotImporter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +131,6 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-load src/test/java/models/addition.bigraph" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -350,7 +340,9 @@
       <workItem from="1564571977889" duration="851000" />
       <workItem from="1564580959935" duration="1580000" />
       <workItem from="1564593692345" duration="3773000" />
-      <workItem from="1564614490942" duration="12205000" />
+      <workItem from="1564614490942" duration="13362000" />
+      <workItem from="1564659429669" duration="2247000" />
+      <workItem from="1564657288047" duration="2864000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -590,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564588693934</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Tons of updates and fixes starting from MAIN and CLIs">
+      <created>1564628825573</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1564628825573</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TodoView">
@@ -620,7 +619,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Transition printing!" />
     <MESSAGE value="Transition printing! Bigmc fix!" />
     <MESSAGE value="Towards label file" />
     <MESSAGE value="Visitor update for .prop printing" />
@@ -645,7 +643,8 @@
     <MESSAGE value="MDP exporting - redundant transitions generation fixed" />
     <MESSAGE value="Added a couple of different bigraph tests, reworked packages" />
     <MESSAGE value="Fixes during Jupyter integration road" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes during Jupyter integration road" />
+    <MESSAGE value="Tons of updates and fixes starting from MAIN and CLIs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tons of updates and fixes starting from MAIN and CLIs" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -718,7 +717,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
-          <line>18</line>
+          <line>23</line>
           <option name="timeStamp" value="253" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -743,13 +742,33 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java</url>
-          <line>132</line>
+          <line>131</line>
           <option name="timeStamp" value="261" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java</url>
-          <line>151</line>
+          <line>150</line>
           <option name="timeStamp" value="262" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="265" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="268" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="269" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="270" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/SyntaxVisitorTest.java</url>
@@ -758,14 +777,6 @@
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
-          <line>34</line>
-          <properties class="core.Main" method="main">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="246" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
