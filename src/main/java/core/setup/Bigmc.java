@@ -1,6 +1,6 @@
 package core.setup;
 
-import core.ExecutionSettings;
+import core.clishell.ExecutionSettings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 

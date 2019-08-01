@@ -1,5 +1,8 @@
 package core;
 
+import core.clishell.CLI;
+import core.clishell.ExecutionSettings;
+import core.clishell.InteractiveShell;
 import core.graphModels.GraphBuildingVisitor;
 import core.graphModels.TransitionDotImporter;
 import core.graphModels.storing.GraphsCollection;
@@ -53,10 +56,9 @@ public class Main {
         execution(cli.loadSettings());
     }
 
-    static void execution(ExecutionSettings executionSettings) {
+    public static void execution(ExecutionSettings executionSettings) {
         File inputFile;
         inputFile = new File(executionSettings.getFilePath());
-
         SetupSynk initialization = new SetupSynk(inputFile); // Initializing lexer, tokens etc
         if(initialization.isSuccessful()) {
             modelTree = initialization.getModelTree();

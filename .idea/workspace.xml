@@ -8,9 +8,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/InteractiveShell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/SetupSynk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/SetupSynk.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -342,7 +345,8 @@
       <workItem from="1564593692345" duration="3773000" />
       <workItem from="1564614490942" duration="13362000" />
       <workItem from="1564659429669" duration="2247000" />
-      <workItem from="1564657288047" duration="2864000" />
+      <workItem from="1564657288047" duration="2925000" />
+      <workItem from="1564662354925" duration="2321000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -589,7 +593,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564628825573</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Interactive shell quite complete, remove check on filename">
+      <created>1564660198907</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1564660198907</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView">
@@ -619,7 +630,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Transition printing! Bigmc fix!" />
     <MESSAGE value="Towards label file" />
     <MESSAGE value="Visitor update for .prop printing" />
     <MESSAGE value="Some jupyter testing" />
@@ -644,7 +654,8 @@
     <MESSAGE value="Added a couple of different bigraph tests, reworked packages" />
     <MESSAGE value="Fixes during Jupyter integration road" />
     <MESSAGE value="Tons of updates and fixes starting from MAIN and CLIs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tons of updates and fixes starting from MAIN and CLIs" />
+    <MESSAGE value="Interactive shell quite complete, remove check on filename" />
+    <option name="LAST_COMMIT_MESSAGE" value="Interactive shell quite complete, remove check on filename" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -716,28 +727,13 @@
           <option name="timeStamp" value="235" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
-          <line>23</line>
+          <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
+          <line>22</line>
           <option name="timeStamp" value="253" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
-          <line>105</line>
-          <option name="timeStamp" value="257" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="258" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
-          <line>84</line>
-          <option name="timeStamp" value="259" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
-          <line>73</line>
+          <line>74</line>
           <option name="timeStamp" value="260" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -751,23 +747,23 @@
           <option name="timeStamp" value="262" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
-          <line>76</line>
+          <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
+          <line>75</line>
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
-          <line>79</line>
+          <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
+          <line>78</line>
           <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
-          <line>81</line>
+          <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
+          <line>80</line>
           <option name="timeStamp" value="269" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/InteractiveShell.java</url>
-          <line>95</line>
+          <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
+          <line>94</line>
           <option name="timeStamp" value="270" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">

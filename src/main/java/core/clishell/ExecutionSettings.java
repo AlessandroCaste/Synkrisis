@@ -1,4 +1,4 @@
-package core;
+package core.clishell;
 
 public class ExecutionSettings {
 
@@ -39,25 +39,25 @@ public class ExecutionSettings {
         return printNewStatesEnabled;
     }
 
-    boolean isPrismExportingEnabled() {
+    public boolean isPrismExportingEnabled() {
         return prismExportingEnabled;
     }
 
-    boolean isSpotExportingEnabled() {
+    public boolean isSpotExportingEnabled() {
         return spotExportingEnabled;
     }
 
-    boolean isExportingEnabled() { return exportingEnabled; }
+    public boolean isExportingEnabled() { return exportingEnabled; }
 
-    boolean isPrintModelEnabled() {
+    public boolean isPrintModelEnabled() {
         return printModelEnabled;
     }
 
-    boolean isPrintTransitionEnabled() {
+    public boolean isPrintTransitionEnabled() {
         return printTransitionEnabled;
     }
 
-    boolean isProcessTransitionOnly() {
+    public boolean isProcessTransitionOnly() {
         return this.processTransitionOnly;
     }
 
@@ -119,11 +119,11 @@ public class ExecutionSettings {
         this.transitionFile = transitionFile;
     }
 
-    void setBigmcReady() {
+    public void setBigmcReady() {
         this.bigmcReady = true;
     }
 
-    void setBigmcFile(String bigmcFile) {
+    public void setBigmcFile(String bigmcFile) {
         this.bigmcFile = bigmcFile;
     }
 }

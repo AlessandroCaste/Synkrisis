@@ -1,30 +1,21 @@
-package core;
+package core.clishell;
 
 import org.apache.commons.cli.*;
-import org.apache.commons.io.FilenameUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
-class CLI {
+public class CLI {
 
     private String[] args;
 
     private Options options = new Options();
-    private static Logger logger = Logger.getLogger("Report");
-    private static FileHandler fh;
 
     private ExecutionSettings settings = new ExecutionSettings();
 
 
 
-    CLI(String[] args) {
+    public CLI(String[] args) {
 
 
         this.args = args;
@@ -41,14 +32,13 @@ class CLI {
     }
 
     // Values are set inside the ExecutionSettings class. Logger is started when the filename is parsed
-    void parse() {
+    public void parse() {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
         try {
             cmd = parser.parse(options, args);
             if(cmd.hasOption("l")) {
                 String fileName = cmd.getOptionValue("load");
-                setupLogger(fileName);
                 settings.setFilePath(fileName);
             }
             if (cmd.hasOption("o")) {
@@ -102,28 +92,7 @@ class CLI {
         System.exit(0);
     }
 
-    private static void setupLogger(String filename) {
-        try {
-            logger.setUseParentHandlers(false);
-
-            // This block configure the logger with handler and formatter
-            filename = FilenameUtils.getName(filename);
-            filename = FilenameUtils.removeExtension(filename);
-            new File(filename).mkdirs();
-            fh = new FileHandler(filename + "/" + filename +".log");
-            logger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-            // Here starts the logging
-            logger.info("Log started");
-
-        } catch (SecurityException | IOException e) {
-            System.out.println("[FATAL ERROR] Can't setup the logger");
-            logger.log(Level.SEVERE, "Error raised while initializing " + filename + " directory and the logging procedures" + "\nStack trace: " + e.getMessage());
-        }
-    }
-
-    ExecutionSettings loadSettings() {
+    public ExecutionSettings loadSettings() {
         return settings;
     }
 

@@ -1,8 +1,9 @@
-package core;
+package core.clishell;
 
 import asg.cliche.Command;
 import asg.cliche.Param;
 import asg.cliche.ShellFactory;
+import core.Main;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 
@@ -103,7 +104,7 @@ public class InteractiveShell {
             System.out.println("You must first specify a model!");
     }
 
-     void loop() {
+     public void loop() {
         try {
             ShellFactory.createConsoleShell("Synkrisis", "", new InteractiveShell()).commandLoop();
         } catch (IOException e) {
