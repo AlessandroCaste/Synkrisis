@@ -131,6 +131,7 @@ public class Main {
         syntaxVisitor = new SyntaxVisitor();
         syntaxVisitor.visit(modelTree);
         System.out.println(syntaxVisitor.getParseResult());
+        modelName = syntaxVisitor.getModelName();
         logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();
     }

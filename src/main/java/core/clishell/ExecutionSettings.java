@@ -111,6 +111,11 @@ public class ExecutionSettings {
         this.printTransitionEnabled = true;
     }
 
+    void disablePrinting() {
+        this.printModelEnabled = false;
+        this.printTransitionEnabled = false;
+    }
+
     void setProcessTransitionOnly() {
         this.processTransitionOnly = true;
     }

@@ -36,7 +36,8 @@ public class InteractiveShell {
             else if (value.equalsIgnoreCase("all")) {
                 loadedSettings.enablePrintModel();
                 loadedSettings.enablePrintTransition();
-            }
+            } else if (value.equalsIgnoreCase("nothing"))
+                loadedSettings.disablePrinting();
         } else if(type.equalsIgnoreCase("steps")) {
             try {
                 int steps = Integer.parseInt(value);
@@ -98,9 +99,10 @@ public class InteractiveShell {
 
     @Command(name="run", abbrev = "r")
      public void run(){
-        if(loadedSettings.getFilePath()!=null)
+        if(loadedSettings.getFilePath()!=null) {
             Main.execution(loadedSettings);
-        else
+            loadedSettings = new ExecutionSettings();
+        } else
             System.out.println("You must first specify a model!");
     }
 

@@ -8,12 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/SetupSynk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/SetupSynk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,6 +67,10 @@
   <component name="ProjectId" id="1OkAHwaJOQ5CdmfJfuvAjPbeHQN" />
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="synkrisis" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -91,18 +92,8 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\addition\" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="core.syntaxAnalysis" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib" />
@@ -110,6 +101,16 @@
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="core.syntaxAnalysis" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\addition\" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -134,6 +135,7 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
+      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/addition.bigraph" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -347,6 +349,7 @@
       <workItem from="1564659429669" duration="2247000" />
       <workItem from="1564657288047" duration="2925000" />
       <workItem from="1564662354925" duration="2321000" />
+      <workItem from="1564676517984" duration="1955000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -748,23 +751,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
-          <line>75</line>
+          <line>76</line>
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
-          <line>78</line>
+          <line>79</line>
           <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
-          <line>80</line>
+          <line>81</line>
           <option name="timeStamp" value="269" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
-          <line>94</line>
+          <line>95</line>
           <option name="timeStamp" value="270" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/SyntaxVisitorTest.java</url>
