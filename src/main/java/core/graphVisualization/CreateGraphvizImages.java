@@ -284,6 +284,7 @@ public class CreateGraphvizImages {
                     StringBuilder labels = new StringBuilder();
                     for (TransitionVertex v : currentGraph.vertexSet()) {
                         labels.append("#").append(v.getVertexID()).append(": ").append(v.getLabel()).append("\n");
+                        labels.append(v.getPropertiesString());
                     }
                     graphAttrs().add("labelloc","b");
                     graphAttrs().add("label", labels.toString());

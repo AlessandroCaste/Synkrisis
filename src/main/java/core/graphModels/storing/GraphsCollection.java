@@ -7,7 +7,6 @@ import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
 import core.graphModels.verticesAndEdges.Vertex;
 import core.graphVisualization.CreateGraphvizImages;
-import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Multigraph;
@@ -110,13 +109,6 @@ public class GraphsCollection {
     }
 
     public void exportToSpot(SpotInfo spotInfo) {
-        // Check if it's not a w-automaton
-        boolean result = true;
-        for(TransitionVertex v : transitionGraph.vertexSet())
-            if(!Graphs.vertexHasSuccessors(transitionGraph,v))
-                result = false;
-        if(!result)
-            System.out.println("[SPOT-TRANSLATION] Can't translate to SPOT: transition graph is not an w-automaton");
         if(spotInfo == null)
             System.out.println("[SPOT-TRANSLATION] No spot Acceptance has been specified");
         else

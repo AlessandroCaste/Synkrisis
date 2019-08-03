@@ -108,7 +108,7 @@ public class Main {
                     System.out.println("MODEL EXPORTING");
                     System.out.println("****************");
                     // Model exporting
-                    if (executionSettings.isSpotExportingEnabled() && modelBuilder.isSpotReady())
+                    if (executionSettings.isSpotExportingEnabled())
                         graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
                     if (executionSettings.isPrismExportingEnabled())
                         if(propertiesString!=null)
