@@ -10,52 +10,25 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
-public class SetupSynk {
+public class SetupVisitor {
 
+    private File inputFile;
     private static Logger logger = Logger.getLogger("Report");
-    private static FileHandler fh;
     private ParseTree modelTree;
     private boolean successfulSetup;
 
 
-    public SetupSynk(File inputFile) {
-        setupLogger(inputFile);
+    public SetupVisitor(File inputFile) {
+        this.inputFile = inputFile;
         this.successfulSetup = setupSynk(inputFile);
     }
 
-    private static void setupLogger(File inputFile) {
-        String filename = "";
-        try {
-            logger.setUseParentHandlers(false);
-            filename = inputFile.getName();
-            filename = FilenameUtils.removeExtension(filename);
-            // This block configure the logger with handler and formatter
-            // I create a local folder
-            File newDirectory = new File(filename);
-            if(!newDirectory.exists())
-                new File(filename).mkdirs();
-            fh = new FileHandler(filename + "/" + filename +".log");
-            logger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-            // Here starts the logging
-            logger.info("Log started");
-
-        } catch (SecurityException | IOException e) {
-            System.out.println("[FATAL ERROR] Can't setup the logger");
-            logger.log(Level.SEVERE, "Error raised while initializing " + filename + " directory and the logging procedures" + "\nStack trace: " + e.getMessage());
-        }
-    }
-
-    // File setup for analysis
+   // File setup for analysis
     @SuppressWarnings("Duplicates")
     private boolean setupSynk(File inputFile) {
         boolean successfulSetup = false;

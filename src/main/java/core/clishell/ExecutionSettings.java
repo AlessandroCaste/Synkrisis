@@ -9,12 +9,13 @@ public class ExecutionSettings {
     private boolean printNewStatesEnabled = false;
     private boolean prismExportingEnabled = false;
     private boolean spotExportingEnabled = false;
+    private boolean spotExportingReady = false;
     private boolean exportingEnabled = false;
     private boolean printModelEnabled = false;
     private boolean printTransitionEnabled = false;
     private boolean processTransitionOnly = false;
     private String  transitionFile;
-    private boolean bigmcReady = false;
+    private String  modelName = "";
     private String  bigmcFile;
 
     ExecutionSettings() { }
@@ -47,6 +48,8 @@ public class ExecutionSettings {
         return spotExportingEnabled;
     }
 
+    public boolean isSpotExportingReady() { return spotExportingReady; }
+
     public boolean isExportingEnabled() { return exportingEnabled; }
 
     public boolean isPrintModelEnabled() {
@@ -65,9 +68,7 @@ public class ExecutionSettings {
         return this.transitionFile;
     }
 
-    public boolean isBigmcReady() {
-        return bigmcReady;
-    }
+    public String getModelName() { return this.modelName; }
 
     public String getBigmcFile() {
         return bigmcFile;
@@ -103,6 +104,10 @@ public class ExecutionSettings {
         this.spotExportingEnabled = true;
     }
 
+    public void setSpotExportingReady(boolean spotExportingReady) {
+        this.spotExportingReady = spotExportingReady;
+    }
+
     void enablePrintModel() {
         this.printModelEnabled = true;
     }
@@ -124,9 +129,7 @@ public class ExecutionSettings {
         this.transitionFile = transitionFile;
     }
 
-    public void setBigmcReady() {
-        this.bigmcReady = true;
-    }
+    public void setModelName(String modelName) { this.modelName = modelName; }
 
     public void setBigmcFile(String bigmcFile) {
         this.bigmcFile = bigmcFile;

@@ -1,7 +1,9 @@
 package core.setup;
 
 import core.clishell.ExecutionSettings;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
@@ -10,21 +12,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Bigmc {
+public class Bigmc implements ModelChecker{
 
     private static Logger logger = Logger.getLogger("Report");
 
-    private String filename;
-    private String modelName;
+    private String filepath;
+    private ParseTree modelTree;
     private ExecutionSettings loadedSettings;
+    private boolean isBigmcReady;
 
 
-    public Bigmc(ExecutionSettings settings, String modelName) {
-        System.out.println("Interfacing Bigmc");
-        this.modelName = modelName;
+    public Bigmc(ExecutionSettings settings,ParseTree modelTree) {
+        System.out.println("\nINTERFACING BIGMC");
+        System.out.println("********************");
         this.loadedSettings = settings;
-        String input = createInputString();
-        executeBigmc(input);
+        this.filepath = settings.getFilePath();
+        this.modelTree = modelTree;
+    }
+
+    // This specific implementation for the model checker parses with ANTLR, but the approach may be even simpler (or just different)
+    @Override
+    public boolean needsTranslation() {
+        BigmcVisitor bigmcVisitor = new BigmcVisitor();
+        bigmcVisitor.visit(modelTree);
+        isBigmcReady = bigmcVisitor.isBigmcReady();
+        return !isBigmcReady;
     }
 
     // I build up a command line string for bigmc
@@ -48,7 +60,7 @@ public class Bigmc {
 
         // Basic model checking functionality
         // I distinguish the case the file was altered on purpose for bigmc
-        if(loadedSettings.isBigmcReady())
+        if(isBigmcReady)
             input.append(" ").append(loadedSettings.getFilePath());
         else
             input.append(" ").append(loadedSettings.getBigmcFile());
@@ -58,7 +70,10 @@ public class Bigmc {
     }
 
     // Sending input to bigmc
-    private void executeBigmc(String input) {
+    @Override
+    public void execute() {
+        String input = createInputString();
+        String modelName = loadedSettings.getModelName();
         try{
             logger.log(Level.INFO, "Executing bigmc commands");
             String workingDirectory = System.getProperty("user.dir");
@@ -148,7 +163,7 @@ public class Bigmc {
             deletionResult = tempFile.delete();
             if(!deletionResult)
                 logger.log(Level.WARNING,"Couldn't correctly delete .temp file!");
-            if(!loadedSettings.isBigmcReady()) {
+            if(!isBigmcReady) {
                 boolean result = new File(loadedSettings.getBigmcFile()).delete();
                 if(!result) {
                     System.out.println("Can't delete bigmc-filtered file");
@@ -163,6 +178,37 @@ public class Bigmc {
             System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
             logger.log(Level.SEVERE, "Unexpected crash due to BufferWriter object\nStack trace: " + e.getMessage());
         }
+    }
+
+    // Translation requires only weights to be removed: properties are automatically filtered by bigmc
+    public void translate(){
+        String path = loadedSettings.getFilePath();
+        System.out.println("Model translation underway");
+        logger.log(Level.INFO,"Starting translation of bigraph into bigmc-readable file");
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            // I create a new file with random name for temporary storing of bigmc-epurated model
+            filepath =  RandomStringUtils.random(10, true, true);
+            loadedSettings.setBigmcFile(filepath);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filepath)));
+            String line;
+            boolean endingCondition = false;
+
+            while ((line = reader.readLine()) != null && !endingCondition) {
+                if(line.contains("rule")) {
+                    line = line.replaceAll("->\\s*\\(0.\\d+\\)","->"); }
+                if(line.contains("properties"))
+                    endingCondition = true;
+                else
+                    writer.write(line+"\n");
+            }
+            reader.close();
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Problems during bigmc translation!");
+            logger.log(Level.SEVERE,"Can't translate input to bigmc-readable file.\nStack: " + e.getMessage());
+        }
+        System.out.println("Translation complete");
     }
 
 }

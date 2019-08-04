@@ -35,9 +35,6 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     // Model name to check file integrity
     private String modelName = "null";
 
-    // Verifies the model can be submitted as it is to bigmc
-    private boolean bigmcReady = true;
-
     @Override
     public Void visitChildren(RuleNode node) {
         return super.visitChildren(node);
@@ -58,7 +55,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     private final boolean validControl = true;
 
     @Override public Void visitBigraph(bigraphParser.BigraphContext ctx) {
-        System.out.println("SYNTAX ANALYSIS STARTED");
+        System.out.println("\nSYNTAX ANALYSIS STARTED");
+        System.out.println("***********************");
         // String builder get reset at every run
         errorString = new StringBuilder();
         return visitChildren(ctx);
@@ -142,7 +140,6 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     @Override public Void visitReaction_statement (bigraphParser.Reaction_statementContext ctx){
         String redex = ctx.expression().get(0).getText();
         if(ctx.PROBABILITY() != null) {
-            bigmcReady = false;
             float probability = Float.parseFloat(ctx.PROBABILITY().getText());
             // Tracking of weights per state
             if (statesWeightsMap.containsKey(redex))
@@ -378,7 +375,5 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     public boolean getAcceptableModel() {
         return acceptableModel;
     }
-
-    public boolean isBigmcReady() { return bigmcReady; }
 
 }

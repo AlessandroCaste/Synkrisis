@@ -48,7 +48,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private SpotInfo spotInfo;
     private StringBuilder spotSpecifications;
     private boolean spotReady = true;
-    private String duplicateSpotStates = "";
+    private StringBuilder spotErrorsString = new StringBuilder();
 
 
     // GraphsCollection for
@@ -81,6 +81,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override
     public Void visitBigraph(bigraphParser.BigraphContext ctx) {
+        System.out.println("\nBUILDING REPRESENTATION");
+        System.out.println("***********************");
         return visitChildren(ctx);
     }
 
@@ -362,6 +364,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // SPOT properties are read as strings, then are compared against marker map
     // This way I can get an int <-> property binding as with prism properties, and verify if an acceptance state
     // has already been added.
+    // spotErrorsString records error messages
     @Override public Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx) {
         // I create a map for SPOT properties
         TreeSet<Integer> positiveMarkers = new TreeSet<>();
@@ -369,16 +372,32 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         String acceptanceSpecification = "";
         int associatedID = 0;
 
+        // Generating the acceptance state by assigning to it its properties ID and verifying they don't directly negate each other
         boolean isNegative = false;
+        int markerID;
         for(ParseTree pt : ctx.children) {
             Token token = (Token)pt.getPayload();
             if(token.getType() == bigraphParser.NOT)
                 isNegative = true;
             if(isNegative && token.getType() == bigraphParser.IDENTIFIER) {
-                negativeMarkers.add(markerMap.get(pt.getText()));
+                markerID = markerMap.get(pt.getText());
+                if(!positiveMarkers.contains(markerID))
+                    negativeMarkers.add(markerMap.get(pt.getText()));
+                else {
+                    spotErrorsString.append("Can't ask property ").append(pt.getText()).append(" and its negation to be true at the same time in an acceptance state\n");
+                    spotReady = false;
+                }
                 isNegative = false;
-            } else if (token.getType() == bigraphParser.IDENTIFIER)
+            } else if (token.getType() == bigraphParser.IDENTIFIER) {
+                markerID = markerMap.get(pt.getText());
+                if (!negativeMarkers.contains(markerID))
+                    positiveMarkers.add(markerMap.get(pt.getText()));
+                else {
+                    spotErrorsString.append("Can't ask property ").append(pt.getText()).append(" and its negation to be true at the same time in an acceptance state\n");
+                    spotReady = false;
+                }
                 positiveMarkers.add(markerMap.get(pt.getText()));
+            }
         }
 
         // Verifying that the acceptance state has never been inserted into our model
@@ -387,7 +406,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             if(sp.verify(positiveMarkers,negativeMarkers)) {
                 found = true;
                 spotReady = false;
-                duplicateSpotStates = duplicateSpotStates + sp.getAcceptanceStateString() + " ";
+                spotErrorsString.append("Found duplicated acceptance state: ").append(sp.getAcceptanceStateString()).append("\n");
             }
         if(!found) {
             int startPosition = ctx.start.getStartIndex();
@@ -419,6 +438,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx) {
         if(spotSpecifications!=null)
             spotInfo.setAcceptanceStatesSpecification(spotSpecifications.toString());
+        if(ctx.EOF()!=null)
+            System.out.println("Specification has been analyzed");
         return visitChildren(ctx);
     }
 
@@ -430,6 +451,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             Interval interval = new Interval(startPosition, endPosition);
             propertiesString = ctx.start.getInputStream().getText(interval);
         }
+        System.out.println("Specification has been analyzed");
         return visitChildren(ctx);
     }
 
@@ -457,8 +479,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return spotReady;
     }
 
-    public String getDuplicateSpotStates() {
-        return duplicateSpotStates;
+    public String getSpotErrorsString() {
+        return spotErrorsString.toString();
     }
 
     private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {

@@ -2,6 +2,7 @@ package core.exporting.spotExporting;
 
 import core.graphModels.verticesAndEdges.TransitionEdge;
 import core.graphModels.verticesAndEdges.TransitionVertex;
+import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.io.BufferedWriter;
@@ -42,6 +43,18 @@ public class SpotExporter {
         for(String s : reactionNames) {
             reactionMap.put(s, counter);
             counter++;
+        }
+        // Check if it's not a w-automaton, in that case add self-loops
+        boolean result = true;
+        for(TransitionVertex v : this.transitionGraph.vertexSet())
+            if(!Graphs.vertexHasSuccessors(this.transitionGraph,v)) {
+                result = false;
+                this.transitionGraph.addEdge(v,v,new TransitionEdge("spot self-loop"));
+            }
+        if(!result) {
+            this.reactionNames.add("spot self-loop");
+            reactionMap.put("spot self-loop",counter);
+            System.out.println("[SPOT-TRANSLATION] Model has been transformed into an ω-automaton by addition of self-loops");
         }
         translate();
     }
