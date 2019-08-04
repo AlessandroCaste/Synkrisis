@@ -1,4 +1,4 @@
-package core.setup;
+package core.modelChecker;
 
 import core.clishell.ExecutionSettings;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -16,7 +16,7 @@ public class Bigmc implements ModelChecker{
 
     private static Logger logger = Logger.getLogger("Report");
 
-    private String filepath;
+    private String bigmcCompatibleFilepath;
     private ParseTree modelTree;
     private ExecutionSettings loadedSettings;
     private boolean isBigmcReady;
@@ -26,7 +26,7 @@ public class Bigmc implements ModelChecker{
         System.out.println("\nINTERFACING BIGMC");
         System.out.println("********************");
         this.loadedSettings = settings;
-        this.filepath = settings.getFilePath();
+        this.bigmcCompatibleFilepath = settings.getFilePath();
         this.modelTree = modelTree;
     }
 
@@ -63,7 +63,7 @@ public class Bigmc implements ModelChecker{
         if(isBigmcReady)
             input.append(" ").append(loadedSettings.getFilePath());
         else
-            input.append(" ").append(loadedSettings.getBigmcFile());
+            input.append(" ").append(bigmcCompatibleFilepath);
 
         return input.toString();
 
@@ -100,6 +100,9 @@ public class Bigmc implements ModelChecker{
         } catch (IOException | InterruptedException e) {
             System.out.println("Can't work with bigmc: is it correctly installed?");
             logger.log(Level.SEVERE, "Can't interface with bigmc input stream, probably has to do with the terminal commands not being properly recognized");
+            File bigmcCompatibleFile = new File(bigmcCompatibleFilepath);
+            if(bigmcCompatibleFile.exists())
+                bigmcCompatibleFile.delete();
         }
 
         // The scanner will separate the transition system from all the other messages (that get output to CLI)
@@ -164,7 +167,7 @@ public class Bigmc implements ModelChecker{
             if(!deletionResult)
                 logger.log(Level.WARNING,"Couldn't correctly delete .temp file!");
             if(!isBigmcReady) {
-                boolean result = new File(loadedSettings.getBigmcFile()).delete();
+                boolean result = new File(bigmcCompatibleFilepath).delete();
                 if(!result) {
                     System.out.println("Can't delete bigmc-filtered file");
                     throw new IOException();
@@ -188,9 +191,8 @@ public class Bigmc implements ModelChecker{
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             // I create a new file with random name for temporary storing of bigmc-epurated model
-            filepath =  RandomStringUtils.random(10, true, true);
-            loadedSettings.setBigmcFile(filepath);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filepath)));
+            bigmcCompatibleFilepath =  RandomStringUtils.random(10, true, true);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(bigmcCompatibleFilepath)));
             String line;
             boolean endingCondition = false;
 

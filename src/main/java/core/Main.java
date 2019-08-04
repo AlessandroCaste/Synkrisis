@@ -6,18 +6,15 @@ import core.clishell.InteractiveShell;
 import core.graphModels.GraphBuildingVisitor;
 import core.graphModels.TransitionDotImporter;
 import core.graphModels.storing.GraphsCollection;
-import core.setup.Bigmc;
-import core.setup.ModelChecker;
-import core.setup.SetupVisitor;
+import core.modelChecker.Bigmc;
+import core.modelChecker.ModelChecker;
 import core.syntaxAnalysis.SyntaxVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 /* This is the application flow:
 1) Read arguments from CLI
@@ -51,11 +48,12 @@ public class Main {
 
     public static void execution(ExecutionSettings executionSettings) {
         File inputFile = new File(executionSettings.getFilePath());
-        SetupVisitor initialization = new SetupVisitor(inputFile); // Initializing lexer, tokens etc
+        Setup initialization = new Setup(inputFile);
+        initialization.setupLogger();
+        initialization.setupParser(); // Initializing lexer, tokens etc
         if (initialization.isSuccessful()) {
             modelTree = initialization.getModelTree();
             boolean acceptableModel = syntaxAnalysis(executionSettings);
-            setupLogger();
             if (acceptableModel) {
                 // I translate the graph into a JgraphT model
                 logger.log(Level.INFO, "Jgraph translation from parsetree started");
@@ -63,10 +61,14 @@ public class Main {
                 modelBuilder.visit(modelTree);
                 logger.log(Level.INFO, "Jgraph translation from parsetree completed.");
 
-                // Saving execution info from model analysis
+                // Saving execution info from model analysis and creating new folder
                 String propertiesString = modelBuilder.getPropertiesString();
                 executionSettings.setSpotExportingReady(modelBuilder.isSpotReady());
                 String spotErrorsString = modelBuilder.getSpotErrorsString().trim();
+                File newDirectory = new File(modelName);
+                if(!newDirectory.exists())
+                    new File(modelName).mkdirs();
+
 
                 if(executionSettings.isPrintModelEnabled())
                     graphPrinting();
@@ -132,27 +134,6 @@ public class Main {
         return syntaxVisitor.getAcceptableModel();
     }
 
-    private static void setupLogger() {
-        String filename = "";
-        try {
-            logger.setUseParentHandlers(false);
-            // This block configure the logger with handler and formatter
-            // I create a local folder
-            File newDirectory = new File(modelName);
-            if(!newDirectory.exists())
-                new File(modelName).mkdirs();
-            fh = new FileHandler(modelName + "/" + modelName +".log");
-            logger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-            // Here starts the logging
-            logger.info("Log started");
-
-        } catch (SecurityException | IOException e) {
-            System.out.println("[FATAL ERROR] Can't setup the logger");
-            logger.log(Level.SEVERE, "Error raised while initializing " + filename + " directory and the logging procedures" + "\nStack trace: " + e.getMessage());
-        }
-    }
 
     private static void graphPrinting() {
             logger.log(Level.INFO, "Launching graphviz printing...");

@@ -1,4 +1,4 @@
-package core.setup;
+package core;
 
 
 import antlr.bigraph.bigraphLexer;
@@ -10,28 +10,52 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
-public class SetupVisitor {
+class Setup {
 
     private File inputFile;
     private static Logger logger = Logger.getLogger("Report");
     private ParseTree modelTree;
-    private boolean successfulSetup;
+    private boolean successfulSetup = true;
+    private FileHandler fh;
 
 
-    public SetupVisitor(File inputFile) {
-        this.inputFile = inputFile;
-        this.successfulSetup = setupSynk(inputFile);
+    Setup(File inputFile) {
+         this.inputFile = inputFile;
     }
 
-   // File setup for analysis
+
+    void setupLogger() {
+        String filename = "filename";
+        try {
+            logger.setUseParentHandlers(false);
+            filename = inputFile.getName();
+            filename = FilenameUtils.removeExtension(filename);
+            // This block configure the logger with handler and formatter
+            fh = new FileHandler(filename + ".log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+            // Here starts the logging
+            logger.info("Log started");
+
+        } catch (SecurityException | IOException e) {
+            System.out.println("[FATAL ERROR] Can't setup the logger");
+            successfulSetup = false;
+            logger.log(Level.SEVERE, "Error raised while initializing " + filename + " directory and the logging procedures" + "\nStack trace: " + e.getMessage());
+        }
+    }
+
+    // File setup for analysis
     @SuppressWarnings("Duplicates")
-    private boolean setupSynk(File inputFile) {
-        boolean successfulSetup = false;
+    void setupParser() {
         try {
             logger.log(Level.INFO, "Parsing tree creation started");
             InputStream inputStream = new FileInputStream(inputFile);
@@ -41,28 +65,29 @@ public class SetupVisitor {
             parser.removeErrorListeners();
             parser.addErrorListener(ErrorListener.INSTANCE);
             modelTree = parser.bigraph();
-            successfulSetup = true;
         } catch(FileNotFoundException e) {
             // TODO : Execution halts goes on and throws unexpected errors
+            successfulSetup = false;
             System.out.println("[FATAL ERROR] File \"" + inputFile.getPath() + "\" not found");
             logger.log(Level.SEVERE,"Couldn't find the requested file " + inputFile.getAbsolutePath() + "\nStack trace:" + e.getMessage());
         } catch (IOException e) {
+            successfulSetup = false;
             System.out.println("[FATAL ERROR] Can't create the Lexer to start analysis" + inputFile.getName());
             logger.log(Level.SEVERE, "Can't create CharStreams from the InputStream of " + inputFile.getName() + "\nStack trace:" + e.getMessage());
         } catch (ParseCancellationException | NumberFormatException e) {
+            successfulSetup = false;
             System.out.println(e.getMessage());
             System.out.println("Parsing can't proceed");
             logger.log(Level.SEVERE,e.getMessage());
         }
         logger.log(Level.INFO,"Parsing tree creation concluded");
+    }
+
+    boolean isSuccessful() {
         return successfulSetup;
     }
 
-    public boolean isSuccessful() {
-        return successfulSetup;
-    }
-
-    public ParseTree getModelTree() {
+    ParseTree getModelTree() {
         return modelTree;
     }
 }

@@ -6,18 +6,15 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/setup/BigmcVisitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/setup/ModelChecker.java" afterDir="false" />
+    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Bigmc model checker interface completed">
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/airport2.bigraph" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Synkrisis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Synkrisis.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphModels/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphModels/GraphBuildingVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/SetupSynk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/SetupVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntaxAnalysis/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntaxAnalysis/SyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/BigmcVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/BigmcVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/ModelChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/ModelChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/SetupVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Setup.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +79,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/models" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -100,25 +97,25 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="core.syntaxAnalysis" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\addition\" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="core.syntaxAnalysis" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/models" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -139,11 +136,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.RunAllTests.executeTests">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/self.bigraph -o spot" />
+      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/airport2.bigraph -o spot" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -163,6 +160,15 @@
       <option name="MAIN_CLASS_NAME" value="GraphBuildingTest" />
       <option name="METHOD_NAME" value="completeAdditionCheck" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunAllTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Synkrisis" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="RunAllTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -214,12 +220,14 @@
       <item itemvalue="JUnit.GraphBuildingTest" />
       <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
       <item itemvalue="JUnit.TransitionTest.transition1Test" />
+      <item itemvalue="JUnit.RunAllTests" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TransitionTest.transition1Test" />
+        <item itemvalue="JUnit.RunAllTests" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
         <item itemvalue="JUnit.GraphBuildingTest.completeAdditionCheck" />
+        <item itemvalue="JUnit.TransitionTest.transition1Test" />
         <item itemvalue="JUnit.GraphBuildingTest" />
       </list>
     </recent_temporary>
@@ -362,7 +370,7 @@
       <workItem from="1564861470642" duration="2535000" />
       <workItem from="1564871522800" duration="6285000" />
       <workItem from="1564912658252" duration="4974000" />
-      <workItem from="1564925190934" duration="4443000" />
+      <workItem from="1564925190934" duration="7559000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -623,7 +631,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564863925697</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Model Checker interface">
+      <created>1564930342152</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1564930342152</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TodoView">
@@ -653,8 +668,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Visitor update for .prop printing" />
-    <MESSAGE value="Some jupyter testing" />
     <MESSAGE value="More testing classes, GraphBuilding fixes, property printing inside graphBuilder" />
     <MESSAGE value="Interactive Shell" />
     <MESSAGE value="Removed interactive cli, more maintenance" />
@@ -678,7 +691,9 @@
     <MESSAGE value="Tons of updates and fixes starting from MAIN and CLIs" />
     <MESSAGE value="Interactive shell quite complete, remove check on filename" />
     <MESSAGE value="Spot loop added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Spot loop added" />
+    <MESSAGE value="Model Checker interface" />
+    <MESSAGE value="Bigmc model checker interface completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bigmc model checker interface completed" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -745,11 +760,6 @@
           <option name="timeStamp" value="228" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="235" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
           <line>22</line>
           <option name="timeStamp" value="253" />
@@ -776,7 +786,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
-          <line>75</line>
+          <line>77</line>
           <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -795,27 +805,24 @@
           <option name="timeStamp" value="281" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java</url>
-          <line>184</line>
+          <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
+          <line>187</line>
           <option name="timeStamp" value="282" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
           <line>62</line>
           <option name="timeStamp" value="284" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
           <line>65</line>
           <option name="timeStamp" value="286" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/test/java/SyntaxVisitorTest.java</url>
-          <line>71</line>
-          <properties class="SyntaxVisitorTest" method="checkAcceptance">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="91" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="289" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

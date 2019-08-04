@@ -16,7 +16,6 @@ public class ExecutionSettings {
     private boolean processTransitionOnly = false;
     private String  transitionFile;
     private String  modelName = "";
-    private String  bigmcFile;
 
     ExecutionSettings() { }
 
@@ -69,10 +68,6 @@ public class ExecutionSettings {
     }
 
     public String getModelName() { return this.modelName; }
-
-    public String getBigmcFile() {
-        return bigmcFile;
-    }
 
     void setFilePath(String filePath) {
         this.filePath = filePath;
@@ -131,8 +126,5 @@ public class ExecutionSettings {
 
     public void setModelName(String modelName) { this.modelName = modelName; }
 
-    public void setBigmcFile(String bigmcFile) {
-        this.bigmcFile = bigmcFile;
-    }
 }
 
