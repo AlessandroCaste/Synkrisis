@@ -24,7 +24,7 @@ reactions          : RULE IDENTIFIER ASSIGNMENT reaction_statement reactions
                    | model
                    ;
 
-reaction_statement : expression ARROW (LPAR PROBABILITY RPAR)? expression
+reaction_statement : expression (LPAR PROBABILITY RPAR)? ARROW expression
                    ;
 
 expression         : IDENTIFIER (LSQ links RSQ)?   (regions | prefix)?
@@ -105,7 +105,11 @@ term               : LPAR marker_statement RPAR
 parameters_list    : parameter (COMMA parameter)*
                    ;
 
-parameter          : DIGIT | DOLLAR IDENTIFIER | expression
+parameter          : IDENTIFIER (LSQ links RSQ)?   (regions | prefix)?
+                   | DIGIT                         (regions | prefix)?
+                   | DOLLAR (DIGIT|IDENTIFIER)     (regions | prefix)?
+                   | LPAR expression RPAR          (regions)?
+                   | NIL                           (regions)?
                    ;
 
 

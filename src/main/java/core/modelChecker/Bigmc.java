@@ -198,7 +198,7 @@ public class Bigmc implements ModelChecker{
 
             while ((line = reader.readLine()) != null && !endingCondition) {
                 if(line.contains("rule")) {
-                    line = line.replaceAll("->\\s*\\(0.\\d+\\)","->"); }
+                    line = line.replaceAll("\\(0.\\d+\\)\\s*->","->"); }
                 if(line.contains("properties"))
                     endingCondition = true;
                 else

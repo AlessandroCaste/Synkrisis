@@ -44,7 +44,12 @@ public class SpotExporter {
             reactionMap.put(s, counter);
             counter++;
         }
-        // Check if it's not a w-automaton, in that case add self-loops
+        normalization(counter);
+        translate();
+    }
+
+    // Check if it's not a w-automaton, in that case add self-loops
+    private void normalization(int counter) {
         boolean result = true;
         for(TransitionVertex v : this.transitionGraph.vertexSet())
             if(!Graphs.vertexHasSuccessors(this.transitionGraph,v)) {
@@ -56,7 +61,6 @@ public class SpotExporter {
             reactionMap.put("spot self-loop",counter);
             System.out.println("[SPOT-TRANSLATION] Model has been transformed into an ω-automaton by addition of self-loops");
         }
-        translate();
     }
 
     private void translate() {

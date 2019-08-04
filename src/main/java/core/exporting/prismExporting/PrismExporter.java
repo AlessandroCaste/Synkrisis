@@ -55,7 +55,7 @@ public class PrismExporter {
 
     }
 
-    public void writePrismFiles() {
+    public void translate() {
         normalization();
         checkMDP();
         writeTransitionFile();

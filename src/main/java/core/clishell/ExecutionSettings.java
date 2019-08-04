@@ -5,7 +5,6 @@ public class ExecutionSettings {
     private String filePath;
     private int steps = 0;
     private int statisticsFrequency = 0;
-    private boolean printStepsEnabled = false;
     private boolean printNewStatesEnabled = false;
     private boolean prismExportingEnabled = false;
     private boolean spotExportingEnabled = false;
@@ -14,7 +13,6 @@ public class ExecutionSettings {
     private boolean printModelEnabled = false;
     private boolean printTransitionEnabled = false;
     private boolean processTransitionOnly = false;
-    private String  transitionFile;
     private String  modelName = "";
 
     ExecutionSettings() { }
@@ -29,10 +27,6 @@ public class ExecutionSettings {
 
     public int getStatisticsFrequency() {
         return statisticsFrequency;
-    }
-
-    public boolean isPrintStepsEnabled() {
-        return printStepsEnabled;
     }
 
     public boolean isPrintNewStatesEnabled() {
@@ -63,10 +57,6 @@ public class ExecutionSettings {
         return this.processTransitionOnly;
     }
 
-    public String getTransitionFile() {
-        return this.transitionFile;
-    }
-
     public String getModelName() { return this.modelName; }
 
     void setFilePath(String filePath) {
@@ -79,10 +69,6 @@ public class ExecutionSettings {
 
     void setStatisticsFrequency(int statisticsFrequency) {
         this.statisticsFrequency = statisticsFrequency;
-    }
-
-    public void setPrintSteps(boolean printSteps) {
-        this.printStepsEnabled = printSteps;
     }
 
     void enablePrintNewStates() {
@@ -118,10 +104,6 @@ public class ExecutionSettings {
 
     void setProcessTransitionOnly() {
         this.processTransitionOnly = true;
-    }
-
-    void setTransitionFile(String transitionFile) {
-        this.transitionFile = transitionFile;
     }
 
     public void setModelName(String modelName) { this.modelName = modelName; }

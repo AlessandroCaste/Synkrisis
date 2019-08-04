@@ -1,4 +1,4 @@
-// Generated from C:/Users/Utente/Documents/GitHub/Synkrisis/src/main/java/antlr/g4models\bigraph.g4 by ANTLR 4.7.2
+// Generated from /home/ale/Synkrisis/src/main/java/antlr/g4models/bigraph.g4 by ANTLR 4.7.2
 package antlr.bigraph;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -19,7 +19,7 @@ public interface bigraphVisitor<Void> extends ParseTreeVisitor<Void> {
 	/**
 	 * Visit a parse tree produced by {@link bigraphParser#controls}.
 	 * @param ctx the parse tree
-	 * @return the visitor result
+	 * @return the visitor resultR
 	 */
 	Void visitControls(bigraphParser.ControlsContext ctx);
 	/**

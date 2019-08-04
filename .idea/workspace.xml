@@ -6,15 +6,26 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Bigmc model checker interface completed">
-      <change afterPath="$PROJECT_DIR$/src/test/java/models/airport2.bigraph" afterDir="false" />
+    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Fixed k=2 in grammar,">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/interp/bigraph.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/interp/bigraphLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/tokens/bigraph.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/tokens/bigraphLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/BigmcVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/BigmcVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/ModelChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/ModelChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/SetupVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Setup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphModels/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphModels/TransitionDotImporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphModels/storing/GraphsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphModels/storing/GraphsCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/permutation.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/permutation.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,11 +109,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph" />
+      <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph/tokens" />
+      <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph/interp" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\addition\" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -136,11 +147,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RunAllTests.executeTests">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/airport2.bigraph -o spot" />
+      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/phospital.bigraph" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -370,7 +381,9 @@
       <workItem from="1564861470642" duration="2535000" />
       <workItem from="1564871522800" duration="6285000" />
       <workItem from="1564912658252" duration="4974000" />
-      <workItem from="1564925190934" duration="7559000" />
+      <workItem from="1564925190934" duration="8113000" />
+      <workItem from="1564938364376" duration="1286000" />
+      <workItem from="1564940396755" duration="8200000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -638,7 +651,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564930342152</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Testing, packaging and more polish">
+      <created>1564933608709</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1564933608709</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TodoView">
@@ -668,8 +688,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="More testing classes, GraphBuilding fixes, property printing inside graphBuilder" />
-    <MESSAGE value="Interactive Shell" />
     <MESSAGE value="Removed interactive cli, more maintenance" />
     <MESSAGE value="New graph builder visitor and visualization, airport model added" />
     <MESSAGE value="Reordered transition importing, setup for .hoa exporting" />
@@ -693,7 +711,9 @@
     <MESSAGE value="Spot loop added" />
     <MESSAGE value="Model Checker interface" />
     <MESSAGE value="Bigmc model checker interface completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bigmc model checker interface completed" />
+    <MESSAGE value="Testing, packaging and more polish" />
+    <MESSAGE value="Fixed k=2 in grammar," />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed k=2 in grammar," />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -746,7 +766,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java</url>
-          <line>135</line>
+          <line>139</line>
           <option name="timeStamp" value="157" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -791,7 +811,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java</url>
-          <line>112</line>
+          <line>116</line>
           <option name="timeStamp" value="276" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -823,6 +843,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
           <line>76</line>
           <option name="timeStamp" value="289" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/SyntaxVisitorTest.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="290" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

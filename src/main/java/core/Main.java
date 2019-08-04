@@ -82,9 +82,9 @@ public class Main {
                 // Running the model checker must give us back a transition graph, so that we parse results
                 System.out.println("Generating the transition graph");
                 if (executionSettings.isProcessTransitionOnly())
-                    new TransitionDotImporter(modelName, true); // Translating the transition graph to a jgrapht graph
+                    new TransitionDotImporter(modelName, true).processTransition();
                 else
-                    new TransitionDotImporter(modelName, false);
+                    new TransitionDotImporter(modelName, false).processTransition();
                 if (executionSettings.isPrintTransitionEnabled()) {
                     System.out.println("Printing the transition graph");
                     graphsCollection.printTransition();

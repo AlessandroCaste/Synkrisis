@@ -105,7 +105,7 @@ public class GraphsCollection {
     }
 
     public void exportToPrism(String propertiesString) {
-        new PrismExporter(transitionGraph,modelName,markerMap,propertiesString).writePrismFiles();
+        new PrismExporter(transitionGraph,modelName,markerMap,propertiesString).translate();
     }
 
     public void exportToSpot(SpotInfo spotInfo) {

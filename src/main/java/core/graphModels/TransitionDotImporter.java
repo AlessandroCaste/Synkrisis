@@ -22,6 +22,9 @@ public class TransitionDotImporter {
     private static Logger logger = Logger.getLogger("Report");
     private String modelName;
 
+    // Tells us if we want to use only the importing module
+    private boolean transitionOnly;
+
     // I associate an ID to each state
     private HashMap<String,Integer> hashToId = new HashMap<>();
     private int vertexID = 0;
@@ -40,10 +43,10 @@ public class TransitionDotImporter {
 
     public TransitionDotImporter(String modelName,boolean transitionOnly) {
         this.modelName = modelName;
-        processTransition(transitionOnly);
+        this.transitionOnly = transitionOnly;
     }
 
-    private void processTransition(boolean transitionOnly) {
+    public void processTransition() {
 
         transitionGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
 

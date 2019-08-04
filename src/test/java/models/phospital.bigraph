@@ -15,8 +15,8 @@ names:
 
 rule doctor_moves  = Room[@a].(Doctor[pager] | $1) | Room[@b].($2) -> Room[@a].($1) | Room[@b].($2 | Doctor[pager])
 rule nurse_moves   = Room[@a].(Nurse[pager]  | $1) | Room[@b].($2) -> Room[@a].($1) | Room[@b].($2 | Nurse[pager])
-rule dreamy_doctor = Room[@a].(Doctor[pager] | $1) -> (0.2) Room[@a].(Doctor[-] | $1)
-rule not_so_dreamy_doctor = Room[@a].(Doctor[pager] | $1) -> (0.8) Room[@a].(Doctor[-] | $1)
+rule dreamy_doctor = Room[@a].(Doctor[pager] | $1) (0.2) ->  Room[@a].(Doctor[-] | $1)
+rule not_so_dreamy_doctor = Room[@a].(Doctor[pager] | $1) (0.8) -> Room[@a].(Doctor[-] | $1)
 
 model phospital = Room[neurology].(Doctor[pager] | Agent) | Room[corridor].(Agent | Agent) | Room[nursestation].(Agent | Nurse[pager])
 
