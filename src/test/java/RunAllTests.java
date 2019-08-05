@@ -6,6 +6,8 @@ class RunAllTests {
     void executeTests(){
         new SyntaxVisitorTest();
         new GraphBuildingTest();
+        new TransitionImportingTest();
+        new ExportingTest();
     }
 
 }

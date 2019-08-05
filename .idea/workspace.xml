@@ -6,11 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Fixed k=2 in grammar,">
+    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ExportingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphVisualization/CreateGraphvizImages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphVisualization/CreateGraphvizImages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GraphBuildingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GraphBuildingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/RunAllTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RunAllTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TransitionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TransitionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/transitionTest1.dot" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="329" />
+    <option name="myElementSize" value="351" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -132,20 +133,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TransitionTest.transition1Test">
+  <component name="RunManager" selected="JUnit.RunAllTests">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
       <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/airport2.bigraph -m 1500 -G" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GraphBuildingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Synkrisis" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GraphBuildingTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -198,11 +190,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransitionTest.transition1Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransitionImportingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Synkrisis" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TransitionTest" />
-      <option name="METHOD_NAME" value="transition1Test" />
+      <option name="MAIN_CLASS_NAME" value="TransitionImportingTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransitionImportingTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Synkrisis" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TransitionImportingTest" />
+      <option name="METHOD_NAME" value="execute" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -213,18 +214,18 @@
       <item itemvalue="JUnit.SyntaxVisitorTest" />
       <item itemvalue="JUnit.RunAllTests.executeTests" />
       <item itemvalue="JUnit.GraphBuildingTest.completeAdditionCheck" />
-      <item itemvalue="JUnit.GraphBuildingTest" />
       <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
-      <item itemvalue="JUnit.TransitionTest.transition1Test" />
+      <item itemvalue="JUnit.TransitionImportingTest.execute" />
       <item itemvalue="JUnit.RunAllTests" />
+      <item itemvalue="JUnit.TransitionImportingTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TransitionTest.transition1Test" />
-        <item itemvalue="JUnit.GraphBuildingTest.completeAdditionCheck" />
         <item itemvalue="JUnit.RunAllTests" />
+        <item itemvalue="JUnit.TransitionImportingTest" />
+        <item itemvalue="JUnit.TransitionImportingTest.execute" />
+        <item itemvalue="JUnit.GraphBuildingTest.completeAdditionCheck" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
-        <item itemvalue="JUnit.GraphBuildingTest" />
       </list>
     </recent_temporary>
   </component>
@@ -370,6 +371,7 @@
       <workItem from="1564938364376" duration="1286000" />
       <workItem from="1564940396755" duration="8200000" />
       <workItem from="1564999220828" duration="3537000" />
+      <workItem from="1565017922968" duration="1931000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -644,7 +646,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564933608709</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Transition tests experiments">
+      <created>1565017985352</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1565017985352</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TodoView">
@@ -674,7 +683,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Removed interactive cli, more maintenance" />
     <MESSAGE value="New graph builder visitor and visualization, airport model added" />
     <MESSAGE value="Reordered transition importing, setup for .hoa exporting" />
     <MESSAGE value="Syntax extension for properties specification" />
@@ -699,7 +707,8 @@
     <MESSAGE value="Bigmc model checker interface completed" />
     <MESSAGE value="Testing, packaging and more polish" />
     <MESSAGE value="Fixed k=2 in grammar," />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed k=2 in grammar," />
+    <MESSAGE value="Transition tests experiments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Transition tests experiments" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -832,7 +841,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/TransitionTest.java</url>
-          <line>25</line>
+          <line>27</line>
           <option name="timeStamp" value="307" />
         </line-breakpoint>
       </breakpoints>
@@ -851,7 +860,9 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Synkrisis$Main.ic" NAME="Main Coverage Results" MODIFIED="1564878464037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Synkrisis$RunAllTests.ic" NAME="RunAllTests Coverage Results" MODIFIED="1565019696938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$GraphBuildingTest_checkLinks.ic" NAME="GraphBuildingTest.checkLinks Coverage Results" MODIFIED="1562684131276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$RunAllTests_executeTests.ic" NAME="RunAllTests.executeTests Coverage Results" MODIFIED="1562684706105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Synkrisis$TransitionTest.ic" NAME="TransitionTest Coverage Results" MODIFIED="1565019691497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

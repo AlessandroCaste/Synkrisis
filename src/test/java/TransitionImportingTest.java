@@ -4,25 +4,28 @@ import core.graphModels.verticesAndEdges.TransitionVertex;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 // I verify importing is in check with bigmc results
-class TransitionTest {
+class TransitionImportingTest {
 
     private String transition1;
 
 
-    TransitionTest() {
+    TransitionImportingTest() {
         transition1 = "src/test/java/models/transitionTest1.bigraph";
-        transition1Test();
+        execute();
     }
 
 
     // Properties: objective_met = 2, he_forgot_the_pager = 3, nursestation_meeting = 4
     // Markers 0 and 1 are reserved for init and deadlock, necessary in PRISM exporting
+    // Note that this test may work only with specific implementations of bigmc (different binaries may mix parallel regions)
     @Test
-    void transition1Test() {
-        core.Main.main(new String[] {"-l","src/test/java/models/hospital.bigraph","-m", "1500"});
+    void execute() {
+        core.Main.main(new String[] {"-l","src/test/java/models/hospital.bigraph","-G"});
         DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph = GraphsCollection.getInstance().getTransitionGraph();
         assertEquals(18, transitionGraph.vertexSet().size());
         for(TransitionVertex tv : transitionGraph.vertexSet()) {
@@ -42,9 +45,19 @@ class TransitionTest {
                 assertTrue(tv.getPropertiesString().contains("4"));
             else
                 assertFalse(tv.getPropertiesString().contains("4"));
-
         }
+        assertEquals(63,transitionGraph.edgeSet().size());
+        // Check that files have been created
+        assertTrue(new File("hospital").exists());
+        assertTrue(new File("hospital/hospital.png").exists());
+        assertTrue(new File("hospital/transition.dot").exists());
+        assertTrue(new File("hospital/transition.png").exists());
+        assertTrue(new File("hospital/rules/doctor_moves.png").exists());
+        assertTrue(new File("hospital/rules/dreamy_doctor.png").exists());
+        assertTrue(new File("hospital/rules/nurse_moves.png").exists());
+        assertTrue(new File("hospital.log").exists());
     }
+
 
 
 }
