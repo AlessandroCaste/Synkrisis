@@ -1,13 +1,13 @@
-package core.graphModels;
+package core.graphs;
 
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;
 import core.exporting.spotExporting.SpotAcceptanceState;
 import core.exporting.spotExporting.SpotInfo;
-import core.graphModels.storing.GraphsCollection;
-import core.graphModels.storing.RedexReactumPair;
-import core.graphModels.verticesAndEdges.Vertex;
-import core.graphVisualization.CreateGraphvizImages;
+import core.graphs.customized.vertices.Vertex;
+import core.graphs.storing.GraphsCollection;
+import core.graphs.storing.RedexReactumPair;
+import core.graphs.visualization.CreateGraphvizImages;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;

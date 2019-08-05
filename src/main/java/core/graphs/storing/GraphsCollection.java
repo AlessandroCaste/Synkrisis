@@ -1,12 +1,12 @@
-package core.graphModels.storing;
+package core.graphs.storing;
 
 import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
 import core.exporting.spotExporting.SpotInfo;
-import core.graphModels.verticesAndEdges.TransitionEdge;
-import core.graphModels.verticesAndEdges.TransitionVertex;
-import core.graphModels.verticesAndEdges.Vertex;
-import core.graphVisualization.CreateGraphvizImages;
+import core.graphs.customized.edges.TransitionEdge;
+import core.graphs.customized.vertices.TransitionVertex;
+import core.graphs.customized.vertices.Vertex;
+import core.graphs.visualization.CreateGraphvizImages;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Multigraph;

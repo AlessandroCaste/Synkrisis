@@ -1,4 +1,4 @@
-package core.modelChecker;
+package core.modelcheckers;
 
 public interface ModelChecker {
 

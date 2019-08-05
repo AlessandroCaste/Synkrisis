@@ -3,12 +3,12 @@ package core;
 import core.clishell.CLI;
 import core.clishell.ExecutionSettings;
 import core.clishell.InteractiveShell;
-import core.graphModels.GraphBuildingVisitor;
-import core.graphModels.TransitionDotImporter;
-import core.graphModels.storing.GraphsCollection;
-import core.modelChecker.Bigmc;
-import core.modelChecker.ModelChecker;
-import core.syntaxAnalysis.SyntaxVisitor;
+import core.graphs.GraphBuildingVisitor;
+import core.graphs.TransitionDotImporter;
+import core.graphs.storing.GraphsCollection;
+import core.modelcheckers.Bigmc;
+import core.modelcheckers.ModelChecker;
+import core.syntax.SyntaxVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.File;

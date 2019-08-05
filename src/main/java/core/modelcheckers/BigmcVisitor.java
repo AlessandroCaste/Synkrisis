@@ -1,4 +1,4 @@
-package core.modelChecker;
+package core.modelcheckers;
 
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;

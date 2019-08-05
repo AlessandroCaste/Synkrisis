@@ -1,9 +1,9 @@
-package core.graphVisualization;
+package core.graphs.visualization;
 
-import core.graphModels.storing.RedexReactumPair;
-import core.graphModels.verticesAndEdges.TransitionEdge;
-import core.graphModels.verticesAndEdges.TransitionVertex;
-import core.graphModels.verticesAndEdges.Vertex;
+import core.graphs.customized.edges.TransitionEdge;
+import core.graphs.customized.vertices.TransitionVertex;
+import core.graphs.customized.vertices.Vertex;
+import core.graphs.storing.RedexReactumPair;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;

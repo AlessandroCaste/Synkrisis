@@ -3,7 +3,7 @@ package core;
 
 import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
-import core.syntaxAnalysis.ErrorListener;
+import core.syntax.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;

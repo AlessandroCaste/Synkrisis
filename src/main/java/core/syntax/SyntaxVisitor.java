@@ -1,4 +1,4 @@
-package core.syntaxAnalysis;
+package core.syntax;
 
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;

@@ -1,10 +1,10 @@
 import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
-import core.graphModels.GraphBuildingVisitor;
-import core.graphModels.storing.GraphsCollection;
-import core.graphModels.storing.RedexReactumPair;
-import core.graphModels.verticesAndEdges.Vertex;
-import core.syntaxAnalysis.ErrorListener;
+import core.graphs.GraphBuildingVisitor;
+import core.graphs.customized.vertices.Vertex;
+import core.graphs.storing.GraphsCollection;
+import core.graphs.storing.RedexReactumPair;
+import core.syntax.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;

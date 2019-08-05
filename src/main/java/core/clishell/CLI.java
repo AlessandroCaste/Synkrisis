@@ -21,12 +21,12 @@ public class CLI {
         this.args = args;
 
         options.addOption(Option.builder("l").longOpt("load").hasArg(true).desc("load a .bigraph model for processing").required(true).build());
-        options.addOption("o","output-translation",true,"feed transitions to PRISM and SPOT for transition analysis");
+        options.addOption("o","output-translation",true,"feed edges to PRISM and SPOT for transition analysis");
         options.addOption("g","graph-print",false,"print model and reactions graphs");
-        options.addOption("G","print-everything",false,"print all graphs produced, including transitions");
+        options.addOption("G","print-everything",false,"print all graphs produced, including edges");
         options.addOption("m","steps",true,"maximum number of execution steps");
         options.addOption("p","print",false,"print newly discovered states during execution");
-        options.addOption("r","statistics",true,"set frequency (steps) with which statistics about graph and transitions are output");
+        options.addOption("r","statistics",true,"set frequency (steps) with which statistics about graph and edges are output");
         options.addOption("h", "help", false, "show help.");
 
     }
@@ -64,7 +64,7 @@ public class CLI {
                 if(frequency > 0)
                     settings.setStatisticsFrequency(frequency);
                 else
-                    System.out.println("Invalid frequency of transitions print: it's been set to 0");
+                    System.out.println("Invalid frequency of edges print: it's been set to 0");
             }
             if (cmd.hasOption("G")) {
                 settings.enablePrintModel();

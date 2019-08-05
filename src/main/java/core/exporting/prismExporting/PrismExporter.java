@@ -1,7 +1,7 @@
 package core.exporting.prismExporting;
 
-import core.graphModels.verticesAndEdges.TransitionEdge;
-import core.graphModels.verticesAndEdges.TransitionVertex;
+import core.graphs.customized.edges.TransitionEdge;
+import core.graphs.customized.vertices.TransitionVertex;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 

@@ -1,4 +1,4 @@
-package core.graphModels.verticesAndEdges;
+package core.graphs.customized.vertices;
 
 
 import java.util.TreeSet;

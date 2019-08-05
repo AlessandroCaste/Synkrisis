@@ -1,4 +1,4 @@
-package core.modelChecker;
+package core.modelcheckers;
 
 import core.clishell.ExecutionSettings;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -159,7 +159,7 @@ public class Bigmc implements ModelChecker{
             if(transition_counter > 0)
                 for(int counter = 0; counter < transition_counter - 1; counter++)
                     FileUtils.moveFile(new File(modelName + "/" + modelName + "-" + counter + ".dot" ),
-                            new File(modelName + "/" + "intermediate transitions/" + modelName + "-" + counter + ".dot" ));
+                            new File(modelName + "/" + "intermediate edges/" + modelName + "-" + counter + ".dot" ));
 
             // Deleting the temp file
             boolean deletionResult;

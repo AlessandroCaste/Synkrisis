@@ -1,4 +1,4 @@
-package core.graphModels.verticesAndEdges;
+package core.graphs.customized.vertices;
 
 
 public class Vertex {

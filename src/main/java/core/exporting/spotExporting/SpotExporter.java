@@ -1,7 +1,7 @@
 package core.exporting.spotExporting;
 
-import core.graphModels.verticesAndEdges.TransitionEdge;
-import core.graphModels.verticesAndEdges.TransitionVertex;
+import core.graphs.customized.edges.TransitionEdge;
+import core.graphs.customized.vertices.TransitionVertex;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
@@ -104,7 +104,7 @@ public class SpotExporter {
             hoaWriter.write("\n");
 
             // Printing states and edges
-            System.out.println("Printing SPOT states and transitions");
+            System.out.println("Printing SPOT states and edges");
             hoaWriter.write("--BODY--\n");
             for(TransitionVertex tv : transitionGraph.vertexSet()) {
                 hoaWriter.write("State: ");
