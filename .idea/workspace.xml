@@ -8,24 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Fixed k=2 in grammar,">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/interp/bigraph.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/interp/bigraphLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/tokens/bigraph.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/tokens/bigraphLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphModels/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphModels/TransitionDotImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphModels/storing/GraphsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphModels/storing/GraphsCollection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/permutation.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/permutation.bigraph" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphVisualization/CreateGraphvizImages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphVisualization/CreateGraphvizImages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GraphBuildingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GraphBuildingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TransitionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TransitionTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -147,11 +132,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.TransitionTest.transition1Test">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/phospital.bigraph" />
+      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/airport2.bigraph -m 1500 -G" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -235,10 +220,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TransitionTest.transition1Test" />
+        <item itemvalue="JUnit.GraphBuildingTest.completeAdditionCheck" />
         <item itemvalue="JUnit.RunAllTests" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
-        <item itemvalue="JUnit.GraphBuildingTest.completeAdditionCheck" />
-        <item itemvalue="JUnit.TransitionTest.transition1Test" />
         <item itemvalue="JUnit.GraphBuildingTest" />
       </list>
     </recent_temporary>
@@ -384,6 +369,7 @@
       <workItem from="1564925190934" duration="8113000" />
       <workItem from="1564938364376" duration="1286000" />
       <workItem from="1564940396755" duration="8200000" />
+      <workItem from="1564999220828" duration="3537000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -805,11 +791,6 @@
           <option name="timeStamp" value="270" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/Main.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="271" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java</url>
           <line>116</line>
           <option name="timeStamp" value="276" />
@@ -831,16 +812,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="284" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="286" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelChecker/Bigmc.java</url>
           <line>76</line>
           <option name="timeStamp" value="289" />
         </line-breakpoint>
@@ -848,6 +819,21 @@
           <url>file://$PROJECT_DIR$/src/test/java/SyntaxVisitorTest.java</url>
           <line>74</line>
           <option name="timeStamp" value="290" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphVisualization/CreateGraphvizImages.java</url>
+          <line>285</line>
+          <option name="timeStamp" value="296" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphModels/TransitionDotImporter.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="300" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/TransitionTest.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="307" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -859,6 +845,7 @@
       <configuration name="Application">
         <watch expression="mdpr.reactionToString()" language="JAVA" />
         <watch expression="te.getLabel()" language="JAVA" />
+        <watch expression="v.getPropertiesString()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

@@ -78,21 +78,21 @@ class GraphBuildingTest {
         ArrayList<DefaultEdge> edgeList = new ArrayList<>(graph.edgeSet());
         assertEquals(edgeList.size(),15);
 
-        assertEquals(graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel(),"IN L");
-        assertEquals(graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel(),"L Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel(),"Succ Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel(),"Succ Zero");
-        assertEquals(graph.getEdgeSource(edgeList.get(4)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(4)).getLabel(),"IN R");
-        assertEquals(graph.getEdgeSource(edgeList.get(5)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(5)).getLabel(),"R Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(6)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(6)).getLabel(),"Succ Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(7)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(7)).getLabel(),"Succ Zero");
-        assertEquals(graph.getEdgeSource(edgeList.get(8)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(8)).getLabel(),"IN L");
-        assertEquals(graph.getEdgeSource(edgeList.get(9)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(9)).getLabel(),"L Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(10)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(10)).getLabel(),"Succ Zero");
-        assertEquals(graph.getEdgeSource(edgeList.get(11)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(11)).getLabel(),"IN R");
-        assertEquals(graph.getEdgeSource(edgeList.get(12)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(12)).getLabel(),"R Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(13)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(13)).getLabel(),"Succ Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(14)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(14)).getLabel(),"Succ Zero");
+        assertEquals("IN L",graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel());
+        assertEquals("L Succ",graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel());
+        assertEquals("Succ Succ", graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel());
+        assertEquals("Succ Zero",graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel());
+        assertEquals("IN R", graph.getEdgeSource(edgeList.get(4)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(4)).getLabel());
+        assertEquals("R Succ", graph.getEdgeSource(edgeList.get(5)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(5)).getLabel());
+        assertEquals("Succ Succ",graph.getEdgeSource(edgeList.get(6)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(6)).getLabel());
+        assertEquals("Succ Zero", graph.getEdgeSource(edgeList.get(7)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(7)).getLabel());
+        assertEquals("IN L", graph.getEdgeSource(edgeList.get(8)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(8)).getLabel());
+        assertEquals("L Succ", graph.getEdgeSource(edgeList.get(9)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(9)).getLabel());
+        assertEquals("Succ Zero", graph.getEdgeSource(edgeList.get(10)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(10)).getLabel());
+        assertEquals("IN R", graph.getEdgeSource(edgeList.get(11)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(11)).getLabel());
+        assertEquals("R Succ", graph.getEdgeSource(edgeList.get(12)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(12)).getLabel());
+        assertEquals("Succ Succ", graph.getEdgeSource(edgeList.get(13)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(13)).getLabel());
+        assertEquals("Succ Zero", graph.getEdgeSource(edgeList.get(14)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(14)).getLabel());
 
 
         // Checking Redex 1
@@ -124,10 +124,10 @@ class GraphBuildingTest {
         edgeList = new ArrayList<>(graph.edgeSet());
         assertEquals(edgeList.size(),4);
 
-        assertEquals(graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel(),"IN L");
-        assertEquals(graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel(),"L $1");
-        assertEquals(graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel(),"IN R");
-        assertEquals(graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel(),"R Zero");
+        assertEquals("IN L", graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel());
+        assertEquals("L $1", graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel());
+        assertEquals("IN R", graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel());
+        assertEquals("R Zero", graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel());
 
         // Checking Reactum 1
         graph = regression1.getReactum();
@@ -194,11 +194,11 @@ class GraphBuildingTest {
         edgeList = new ArrayList<>(graph.edgeSet());
         assertEquals(edgeList.size(),5);
 
-        assertEquals(graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel(),"IN L");
-        assertEquals(graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel(),"L Succ");
-        assertEquals(graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel(),"Succ $1");
-        assertEquals(graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel(),"IN R");
-        assertEquals(graph.getEdgeSource(edgeList.get(4)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(4)).getLabel(),"R $2");
+        assertEquals("IN L", graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel());
+        assertEquals("L Succ", graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel());
+        assertEquals("Succ $1", graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel());
+        assertEquals("IN R", graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel());
+        assertEquals("R $2", graph.getEdgeSource(edgeList.get(4)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(4)).getLabel());
 
 
 
@@ -245,16 +245,16 @@ class GraphBuildingTest {
         ArrayList<DefaultEdge> edgeList = new ArrayList<>(graph.edgeSet());
         assertEquals(edgeList.size(),11);
 
-        assertEquals(graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel(),"Room neurology");
-        assertEquals(graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel(),"Room Doctor");
-        assertEquals(graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel(),"Doctor pager");
-        assertEquals(graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel(),"Room Agent");
-        assertEquals(graph.getEdgeSource(edgeList.get(4)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(4)).getLabel(),"Room corridor");
-        assertEquals(graph.getEdgeSource(edgeList.get(5)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(5)).getLabel(),"Room Agent");
-        assertEquals(graph.getEdgeSource(edgeList.get(6)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(6)).getLabel(),"Room Agent");
-        assertEquals(graph.getEdgeSource(edgeList.get(7)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(7)).getLabel(),"Room nursestation");
-        assertEquals(graph.getEdgeSource(edgeList.get(8)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(8)).getLabel(),"Room Agent");
-        assertEquals(graph.getEdgeSource(edgeList.get(9)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(9)).getLabel(),"Room Nurse");
+        assertEquals("Room neurology", graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel());
+        assertEquals("Room Doctor",graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel());
+        assertEquals("Doctor pager", graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel());
+        assertEquals("Room Agent", graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel());
+        assertEquals("Room corridor", graph.getEdgeSource(edgeList.get(4)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(4)).getLabel());
+        assertEquals("Room Agent", graph.getEdgeSource(edgeList.get(5)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(5)).getLabel());
+        assertEquals("Room Agent", graph.getEdgeSource(edgeList.get(6)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(6)).getLabel());
+        assertEquals("Room nursestation", graph.getEdgeSource(edgeList.get(7)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(7)).getLabel());
+        assertEquals("Room Agent", graph.getEdgeSource(edgeList.get(8)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(8)).getLabel());
+        assertEquals("Room Nurse", graph.getEdgeSource(edgeList.get(9)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(9)).getLabel());
 
 
         // Verifying model gets correctly print after execution of visitor
@@ -291,9 +291,9 @@ class GraphBuildingTest {
         ArrayList<DefaultEdge> edgeList = new ArrayList<>(graph.edgeSet());
         assertEquals(edgeList.size(), 3);
 
-        assertEquals(graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel(), "C name1");
-        assertEquals(graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel(), "C name2");
-        assertEquals(graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel(), "C name3");
+        assertEquals("C name1", graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel());
+        assertEquals("C name2", graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel());
+        assertEquals("C name3", graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel());
 
 
         // Verifying model gets correctly print after execution of visitor

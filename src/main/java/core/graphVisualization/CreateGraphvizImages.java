@@ -143,7 +143,7 @@ public class CreateGraphvizImages {
         MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap,ruleName + " : Reactum");
 
         try {
-            mergeGraphs(g1,g2,ruleName);
+            mergeGraphs(g1,g2,ruleName,1);
             } catch (IOException e) {
                 System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
                 logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
@@ -153,7 +153,6 @@ public class CreateGraphvizImages {
         }
     }
 
-    @SuppressWarnings("Duplicates")
     private MutableGraph buildReactionGraph(Multigraph<Vertex, DefaultEdge>  currentGraph, HashMap<String,Color> colorHashMap, String ruleName) {
         MutableGraph g = mutGraph("Reactions").setDirected(true).use((gr, ctx) -> {
 
@@ -276,21 +275,34 @@ public class CreateGraphvizImages {
         // Labels are kept in a different graph for better graph results
         MutableGraph labelsGraph =
                 mutGraph("labels").setDirected(true).use((gr, ctx) -> {
-                    linkAttrs().add("constraint","false");
-                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE);
+                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin",adjustMargins((modelName+" Transition").length()));
                     graphAttrs().add("rank","same");
 
                     // Displaying id->labels association
                     StringBuilder labels = new StringBuilder();
                     for (TransitionVertex v : currentGraph.vertexSet()) {
                         labels.append("#").append(v.getVertexID()).append(": ").append(v.getLabel()).append("\n");
-                        labels.append(v.getPropertiesString());
+                        //TODO properties
+                        //labels.append(v.getPropertiesString());
                     }
                     graphAttrs().add("labelloc","b");
                     graphAttrs().add("label", labels.toString());
                 });
         try {
-            mergeGraphs(transitionGraph,labelsGraph,null);
+            // I calculate the shrinking factor for long labels
+            int maxSize = 1;
+            for(TransitionVertex v : currentGraph.vertexSet()) {
+                int length = v.getLabel().length();
+                if(length > maxSize)
+                    maxSize = length;
+            }
+            // Temporary solution
+            double factor = 1;
+            if(75 <= maxSize && maxSize <= 105)
+                factor = 0.85;
+            if(maxSize > 105)
+                factor = 0.75;
+            mergeGraphs(transitionGraph,labelsGraph,null,factor);
         } catch (IOException e) {
             logger.log(Level.SEVERE,"Impossible to draw the transition graph");
         } catch (GraphvizException e) {
@@ -301,14 +313,18 @@ public class CreateGraphvizImages {
 
     // This function merges two graphs into a single png image
     // Rule name arg is set to null in case we're merging a transition graph and its labels
-    private void mergeGraphs(MutableGraph g1, MutableGraph g2, String ruleName) throws IOException {
+    private void mergeGraphs(MutableGraph g1, MutableGraph g2, String ruleName,double factor) throws IOException {
         BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
-        BufferedImage graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
+        BufferedImage graphvizGraph2;
+        if(factor!=1)
+            graphvizGraph2 = Graphviz.fromGraph(g2).fontAdjust(factor).render(Format.PNG).toImage();
+        else
+            graphvizGraph2 = Graphviz.fromGraph(g2).render(Format.PNG).toImage();
         int maxHeight = Math.max(graphvizGraph1.getHeight(),graphvizGraph2.getHeight());
         BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
         Graphics2D finalPicture = mergedImage.createGraphics();
         finalPicture.setPaint(java.awt.Color.WHITE);
-        finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth(), maxHeight);
+        finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth()*2, maxHeight);
         finalPicture.drawImage(graphvizGraph1,null,0,0);
         finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
         finalPicture.dispose();
