@@ -50,7 +50,10 @@ public class GraphsCollection {
     }
 
     public void printTransition() {
-        CreateGraphvizImages.getInstance().createTransition(transitionGraph);
+        if(transitionGraph.vertexSet().size() < 100)
+            CreateGraphvizImages.getInstance().createTransition(transitionGraph);
+        else
+            System.out.println("[WARNING] Transition graph is too big, no printing shall be made by Synkrisis");
     }
 
     public Multigraph<Vertex, DefaultEdge> getModel() {

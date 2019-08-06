@@ -33,7 +33,7 @@ controls:
 names:
 	outer CheckIn
 	outer Security
-	outer DutyFree	
+	outer DutyFree
 	outer GateLounge
 
 # A gate status at the departure lounge

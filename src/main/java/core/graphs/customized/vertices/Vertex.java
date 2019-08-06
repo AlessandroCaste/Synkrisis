@@ -37,4 +37,8 @@ public class Vertex {
         return control;
     }
 
+    public boolean isActiveControl() { return activeControl; }
+
+    public boolean isOuterName() { return outerName; }
+
 }

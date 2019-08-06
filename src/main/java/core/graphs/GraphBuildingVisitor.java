@@ -16,10 +16,7 @@ import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Logger;
 
 
@@ -59,11 +56,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private static Logger logger = Logger.getLogger("Report");
 
 
-    @Override
-    public Void visitChildren(RuleNode node) {
-        return super.visitChildren(node);
-    }
-
     // Graph Representation
     private Multigraph<Vertex, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
     private Multigraph<Vertex, DefaultEdge>  redex = new Multigraph<>(DefaultEdge.class);
@@ -73,8 +65,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private Stack<Vertex> nodeStack = new Stack<>();                // Stacking of parent nodes, used for parentheses
     private Vertex currentVertex = new Vertex(0,"Root",true);
     private Vertex upperVertex = null;                              // Direct parent node. -1 equals 'no parent'
-    private ArrayList<String> activeControls;                       // Saving the active controls
-    private ArrayList<String> outerNames;                           // Saving the outer names
+    private HashSet<String> activeControls;                       // Saving the active controls
+    private HashSet<String> outerNames;                           // Saving the outer names
     private int nodeCounter = 1;                                    // Represents the growing unique id of every node
     private int depth = 0;                                          // Nesting depth
     private boolean root = true;
@@ -82,11 +74,18 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override
+    public Void visitChildren(RuleNode node) {
+        return super.visitChildren(node);
+    }
+
+
+
+    @Override
     public Void visitBigraph(bigraphParser.BigraphContext ctx) {
         System.out.println("\nBUILDING REPRESENTATION");
         System.out.println("***********************");
-        activeControls = new ArrayList<>();
-        outerNames = new ArrayList<>();
+        activeControls = new HashSet<>();
+        outerNames = new HashSet<>();
         return visitChildren(ctx);
     }
 
