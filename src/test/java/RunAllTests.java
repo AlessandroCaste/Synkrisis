@@ -7,7 +7,7 @@ class RunAllTests {
         new SyntaxVisitorTest();
         new GraphBuildingTest();
         new TransitionImportingTest();
-        new ExportingTest();
+        //new ExportingTest();
     }
 
 }

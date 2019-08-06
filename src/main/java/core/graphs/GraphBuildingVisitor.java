@@ -70,9 +70,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private Multigraph<Vertex, DefaultEdge>  reactum = new Multigraph<>(DefaultEdge.class);
     private boolean nested = false;
     private boolean parallel = false;
-    private Stack<Vertex> nodeStack = new Stack<>();               // Stacking of parent nodes, used for parentheses
+    private Stack<Vertex> nodeStack = new Stack<>();                // Stacking of parent nodes, used for parentheses
     private Vertex currentVertex = new Vertex(0,"Root",true);
-    private Vertex upperVertex = null;                                   // Direct parent node. -1 equals 'no parent'
+    private Vertex upperVertex = null;                              // Direct parent node. -1 equals 'no parent'
+    private ArrayList<String> activeControls;                       // Saving the active controls
+    private ArrayList<String> outerNames;                           // Saving the outer names
     private int nodeCounter = 1;                                    // Represents the growing unique id of every node
     private int depth = 0;                                          // Nesting depth
     private boolean root = true;
@@ -83,6 +85,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     public Void visitBigraph(bigraphParser.BigraphContext ctx) {
         System.out.println("\nBUILDING REPRESENTATION");
         System.out.println("***********************");
+        activeControls = new ArrayList<>();
+        outerNames = new ArrayList<>();
         return visitChildren(ctx);
     }
 
@@ -94,7 +98,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     @Override
-    public Void visitControl_statements(bigraphParser.Control_statementsContext ctx) {return visitChildren(ctx);}
+    public Void visitControl_statements(bigraphParser.Control_statementsContext ctx) {
+        if(ctx.ACTIVE()!= null)
+            activeControls.add(ctx.IDENTIFIER().toString());
+        return visitChildren(ctx);
+    }
 
 
     @Override
@@ -103,7 +111,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override
-    public Void visitName_statements(bigraphParser.Name_statementsContext ctx) {return visitChildren(ctx);}
+    public Void visitName_statements(bigraphParser.Name_statementsContext ctx) {
+        if(ctx.OUTER() != null)
+            outerNames.add(ctx.IDENTIFIER().toString());
+        return visitChildren(ctx);
+    }
 
 
     @Override
@@ -179,7 +191,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
         if (ctx.IDENTIFIER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
-
             // GRAPH CREATION: taking into account parallel/nesting in expressions
             if(root) {
                 root = false;
@@ -205,6 +216,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
                 nodeCounter++;
                 nested = false;
             }
+            if(activeControls.contains(identifier))
+                currentVertex.setActiveControl();
 
         }
 
@@ -253,6 +266,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         // GRAPH CREATION: linking names to nodes
         if(ctx.IDENTIFIER() != null ) {
             String nameLabel;
+            boolean isOuter = outerNames.contains(ctx.IDENTIFIER().toString());
             if(ctx.VARIABLE() != null) {
                 nameLabel = "@" + ctx.IDENTIFIER().toString();
             } else
@@ -260,6 +274,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             Vertex vertex;
             if(!nameMap.containsKey(nameLabel)) {
                 vertex = new Vertex(nodeCounter, nameLabel, false);
+                if(isOuter)
+                    vertex.setOuterName();
                 nameMap.put(nameLabel,vertex);
             }
             else
