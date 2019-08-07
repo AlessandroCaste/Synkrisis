@@ -3,6 +3,7 @@ package core.setup;
 import core.clishell.CLI;
 import core.clishell.ExecutionSettings;
 import core.clishell.InteractiveShell;
+import core.exporting.Exporter;
 import core.graphs.GraphBuildingVisitor;
 import core.graphs.TransitionDotImporter;
 import core.graphs.storing.GraphsCollection;
@@ -30,6 +31,7 @@ public class Main {
     private static ParseTree modelTree;
     private static SyntaxVisitor syntaxVisitor;
     private static GraphsCollection  graphsCollection = GraphsCollection.getInstance();
+    private static Exporter exporter = Exporter.getInstance();
 
     private static Logger logger = Logger.getLogger("Report");
 
@@ -48,6 +50,7 @@ public class Main {
         Setup setup = new Setup(inputFile);
         setup.setupLogger();
         setup.setupParser(); // Initializing lexer, tokens etc
+        exporter.initialize(executionSettings.checkersList());
         if (setup.isSuccessful()) {
             modelTree = setup.getModelTree();
             boolean acceptableModel = syntaxAnalysis(executionSettings);
@@ -73,6 +76,8 @@ public class Main {
                     modelChecker.translate();
                 modelChecker.execute();
 
+
+
                 // Running the model checker must give us back a transition graph, so that we parse results
                 boolean dotImportingSuccessful = false;
                 //boolean dotExportingSuccessful = false;
@@ -83,7 +88,8 @@ public class Main {
                     System.out.println("[GENERATION : ERROR] Couldn't find bigmc in this working machine");
                 if(dotImportingSuccessful) {
                     System.out.println("Transition file correctly imported");
-                    dotExporting(executionSettings,modelBuilder);
+                    exporter.setModelName(modelName);
+                    exporter.execute();
                 }
                 else
                     System.out.println("[FATAL ERROR] Can't import the transition file correctly");
@@ -142,24 +148,6 @@ public class Main {
             graphsCollection.printTransition();
         }
         return dotImporter.isSuccessful();
-    }
-
-    //TODO add boolean control
-    private static void dotExporting(ExecutionSettings executionSettings,GraphBuildingVisitor modelBuilder) {
-        String propertiesString = modelBuilder.getPropertiesString();
-        executionSettings.setSpotExportingReady(modelBuilder.isSpotReady());
-        if (executionSettings.isExportingEnabled()) {
-            System.out.println("\nMODEL EXPORTING");
-            System.out.println("****************");
-            // Model exporting
-            if (executionSettings.isSpotExportingEnabled())
-                graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
-            if (executionSettings.isPrismExportingEnabled())
-                if (propertiesString != null)
-                    graphsCollection.exportToPrism(propertiesString);
-                else
-                    graphsCollection.exportToPrism("");
-        }
     }
 
 }

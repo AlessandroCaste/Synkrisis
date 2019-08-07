@@ -2,6 +2,7 @@ package core.graphs;
 
 import antlr.bigraph.bigraphParser;
 import antlr.bigraph.bigraphVisitor;
+import core.exporting.Exporter;
 import core.exporting.spotExporting.SpotAcceptanceState;
 import core.exporting.spotExporting.SpotInfo;
 import core.graphs.customized.vertices.Vertex;
@@ -35,23 +36,27 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     // Map to keep track of name nodes
     private HashMap<String, Vertex> nameMap = new HashMap<>();
 
-    // Property string, for file printing
+    // Property string, for file printing DELETE
     private String propertiesString;
 
-    // List of rule names
+    // List of rule names DELETABLE
     private ArrayList<String> reactionNames = new ArrayList<>();
 
-    // Reference to a class to store all SPOT info
+    // Spot Exporting
     private SpotInfo spotInfo;
     private StringBuilder spotSpecifications;
     private boolean spotReady = true;
     private StringBuilder spotErrorsString = new StringBuilder();
+    private int acceptanceCounter = 0; // Accepting states counter
 
+    // Storing external properties for all other model checkers
+    private Exporter exporter = Exporter.getInstance();
+    private String currentPropertyLanguage;
+    private String currentFormat;
 
-    // GraphsCollection for
+    // GraphsCollection
     private GraphsCollection graphsCollection = GraphsCollection.getInstance();
 
-    private int acceptanceCounter = 0;
 
     private static Logger logger = Logger.getLogger("Report");
 
@@ -62,13 +67,13 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private Multigraph<Vertex, DefaultEdge>  reactum = new Multigraph<>(DefaultEdge.class);
     private boolean nested = false;
     private boolean parallel = false;
-    private Stack<Vertex> nodeStack = new Stack<>();                // Stacking of parent nodes, used for parentheses
+    private Stack<Vertex> nodeStack = new Stack<>();              // Stacking of parent nodes, used for parentheses
     private Vertex currentVertex = new Vertex(0,"Root",true);
-    private Vertex upperVertex = null;                              // Direct parent node. -1 equals 'no parent'
+    private Vertex upperVertex = null;                            // Direct parent node. -1 equals 'no parent'
     private HashSet<String> activeControls;                       // Saving the active controls
     private HashSet<String> outerNames;                           // Saving the outer names
-    private int nodeCounter = 1;                                    // Represents the growing unique id of every node
-    private int depth = 0;                                          // Nesting depth
+    private int nodeCounter = 1;                                  // Represents the growing unique id of every node
+    private int depth = 0;                                        // Nesting depth
     private boolean root = true;
     private String reactionName = "";
 
@@ -450,21 +455,25 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return visitChildren(ctx);
     }
 
-    @Override public Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx) {
+    @Override public Void visitExtra_properties(bigraphParser.Extra_propertiesContext ctx) {
         if(spotSpecifications!=null)
             spotInfo.setAcceptanceStatesSpecification(spotSpecifications.toString());
+        if(ctx.IDENTIFIER()!=null && ctx.IDENTIFIER().size() > 0) {
+            currentPropertyLanguage = ctx.IDENTIFIER(0).toString();
+            currentFormat = ctx.IDENTIFIER(1).toString();
+        }
         return visitChildren(ctx);
     }
 
-    @Override public Void visitPrism_statements (bigraphParser.Prism_statementsContext ctx) {
+    @Override public Void visitExtra_statements (bigraphParser.Extra_statementsContext ctx) {
         // Since they do vary a lot and have not a fixed, specified grammar we just print properties to file
-        if(ctx.children.size() > 1) {
+        if(ctx.children.size() >= 1) {
             int startPosition = ctx.start.getStartIndex();
             int endPosition = ctx.stop.getStopIndex();
             Interval interval = new Interval(startPosition, endPosition);
             propertiesString = ctx.start.getInputStream().getText(interval);
         }
-        System.out.println("Specification has been analyzed");
+        exporter.addPropertyFile(currentPropertyLanguage,currentFormat,propertiesString);
         return visitChildren(ctx);
     }
 

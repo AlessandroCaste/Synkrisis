@@ -1,4 +1,4 @@
-// Generated from /home/ale/Synkrisis/src/main/java/antlr/g4models/bigraph.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Utente/Documents/GitHub/Synkrisis/src/main/java/antlr/g4models\bigraph.g4 by ANTLR 4.7.2
 package antlr.bigraph;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -19,7 +19,7 @@ public interface bigraphVisitor<Void> extends ParseTreeVisitor<Void> {
 	/**
 	 * Visit a parse tree produced by {@link bigraphParser#controls}.
 	 * @param ctx the parse tree
-	 * @return the visitor resultR
+	 * @return the visitor result
 	 */
 	Void visitControls(bigraphParser.ControlsContext ctx);
 	/**
@@ -131,17 +131,17 @@ public interface bigraphVisitor<Void> extends ParseTreeVisitor<Void> {
 	 */
 	Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link bigraphParser#prism_properties}.
+	 * Visit a parse tree produced by {@link bigraphParser#extra_properties}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx);
+	Void visitExtra_properties(bigraphParser.Extra_propertiesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link bigraphParser#prism_statements}.
+	 * Visit a parse tree produced by {@link bigraphParser#extra_statements}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	Void visitPrism_statements(bigraphParser.Prism_statementsContext ctx);
+	Void visitExtra_statements(bigraphParser.Extra_statementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link bigraphParser#boolean_expression}.
 	 * @param ctx the parse tree

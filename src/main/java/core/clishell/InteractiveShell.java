@@ -60,16 +60,18 @@ public class InteractiveShell {
 
     @Command(name="output",abbrev = "o")
      public void output(@Param(name="mchecker") String modelChecker) {
-        if(modelChecker.equalsIgnoreCase("prism"))
+       /* if(modelChecker.equalsIgnoreCase("prism"))
             loadedSettings.enablePrismExporting();
         else if(modelChecker.equalsIgnoreCase("spot"))
             loadedSettings.enableSpotExporting();
+            */
+
     }
 
     @Command(name="Output",abbrev = "O")
      public void output() {
-        loadedSettings.enablePrismExporting();
-        loadedSettings.enableSpotExporting();
+        //loadedSettings.enablePrismExporting();
+        //loadedSettings.enableSpotExporting();
     }
 
     @Command(name = "write", abbrev = "w")

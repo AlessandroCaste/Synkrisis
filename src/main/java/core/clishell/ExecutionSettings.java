@@ -1,15 +1,16 @@
 package core.clishell;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class ExecutionSettings {
 
     private String filePath;
     private int steps = 0;
     private int statisticsFrequency = 0;
     private boolean printNewStatesEnabled = false;
-    private boolean prismExportingEnabled = false;
-    private boolean spotExportingEnabled = false;
-    private boolean spotExportingReady = false;
     private boolean exportingEnabled = false;
+    private HashSet <String> exporting = new HashSet<>();
     private boolean printModelEnabled = false;
     private boolean printTransitionEnabled = false;
     private boolean processTransitionOnly = false;
@@ -33,17 +34,17 @@ public class ExecutionSettings {
         return printNewStatesEnabled;
     }
 
-    public boolean isPrismExportingEnabled() {
-        return prismExportingEnabled;
+    public boolean isExportingEnabled() {
+        return !exporting.isEmpty();
     }
 
-    public boolean isSpotExportingEnabled() {
-        return spotExportingEnabled;
+    void addExportingLanguage(String language) {
+        exporting.add(language);
     }
 
-    public boolean isSpotExportingReady() { return spotExportingReady; }
-
-    public boolean isExportingEnabled() { return exportingEnabled; }
+    public ArrayList<String> checkersList() {
+        return new ArrayList<>(exporting);
+    }
 
     public boolean isPrintModelEnabled() {
         return printModelEnabled;
@@ -73,20 +74,6 @@ public class ExecutionSettings {
 
     void enablePrintNewStates() {
         this.printNewStatesEnabled = true;
-    }
-
-    void enablePrismExporting() {
-        exportingEnabled = true;
-        this.prismExportingEnabled = true;
-    }
-
-    void enableSpotExporting() {
-        exportingEnabled = true;
-        this.spotExportingEnabled = true;
-    }
-
-    public void setSpotExportingReady(boolean spotExportingReady) {
-        this.spotExportingReady = spotExportingReady;
     }
 
     void enablePrintModel() {

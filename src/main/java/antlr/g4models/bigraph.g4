@@ -61,8 +61,8 @@ properties         : PROPERTIES COLON spot_statement
                    | spot_statement
                    ;
 
-spot_statement     : SPOT ASSIGNMENT acc_name? acceptance prism_properties
-                   | prism_properties
+spot_statement     : SPOT ASSIGNMENT acc_name? acceptance extra_properties
+                   | extra_properties
                    ;
 
 // Spot makes use of hyphens (and apparently no digits) for its identifiers, so I create a new token
@@ -82,12 +82,11 @@ acceptance_cond2   : (FIN|INF) LPAR (NOT)? IDENTIFIER (CONJUNCTION (NOT)? IDENTI
                    ;
 
 
-prism_properties   : PRISM ASSIGNMENT prism_statements
+extra_properties   : IDENTIFIER LPAR IDENTIFIER RPAR ASSIGNMENT PROP_LBRACK extra_statements PROP_RBRACK extra_properties
                    | EOF
                    ;
 
-prism_statements   : (.+) EOF
-                   | EOF
+extra_statements   : ~(PROP_RBRACK)*
                    ;
 
 boolean_expression : term (binary_operation term)?
@@ -119,7 +118,6 @@ Lexer
 */
 
 COMMA      : ',' ;
-SEMI       : ';' -> skip;
 COLON      : ':' ;
 DOT        : '.' ;
 ASSIGNMENT : '=';
@@ -134,6 +132,7 @@ LPAR    : '(' ;
 RPAR    : ')' ;
 LOR     : '||';
 PAR     : '|' ;
+
 
 DOLLAR   : '$'   ;
 UNLINKED : '-'   ;
@@ -176,7 +175,6 @@ PRODUCT  : '*'  ;
 ADDITION : '+'  ;
 CONJUNCTION : '&' ;
 
-PRISM      : 'PRISM' ;
 SPOT       : 'SPOT-ACCEPTANCE'  ;
 ACCEPTANCE : 'Acceptance' ;
 ACCNAME    : 'acc-name' ;
@@ -184,6 +182,9 @@ FIN        : 'Fin' ;
 INF        : 'Inf' ;
 SPOT_TRUE  : 't'   ;
 SPOT_FALSE : 'f'   ;
+
+PROP_LBRACK : '\\{';
+PROP_RBRACK : '\\}';
 
 
 // Closing line

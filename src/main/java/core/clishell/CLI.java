@@ -46,10 +46,8 @@ public class CLI {
             }
             if (cmd.hasOption("o")) {
                 ArrayList<String> list = new ArrayList<>(Arrays.asList(cmd.getOptionValues("o")));
-                if(list.contains("prism"))
-                    settings.enablePrismExporting();
-                if (list.contains("spot"))
-                    settings.enableSpotExporting();
+                for(String s : list)
+                    settings.addExportingLanguage(s);
             }
             if(cmd.hasOption("g"))
                 settings.enablePrintModel();

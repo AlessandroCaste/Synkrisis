@@ -162,7 +162,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     @Override public Void visitExpression (bigraphParser.ExpressionContext ctx) {
         // I verify a hole hasn't been put at the start of the expression
         if(root) {
-            if (root && ctx.DOLLAR() != null)
+            if (ctx.DOLLAR() != null)
                 reportError(ctx, ERROR, "Can't have a \"hole\" node at the start of an expression!");
             root = false;
         }
@@ -291,11 +291,11 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         return visitChildren(ctx);
     }
 
-    @Override public Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx) {
+    @Override public Void visitExtra_properties(bigraphParser.Extra_propertiesContext ctx) {
         return visitChildren(ctx);
     }
 
-    @Override public Void visitPrism_statements(bigraphParser.Prism_statementsContext ctx) {
+    @Override public Void visitExtra_statements(bigraphParser.Extra_statementsContext ctx) {
         return visitChildren(ctx);
     }
 

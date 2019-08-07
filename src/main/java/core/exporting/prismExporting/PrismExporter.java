@@ -60,7 +60,6 @@ public class PrismExporter {
         checkMDP();
         writeTransitionFile();
         writeLabelFile();
-        writeProperties();
     }
 
     // I check if all edges are unique (= MDP)
@@ -201,22 +200,6 @@ public class PrismExporter {
         } catch (IOException e) {
             System.out.println("Can't output the label (.lab) file!");
             logger.log(Level.SEVERE, "Can't write .lab file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
-        }
-    }
-
-    private void writeProperties() {
-        if(propertiesString.replaceAll("\\s+","").equals(""))
-            System.out.println("No PRISM properties have been specified");
-        else {
-            System.out.println("Writing the PRISM .prop file");
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(new File(path + modelName + ".prop"), false));
-                writer.write(propertiesString);
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("Can't output the prism property (.prop) file!");
-                logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization\nStack trace " + e.getMessage());
-            }
         }
     }
 

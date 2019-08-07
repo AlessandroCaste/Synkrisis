@@ -1,6 +1,5 @@
 package core.graphs.storing;
 
-import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
 import core.exporting.spotExporting.SpotInfo;
 import core.graphs.customized.edges.TransitionEdge;
@@ -105,10 +104,6 @@ public class GraphsCollection {
 
     public ArrayList<RedexReactumPair> getReactionsList() {
         return reactionsList;
-    }
-
-    public void exportToPrism(String propertiesString) {
-        new PrismExporter(transitionGraph,modelName,markerMap,propertiesString).translate();
     }
 
     public void exportToSpot(SpotInfo spotInfo) {

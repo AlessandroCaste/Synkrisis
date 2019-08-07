@@ -29,5 +29,4 @@ properties:
         acc-name: generalized-co-Buchi 3
         Acceptance: 3 Fin(objective_met) | Fin(!he_forgot_the_pager) | Fin(nursestation_meeting)
 
-    PRISM =
-        asdoijasoidujaoisudoiasudoius
+    PRISM (prop) = \{ asdoijasoidujaoisudoiasudoius \}
