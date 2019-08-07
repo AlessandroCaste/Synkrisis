@@ -48,6 +48,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     private short WARNING = 0;
     private short ERROR = 1;
 
+    // Used to signal wrong usage of "holes" ($DIGIT at the start of expressions)
+    private boolean root = true;
+
     // I use a ControlChecker class to store all info needed for arity control and a global variable to track link arity
     private ControlChecker lastControl;
     private int linkArity = 0;
@@ -118,7 +121,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     // Reactions rules should present distinct, unique names!
     @Override
     public Void visitReactions(bigraphParser.ReactionsContext ctx) {
-
+        root = true;
         if (ctx.RULE() != null) {
             currentRule = ctx.IDENTIFIER().toString();
 
@@ -157,7 +160,12 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     // We track usages and also save info on the current control term to verify whether its arity matches links arity
     @Override public Void visitExpression (bigraphParser.ExpressionContext ctx) {
-
+        // I verify a hole hasn't been put at the start of the expression
+        if(root) {
+            if (root && ctx.DOLLAR() != null)
+                reportError(ctx, ERROR, "Can't have a \"hole\" node at the start of an expression!");
+            root = false;
+        }
         // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)
         if (ctx.IDENTIFIER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
@@ -217,6 +225,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
 
     @Override public Void visitModel (bigraphParser.ModelContext ctx){
+        root = true;
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
         return visitChildren(ctx);

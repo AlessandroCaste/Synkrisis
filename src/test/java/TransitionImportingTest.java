@@ -1,6 +1,7 @@
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
 import core.graphs.storing.GraphsCollection;
+import core.setup.Main;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ class TransitionImportingTest {
     // Note that this test may work only with specific implementations of bigmc (different binaries may mix parallel regions)
     @Test
     void execute() {
-        core.Main.main(new String[] {"-l","src/test/java/models/hospital.bigraph","-G"});
+        Main.main(new String[] {"-l","src/test/java/models/hospital.bigraph","-G"});
         DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph = GraphsCollection.getInstance().getTransitionGraph();
         assertEquals(18, transitionGraph.vertexSet().size());
         for(TransitionVertex tv : transitionGraph.vertexSet()) {

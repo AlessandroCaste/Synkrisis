@@ -1,4 +1,4 @@
-package core;
+package core.setup;
 
 import core.clishell.CLI;
 import core.clishell.ExecutionSettings;

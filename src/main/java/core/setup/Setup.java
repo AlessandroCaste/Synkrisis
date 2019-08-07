@@ -1,4 +1,4 @@
-package core;
+package core.setup;
 
 
 import antlr.bigraph.bigraphLexer;

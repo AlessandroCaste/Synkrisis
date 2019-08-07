@@ -3,7 +3,7 @@ package core.clishell;
 import asg.cliche.Command;
 import asg.cliche.Param;
 import asg.cliche.ShellFactory;
-import core.Main;
+import core.setup.Main;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 

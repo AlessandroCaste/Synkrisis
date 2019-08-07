@@ -8,10 +8,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Package refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/Vertex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/airport2.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/airport2.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Setup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TransitionImportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TransitionImportingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/transitionTest1.dot" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -136,14 +137,14 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="core.Main" />
+      <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/airport2.bigraph -m 1500 -G" />
+      <option name="PROGRAM_PARAMETERS" value="--load src/test/java/models/self.bigraph -G" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GraphBuildingTest.completeAdditionCheck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GraphBuildingTest.completeAdditionCheck" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Synkrisis" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="GraphBuildingTest" />
@@ -225,7 +226,6 @@
         <item itemvalue="JUnit.RunAllTests" />
         <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.TransitionImportingTest.execute" />
-        <item itemvalue="JUnit.GraphBuildingTest.completeAdditionCheck" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
       </list>
     </recent_temporary>
@@ -374,7 +374,8 @@
       <workItem from="1564999220828" duration="3537000" />
       <workItem from="1565017922968" duration="1931000" />
       <workItem from="1565021327443" duration="1195000" />
-      <workItem from="1565096800271" duration="1798000" />
+      <workItem from="1565096800271" duration="5604000" />
+      <workItem from="1565135382243" duration="2516000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -656,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565017985352</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Package refactoring">
+      <created>1565098626568</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1565098626568</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView">
@@ -860,6 +868,11 @@
           <url>file://$PROJECT_DIR$/src/test/java/TransitionTest.java</url>
           <line>27</line>
           <option name="timeStamp" value="307" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
+          <line>212</line>
+          <option name="timeStamp" value="308" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
