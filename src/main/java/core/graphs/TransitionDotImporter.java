@@ -15,8 +15,6 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.lang.System.exit;
-
 public class TransitionDotImporter {
 
     private static Logger logger = Logger.getLogger("Report");
@@ -40,6 +38,9 @@ public class TransitionDotImporter {
     private GraphsCollection graphsCollection = GraphsCollection.getInstance();
 
     private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
+
+    // Result of transition is saved
+    private boolean successfulImporting = true;
 
     public TransitionDotImporter(String modelName,boolean transitionOnly) {
         this.modelName = modelName;
@@ -120,13 +121,18 @@ public class TransitionDotImporter {
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
             graphsCollection.addTransition(transitionGraph);
         } catch (FileNotFoundException fe) {
-            System.out.println("[FATAL ERROR] Transition system hasn't been successfully created; problems with the model checker?");
+            System.out.println("[FATAL ERROR] Can't find the transition system hasn't: problems with the model checker?");
             logger.log(Level.SEVERE, "Missing transition file; something went wrong when reading the output of the model checker (bigmc?) and printing it to file\nStack trace: " + fe.getMessage());
-            exit(1);
+            successfulImporting = false;
         } catch (ImportException ie) {
             System.out.println("[FATAL ERROR] Error while importing dot transition file: check for syntax problems");
             logger.log(Level.SEVERE, "JgraphT parsing of dot file failed; this may have to do with vertex/edge providers, but it probably boils down to wrong dot specifications\nStack trace: " + ie.getMessage());
+            successfulImporting = false;
         }
+    }
+
+    public boolean isSuccessful() {
+        return successfulImporting;
     }
 
 }

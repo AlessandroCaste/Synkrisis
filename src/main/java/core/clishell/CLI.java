@@ -13,6 +13,9 @@ public class CLI {
 
     private ExecutionSettings settings = new ExecutionSettings();
 
+    // Boolean to leave the program in case user just wanted to display -h
+    private boolean leave = false;
+
 
 
     public CLI(String[] args) {
@@ -89,7 +92,11 @@ public class CLI {
         // This prints out some help
         HelpFormatter formater = new HelpFormatter();
         formater.printHelp("Main", options);
-        System.exit(0);
+        leave = true;
+    }
+
+    public boolean mustLeave() {
+        return leave;
     }
 
     public ExecutionSettings loadSettings() {

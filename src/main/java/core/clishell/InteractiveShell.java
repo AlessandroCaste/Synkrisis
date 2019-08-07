@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+//TODO Interactive shell resets execution folders each time
 public class InteractiveShell {
 
     private ExecutionSettings loadedSettings = new ExecutionSettings();
@@ -101,7 +102,6 @@ public class InteractiveShell {
      public void run(){
         if(loadedSettings.getFilePath()!=null) {
             Main.execution(loadedSettings);
-            loadedSettings = new ExecutionSettings();
         } else
             System.out.println("You must first specify a model!");
     }
@@ -113,5 +113,6 @@ public class InteractiveShell {
             System.out.println("No such file exists");
         }
     }
+
 }
 

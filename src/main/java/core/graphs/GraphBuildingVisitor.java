@@ -453,8 +453,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitPrism_properties(bigraphParser.Prism_propertiesContext ctx) {
         if(spotSpecifications!=null)
             spotInfo.setAcceptanceStatesSpecification(spotSpecifications.toString());
-        if(ctx.EOF()!=null)
-            System.out.println("Specification has been analyzed");
         return visitChildren(ctx);
     }
 

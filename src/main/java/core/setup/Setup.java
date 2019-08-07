@@ -39,13 +39,18 @@ class Setup {
             filename = inputFile.getName();
             filename = FilenameUtils.removeExtension(filename);
             // This block configure the logger with handler and formatter
+            File oldFile = new File(filename+".log");
+            boolean deletionResult = true;
+            if(oldFile.exists())
+                deletionResult = oldFile.delete();
+            if(!deletionResult)
+                throw new IOException();
             fh = new FileHandler(filename + ".log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
             // Here starts the logging
             logger.info("Log started");
-
         } catch (SecurityException | IOException e) {
             System.out.println("[FATAL ERROR] Can't setup the logger");
             successfulSetup = false;
@@ -81,6 +86,11 @@ class Setup {
             logger.log(Level.SEVERE,e.getMessage());
         }
         logger.log(Level.INFO,"Parsing tree creation concluded");
+    }
+
+    void closeLogger() {
+        logger.log(Level.INFO,"Logging complete");
+        fh.close();
     }
 
     boolean isSuccessful() {

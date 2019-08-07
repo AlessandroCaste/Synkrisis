@@ -20,6 +20,7 @@ public class Bigmc implements ModelChecker{
     private ParseTree modelTree;
     private ExecutionSettings loadedSettings;
     private boolean isBigmcReady;
+    private boolean successfulInitialization;
 
 
     public Bigmc(ExecutionSettings settings,ParseTree modelTree) {
@@ -72,6 +73,7 @@ public class Bigmc implements ModelChecker{
     // Sending input to bigmc
     @Override
     public void execute() {
+        successfulInitialization = true;
         String input = createInputString();
         String modelName = loadedSettings.getModelName();
         try{
@@ -103,6 +105,7 @@ public class Bigmc implements ModelChecker{
             File bigmcCompatibleFile = new File(bigmcCompatibleFilepath);
             if(bigmcCompatibleFile.exists())
                 bigmcCompatibleFile.delete();
+            successfulInitialization = false;
         }
 
         // The scanner will separate the transition system from all the other messages (that get output to CLI)
@@ -119,18 +122,20 @@ public class Bigmc implements ModelChecker{
             BufferedWriter transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".dot",true));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                if(line.equals("digraph reaction_graph {")) {
+                if (line.equals("digraph reaction_graph {")) {
                     isTransition = true;
-                    if(transition_counter > 0)
-                        transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".dot",true));
+                    if (transition_counter > 0)
+                        transition = new BufferedWriter(new FileWriter(modelName + "/" + modelName + "-" + transition_counter + ".dot", true));
                     transition.write(line + "\n");
-                }else if(line.equals("}")) {
+                } else if (line.equals("}")) {
                     isTransition = false;
                     transition.write(line);
                     transition.close();
                     transition_counter++;
-                }else if(isTransition)
+                } else if (isTransition)
                     transition.write(line + "\n");
+                else if (line.equals("/bin/bash: bigmc: command not found"))
+                    successfulInitialization = false;
                 else {
                     System.out.println(line);           // I print out non-transition lines
                 }
@@ -177,9 +182,11 @@ public class Bigmc implements ModelChecker{
         } catch (FileNotFoundException e) {
             System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
             logger.log(Level.SEVERE, "File not found when using the scanner\nStack trace: " + e.getMessage());
+            successfulInitialization = false;
         } catch (IOException e) {
             System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
             logger.log(Level.SEVERE, "Unexpected crash due to BufferWriter object\nStack trace: " + e.getMessage());
+            successfulInitialization = false;
         }
     }
 
@@ -211,6 +218,10 @@ public class Bigmc implements ModelChecker{
             logger.log(Level.SEVERE,"Can't translate input to bigmc-readable file.\nStack: " + e.getMessage());
         }
         System.out.println("Translation complete");
+    }
+
+    public boolean isSuccessful() {
+        return successfulInitialization;
     }
 
 }
