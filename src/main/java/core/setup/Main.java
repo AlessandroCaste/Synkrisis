@@ -76,8 +76,6 @@ public class Main {
                     modelChecker.translate();
                 modelChecker.execute();
 
-
-
                 // Running the model checker must give us back a transition graph, so that we parse results
                 boolean dotImportingSuccessful = false;
                 //boolean dotExportingSuccessful = false;
@@ -86,13 +84,17 @@ public class Main {
                     dotImportingSuccessful = dotImporting(executionSettings);
                 } else
                     System.out.println("[GENERATION : ERROR] Couldn't find bigmc in this working machine");
-                if(dotImportingSuccessful) {
+                if(dotImportingSuccessful)
                     System.out.println("Transition file correctly imported");
-                    exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
-                    exporter.execute();
-                }
                 else
                     System.out.println("[FATAL ERROR] Can't import the transition file correctly");
+                if(dotImportingSuccessful && executionSettings.isExportingEnabled()) {
+                    System.out.println("\nMODEL EXPORTING\n***************");
+                    exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
+                    if(modelBuilder.isSpotReady())
+                        exporter.addSpotInfo(modelBuilder.getSpotInfo());
+                    exporter.execute();
+                }
             } else
                 System.out.println("Error in syntax analysis: processing can't go any further");
         }
@@ -138,9 +140,9 @@ public class Main {
     private static boolean dotImporting(ExecutionSettings executionSettings) {
         TransitionDotImporter dotImporter;
         if (executionSettings.isProcessTransitionOnly())
-            dotImporter = new TransitionDotImporter(modelName, true);
+            dotImporter = new TransitionDotImporter(executionSettings.getFilePath(), true);
         else
-            dotImporter = new TransitionDotImporter(executionSettings.getFilePath(), false);
+            dotImporter = new TransitionDotImporter(modelName, false);
         dotImporter.processTransition();
 
         if (executionSettings.isPrintTransitionEnabled()) {

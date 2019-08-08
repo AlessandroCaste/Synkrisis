@@ -13,7 +13,7 @@ class Properties {
     }
 
     public void add(String modelChecker, OutputFile specification) {
-        filesPerChecker.put(modelChecker,specification);
+        filesPerChecker.put(modelChecker.toLowerCase(),specification);
     }
 
     boolean isEmpty() {
@@ -21,7 +21,7 @@ class Properties {
     }
 
     String get(String checker, String extension) {
-        ArrayList<OutputFile> outputFiles = new ArrayList<>(filesPerChecker.get(checker));
+        ArrayList<OutputFile> outputFiles = new ArrayList<>(filesPerChecker.get(checker.toLowerCase()));
         boolean found = false;
         String result = "";
         for(int i = 0; i < outputFiles.size() && !found; i++)
@@ -33,7 +33,7 @@ class Properties {
     }
 
     ArrayList<OutputFile> get(String checker) {
-        return new ArrayList<>(filesPerChecker.get(checker));
+        return new ArrayList<>(filesPerChecker.get(checker.toLowerCase()));
     }
 
 }

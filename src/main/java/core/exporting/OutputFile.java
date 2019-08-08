@@ -6,7 +6,7 @@ class OutputFile {
     private String text;
 
     OutputFile(String extension,String text) {
-        this.extension = extension;
+        this.extension = extension.toLowerCase();
         this.text = text;
     }
 

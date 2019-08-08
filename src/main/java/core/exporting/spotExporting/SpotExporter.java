@@ -1,5 +1,6 @@
 package core.exporting.spotExporting;
 
+import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
 import org.jgrapht.Graphs;
@@ -29,11 +30,10 @@ public class SpotExporter {
     private String outputString;
 
 
-    public SpotExporter(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName,
-                        ArrayList<String> reactionNames, SpotInfo spotInfo) {
-        this.transitionGraph = transitionGraph;
-        this.modelName = modelName;
-        this.reactionNames = reactionNames;
+    public SpotExporter(TransitionGraph transitionGraph, SpotInfo spotInfo) {
+        this.transitionGraph = transitionGraph.getGraph();
+        this.modelName = transitionGraph.getModelName();
+        this.reactionNames = transitionGraph.getReactionNames();
         this.acc_name = spotInfo.getAcc_name();
         this.numberAcceptanceSets = spotInfo.getNumberAcceptanceSets();
         this.acceptanceStates = spotInfo.getAcceptanceStates();
@@ -45,7 +45,6 @@ public class SpotExporter {
             counter++;
         }
         normalization(counter);
-        translate();
     }
 
     // Check if it's not a w-automaton, in that case add self-loops
@@ -63,7 +62,7 @@ public class SpotExporter {
         }
     }
 
-    private void translate() {
+    public void translate() {
         System.out.println("Spot translation started");
         logger.log(Level.INFO,"Writing .hoa file");
         File path = new File(modelName + "/spot");

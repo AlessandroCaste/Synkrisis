@@ -150,7 +150,7 @@ public class Bigmc implements ModelChecker{
 
             //TODO WHY
             // I create a new transition file, deleting an eventual old one
-            File oldFile = new File(modelName + "/" + modelName + ".dot");
+            File oldFile = new File(modelName + "/" + "transition.dot");
             boolean deleteResult = true;
             if(oldFile.exists())
                 deleteResult = oldFile.delete();

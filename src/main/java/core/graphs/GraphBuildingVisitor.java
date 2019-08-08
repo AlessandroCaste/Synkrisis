@@ -346,6 +346,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override public Void visitSpot_statement(bigraphParser.Spot_statementContext ctx) {
+        // No SPOT specification
+        if(ctx.SPOT()==null)
+            spotReady = false;
         return visitChildren(ctx);
     }
 
@@ -465,7 +468,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override public Void visitExtra_statements (bigraphParser.Extra_statementsContext ctx) {
         // Since they do vary a lot and have not a fixed, specified grammar we just print properties to file
-        if(ctx.children.size() >= 1) {
+        if(ctx.children!= null) {
             int startPosition = ctx.start.getStartIndex();
             int endPosition = ctx.stop.getStopIndex();
             Interval interval = new Interval(startPosition, endPosition);
@@ -513,11 +516,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         graphsCollection.addReaction(reaction);
     }
 
-    public String getPropertiesString() {
-        return propertiesString;
-    }
-
-    public SpotInfo getAcceptanceInfo() {
+    public SpotInfo getSpotInfo() {
         return spotInfo;
     }
 

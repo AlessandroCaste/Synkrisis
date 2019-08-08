@@ -117,14 +117,13 @@ public class TransitionDotImporter {
             FileReader transitionFile;
             if(transitionOnly)
                 transitionFile = new FileReader(modelName);
-
             else
                 transitionFile = new FileReader(modelName + "/" + "transition.dot");
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
             graphsCollection.addTransition(transitionGraph,modelName, GraphDataEncapsulation.getInstance().markerMap);
         } catch (FileNotFoundException fe) {
-            System.out.println("[FATAL ERROR] Can't find the transition system hasn't: problems with the model checker?");
+            System.out.println("[FATAL ERROR] Can't find the transition file: problems with the model checker?");
             logger.log(Level.SEVERE, "Missing transition file; something went wrong when reading the output of the model checker (bigmc?) and printing it to file\nStack trace: " + fe.getMessage());
             successfulImporting = false;
         } catch (ImportException ie) {

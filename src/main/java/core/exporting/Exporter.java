@@ -2,6 +2,7 @@ package core.exporting;
 
 import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
+import core.exporting.spotExporting.SpotInfo;
 import core.graphs.customized.TransitionGraph;
 import core.graphs.storing.GraphsCollection;
 
@@ -20,9 +21,16 @@ public class Exporter {
     private TransitionGraph transitionGraph;
     private Properties properties;
     private String modelName;
-    private PrismExporter prismExporter;
+
+    // SPOT exporting
     private SpotExporter spotExporter;
+    private SpotInfo spotInfo;
+
+    // PRISM exporting
+    private PrismExporter prismExporter;
+
     // Here you may add new exporting packages. Common behavior is just printing the specified properties
+    // By default specified properties get print, but you can change that behavior in 'execute' methods
 
     private ArrayList<String> enabledLanguages;
 
@@ -38,6 +46,10 @@ public class Exporter {
     public void setTransitionGraph(TransitionGraph transitionGraph) {
         this.transitionGraph = transitionGraph;
         this.modelName = transitionGraph.getModelName();
+    }
+
+    public void addSpotInfo(SpotInfo spotInfo){
+        this.spotInfo = spotInfo;
     }
 
     public static Exporter getInstance() {
@@ -59,8 +71,8 @@ public class Exporter {
         for (String s : enabledLanguages)
             if (s.equalsIgnoreCase("prism"))
                 prismExporting();
-            //else if (s.equalsIgnoreCase("spot"))
-               // spotExporting();
+            else if (s.equalsIgnoreCase("spot"))
+                spotExporting();
             else
                 // All other model checkers have properties print to file
                 printAllProperties(s.toLowerCase());
@@ -85,11 +97,26 @@ public class Exporter {
             System.out.println("Printing of .prop file completed");
     }
 
+    private void spotExporting() {
+        if(spotInfo==null)
+            System.out.println("SPOT properties have not correctly been specified");
+        else {
+            SpotExporter spotExporter = new SpotExporter(transitionGraph,spotInfo);
+            spotExporter.translate();
+        }
+    }
+
     private void printAllProperties(String checker) {
         ArrayList<OutputFile> propertiesString = properties.get(checker);
-        boolean result = true;
+        boolean result = false;
+        boolean first = true;
         for(OutputFile o : propertiesString) {
-            result = result && printToFile(checker,o.getExtension(),o.getText());
+            if(first) {
+                result = printToFile(checker, o.getExtension(), o.getText());
+                first = false;
+            }
+            else
+                result = result && printToFile(checker,o.getExtension(),o.getText());
         }
         if(result)
             System.out.println("Printing of " + checker + " properties is completed");
@@ -121,7 +148,7 @@ public class Exporter {
             System.out.println("****************");
             // Model exporting
             if (executionSettings.isSpotExportingEnabled())
-                graphsCollection.exportToSpot(modelBuilder.getAcceptanceInfo());
+                graphsCollection.exportToSpot(modelBuilder.getSpotInfo());
             if (executionSettings.isPrismExportingEnabled())
                 if (propertiesString != null)
                     graphsCollection.exportToPrism(propertiesString);
