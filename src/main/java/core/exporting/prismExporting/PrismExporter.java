@@ -3,6 +3,7 @@ package core.exporting.prismExporting;
 import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
+import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
@@ -29,6 +30,7 @@ public class PrismExporter {
     private String modelName;
     private HashMap<String,Integer> markersMap;
     private String path;
+    private boolean isSuccessful;
 
     private int choice = 0;
 
@@ -37,17 +39,26 @@ public class PrismExporter {
         this.transitionGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
         Graphs.addAllEdges(this.transitionGraph,transitionGraph.getGraph(),transitionGraph.getGraph().edgeSet());
         this.modelName = transitionGraph.getModelName();
-        this.markersMap = transitionGraph.getMarkersMap();
+        this.markersMap = new HashMap<>(transitionGraph.getMarkersMap());
         // markersMap ordering
+        for (Map.Entry<String, Integer> entry : markersMap.entrySet())
+            entry.setValue(entry.getValue()+2);
         this.markersMap =
                 markersMap.entrySet().stream()
                         .sorted(Map.Entry.comparingByValue())
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
-        path = modelName + "/prism/";
+        path = FilenameUtils.getBaseName(modelName) + "/prism";
         File prismPath = new File(path);
         if(!prismPath.exists()) {
-            if(!prismPath.mkdir()) {
+            if(!prismPath.mkdirs()) {
+                System.out.println("Can't create a new 'prism' directory");
+                logger.log(Level.WARNING,"Couldn't create a 'prism' folder for model outputting");
+            }
+        } else {
+            prismPath.delete();
+            logger.log(Level.INFO,"Deleted old prism output folder");
+            if(!prismPath.mkdirs()) {
                 System.out.println("Can't create a new 'prism' directory");
                 logger.log(Level.WARNING,"Couldn't create a 'prism' folder for model outputting");
             }
@@ -55,11 +66,13 @@ public class PrismExporter {
 
     }
 
-    public void translate() {
+    public boolean translate() {
+        isSuccessful = true;
         normalization();
         checkMDP();
         writeTransitionFile();
         writeLabelFile();
+        return isSuccessful;
     }
 
     // I check if all edges are unique (= MDP)
@@ -78,7 +91,7 @@ public class PrismExporter {
         System.out.println("Writing the PRISM .tra file");
         logger.log(Level.INFO,"Writing .tra file");
         try {
-            BufferedWriter traWriter = new BufferedWriter(new FileWriter(path + modelName + ".tra",false));
+            BufferedWriter traWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + ".tra",false));
             if(!mdp) {
                 // First line
                 traWriter.write(Integer.toString(transitionGraph.vertexSet().size()));
@@ -150,6 +163,7 @@ public class PrismExporter {
         } catch (IOException e) {
             System.out.println("Can't output the transition (.tra) file!");
             logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
+            isSuccessful = false;
         }
     }
 
@@ -183,7 +197,7 @@ public class PrismExporter {
         System.out.println("Writing the PRISM .lab file");
         logger.log(Level.INFO,"Writing .lab file");
         try {
-            BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + modelName + ".lab",false));
+            BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + ".lab",false));
             // I write by deafult built-in properties
             labWriter.write("0=\"init\" 1=\"deadlock\" ");
             for(String marker : markersMap.keySet())
@@ -200,6 +214,7 @@ public class PrismExporter {
         } catch (IOException e) {
             System.out.println("Can't output the label (.lab) file!");
             logger.log(Level.SEVERE, "Can't write .lab file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
+            isSuccessful = false;
         }
     }
 

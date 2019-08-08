@@ -50,7 +50,7 @@ public class Main {
         Setup setup = new Setup(inputFile);
         setup.setupLogger();
         setup.setupParser(); // Initializing lexer, tokens etc
-        exporter.initialize(executionSettings.checkersList());
+        exporter.initialize(executionSettings.checkersList(),executionSettings.isProcessTransitionOnly());
         if (setup.isSuccessful()) {
             modelTree = setup.getModelTree();
             boolean acceptableModel = syntaxAnalysis(executionSettings);
@@ -88,17 +88,32 @@ public class Main {
                     System.out.println("Transition file correctly imported");
                 else
                     System.out.println("[FATAL ERROR] Can't import the transition file correctly");
-                if(dotImportingSuccessful && executionSettings.isExportingEnabled()) {
-                    System.out.println("\nMODEL EXPORTING\n***************");
-                    exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
-                    if(modelBuilder.isSpotReady())
-                        exporter.addSpotInfo(modelBuilder.getSpotInfo());
-                    exporter.execute();
-                }
+                exporting(dotImportingSuccessful,executionSettings,modelBuilder);
             } else
                 System.out.println("Error in syntax analysis: processing can't go any further");
         }
         setup.closeLogger();
+    }
+
+    private static void exporting(boolean dotImportingSuccessful,ExecutionSettings executionSettings,GraphBuildingVisitor modelBuilder) {
+        if (dotImportingSuccessful && executionSettings.isExportingEnabled() && !exporter.isEmpty()) {
+            System.out.println("\nMODEL EXPORTING\n***************");
+            exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
+            if (modelBuilder.isSpotReady())
+                exporter.addSpotInfo(modelBuilder.getSpotInfo());
+            exporter.execute();
+        } else
+            System.out.println("[EXPORTING FAILURE] Impossible to export to external formats");
+    }
+
+    private static void exportingNoAnalysis(boolean dotImportingSuccessful,ExecutionSettings executionSettings) {
+        if (dotImportingSuccessful && executionSettings.isExportingEnabled()) {
+            System.out.println("\nMODEL EXPORTING\n***************");
+            exporter.initialize(executionSettings.checkersList(),executionSettings.isProcessTransitionOnly());
+            exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
+            exporter.execute();
+        } else
+            System.out.println("[EXPORTING FAILURE] Impossible to export to external formats");
     }
 
     private static void interactiveShell() {
@@ -111,8 +126,11 @@ public class Main {
         System.out.println("Use -h command for further help");
         CLI cli = new CLI(args);
         cli.parse();
-        if(!cli.mustLeave())
-            execution(cli.loadSettings());
+        if(cli.transitionOnly())
+                exportingNoAnalysis(dotImporting(cli.loadSettings()),cli.loadSettings());
+        else
+            if(!cli.mustLeave())
+                execution(cli.loadSettings());
     }
 
     // Syntax Visitor execution
@@ -139,12 +157,8 @@ public class Main {
 
     private static boolean dotImporting(ExecutionSettings executionSettings) {
         TransitionDotImporter dotImporter;
-        if (executionSettings.isProcessTransitionOnly())
-            dotImporter = new TransitionDotImporter(executionSettings.getFilePath(), true);
-        else
-            dotImporter = new TransitionDotImporter(modelName, false);
+        dotImporter = new TransitionDotImporter(executionSettings.getFilePath(), executionSettings.isProcessTransitionOnly());
         dotImporter.processTransition();
-
         if (executionSettings.isPrintTransitionEnabled()) {
             System.out.println("Printing the transition graph");
             graphsCollection.printTransition();

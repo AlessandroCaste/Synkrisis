@@ -62,7 +62,8 @@ public class SpotExporter {
         }
     }
 
-    public void translate() {
+    public boolean translate() {
+        boolean isSuccessful = false;
         System.out.println("Spot translation started");
         logger.log(Level.INFO,"Writing .hoa file");
         File path = new File(modelName + "/spot");
@@ -140,11 +141,12 @@ public class SpotExporter {
 
             hoaWriter.write(("*/\n"));
             hoaWriter.close();
+            isSuccessful = true;
         } catch (IOException e) {
             System.out.println("Can't output the transition file!");
             logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
         }
-
+        return isSuccessful;
     }
 
     private String reactionNamesFormatted() {

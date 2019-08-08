@@ -23,8 +23,9 @@ public class CLI {
 
         this.args = args;
 
-        options.addOption(Option.builder("l").longOpt("load").hasArg(true).desc("load a .bigraph model for processing").required(true).build());
-        options.addOption("o","output-translation",true,"feed edges to PRISM and SPOT for transition analysis");
+        options.addOption("l","load", true,"load a .bigraph model for processing");
+        options.addOption("t","transition-load",true,"load a .dot transition file for processing");
+        options.addOption("o","output-translation",true,"format to external model checkers syntax");
         options.addOption("g","graph-print",false,"print model and reactions graphs");
         options.addOption("G","print-everything",false,"print all graphs produced, including edges");
         options.addOption("m","steps",true,"maximum number of execution steps");
@@ -41,8 +42,21 @@ public class CLI {
         try {
             cmd = parser.parse(options, args);
             if(cmd.hasOption("l")) {
-                String fileName = cmd.getOptionValue("load");
-                settings.setFilePath(fileName);
+                if(cmd.hasOption("t"))
+                    System.out.println("Can't specify both .dot and .bigraph files");
+                else {
+                    String fileName = cmd.getOptionValue("load");
+                    settings.setFilePath(fileName);
+                }
+            }
+            if(cmd.hasOption("t")) {
+                if(cmd.hasOption("l"))
+                    System.out.println("Can't specify both .dot and bigraph files");
+                else {
+                    String path = cmd.getOptionValue("transition-load");
+                    settings.setFilePath(path);
+                    settings.setProcessTransitionOnly();
+                }
             }
             if (cmd.hasOption("o")) {
                 ArrayList<String> list = new ArrayList<>(Arrays.asList(cmd.getOptionValues("o")));
@@ -95,6 +109,10 @@ public class CLI {
 
     public boolean mustLeave() {
         return leave;
+    }
+
+    public boolean transitionOnly(){
+        return settings.isProcessTransitionOnly();
     }
 
     public ExecutionSettings loadSettings() {

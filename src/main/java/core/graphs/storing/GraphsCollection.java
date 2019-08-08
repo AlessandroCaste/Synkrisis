@@ -14,10 +14,6 @@ import java.util.HashMap;
 
 public class GraphsCollection {
 
-    // Model Info
-    private String modelName;
-    private ArrayList<String> reactionNames;
-
     // Graphs
     private Multigraph<Vertex, DefaultEdge> model;
     private ArrayList<RedexReactumPair> reactionsList = new ArrayList<>();
@@ -71,24 +67,12 @@ public class GraphsCollection {
         return this.transitionGraph;
     }
 
-    public void printPrismTransition(TransitionGraph transitionPrismGraph) {
-        CreateGraphvizImages.getInstance().createTransition(transitionPrismGraph.getGraph());
-    }
-
     public void addModel(Multigraph<Vertex, DefaultEdge> model) {
         this.model = model;
     }
 
     public void addReaction(RedexReactumPair reaction) {
         reactionsList.add(reaction);
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public void setReactionNames(ArrayList<String> reactionNames) {
-        this.reactionNames = reactionNames;
     }
 
     public ArrayList<RedexReactumPair> getReactionsList() {

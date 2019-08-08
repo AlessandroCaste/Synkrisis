@@ -308,10 +308,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     @Override public Void visitModel (bigraphParser.ModelContext ctx){
 
-        // I store model name and reactions
-        graphsCollection.setModelName(ctx.IDENTIFIER().toString());
-        graphsCollection.setReactionNames(reactionNames);
-
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
