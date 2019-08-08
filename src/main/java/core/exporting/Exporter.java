@@ -2,17 +2,14 @@ package core.exporting;
 
 import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
-import core.graphs.customized.edges.TransitionEdge;
-import core.graphs.customized.vertices.TransitionVertex;
+import core.graphs.customized.TransitionGraph;
 import core.graphs.storing.GraphsCollection;
-import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,10 +17,11 @@ public class Exporter {
 
     private GraphsCollection graphsCollection = GraphsCollection.getInstance();
 
+    private TransitionGraph transitionGraph;
     private Properties properties;
+    private String modelName;
     private PrismExporter prismExporter;
     private SpotExporter spotExporter;
-    private String modelName;
     // Here you may add new exporting packages. Common behavior is just printing the specified properties
 
     private ArrayList<String> enabledLanguages;
@@ -37,8 +35,9 @@ public class Exporter {
         this.enabledLanguages = checkersList;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
+    public void setTransitionGraph(TransitionGraph transitionGraph) {
+        this.transitionGraph = transitionGraph;
+        this.modelName = transitionGraph.getModelName();
     }
 
     public static Exporter getInstance() {
@@ -61,9 +60,10 @@ public class Exporter {
             if (s.equalsIgnoreCase("prism"))
                 prismExporting();
             //else if (s.equalsIgnoreCase("spot"))
-              //  spotExporting();
+               // spotExporting();
             else
-                printAllProperties(s);
+                // All other model checkers have properties print to file
+                printAllProperties(s.toLowerCase());
     }
 
     public boolean isEmpty() {
@@ -72,10 +72,8 @@ public class Exporter {
 
     private void prismExporting() {
         boolean result = true;
-        DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph = graphsCollection.getTransitionGraph();
-        HashMap<String,Integer> markerMap = graphsCollection.getMarkerMap();
         String propertiesString = properties.get("PRISM","prop");
-        prismExporter = new PrismExporter(transitionGraph,modelName,markerMap,propertiesString);
+        prismExporter = new PrismExporter(transitionGraph);
         // Printing .tra and .lab files
         prismExporter.translate();
         // Printing .prop file
@@ -101,7 +99,7 @@ public class Exporter {
     private boolean printToFile(String modelChecker, String extension, String text) {
         boolean result = true;
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + modelName + "/" + modelChecker + "." + extension), false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + "/" + modelChecker + "." + extension), false));
             writer.write(text);
             writer.close();
         } catch (IOException e) {
@@ -131,4 +129,10 @@ public class Exporter {
                     graphsCollection.exportToPrism("");
         }
     } */
+/*     public void exportToSpot(SpotInfo spotInfo) {
+        if(spotInfo == null)
+            System.out.println("[SPOT-TRANSLATION] No spot Acceptance has been specified");
+        else
+            new SpotExporter(transitionGraph,modelName,reactionNames,spotInfo);
+    }*/
 }

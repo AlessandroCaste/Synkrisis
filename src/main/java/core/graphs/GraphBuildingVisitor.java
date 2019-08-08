@@ -31,7 +31,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
     // Keeping track of markers with their ID. Counter starts from 2 since 0 = 'init' and 1 = 'deadlock'
     private HashMap<String,Integer> markerMap = new HashMap<>();
-    private int markerCounter = 2;
+    private int markerCounter = 0;
 
     // Map to keep track of name nodes
     private HashMap<String, Vertex> nameMap = new HashMap<>();
@@ -312,8 +312,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         graphsCollection.setModelName(ctx.IDENTIFIER().toString());
         graphsCollection.setReactionNames(reactionNames);
 
-        // I store graph markers
-        graphsCollection.addMarkerMap(markerMap);
         // I reset the latest graph
         currentGraph = new Multigraph<>(DefaultEdge.class);
         resetGraph();
@@ -472,7 +470,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             int endPosition = ctx.stop.getStopIndex();
             Interval interval = new Interval(startPosition, endPosition);
             propertiesString = ctx.start.getInputStream().getText(interval);
-        }
+        } else
+            propertiesString = "";
         exporter.addPropertyFile(currentPropertyLanguage,currentFormat,propertiesString);
         return visitChildren(ctx);
     }

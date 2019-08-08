@@ -1,7 +1,6 @@
 package core.graphs.storing;
 
-import core.exporting.spotExporting.SpotExporter;
-import core.exporting.spotExporting.SpotInfo;
+import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
 import core.graphs.customized.vertices.Vertex;
@@ -22,13 +21,10 @@ public class GraphsCollection {
     // Graphs
     private Multigraph<Vertex, DefaultEdge> model;
     private ArrayList<RedexReactumPair> reactionsList = new ArrayList<>();
-    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
+    private TransitionGraph transitionGraph;
 
     // Hashmap to track the probability of reactions
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
-
-    // Hashmap for markers ID
-    private HashMap<String,Integer> markerMap;
 
     private static GraphsCollection instance;
 
@@ -49,10 +45,10 @@ public class GraphsCollection {
     }
 
     public void printTransition() {
-        if(transitionGraph.vertexSet().size() < 100)
-            CreateGraphvizImages.getInstance().createTransition(transitionGraph);
+        if(transitionGraph.size() < 100)
+            CreateGraphvizImages.getInstance().createTransition(transitionGraph.getGraph());
         else
-            System.out.println("[WARNING] Transition graph is too big, no printing shall be made by Synkrisis");
+            System.out.println("[WARNING] Transition graph is too big (>= 100 nodes), no printing shall be made by Synkrisis");
     }
 
     public Multigraph<Vertex, DefaultEdge> getModel() {
@@ -67,21 +63,16 @@ public class GraphsCollection {
         return rulesWeightMap.get(reaction);
     }
 
-
-    public HashMap<String,Integer> getMarkerMap() {
-        return markerMap;
+    public void addTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName, HashMap<String,Integer> markersMap) {
+        this.transitionGraph = new TransitionGraph(transitionGraph,modelName,markersMap);
     }
 
-    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getTransitionGraph() {
-        return transitionGraph;
+    public TransitionGraph getTransitionGraph() {
+        return this.transitionGraph;
     }
 
-    public void addTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph) {
-        this.transitionGraph = transitionGraph;
-    }
-
-    public void printPrismTransition(DirectedWeightedPseudograph<TransitionVertex,TransitionEdge> transitionPrismGraph) {
-        CreateGraphvizImages.getInstance().createTransition(transitionPrismGraph);
+    public void printPrismTransition(TransitionGraph transitionPrismGraph) {
+        CreateGraphvizImages.getInstance().createTransition(transitionPrismGraph.getGraph());
     }
 
     public void addModel(Multigraph<Vertex, DefaultEdge> model) {
@@ -91,8 +82,6 @@ public class GraphsCollection {
     public void addReaction(RedexReactumPair reaction) {
         reactionsList.add(reaction);
     }
-
-    public void addMarkerMap(HashMap<String,Integer> markerMap) { this.markerMap = markerMap; }
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
@@ -104,13 +93,6 @@ public class GraphsCollection {
 
     public ArrayList<RedexReactumPair> getReactionsList() {
         return reactionsList;
-    }
-
-    public void exportToSpot(SpotInfo spotInfo) {
-        if(spotInfo == null)
-            System.out.println("[SPOT-TRANSLATION] No spot Acceptance has been specified");
-        else
-            new SpotExporter(transitionGraph,modelName,reactionNames,spotInfo);
     }
 
 }

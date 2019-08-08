@@ -1,5 +1,6 @@
 package core.exporting.prismExporting;
 
+import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
 import org.jgrapht.Graphs;
@@ -26,24 +27,23 @@ public class PrismExporter {
 
     private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
     private String modelName;
-    private String propertiesString;
-    private HashMap<String,Integer> markerMap;
+    private HashMap<String,Integer> markersMap;
     private String path;
 
     private int choice = 0;
 
-    public PrismExporter(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName, HashMap<String,Integer> markerMap, String propertiesString) {
+    public PrismExporter(TransitionGraph transitionGraph) {
         System.out.println("PRISM exporting started");
         this.transitionGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
-        Graphs.addAllEdges(this.transitionGraph,transitionGraph,transitionGraph.edgeSet());
-        this.modelName = modelName;
-        // markerMap ordering
-        this.markerMap =
-                markerMap.entrySet().stream()
+        Graphs.addAllEdges(this.transitionGraph,transitionGraph.getGraph(),transitionGraph.getGraph().edgeSet());
+        this.modelName = transitionGraph.getModelName();
+        this.markersMap = transitionGraph.getMarkersMap();
+        // markersMap ordering
+        this.markersMap =
+                markersMap.entrySet().stream()
                         .sorted(Map.Entry.comparingByValue())
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
-        this.propertiesString = propertiesString;
         path = modelName + "/prism/";
         File prismPath = new File(path);
         if(!prismPath.exists()) {
@@ -186,8 +186,8 @@ public class PrismExporter {
             BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + modelName + ".lab",false));
             // I write by deafult built-in properties
             labWriter.write("0=\"init\" 1=\"deadlock\" ");
-            for(String marker : markerMap.keySet())
-                labWriter.write(markerMap.get(marker) + "=\"" + marker + "\" ");
+            for(String marker : markersMap.keySet())
+                labWriter.write(markersMap.get(marker) + "=\"" + marker + "\" ");
             labWriter.write("\n0: 0\n");
             for(TransitionVertex v : transitionGraph.vertexSet())
                 if(!v.getPropertiesString().equals("")) {

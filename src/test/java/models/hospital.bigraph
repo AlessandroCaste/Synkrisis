@@ -24,6 +24,6 @@ marker he_forgot_the_pager = matches (Nurse[pager] | Doctor[-])
 marker nursestation_meeting = matches (Room[nursestation].( Nurse[pager] | Doctor[pager] ))
 
 properties:
-    PRISM =
-        acc-name: generalized-co-Buchi 2
-        Acceptance: Fin("properties")
+    SPOT-ACCEPTANCE =
+        acc-name: generalized-co-Buchi 1
+        Acceptance: 1 Fin(objective_met)

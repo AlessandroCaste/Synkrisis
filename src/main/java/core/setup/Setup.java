@@ -90,7 +90,9 @@ class Setup {
 
     void closeLogger() {
         logger.log(Level.INFO,"Logging complete");
-        fh.close();
+        //TODO translation only
+        if(fh != null)
+            fh.close();
     }
 
     boolean isSuccessful() {

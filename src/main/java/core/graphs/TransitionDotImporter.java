@@ -23,18 +23,6 @@ public class TransitionDotImporter {
     // Tells us if we want to use only the importing module
     private boolean transitionOnly;
 
-    // I associate an ID to each state
-    private HashMap<String,Integer> hashToId = new HashMap<>();
-    private int vertexID = 0;
-
-    // Associates each properties to a unique ID for PRISM
-    private HashMap<String,Integer> markerMap;
-
-    // Classes to translate DOT specification into vertices and edges
-    private VertexProvider<TransitionVertex> vertexProvider;
-    private EdgeProvider<TransitionVertex, TransitionEdge> edgeProvider;
-    private ComponentUpdater<TransitionVertex> vertexUpdater;
-
     private GraphsCollection graphsCollection = GraphsCollection.getInstance();
 
     private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
@@ -47,65 +35,79 @@ public class TransitionDotImporter {
         this.transitionOnly = transitionOnly;
     }
 
+    @SuppressWarnings("Duplicates")
     public void processTransition() {
 
         transitionGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
 
-        // I retrieve the list of markers together with their IDs
-        markerMap = GraphsCollection.getInstance().getMarkerMap();
-
-        // The following methods specify how to create vertices, edges, and update them during parsing
-        // Dot translation uses a special kind of vertex that stores an ID, a label and a list of properties
-        vertexProvider = (s, map) -> {
+        VertexProvider vertexProvider = (s, map) -> {
             int currentID;
             // Extracting attributes from dot representation
-            Attribute label = map.get("label");
-            Attribute propertiesAttribute = map.get("properties");
             String labelString;
-            ArrayList<String> markerLabels;
+            ArrayList<String> markersLabels;
             TreeSet<Integer> markersID = new TreeSet<>();
+            GraphDataEncapsulation graphData = GraphDataEncapsulation.getInstance();
 
-            if (label != null)
-                labelString = label.toString();
+            if (map.get("label")!=null)
+                labelString = map.get("label").toString();
             else
                 labelString = "";
-            if (propertiesAttribute != null) {
-                markerLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
-                markersID = new TreeSet<>();
-                for (String propertyName : markerLabels)
-                    markersID.add(markerMap.get(propertyName));
+            if (map.get("properties") != null) {
+                String propertiesAttribute = map.get("properties").toString();
+                markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.split("\\s*,\\s*")));
+                for (String propertyName : markersLabels) {
+                    if(!graphData.markersContainKey(propertyName))
+                        graphData.insertMarker(propertyName);
+                    markersID.add(graphData.getMarkerID(propertyName));
+                }
             }
-            if (hashToId.containsKey(s)) {
-                currentID = hashToId.get(s);
+            if (graphData.hashesContainKey(s)) {
+                currentID = graphData.getVertexID(s);
             } else {
-                hashToId.put(s, vertexID);
-                currentID = vertexID;
-                vertexID++;
+                currentID = graphData.getCurrentVertexID();
+                graphData.insertHash(s);
             }
+
             return new TransitionVertex(currentID, labelString, markersID);
         };
 
-        edgeProvider = (v1, v2, s2, map) -> {
-            double weight = graphsCollection.getReactionWeight(s2);
-            TransitionEdge te = new TransitionEdge(s2);
+        EdgeProvider<TransitionVertex, TransitionEdge> edgeProvider;
+        edgeProvider = (transitionVertex, v1, s, map) -> {
+            double weight;
+            if(!transitionOnly)
+                weight = graphsCollection.getReactionWeight(s);
+            else {
+                if(map.get("weight")!=null)
+                    weight = Double.parseDouble(map.get("weight").toString());
+                else {
+                    //TODO something more?
+                    weight = 1.0;
+                }
+            }
+            TransitionEdge te = new TransitionEdge(s);
+            //transitionGraph.addEdge(transitionVertex,v1,te);
             transitionGraph.setEdgeWeight(te,Math.round(weight*1e3)/1e3);
             return te;
         };
 
-        vertexUpdater = (vertex, map) -> {
+        ComponentUpdater<TransitionVertex> vertexUpdater = (transitionVertex, map) -> {
             Attribute label = map.get("label");
             Attribute propertiesAttribute = map.get("properties");
             ArrayList<String> markersLabels;
+            TreeSet<Integer> markersID = new TreeSet<>();
+            GraphDataEncapsulation graphData = GraphDataEncapsulation.getInstance();
 
             if (label != null)
-                vertex.setLabel(label.toString());
+                transitionVertex.setLabel(label.toString());
             if (propertiesAttribute != null) {
-                TreeSet<Integer> markersID;
                 markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
-                markersID = new TreeSet<>();
-                for (String propertyName : markersLabels)
-                    markersID.add(markerMap.get(propertyName));
-                vertex.setProperties(markersID);
+                for (String propertyName : markersLabels) {
+                    if(!graphData.markersContainKey(propertyName)) {
+                        graphData.insertMarker(propertyName);
+                    }
+                    markersID.add(graphData.getMarkerID(propertyName));
+                }
+                transitionVertex.setProperties(markersID);
             }
         };
 
@@ -114,12 +116,13 @@ public class TransitionDotImporter {
             //TODO cambiare questa cosa
             FileReader transitionFile;
             if(transitionOnly)
-                transitionFile = new FileReader(modelName + "transition.dot");
+                transitionFile = new FileReader(modelName);
+
             else
                 transitionFile = new FileReader(modelName + "/" + "transition.dot");
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
-            graphsCollection.addTransition(transitionGraph);
+            graphsCollection.addTransition(transitionGraph,modelName, GraphDataEncapsulation.getInstance().markerMap);
         } catch (FileNotFoundException fe) {
             System.out.println("[FATAL ERROR] Can't find the transition system hasn't: problems with the model checker?");
             logger.log(Level.SEVERE, "Missing transition file; something went wrong when reading the output of the model checker (bigmc?) and printing it to file\nStack trace: " + fe.getMessage());
@@ -133,6 +136,65 @@ public class TransitionDotImporter {
 
     public boolean isSuccessful() {
         return successfulImporting;
+    }
+
+
+    // A static class encapsulates data so that it can be accessed by the different providers
+    static class GraphDataEncapsulation {
+
+        private HashMap<String,Integer> hashToId;
+        private int vertexID;
+        private HashMap<String,Integer> markerMap;
+        private int markerID;
+
+        private static GraphDataEncapsulation instance;
+
+        static GraphDataEncapsulation getInstance(){
+            if(instance == null)
+                instance = new GraphDataEncapsulation();
+            return instance;
+        }
+
+        GraphDataEncapsulation() {
+            markerMap = new HashMap<>();
+            hashToId  = new HashMap<>();
+            vertexID = 0;
+            markerID = 0;
+        }
+
+        HashMap<String,Integer> getMarkerMap() {
+            return markerMap;
+        }
+
+        boolean markersContainKey(String key) {
+            return markerMap.containsKey(key);
+        }
+
+        boolean hashesContainKey(String key) {
+            return hashToId.containsKey(key);
+        }
+
+        void insertHash(String key){
+            hashToId.put(key,vertexID);
+            vertexID++;
+        }
+
+        void insertMarker(String key) {
+            markerMap.put(key,markerID);
+            markerID++;
+        }
+
+        int getCurrentVertexID(){
+            return vertexID;
+        }
+
+        int getVertexID(String key){
+            return hashToId.get(key);
+        }
+
+        int getMarkerID(String key) {
+            return markerMap.get(key);
+        }
     }
 
 }

@@ -88,7 +88,7 @@ public class Main {
                     System.out.println("[GENERATION : ERROR] Couldn't find bigmc in this working machine");
                 if(dotImportingSuccessful) {
                     System.out.println("Transition file correctly imported");
-                    exporter.setModelName(modelName);
+                    exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
                     exporter.execute();
                 }
                 else
@@ -140,7 +140,7 @@ public class Main {
         if (executionSettings.isProcessTransitionOnly())
             dotImporter = new TransitionDotImporter(modelName, true);
         else
-            dotImporter = new TransitionDotImporter(modelName, false);
+            dotImporter = new TransitionDotImporter(executionSettings.getFilePath(), false);
         dotImporter.processTransition();
 
         if (executionSettings.isPrintTransitionEnabled()) {
