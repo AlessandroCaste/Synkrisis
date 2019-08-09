@@ -3,6 +3,7 @@ package core.exporting.prismExporting;
 import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
@@ -56,11 +57,16 @@ public class PrismExporter {
                 logger.log(Level.WARNING,"Couldn't create a 'prism' folder for model outputting");
             }
         } else {
-            prismPath.delete();
-            logger.log(Level.INFO,"Deleted old prism output folder");
-            if(!prismPath.mkdirs()) {
-                System.out.println("Can't create a new 'prism' directory");
-                logger.log(Level.WARNING,"Couldn't create a 'prism' folder for model outputting");
+            try {
+                FileUtils.deleteDirectory(prismPath);
+                logger.log(Level.INFO,"Deleted old prism output folder");
+                if(!prismPath.mkdirs()) {
+                    System.out.println("Can't create a new 'prism' directory");
+                    logger.log(Level.WARNING,"Couldn't create a 'prism' folder for model outputting");
+                }
+            } catch (IOException e) {
+                System.out.println("Can't delete old 'prism' directory");
+                logger.log(Level.SEVERE,"Can't remove the old 'prism' directory. File not found?\nStack trace: " + e.getMessage());
             }
         }
 
@@ -91,7 +97,11 @@ public class PrismExporter {
         System.out.println("Writing the PRISM .tra file");
         logger.log(Level.INFO,"Writing .tra file");
         try {
-            BufferedWriter traWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + ".tra",false));
+            BufferedWriter traWriter;
+            if(mdp)
+                traWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + "(mdp).tra",false));
+            else
+                traWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + "(dtmc).tra",false));
             if(!mdp) {
                 // First line
                 traWriter.write(Integer.toString(transitionGraph.vertexSet().size()));
@@ -155,7 +165,6 @@ public class PrismExporter {
                         for(MDPReactum mdpr : dReacta)
                             writeDeterministicReacta(traWriter,tv.getVertexID(),mdpr);
                 }
-
             }
             traWriter.close();
             //TODO print transition prism
@@ -170,6 +179,7 @@ public class PrismExporter {
     private void buildPermutations(BufferedWriter traWriter, int currentID, ArrayList<ArrayList<MDPReactum>> lists, ArrayList<MDPReactum> dReacta, int depth, ArrayList<MDPReactum> ndReacta) throws IOException {
         if (depth == lists.size()) {
             for(MDPReactum mdpr : ndReacta) {
+                //TODO DISTINGUERE (mdp) o (dtmc)
                 writeDeterministicReacta(traWriter,currentID,mdpr);
             }
             for(MDPReactum mdpr: dReacta)

@@ -21,8 +21,10 @@ public class InteractiveShell {
 
     @Command(name="load",abbrev = "l",description = "Load model from file") // one,
     public void load(@Param(name="path") String filePath) {
-        if(new File(filePath).exists())
+        if(new File(filePath).exists()) {
             loadedSettings.setFilePath(filePath);
+            loadedSettings.setRunFullAnalysis();
+        }
         else
             System.out.println("Couldn't find " + filePath);
     }
@@ -63,6 +65,16 @@ public class InteractiveShell {
         loadedSettings.addExportingLanguage(modelChecker);
     }
 
+    @Command(name="transition",abbrev = "t")
+        public void transition(@Param(name="filename") String filename){
+            if(new File(filename).exists()) {
+                loadedSettings.setProcessTransitionOnly();
+                loadedSettings.setFilePath(filename);
+            } else
+                System.out.println("Couldn't find the specified file: " + filename);
+        }
+
+
     @Command(name = "write", abbrev = "w")
      public void writeModel(@Param(name="filename") String filename) {
         Scanner modelScanner = new Scanner(new CloseShieldInputStream(System.in));
@@ -91,10 +103,12 @@ public class InteractiveShell {
 
     @Command(name="run", abbrev = "r")
      public void run(){
-        if(loadedSettings.getFilePath()!=null) {
+        if(loadedSettings.getFilePath()!=null && !loadedSettings.isProcessTransitionOnly()) {
             Main.execution(loadedSettings);
+        } else if (loadedSettings.getFilePath() != null && loadedSettings.isProcessTransitionOnly()){
+            Main.transitionOnlyExecution(loadedSettings);
         } else
-            System.out.println("You must first specify a model!");
+            System.out.println("You must first specify a model or a transition file!");
     }
 
      public void loop() {

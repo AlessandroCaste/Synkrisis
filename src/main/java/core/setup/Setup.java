@@ -3,6 +3,7 @@ package core.setup;
 
 import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
+import core.graphs.GraphBuildingVisitor;
 import core.syntax.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -86,6 +87,21 @@ class Setup {
             logger.log(Level.SEVERE,e.getMessage());
         }
         logger.log(Level.INFO,"Parsing tree creation concluded");
+    }
+
+    public GraphBuildingVisitor setupGraphBuilder(String modelName){
+        // I translate the graph into a JgraphT model
+        logger.log(Level.INFO, "Jgraph translation from parsetree started");
+        GraphBuildingVisitor modelBuilder = new GraphBuildingVisitor();
+        modelBuilder.visit(modelTree);
+        System.out.println("[ANALYSIS COMPLETE] Specification has been analyzed");
+        logger.log(Level.INFO, "Jgraph translation from parsetree completed.");
+
+        // Looking for/creating new folder
+        File newDirectory = new File(modelName);
+        if(!newDirectory.exists())
+            new File(modelName).mkdirs();
+        return modelBuilder;
     }
 
     void closeLogger() {

@@ -88,7 +88,7 @@ public class Exporter {
 
     private void prismExporting() {
         boolean resultTraLab;
-        boolean resultProp = true;
+        boolean resultProp;
         String propertiesString = properties.get("PRISM","prop");
         prismExporter = new PrismExporter(transitionGraph);
         // Printing .tra and .lab files

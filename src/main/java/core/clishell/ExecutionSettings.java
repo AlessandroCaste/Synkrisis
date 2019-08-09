@@ -93,6 +93,10 @@ public class ExecutionSettings {
         this.processTransitionOnly = true;
     }
 
+    void setRunFullAnalysis(){
+        this.processTransitionOnly = false;
+    }
+
     public void setModelName(String modelName) { this.modelName = modelName; }
 
 }
