@@ -5,26 +5,24 @@ import core.graphs.storing.GraphsCollection;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 // I verify importing is in check with bigmc results
 class TransitionImportingTest {
 
     private String transition1;
+    private String transition2;
 
 
     TransitionImportingTest() {
-        transition1 = "src/test/java/models/transitionTest1.bigraph";
-        execute();
+        executeModel();
     }
 
 
     // Properties: he_forgot_the_pager = 0, nursestation_meeting = 1, objective_met = 2
     // Note that this test may work only with specific implementations of bigmc (different binaries may mix parallel regions)
     @Test
-    void execute() {
+    void executeModel() {
         TransitionDotImporter transitionDotImporter = new TransitionDotImporter("src/test/java/models/transition.dot",true);
         transitionDotImporter.processTransition();
         DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph = GraphsCollection.getInstance().getTransitionGraph().getGraph();
@@ -49,17 +47,6 @@ class TransitionImportingTest {
                 assertFalse(tv.getPropertiesString().contains("1"));
         }
         assertEquals(63,transitionGraph.edgeSet().size());
-        // Check that files have been created
-        assertTrue(new File("hospital").exists());
-        assertTrue(new File("hospital/hospital.png").exists());
-        assertTrue(new File("hospital/transition.dot").exists());
-        assertTrue(new File("hospital/transition.png").exists());
-        assertTrue(new File("hospital/rules/doctor_moves.png").exists());
-        assertTrue(new File("hospital/rules/dreamy_doctor.png").exists());
-        assertTrue(new File("hospital/rules/nurse_moves.png").exists());
-        assertTrue(new File("hospital.log").exists());
     }
-
-
 
 }

@@ -22,6 +22,9 @@ public class GraphsCollection {
     // Hashmap to track the probability of reactions
     private HashMap<String,Float> rulesWeightMap = new HashMap<>();
 
+    // Hashmap to track markers
+    private HashMap<String,Integer> markersMap;
+
     private static GraphsCollection instance;
 
 
@@ -53,6 +56,14 @@ public class GraphsCollection {
 
     public void addReactionWeight(String reaction, float probability) {
         rulesWeightMap.put(reaction,probability);
+    }
+
+    public void setMarkersMap(HashMap<String,Integer> markersMap){
+        this.markersMap = markersMap;
+    }
+
+    public HashMap<String, Integer> getMarkersMap(){
+        return markersMap;
     }
 
     public float getReactionWeight(String reaction) {

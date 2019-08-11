@@ -51,6 +51,7 @@ public class Main {
         Setup setup = new Setup(inputFile);
         setup.setupLogger();
         setup.setupParser(); // Initializing lexer, tokens etc
+        modelTree = setup.getModelTree();
         exporter.initialize(executionSettings.checkersList(),executionSettings.isProcessTransitionOnly());
         if (setup.isSuccessful()) {
             // .bigraph Model Validation
@@ -91,12 +92,14 @@ public class Main {
         System.out.println("Use -h command for further help");
         CLI cli = new CLI(args);
         cli.parse();
-        if(cli.transitionOnly()) {
+        if(!cli.isAcceptable())
+            System.out.println("You must load a model or a transition file to proceed!");
+        if(cli.transitionOnly() && cli.isAcceptable()) {
             boolean dotImportingResult = dotImporting(cli.loadSettings());
             exportingNoAnalysis(dotImportingResult, cli.loadSettings());
         }
         else
-            if(!cli.mustLeave())
+            if(!cli.mustLeave() && cli.isAcceptable())
                 execution(cli.loadSettings());
     }
 
@@ -139,7 +142,13 @@ public class Main {
         System.out.println("\nTRANSITION GRAPH IMPORTING\n**************************");
         System.out.println("Transition graph importing started");
         TransitionDotImporter dotImporter;
-        dotImporter = new TransitionDotImporter(executionSettings.getFilePath(), executionSettings.isProcessTransitionOnly());
+        //TODO to make better
+        String dotInput;
+        if(executionSettings.isProcessTransitionOnly())
+           dotInput = executionSettings.getFilePath();
+        else
+            dotInput = modelName;
+        dotImporter = new TransitionDotImporter(dotInput, executionSettings.isProcessTransitionOnly());
         dotImporter.processTransition();
         if (executionSettings.isPrintTransitionEnabled()) {
             System.out.println("Printing the transition graph");
@@ -153,7 +162,7 @@ public class Main {
     }
 
     private static void exporting(boolean dotImportingSuccessful,ExecutionSettings executionSettings,GraphBuildingVisitor modelBuilder) {
-        if (dotImportingSuccessful && executionSettings.isExportingEnabled() && !exporter.isEmpty()) {
+        if (dotImportingSuccessful && executionSettings.isExportingEnabled()) {
             System.out.println("\nMODEL EXPORTING\n***************");
             exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
             if (modelBuilder.isSpotReady())

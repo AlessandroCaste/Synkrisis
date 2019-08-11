@@ -338,6 +338,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override public Void visitProperties (bigraphParser.PropertiesContext ctx) {
+        graphsCollection.setMarkersMap(markerMap);
         return visitChildren(ctx);
     }
 

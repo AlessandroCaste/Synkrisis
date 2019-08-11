@@ -1,15 +1,18 @@
 package core.syntax;
 
-import antlr.bigraph.bigraphParser;
+import org.antlr.v4.runtime.ParserRuleContext;
 
 class ControlChecker {
 
-    private bigraphParser.ExpressionContext ctx;
+    private ParserRuleContext ctx;
+    private String identifier;
     private int arity;
     private boolean valid;
 
-    ControlChecker(bigraphParser.ExpressionContext ctx, int arity, boolean valid) {
+
+    ControlChecker(ParserRuleContext ctx, String identifier, int arity, boolean valid) {
         this.ctx = ctx;
+        this.identifier = identifier;
         this.arity = arity;
         this.valid = valid;
     }
@@ -18,7 +21,7 @@ class ControlChecker {
         return valid;
     }
 
-    bigraphParser.ExpressionContext getCtx() {
+    ParserRuleContext getCtx() {
         return ctx;
     }
 
@@ -27,7 +30,7 @@ class ControlChecker {
     }
 
     String getName() {
-        return ctx.IDENTIFIER().toString();
+        return identifier;
     }
 
 }

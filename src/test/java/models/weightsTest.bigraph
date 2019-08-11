@@ -10,7 +10,7 @@ names:
     outer name2
     outer name3
 
-rule r1 = C[name1,@a,@b] -> B[name1,@b]
-rule r2 = B[name1,@b] -> A[name1]
+rule r1 = C[name1,@a,@b] (0.3) -> B[name1,@b]
+rule r2 = B[name1,@b] (0.5) -> A[name1]
 
 model weightsTest = C[name1,name2,name3]

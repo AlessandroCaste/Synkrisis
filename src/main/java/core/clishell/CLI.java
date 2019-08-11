@@ -15,6 +15,7 @@ public class CLI {
 
     // Boolean to leave the program in case user just wanted to display -h
     private boolean leave = false;
+    private boolean acceptable = false;
 
 
 
@@ -47,6 +48,7 @@ public class CLI {
                 else {
                     String fileName = cmd.getOptionValue("load");
                     settings.setFilePath(fileName);
+                    acceptable = true;
                 }
             }
             if(cmd.hasOption("t")) {
@@ -56,6 +58,7 @@ public class CLI {
                     String path = cmd.getOptionValue("transition-load");
                     settings.setFilePath(path);
                     settings.setProcessTransitionOnly();
+                    acceptable = true;
                 }
             }
             if (cmd.hasOption("o")) {
@@ -119,4 +122,7 @@ public class CLI {
         return settings;
     }
 
+    public boolean isAcceptable() {
+        return acceptable;
+    }
 }

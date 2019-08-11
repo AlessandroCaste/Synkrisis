@@ -8,10 +8,7 @@ import org.jgrapht.io.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,15 +110,14 @@ public class TransitionDotImporter {
 
         try {
             DOTImporter<TransitionVertex, TransitionEdge> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
-            //TODO cambiare questa cosa
             FileReader transitionFile;
             if(transitionOnly)
                 transitionFile = new FileReader(modelName);
             else
-                transitionFile = new FileReader(modelName + "/" + "transition.dot");
+                transitionFile = new FileReader(modelName + "/transition.dot");
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
-            graphsCollection.addTransition(transitionGraph,modelName, GraphDataEncapsulation.getInstance().markerMap);
+            graphsCollection.addTransition(transitionGraph,modelName, GraphDataEncapsulation.getInstance().markersMap);
         } catch (FileNotFoundException fe) {
             System.out.println("[FATAL ERROR] Can't find the transition file: problems with the model checker?");
             logger.log(Level.SEVERE, "Missing transition file; something went wrong when reading the output of the model checker (bigmc?) and printing it to file\nStack trace: " + fe.getMessage());
@@ -143,8 +139,9 @@ public class TransitionDotImporter {
 
         private HashMap<String,Integer> hashToId;
         private int vertexID;
-        private HashMap<String,Integer> markerMap;
+        private HashMap<String,Integer> markersMap;
         private int markerID;
+        private boolean transitionOnly;
 
         private static GraphDataEncapsulation instance;
 
@@ -154,19 +151,28 @@ public class TransitionDotImporter {
             return instance;
         }
 
+        // The markersMap will be empty in case we just import a transition graph or we haven't specified any marker
+        // If no markersMap is found the behavior will be considered transitionOnly(markers are only found in .dot file)
         GraphDataEncapsulation() {
-            markerMap = new HashMap<>();
+            if(GraphsCollection.getInstance().getMarkersMap()!=null) {
+                markersMap = GraphsCollection.getInstance().getMarkersMap();
+                transitionOnly = false;
+            }
+            else {
+                markersMap = new HashMap<>();
+                transitionOnly = true;
+            }
             hashToId  = new HashMap<>();
             vertexID = 0;
-            markerID = 0;
-        }
-
-        HashMap<String,Integer> getMarkerMap() {
-            return markerMap;
+            // This "covers" the weird case a user specifies new, previously undefined properties in the transition graph
+            if(!transitionOnly)
+                markerID = Collections.max(markersMap.values()) + 1;
+            else
+                markerID = 0;
         }
 
         boolean markersContainKey(String key) {
-            return markerMap.containsKey(key);
+            return markersMap.containsKey(key);
         }
 
         boolean hashesContainKey(String key) {
@@ -178,9 +184,16 @@ public class TransitionDotImporter {
             vertexID++;
         }
 
+        // I insert a marker only in case of transition graph importing
         void insertMarker(String key) {
-            markerMap.put(key,markerID);
-            markerID++;
+            if(!markersMap.containsKey(key) && transitionOnly) {
+                markersMap.put(key, markerID);
+                markerID++;
+            } else if(!markersMap.containsKey(key) && !transitionOnly){
+                System.out.println("[WARNING] A marker not defined in specification has been found in the transition file!\nCorrect behavior may note be ensured");
+                markersMap.put(key, markerID);
+                markerID++;
+            }
         }
 
         int getCurrentVertexID(){
@@ -192,7 +205,7 @@ public class TransitionDotImporter {
         }
 
         int getMarkerID(String key) {
-            return markerMap.get(key);
+            return markersMap.get(key);
         }
     }
 

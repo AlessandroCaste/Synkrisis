@@ -1,0 +1,14 @@
+# An example to show how bigmc generates non-deterministic graphs
+# We want to unpack a set of boxes
+
+controls:
+    active box 1
+
+names:
+    inner id
+    inner unassigned
+
+rule r1 = box[@a].($0) -> $0
+rule r2 = box[unassigned].$0   -> box[id].$0
+
+model unboxing = box[unassigned].box[id]

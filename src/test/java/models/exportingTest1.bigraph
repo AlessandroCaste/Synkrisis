@@ -1,0 +1,27 @@
+# Testing Spot Exporting
+# Three working nodes are fired up and serve users
+
+controls:
+    active offline_node 0
+    active online_node  1
+
+names:
+    outer id
+    outer served_id
+
+rule r1 = offline_node    -> online_node[-]            # Waking up the node
+rule r2 = online_node[-]  -> online_node[id]           # Establish a connection to an ID
+rule r3 = online_node[id] -> online_node[served_id]    # Serves a user
+rule r4 = online_node[served_id] -> online_node[-]     # Return idle
+
+model nodes = offline_node | offline_node | offline_node
+
+marker full_load = matches(online_node[id] | online_node[id] | online_node[id])
+marker idle_node = matches(online_node[-])
+marker full_served = matches(online_node[served_id] | online_node[served_id] | online_node[served_id])
+
+
+properties:
+    SPOT-ACCEPTANCE = acc-name:   generalized-Buchi 2
+                      Acceptance: 2 Inf(full_served) & Inf(full_load)
+

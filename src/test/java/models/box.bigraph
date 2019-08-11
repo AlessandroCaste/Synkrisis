@@ -1,0 +1,19 @@
+# Two boxes are moved around three rooms
+
+controls:
+    passive A    1
+    passive B    1
+    passive C    1
+    active box 0
+
+rule mv_A = box (0.8) ->  A.box
+rule mv_B = box (0.8) ->  B.box
+rule mv_C = box (0.4) ->  C.box
+
+model box = box | box
+
+marker box_c = matches(C.box | C.box)
+
+properties:
+    PRISM (prop) = \{ P=? [ F "box_c" ] \}
+

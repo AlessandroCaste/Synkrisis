@@ -5,6 +5,7 @@ import antlr.bigraph.bigraphVisitor;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.RuleNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,27 +167,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
                 reportError(ctx, ERROR, "Can't have a \"hole\" node at the start of an expression!");
             root = false;
         }
-        // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)
-        if (ctx.IDENTIFIER() != null) {
-            String identifier = ctx.IDENTIFIER().getText();
-
-            // An error is thrown if there's a link without a control to sustain it
-            if (!controlsUsage.containsKey(identifier)) {
-                reportError(ctx, ERROR, "Attempt to use an undeclared control: " + identifier);
-                lastControl = new ControlChecker(ctx,0,invalidControl);
-            }
-
-            // Otherwise I check the controls set to find a match..
-            else if (controlsUsage.containsKey(identifier)) {
-
-                int controlArity = controlsMap.get(identifier);
-                // ..and I eventually update the number of usages
-                controlsUsage.put(identifier, controlsUsage.get(identifier) + 1);
-
-                // In order to check whether the arity of IDENTIFIER is respected I set up a ControlChecker class
-                lastControl = new ControlChecker(ctx, controlArity,validControl);
-            }
-        }
+        arityMatching(ctx,ctx.IDENTIFIER(),ctx.links());
         return visitChildren(ctx);
     }
 
@@ -211,7 +192,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
                 namesUsage.put(identifier, namesUsage.get(identifier)+1);
         }
 
-        // I evaluate recursively the number of arguments in a link for arity checking
+        // I evaluate the number of arguments in a link for arity checking
         if(ctx.COMMA() != null ) {
             linkArity++;
         } else {
@@ -315,8 +296,34 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         return visitChildren(ctx);
     }
 
+    // We track controls and arities like in expressions
     @Override public Void visitParameter (bigraphParser.ParameterContext ctx){
+        arityMatching(ctx,ctx.IDENTIFIER(),ctx.links());
         return visitChildren(ctx);
+    }
+
+    private void arityMatching(ParserRuleContext ctx, TerminalNode identifier, bigraphParser.LinksContext links){
+        // Reporting the usage identifiers in rule IDENTIFIER (LSQ links RSQ)
+        if (identifier != null) {
+            String identifierString = identifier.getText();
+            // An error is thrown if there's a link without a control to sustain it
+            if (!controlsUsage.containsKey(identifierString)) {
+                reportError(ctx, ERROR, "Attempt to use an undeclared control: " + identifierString);
+                lastControl = new ControlChecker(ctx, identifierString,0,invalidControl);
+            }
+            // Otherwise I check the controls set to find a match..
+            else if (controlsUsage.containsKey(identifierString)) {
+
+                int controlArity = controlsMap.get(identifierString);
+                // ..and I eventually update the number of usages
+                controlsUsage.put(identifierString, controlsUsage.get(identifierString) + 1);
+
+                // In order to check whether the arity of IDENTIFIER is respected I set up a ControlChecker class
+                lastControl = new ControlChecker(ctx,identifierString,controlArity,validControl);
+                if(links==null && lastControl.getArity()!=0)
+                    reportError(lastControl.getCtx(),ERROR,"Control " + lastControl.getName() + " should have arity 0!");
+            }
+        }
     }
 
     private void reportError (ParserRuleContext ctx, int type, String text){

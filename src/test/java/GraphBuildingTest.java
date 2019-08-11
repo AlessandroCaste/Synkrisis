@@ -27,12 +27,12 @@ class GraphBuildingTest {
 
     private String additionPath;
     private String hospitalPath;
-    private String phospitalPath;
+    private String namesWeightsTest;
 
     GraphBuildingTest() {
         additionPath = "src/test/java/models/addition.bigraph";
         hospitalPath = "src/test/java/models/hospital.bigraph";
-        phospitalPath = "src/test/java/models/weightsTest.bigraph";
+        namesWeightsTest = "src/test/java/models/namesWeightsTest.bigraph";
 
         completeAdditionCheck();
         checkLinks();
@@ -81,6 +81,7 @@ class GraphBuildingTest {
         assertEquals("IN L",graph.getEdgeSource(edgeList.get(0)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(0)).getLabel());
         assertEquals("L Succ",graph.getEdgeSource(edgeList.get(1)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(1)).getLabel());
         assertEquals("Succ Succ", graph.getEdgeSource(edgeList.get(2)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(2)).getLabel());
+        assertEquals("Succ Zero",graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel());
         assertEquals("Succ Zero",graph.getEdgeSource(edgeList.get(3)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(3)).getLabel());
         assertEquals("IN R", graph.getEdgeSource(edgeList.get(4)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(4)).getLabel());
         assertEquals("R Succ", graph.getEdgeSource(edgeList.get(5)).getLabel() + " " + graph.getEdgeTarget(edgeList.get(5)).getLabel());
@@ -265,7 +266,7 @@ class GraphBuildingTest {
     @Test
     void checkNamesAndWeights() {
 
-        GraphBuildingVisitor graphBuildingVisitor = createVisitor(phospitalPath);
+        GraphBuildingVisitor graphBuildingVisitor = createVisitor(namesWeightsTest);
         Multigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
         assertEquals(graph.vertexSet().size(), 4);
 
