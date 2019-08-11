@@ -37,6 +37,15 @@ public class TransitionGraph {
         return tv.getProperties().contains(markersMap.get(s));
     }
 
+    public String markersInVertices(TransitionVertex tv){
+        StringBuilder sb = new StringBuilder();
+        for(String marker : markersMap.keySet()){
+            if(tv.getProperties().contains(markersMap.get(marker)))
+                sb.append(marker).append(" ");
+        }
+        return sb.toString();
+    }
+
     public String getModelName() {
         return modelName;
     }

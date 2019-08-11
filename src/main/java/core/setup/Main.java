@@ -126,8 +126,7 @@ public class Main {
 
     private static void graphPrinting() {
             logger.log(Level.INFO, "Launching graphviz printing...");
-            System.out.println("***************");
-            System.out.println("MODEL ANALYSIS");
+            System.out.println("\nMODEL ANALYSIS");
             System.out.println("***************");
             System.out.println("Printing model and reactions");
             graphsCollection.printModel();

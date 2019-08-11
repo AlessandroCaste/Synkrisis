@@ -45,7 +45,7 @@ public class GraphsCollection {
 
     public void printTransition() {
         if(transitionGraph.size() < 100)
-            CreateGraphvizImages.getInstance().createTransition(transitionGraph.getGraph());
+            CreateGraphvizImages.getInstance().printTransition(transitionGraph);
         else
             System.out.println("[WARNING] Transition graph is too big (>= 100 nodes), no printing shall be made by Synkrisis");
     }

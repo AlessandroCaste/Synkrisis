@@ -6,16 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="New Spot Exporting test and fixes">
+    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Printing of transition revisited">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/customized/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/customized/TransitionGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/CreateGraphvizImages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/CreateGraphvizImages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/RunAllTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RunAllTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SyntaxVisitorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SyntaxVisitorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TransitionImportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TransitionImportingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/example3.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/example3.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -137,11 +133,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TransitionImportingTest.executeModel">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/example3.bigraph -o prism -o spot" />
+      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/exportingTest1.bigraph -o prism -o spot -G" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -412,7 +408,8 @@
       <workItem from="1565516621801" duration="3180000" />
       <workItem from="1565520524120" duration="1181000" />
       <workItem from="1565533958836" duration="3400000" />
-      <workItem from="1565537505197" duration="1261000" />
+      <workItem from="1565537505197" duration="1356000" />
+      <workItem from="1565543606736" duration="3520000" />
     </task>
     <task id="LOCAL-00001" summary="Project Refactory for Maven">
       <created>1560042315950</created>
@@ -736,7 +733,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565350312958</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Tests revised">
+      <created>1565538852611</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1565538852611</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView">
@@ -780,8 +784,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Spot Exporting" />
-    <MESSAGE value="packages refactoring started, starting prism update" />
     <MESSAGE value="Weight normalization, PseudoGraph change" />
     <MESSAGE value="DOTImporting edges complies to JgraphT standards" />
     <MESSAGE value="PRISM exporting (DTMC)" />
@@ -805,7 +807,9 @@
     <MESSAGE value="Transition printing from .dot" />
     <MESSAGE value="Interactive Shell updated with logger and new transition loading" />
     <MESSAGE value="New Spot Exporting test and fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="New Spot Exporting test and fixes" />
+    <MESSAGE value="Tests revised" />
+    <MESSAGE value="Printing of transition revisited" />
+    <option name="LAST_COMMIT_MESSAGE" value="Printing of transition revisited" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -813,7 +817,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/CreateGraphvizImages.java</url>
-          <line>46</line>
+          <line>50</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -837,11 +841,6 @@
           <option name="timeStamp" value="281" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/CreateGraphvizImages.java</url>
-          <line>283</line>
-          <option name="timeStamp" value="296" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/TransitionTest.java</url>
           <line>27</line>
           <option name="timeStamp" value="307" />
@@ -858,7 +857,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
-          <line>143</line>
+          <line>142</line>
           <option name="timeStamp" value="386" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
