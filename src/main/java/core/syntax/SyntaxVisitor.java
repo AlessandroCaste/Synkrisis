@@ -321,7 +321,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
                 // In order to check whether the arity of IDENTIFIER is respected I set up a ControlChecker class
                 lastControl = new ControlChecker(ctx,identifierString,controlArity,validControl);
                 if(links==null && lastControl.getArity()!=0)
-                    reportError(lastControl.getCtx(),ERROR,"Control " + lastControl.getName() + " should have arity 0!");
+                    reportError(lastControl.getCtx(),ERROR,"Control " + lastControl.getName() + " shouldn't have arity 0!");
             }
         }
     }

@@ -92,7 +92,11 @@ class SyntaxVisitorTest {
                     "[ERROR - Line 13:5] Repeated name declaration\n" +
                     "[WARNING - Line 18:1] Reaction rules shouldn't be named after controls\n" +
                     "[WARNING - Line 18:1] Reaction rules shouldn't be named after an outer/inner name\n" +
-                    "[ERROR - Line 21:39] Variable used in model definition\n" +
+                    "[ERROR - Line 18:18] Control Test shouldn't have arity 0!\n" +
+                    "[ERROR - Line 18:42] Control Test shouldn't have arity 0!\n" +
+                    "[ERROR - Line 18:65] Control Test shouldn't have arity 0!\n" +
+                    "[ERROR - Line 18:84] Control Test shouldn't have arity 0!\n" +
+                    "[ERROR - Line 21:34] Variable used in model definition\n" +
                     "[WARNING] The following names are declared and never used: Bob Test \n" +
                     "[RESULT : FAILED]",example3Result);
     }

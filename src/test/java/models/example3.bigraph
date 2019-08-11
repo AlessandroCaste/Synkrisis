@@ -18,7 +18,7 @@ rule r = Room.User[@a] -> Room.User[a]
 rule Test = Room.Test.User[Alice] | Room.Test.User[Brob] | Room.Test.User[Carl] -> Test
 
 # A variable is employed in model definition
-model example3 = Test[Carl].Room.User[@John]
+model example3 = Test[Carl].User[@John]
 
 # It's actually ok
 marker prop = !empty()

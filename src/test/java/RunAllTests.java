@@ -7,7 +7,12 @@ class RunAllTests {
         new SyntaxVisitorTest();
         new GraphBuildingTest();
         new TransitionImportingTest();
-        //new ExportingTest();
+    }
+
+    // Since this test run a complete run of Synkrisis it's kept by itself
+    @Test
+    void executeFullProgram() {
+        new ExportingTest();
     }
 
 }

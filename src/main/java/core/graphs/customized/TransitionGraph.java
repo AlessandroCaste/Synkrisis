@@ -33,6 +33,10 @@ public class TransitionGraph {
         return markersMap;
     }
 
+    public boolean vertexContainsMarker(TransitionVertex tv, String s) {
+        return tv.getProperties().contains(markersMap.get(s));
+    }
+
     public String getModelName() {
         return modelName;
     }
