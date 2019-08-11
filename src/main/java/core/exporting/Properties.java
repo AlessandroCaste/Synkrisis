@@ -6,34 +6,34 @@ import java.util.ArrayList;
 
 class Properties {
 
-    private ArrayListMultimap<String,OutputFile> filesPerChecker;
+    private ArrayListMultimap<String, ExtensionText> filesPerFormat;
 
     Properties() {
-        filesPerChecker =  ArrayListMultimap.create();
+        filesPerFormat =  ArrayListMultimap.create();
     }
 
-    public void add(String modelChecker, OutputFile specification) {
-        filesPerChecker.put(modelChecker.toLowerCase(),specification);
+    public void add(String modelChecker, ExtensionText specification) {
+        filesPerFormat.put(modelChecker.toLowerCase(),specification);
     }
 
     boolean isEmpty() {
-        return filesPerChecker.isEmpty();
+        return filesPerFormat.isEmpty();
     }
 
-    String get(String checker, String extension) {
-        ArrayList<OutputFile> outputFiles = new ArrayList<>(filesPerChecker.get(checker.toLowerCase()));
+    String get(String format, String extension) {
+        ArrayList<ExtensionText> extensionTexts = new ArrayList<>(filesPerFormat.get(format.toLowerCase()));
         boolean found = false;
         String result = "";
-        for(int i = 0; i < outputFiles.size() && !found; i++)
-            if(outputFiles.get(i).checkExtension(extension)) {
+        for(int i = 0; i < extensionTexts.size() && !found; i++)
+            if(extensionTexts.get(i).checkExtension(extension)) {
                 found = true;
-                result = outputFiles.get(i).getText();
+                result = extensionTexts.get(i).getText();
             }
         return result;
     }
 
-    ArrayList<OutputFile> get(String checker) {
-        return new ArrayList<>(filesPerChecker.get(checker.toLowerCase()));
+    ArrayList<ExtensionText> get(String format) {
+        return new ArrayList<>(filesPerFormat.get(format.toLowerCase()));
     }
 
 }

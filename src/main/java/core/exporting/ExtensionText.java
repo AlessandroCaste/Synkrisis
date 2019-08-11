@@ -1,11 +1,11 @@
 package core.exporting;
 
-class OutputFile {
+class ExtensionText {
 
     private String extension;
     private String text;
 
-    OutputFile(String extension,String text) {
+    ExtensionText(String extension, String text) {
         this.extension = extension.toLowerCase();
         this.text = text;
     }
@@ -13,8 +13,6 @@ class OutputFile {
     boolean checkExtension(String extension) {
         return this.extension.equalsIgnoreCase(extension);
     }
-
-    String getExtension() { return extension; }
 
     String getText() {
         return text;

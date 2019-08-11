@@ -5,6 +5,7 @@ import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
 import core.graphs.customized.vertices.Vertex;
 import core.graphs.visualization.CreateGraphvizImages;
+import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Multigraph;
@@ -71,7 +72,7 @@ public class GraphsCollection {
     }
 
     public void addTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph, String modelName, HashMap<String,Integer> markersMap) {
-        this.transitionGraph = new TransitionGraph(transitionGraph,modelName,markersMap);
+        this.transitionGraph = new TransitionGraph(transitionGraph, FilenameUtils.getBaseName(modelName),markersMap);
     }
 
     public TransitionGraph getTransitionGraph() {

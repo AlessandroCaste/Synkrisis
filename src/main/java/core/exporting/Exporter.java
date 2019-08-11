@@ -5,6 +5,7 @@ import core.exporting.spotExporting.SpotExporter;
 import core.exporting.spotExporting.SpotInfo;
 import core.graphs.customized.TransitionGraph;
 import core.graphs.storing.GraphsCollection;
+import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,9 +30,7 @@ public class Exporter {
     // PRISM exporting
     private PrismExporter prismExporter;
 
-    // Here you may add new exporting packages. Common behavior is just printing the specified properties
-    // By default specified properties get print, but you can change that behavior in 'execute' methods
-
+    // Languages that have translation enabled
     private ArrayList<String> enabledLanguages;
 
     // Whether it was input only a transition file by itself
@@ -67,19 +66,25 @@ public class Exporter {
     }
 
     public void addPropertyFile(String language, String format, String text) {
-        properties.add(language,new OutputFile(format,text));
+        properties.add(language,new ExtensionText(format,text));
     }
 
-    // From here you can add customized behavior for your exporter
+    /* When operating on new formats remember that:
+    It's better to operate on new formats from this class.
+    You can either printToFile properties, get only single Strings, or get the set of <extension,text> pairs.
+    PRISM is a good reference for new custom formats and generally you could pass to a new format constructor the graph and the path for outputting.
+    Check in the documentation for more info on this part, following there are some usage examples */
     public void execute() {
         for (String s : enabledLanguages)
             if (s.equalsIgnoreCase("prism"))
                 prismExporting();
             else if (s.equalsIgnoreCase("spot") && !transitionOnly)
                 spotExporting();
-            else
-                // All other model checkers have properties print to file
-                printAllProperties(s.toLowerCase());
+            else {
+                printToFile("format","specification");
+                ArrayList<ExtensionText> specificationList = properties.get("format");
+                String specification = properties.get("format","extension");
+            }
     }
 
     public boolean isEmpty() {
@@ -89,20 +94,17 @@ public class Exporter {
     private void prismExporting() {
         boolean resultTraLab;
         boolean resultProp;
-        String propertiesString = properties.get("PRISM","prop");
-        prismExporter = new PrismExporter(transitionGraph);
+        // Creating a folder; (eventual) old one gets eliminated
+        String path = createFolder("prism");
+        prismExporter = new PrismExporter(transitionGraph,path);
         // Printing .tra and .lab files
         resultTraLab = prismExporter.translate();
-        // Printing .prop file
-        if(propertiesString.replaceAll("\\s+","").equals("")) {
-            System.out.println("No PRISM properties have been specified");
-            resultProp = false;
-        } else
-             resultProp = printToFile("prism", "prop", propertiesString);
         if(resultTraLab)
             System.out.println("Printing of PRISM .tra and .lab files completed");
         else
             System.out.println("Problems recorded during printing of PRISM .tra and .lab files");
+        // Printing .prop file
+        resultProp = printToFile("prism", "prop");
         if(resultProp)
             System.out.println("Printing of .prop file is successful");
         else
@@ -123,36 +125,49 @@ public class Exporter {
             System.out.println("Problems recorded during spot exporting");
     }
 
-    private void printAllProperties(String checker) {
-        ArrayList<OutputFile> propertiesString = properties.get(checker);
+    private boolean printToFile(String format, String extension) {
         boolean result = false;
-        boolean first = true;
-        for(OutputFile o : propertiesString) {
-            if(first) {
-                result = printToFile(checker, o.getExtension(), o.getText());
-                first = false;
+        String text = properties.get(format, extension);
+        if(!text.isEmpty()) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/"  + format + "/" + format + "." + extension), false));
+                writer.write(text);
+                writer.close();
+                result = true;
+            } catch (IOException e) {
+                System.out.println("Can't output the " + extension + " properties");
+                logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization. Extension was : " + extension + "\nStack trace " + e.getMessage());
+                result = false;
             }
-            else
-                result = result && printToFile(checker,o.getExtension(),o.getText());
         }
-        if(result)
-            System.out.println("Printing of " + checker + " properties is completed");
+        else
+            System.out.println("[WARNING] Empty specification for " + format + " (" + extension + ")");
+        return result;
     }
 
-
-    private boolean printToFile(String modelChecker, String extension, String text) {
-        boolean result;
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(modelName + "/" + "/" + modelChecker + "." + extension), false));
-            writer.write(text);
-            writer.close();
-            result = true;
-        } catch (IOException e) {
-            System.out.println("Can't output the " + extension + " properties");
-            logger.log(Level.SEVERE, "Error with properties buffer writer. Something's off with the file, possibly authorization. Extension was : " + extension + "\nStack trace " + e.getMessage());
-            result = false;
+    private String createFolder(String format){
+        String modelName = transitionGraph.getModelName();
+        String path = modelName + "/" + format;
+        File prismPath = new File(path);
+        if(!prismPath.exists()) {
+            if(!prismPath.mkdirs()) {
+                System.out.println("Can't create a new '" + format + "' directory");
+                logger.log(Level.WARNING,"Couldn't create a '" + format + "' folder for model outputting");
+            }
+        } else {
+            try {
+                FileUtils.deleteDirectory(prismPath);
+                logger.log(Level.INFO, "Deleted old " + format + " output folder");
+                if (!prismPath.mkdirs()) {
+                    System.out.println("Can't create a new '" + format + "' directory");
+                    logger.log(Level.WARNING, "Couldn't create a '" + format + "' folder for model outputting");
+                }
+            } catch (IOException e) {
+                System.out.println("Can't delete old '" + format + "' directory");
+                logger.log(Level.SEVERE, "Can't remove the old '" + format + "' directory. File not found?\nStack trace: " + e.getMessage());
+            }
         }
-        return result;
+        return path;
     }
 
 }

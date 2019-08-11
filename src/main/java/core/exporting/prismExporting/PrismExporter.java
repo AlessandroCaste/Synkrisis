@@ -3,13 +3,10 @@ package core.exporting.prismExporting;
 import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class PrismExporter {
 
     private int choice = 0;
 
-    public PrismExporter(TransitionGraph transitionGraph) {
+    public PrismExporter(TransitionGraph transitionGraph,String path) {
         System.out.println("PRISM exporting started");
         this.transitionGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
         Graphs.addAllEdges(this.transitionGraph,transitionGraph.getGraph(),transitionGraph.getGraph().edgeSet());
@@ -49,27 +46,7 @@ public class PrismExporter {
                         .sorted(Map.Entry.comparingByValue())
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
-        path = FilenameUtils.getBaseName(modelName) + "/prism";
-        File prismPath = new File(path);
-        if(!prismPath.exists()) {
-            if(!prismPath.mkdirs()) {
-                System.out.println("Can't create a new 'prism' directory");
-                logger.log(Level.WARNING,"Couldn't create a 'prism' folder for model outputting");
-            }
-        } else {
-            try {
-                FileUtils.deleteDirectory(prismPath);
-                logger.log(Level.INFO,"Deleted old prism output folder");
-                if(!prismPath.mkdirs()) {
-                    System.out.println("Can't create a new 'prism' directory");
-                    logger.log(Level.WARNING,"Couldn't create a 'prism' folder for model outputting");
-                }
-            } catch (IOException e) {
-                System.out.println("Can't delete old 'prism' directory");
-                logger.log(Level.SEVERE,"Can't remove the old 'prism' directory. File not found?\nStack trace: " + e.getMessage());
-            }
-        }
-
+        this.path = path;
     }
 
     public boolean translate() {
@@ -99,9 +76,9 @@ public class PrismExporter {
         try {
             BufferedWriter traWriter;
             if(mdp)
-                traWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + "(mdp).tra",false));
+                traWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + "_mdp.tra",false));
             else
-                traWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + "(dtmc).tra",false));
+                traWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + "_dtmc.tra",false));
             if(!mdp) {
                 // First line
                 traWriter.write(Integer.toString(transitionGraph.vertexSet().size()));
@@ -207,7 +184,7 @@ public class PrismExporter {
         System.out.println("Writing the PRISM .lab file");
         logger.log(Level.INFO,"Writing .lab file");
         try {
-            BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + "/" + FilenameUtils.getBaseName(modelName) + ".lab",false));
+            BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + ".lab",false));
             // I write by deafult built-in properties
             labWriter.write("0=\"init\" 1=\"deadlock\" ");
             for(String marker : markersMap.keySet())
