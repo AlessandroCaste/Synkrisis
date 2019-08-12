@@ -1,3 +1,5 @@
+package functionalities;
+
 import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
 import core.syntax.ErrorListener;

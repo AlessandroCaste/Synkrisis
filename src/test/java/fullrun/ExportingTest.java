@@ -1,3 +1,5 @@
+package fullrun;
+
 import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
@@ -16,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class ExportingTest {
+public class ExportingTest {
 
     ExportingTest(){
         testSpot();

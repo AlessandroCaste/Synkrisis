@@ -50,7 +50,7 @@ public class TransitionDotImporter {
             else
                 labelString = "";
             if (map.get("synkrisis") != null) {
-                String propertiesAttribute = map.get("properties").toString();
+                String propertiesAttribute = map.get("synkrisis").toString();
                 markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.split("\\s*,\\s*")));
                 for (String propertyName : markersLabels) {
                     if(!graphData.markersContainKey(propertyName))
@@ -89,7 +89,7 @@ public class TransitionDotImporter {
 
         ComponentUpdater<TransitionVertex> vertexUpdater = (transitionVertex, map) -> {
             Attribute label = map.get("label");
-            Attribute propertiesAttribute = map.get("properties");
+            Attribute propertiesAttribute = map.get("synkrisis");
             ArrayList<String> markersLabels;
             TreeSet<Integer> markersID = new TreeSet<>();
             GraphDataEncapsulation graphData = GraphDataEncapsulation.getInstance();

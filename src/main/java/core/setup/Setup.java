@@ -38,14 +38,8 @@ class Setup {
         try {
             logger.setUseParentHandlers(false);
             filename = inputFile.getName();
-            filename = FilenameUtils.removeExtension(filename);
+            filename = FilenameUtils.getBaseName(filename);
             // This block configure the logger with handler and formatter
-            File oldFile = new File(filename+".log");
-            boolean deletionResult = true;
-            if(oldFile.exists())
-                deletionResult = oldFile.delete();
-            if(!deletionResult)
-                throw new IOException();
             fh = new FileHandler(filename + ".log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
@@ -89,7 +83,7 @@ class Setup {
         logger.log(Level.INFO,"Parsing tree creation concluded");
     }
 
-    public GraphBuildingVisitor setupGraphBuilder(String modelName){
+    GraphBuildingVisitor setupGraphBuilder(String modelName){
         // I translate the graph into a JgraphT model
         logger.log(Level.INFO, "Jgraph translation from parsetree started");
         GraphBuildingVisitor modelBuilder = new GraphBuildingVisitor();

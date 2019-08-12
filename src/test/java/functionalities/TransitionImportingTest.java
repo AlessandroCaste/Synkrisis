@@ -1,3 +1,5 @@
+package functionalities;
+
 import core.graphs.TransitionDotImporter;
 import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
@@ -23,7 +25,7 @@ class TransitionImportingTest {
     // Note that this test may work only with specific implementations of bigmc (different binaries may mix parallel regions)
     @Test
     void executeModel() {
-        TransitionDotImporter transitionDotImporter = new TransitionDotImporter("src/test/java/models/transition.dot",true);
+        TransitionDotImporter transitionDotImporter = new TransitionDotImporter("src/test/java/models/hospital.dot",true);
         transitionDotImporter.processTransition();
         TransitionGraph transitionGraph = GraphsCollection.getInstance().getTransitionGraph();
         DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> graph = transitionGraph.getGraph();

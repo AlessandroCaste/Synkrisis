@@ -34,7 +34,10 @@ public class TransitionGraph {
     }
 
     public boolean vertexContainsMarker(TransitionVertex tv, String s) {
-        return tv.getProperties().contains(markersMap.get(s));
+        if(tv.getProperties()!=null)
+            return tv.getProperties().contains(markersMap.get(s));
+        else
+            return false;
     }
 
     public String markersInVertices(TransitionVertex tv){
