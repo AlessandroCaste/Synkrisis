@@ -49,7 +49,7 @@ public class TransitionDotImporter {
                 labelString = map.get("label").toString();
             else
                 labelString = "";
-            if (map.get("properties") != null) {
+            if (map.get("synkrisis") != null) {
                 String propertiesAttribute = map.get("properties").toString();
                 markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.split("\\s*,\\s*")));
                 for (String propertyName : markersLabels) {
