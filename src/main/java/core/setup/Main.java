@@ -111,6 +111,7 @@ public class Main {
         System.out.println(syntaxVisitor.getParseResult());
         modelName = syntaxVisitor.getModelName();
         executionSettings.setModelName(modelName);
+        graphsCollection.setModelName(modelName);
         logger.log(Level.INFO,"Syntax visitor completed");
         return syntaxVisitor.getAcceptableModel();
     }

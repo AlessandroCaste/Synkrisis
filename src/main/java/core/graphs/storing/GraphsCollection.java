@@ -4,7 +4,9 @@ import core.graphs.customized.TransitionGraph;
 import core.graphs.customized.edges.TransitionEdge;
 import core.graphs.customized.vertices.TransitionVertex;
 import core.graphs.customized.vertices.Vertex;
-import core.graphs.visualization.CreateGraphvizImages;
+import core.graphs.visualization.PrintModel;
+import core.graphs.visualization.PrintReaction;
+import core.graphs.visualization.PrintTransition;
 import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
@@ -12,10 +14,13 @@ import org.jgrapht.graph.Multigraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class GraphsCollection {
 
     // Graphs
+    private String modelName;
     private Multigraph<Vertex, DefaultEdge> model;
     private ArrayList<RedexReactumPair> reactionsList = new ArrayList<>();
     private TransitionGraph transitionGraph;
@@ -25,6 +30,9 @@ public class GraphsCollection {
 
     // Hashmap to track markers
     private HashMap<String,Integer> markersMap;
+
+    // Multithreading printing
+    private ThreadPoolExecutor executor;
 
     private static GraphsCollection instance;
 
@@ -37,16 +45,25 @@ public class GraphsCollection {
         return instance;
     }
 
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
     public void printModel() {
-        CreateGraphvizImages.getInstance().createModel(model);
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        PrintModel printModel = new PrintModel(model,modelName) ;
+        executor.execute(printModel);
         for(RedexReactumPair gr : reactionsList) {
-            CreateGraphvizImages.getInstance().createReactions(gr);
+            PrintReaction printReaction = new PrintReaction(gr,modelName);
+            executor.execute(printReaction);
         }
+        executor.shutdown();
     }
 
     public void printTransition() {
-        if(transitionGraph.size() < 100)
-            CreateGraphvizImages.getInstance().printTransition(transitionGraph);
+        if(transitionGraph.size() < 50) {
+            new Thread(new PrintTransition(transitionGraph));
+        }
         else
             System.out.println("[WARNING] Transition graph is too big (>= 100 nodes), no printing shall be made by Synkrisis");
     }

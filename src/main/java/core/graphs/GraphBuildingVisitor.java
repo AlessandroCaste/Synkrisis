@@ -8,7 +8,6 @@ import core.exporting.spotExporting.SpotInfo;
 import core.graphs.customized.vertices.Vertex;
 import core.graphs.storing.GraphsCollection;
 import core.graphs.storing.RedexReactumPair;
-import core.graphs.visualization.CreateGraphvizImages;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
@@ -315,8 +314,6 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         modelName = ctx.IDENTIFIER().getText();
         visitChildren(ctx);
         createModelGraph(currentGraph);
-        // Saving model name for graphviz printing
-        CreateGraphvizImages.getInstance().setModelName(modelName);
         return null;
     }
 

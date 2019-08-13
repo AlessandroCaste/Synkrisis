@@ -45,7 +45,7 @@ public class Bigmc implements ModelChecker{
         StringBuilder input = new StringBuilder();
 
         // Bigmc location is set
-        input.append("lib/bigmc -s ");
+        input.append("bigmc -s ");
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)
