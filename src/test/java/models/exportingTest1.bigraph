@@ -10,9 +10,10 @@ names:
     outer served_id
 
 rule r1 = offline_node    -> online_node[-]            # Waking up the node
-rule r2 = online_node[-]  -> online_node[id]           # Establish a connection to an ID
-rule r3 = online_node[id] -> online_node[served_id]    # Serves a user
-rule r4 = online_node[served_id] -> online_node[-]     # Return idle
+rule r2 = online_node[-]  -> online_node[id]           # Establishing a connection to an ID
+rule r3 = online_node[id] -> online_node[served_id]    # Serving a user
+rule r4 = online_node[served_id] -> online_node[-]     # Returning idle
+rule t5 = online_node[@a] -> online_node[-]
 
 model nodes = offline_node | offline_node | offline_node
 

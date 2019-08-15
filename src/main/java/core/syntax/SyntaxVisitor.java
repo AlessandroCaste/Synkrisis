@@ -32,6 +32,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     // This differentiates analysis for models' expressions
     private boolean modelVisited = false;
+    private boolean markerVisited = false;
 
     // Model name to check file integrity
     private String modelName = "null";
@@ -182,7 +183,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     @Override public Void visitLinks (bigraphParser.LinksContext ctx){
 
         // I verify a variable is not getting declared inside a model definition
-        if(modelVisited && ctx.VARIABLE() != null)
+        if(markerVisited && ctx.VARIABLE()!=null)
+            reportError(ctx,ERROR,"Variable used in marker definition");
+        else if(modelVisited && ctx.VARIABLE() != null)
             reportError(ctx,ERROR,"Variable used in model definition");
 
         // Usage tracking of names
@@ -215,6 +218,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     // This visitor serves the purpose of checking the uniqueness of marker names
     @Override public Void visitMarker (bigraphParser.MarkerContext ctx) {
+        markerVisited = true;
         if(ctx.MARKER() != null) {
             String identifier = ctx.IDENTIFIER().toString();
             if (controlsMap.containsKey(identifier))

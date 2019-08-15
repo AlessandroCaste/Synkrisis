@@ -40,7 +40,7 @@ public class TransitionGraph {
             return false;
     }
 
-    public String markersInVertices(TransitionVertex tv){
+    public String markerInVertex(TransitionVertex tv){
         StringBuilder sb = new StringBuilder();
         for(String marker : markersMap.keySet()){
             if(tv.getProperties().contains(markersMap.get(marker)))

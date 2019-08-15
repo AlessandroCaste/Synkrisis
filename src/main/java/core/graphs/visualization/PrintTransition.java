@@ -84,7 +84,7 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
 
                     labels.append("\n\nList of markers by state:\n");
                     for(TransitionVertex tv : jgraphGraph.vertexSet()){
-                        String markers = transitionGraph.markersInVertices(tv);
+                        String markers = transitionGraph.markerInVertex(tv);
                         if(!markers.isEmpty())
                             labels.append("#").append(tv.getVertexID()).append(" : ").append(markers).append("\n");
                     }
