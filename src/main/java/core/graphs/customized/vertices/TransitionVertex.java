@@ -1,6 +1,7 @@
 package core.graphs.customized.vertices;
 
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class TransitionVertex {
@@ -48,5 +49,12 @@ public class TransitionVertex {
         this.properties = properties;
     }
 
+    public void prismNormalization(){
+        // TODO a more efficient technique?
+        ArrayList<Integer> listConversion = new ArrayList<>(properties);
+        for (int i = 0; i < listConversion.size(); i += 1)
+            listConversion.set(i, listConversion.get(i) + 2);
+        properties = new TreeSet<>(listConversion);
+    }
 
 }

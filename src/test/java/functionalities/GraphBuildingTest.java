@@ -304,6 +304,7 @@ class GraphBuildingTest {
     }
 
 
+    // TODO REMOVE AND ADAPT
     GraphBuildingVisitor createVisitor(String path) {
         try {
             File inputFile = new File(path);

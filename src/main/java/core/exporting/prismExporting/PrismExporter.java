@@ -38,14 +38,18 @@ public class PrismExporter {
         Graphs.addAllEdges(this.transitionGraph,transitionGraph.getGraph(),transitionGraph.getGraph().edgeSet());
         this.modelName = transitionGraph.getModelName();
         this.markersMap = new HashMap<>(transitionGraph.getMarkersMap());
-        // markersMap ordering
+        // 'init' and 'deadlock' must be added so all properties are shift by 2
         for (Map.Entry<String, Integer> entry : markersMap.entrySet())
             entry.setValue(entry.getValue()+2);
+        // markers ordering
         this.markersMap =
                 markersMap.entrySet().stream()
                         .sorted(Map.Entry.comparingByValue())
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
+        // updating transition graph properties
+        for(TransitionVertex tv : this.transitionGraph.vertexSet())
+            tv.prismNormalization();
         this.path = path;
     }
 

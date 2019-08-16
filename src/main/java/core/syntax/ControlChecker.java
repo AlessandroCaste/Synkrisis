@@ -2,6 +2,7 @@ package core.syntax;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
+// Stores information about a control node and its context for checks and further analysis
 class ControlChecker {
 
     private ParserRuleContext ctx;

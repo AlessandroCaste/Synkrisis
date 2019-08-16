@@ -1,4 +1,3 @@
-# Testing Spot Exporting
 # Three working nodes are fired up and serve users
 
 controls:
@@ -9,11 +8,16 @@ names:
     outer id
     outer served_id
 
-rule r1 = offline_node    -> online_node[-]            # Waking up the node
-rule r2 = online_node[-]  -> online_node[id]           # Establishing a connection to an ID
-rule r3 = online_node[id] -> online_node[served_id]    # Serving a user
-rule r4 = online_node[served_id] -> online_node[-]     # Returning idle
-rule t5 = online_node[@a] -> online_node[-]
+# Waking up the node
+rule r1 = offline_node    -> online_node[-]            
+# Establishing a connection to an ID      
+rule r2 = online_node[-]  -> online_node[id]  
+# Serving a user   
+rule r3 = online_node[id] (0.3) -> online_node[served_id]
+# Returning idle
+rule r4 = online_node[served_id] -> online_node[-]           
+# Modelling sudden shutdown of a node
+rule t5 = online_node[@a] (0.05) -> online_node[-]            
 
 model nodes = offline_node | offline_node | offline_node
 
@@ -25,4 +29,4 @@ marker full_served = matches(online_node[served_id] | online_node[served_id] | o
 properties:
     SPOT-ACCEPTANCE = acc-name:   generalized-Buchi 2
                       Acceptance: 2 Inf(full_served) & Inf(full_load)
-
+    PRISM (prop) = \{ P>0.3 [F "full_served"] \}
