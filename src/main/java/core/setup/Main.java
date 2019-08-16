@@ -56,9 +56,6 @@ public class Main {
         if (setup.isSuccessful()) {
             // .bigraph Model Validation
             boolean acceptableModel = syntaxAnalysis(executionSettings);
-                BGMTranslator translator = new BGMTranslator();
-                translator.visit(modelTree);
-
             // Model Abstraction
             if (acceptableModel) {
                 GraphBuildingVisitor modelBuilder = setup.setupGraphBuilder(modelName);

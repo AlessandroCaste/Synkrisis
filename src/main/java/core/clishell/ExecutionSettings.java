@@ -9,7 +9,6 @@ public class ExecutionSettings {
     private int steps = 0;
     private int statisticsFrequency = 0;
     private boolean printNewStatesEnabled = false;
-    private boolean exportingEnabled = false;
     private HashSet <String> exporting = new HashSet<>();
     private boolean printModelEnabled = false;
     private boolean printTransitionEnabled = false;
@@ -98,6 +97,17 @@ public class ExecutionSettings {
     }
 
     public void setModelName(String modelName) { this.modelName = modelName; }
+
+    void reset(){
+        steps = 0;
+        statisticsFrequency = 0;
+        printNewStatesEnabled = false;
+        exporting = new HashSet<>();
+        printModelEnabled = false;
+        printTransitionEnabled = false;
+        processTransitionOnly = false;
+        modelName = "";
+    }
 
 }
 

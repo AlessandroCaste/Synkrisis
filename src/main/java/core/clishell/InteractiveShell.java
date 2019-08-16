@@ -97,6 +97,7 @@ public class InteractiveShell {
         } if(line.equals("%run")) {
             loadedSettings.setFilePath(filename+".bigraph");
             Main.execution(loadedSettings);
+            loadedSettings.reset();
         }
         modelScanner.close();
     }
@@ -105,8 +106,10 @@ public class InteractiveShell {
      public void run(){
         if(loadedSettings.getFilePath()!=null && !loadedSettings.isProcessTransitionOnly()) {
             Main.execution(loadedSettings);
+            loadedSettings.reset();
         } else if (loadedSettings.getFilePath() != null && loadedSettings.isProcessTransitionOnly()){
             Main.transitionOnlyExecution(loadedSettings);
+            loadedSettings.reset();
         } else
             System.out.println("You must first specify a model or a transition file!");
     }
