@@ -6,12 +6,16 @@ controls:
     active R  0
     active Succ 0
     active Zero 0
+    active A 3
+
+names:
+    outer a
 
 rule regression1 = IN.(L.$1|R.Zero)->$1
 rule regression2 = IN.(L.$1|R.Succ.$2)->IN.(L.Succ.$1|R.$2)
 
 
-model addition = IN.(L.Succ.Succ.Zero|R.Succ.Succ.Zero)|IN.(L.Succ.Zero|R.Succ.Succ.Zero)
+model addition = IN.(L.Succ.Succ.Zero|R.Succ.Succ.Zero)|IN.(L.Succ.Zero|R.Succ.Succ.Zero) | A[a,a,a] | IN
 
 # properties
 marker workable = !terminal()
