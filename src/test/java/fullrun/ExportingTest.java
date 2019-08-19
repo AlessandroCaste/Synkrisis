@@ -1,7 +1,21 @@
 package fullrun;
 
+import core.graphs.customized.TransitionGraph;
+import core.graphs.customized.edges.TransitionEdge;
+import core.graphs.customized.vertices.TransitionVertex;
+import core.graphs.storing.GraphsCollection;
 import core.setup.Main;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.jupiter.api.Test;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class ExportingTest {
@@ -13,7 +27,7 @@ class ExportingTest {
     @Test
     void testSpot(){
         String filepath = "src/test/java/models/exportingTest1.bigraph";
-        Main.main(new String[] {"-l",filepath,"-o","spot"});/*
+        Main.main(new String[] {"-l",filepath,"-o","spot"});
         assertTrue(new File("nodes").exists());
         assertTrue(new File("nodes/transition.dot").exists());
         assertTrue(new File("nodes/spot/nodes.hoa").exists());
@@ -59,7 +73,7 @@ class ExportingTest {
             assertEquals("--END--",reader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 }

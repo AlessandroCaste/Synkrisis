@@ -6,16 +6,11 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Change BigMC importing mechanism">
+    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="BigMC interfacing rewritten">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/hospital.dot" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/hospital.dot" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,84 +38,6 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/core/setup/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3036">
-              <caret line="153" selection-start-line="153" selection-end-line="153" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/core/setup/Setup.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1584">
-              <caret line="90" column="73" selection-start-line="90" selection-start-column="73" selection-end-line="90" selection-end-column="73" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/models/exportingTest1.bigraph">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
-              <folding>
-                <element signature="e#10396#10397#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/models/addition.bigraph">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="13" column="89" selection-start-line="13" selection-start-column="89" selection-end-line="13" selection-end-column="89" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2486">
-              <caret line="132" column="44" selection-start-line="132" selection-start-column="44" selection-end-line="132" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1276">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -129,59 +46,8 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>transi</find>
-      <find>printMo</find>
-      <find>new TransitionGraph</find>
-      <find>addTransition</find>
-      <find>printTransit</find>
-      <find>dotInput</find>
-      <find>mkdir</find>
-      <find>.temp</find>
-      <find>Couldn't find</find>
-      <find>tempFile</find>
-      <find>R</find>
-      <find>randomstringutils</find>
-      <find>bigmcCompatibleFilepath</find>
-      <find>RandomStringUtils</find>
-      <find>delete</find>
-      <find>deleteresult</find>
-      <find>bigmcCompatibleFilePath</find>
-      <find>write(</find>
-      <find>new BufferedWriter</find>
-      <find>isBigmcRea</find>
-      <find>modelName</find>
-      <find>Random</find>
-      <find>rename</find>
-      <find>BUfferedWriter(</find>
-      <find>.delete</find>
-      <find>dotImporting</find>
-      <find>F</find>
-      <find>transitionFile.</find>
-      <find>lib</find>
-      <find>transitionFile</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/test/java/models/addition.bigraph" />
-        <option value="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" />
-        <option value="$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/graphs/visualization/AbstractPrinter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/setup/Main.java" />
-        <option value="$PROJECT_DIR$/tE3i18gTOA" />
-        <option value="$PROJECT_DIR$/nRfEU4H1rE" />
-        <option value="$PROJECT_DIR$/bBvx9l3ioj" />
-        <option value="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" />
-      </list>
-    </option>
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -199,68 +65,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="174" />
-    <option name="y" value="-8" />
-    <option name="width" value="1578" />
-    <option name="height" value="1057" />
-  </component>
   <component name="ProjectId" id="1OkAHwaJOQ5CdmfJfuvAjPbeHQN" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="fullrun" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Synkrisis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Synkrisis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="CatdeaLogs" />
-      <pane id="PackagesPane" />
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
@@ -270,7 +75,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/models" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -288,25 +93,25 @@
     <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\test\java\models" />
-      <recent name="$PROJECT_DIR$/src/test/java/models" />
-      <recent name="$PROJECT_DIR$/lib" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="core.syntaxAnalysis" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\test\java\models" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
       <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="core.syntaxAnalysis" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\test\java\models" />
+      <recent name="$PROJECT_DIR$/src/test/java/models" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -327,11 +132,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.RunFunctionalityTest">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/exportingTest1.bigraph -o spot " />
+      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/exportingTest1.bigraph -o spot -r 4" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -347,6 +152,22 @@
       <option name="PACKAGE_NAME" value="fullrun" />
       <option name="MAIN_CLASS_NAME" value="fullrun.ExportingTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExportingTest.testSpot" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Synkrisis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fullrun.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fullrun" />
+      <option name="MAIN_CLASS_NAME" value="fullrun.ExportingTest" />
+      <option name="METHOD_NAME" value="testSpot" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -434,10 +255,12 @@
       <item itemvalue="JUnit.RunFunctionalityTest.executeFullProgram" />
       <item itemvalue="JUnit.ExportingTest" />
       <item itemvalue="JUnit.TransitionImportingTest" />
+      <item itemvalue="JUnit.ExportingTest.testSpot" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ExportingTest" />
+        <item itemvalue="JUnit.ExportingTest.testSpot" />
         <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.TransitionImportingTest.executeModel" />
         <item itemvalue="JUnit.RunFunctionalityTest.executeFullProgram" />
@@ -633,6 +456,7 @@
       <workItem from="1566156636504" duration="831000" />
       <workItem from="1566151054647" duration="9356000" />
       <workItem from="1566211553839" duration="1832000" />
+      <workItem from="1566216828962" duration="3577000" />
     </task>
     <task id="LOCAL-00003" summary="CLI interface and bigmc chaining">
       <created>1560164637092</created>
@@ -980,41 +804,6 @@
     <option name="localTasksCounter" value="52" />
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 03m 56s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 04m 01s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 04m 04s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 04m 22s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 05m 06s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 08m 15s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 08m 20s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 08m 25s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 08m 38s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.19 at 01h 08m 54s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12094000" />
-  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -1023,45 +812,6 @@
       <are-packages-shown value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22654584" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3296582" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.323043" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39911798" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Tool Output" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="11" />
-      <window_info anchor="bottom" id="Version Control" order="12" weight="0.3296582" />
-      <window_info anchor="bottom" id="ANTLR Preview" order="13" />
-      <window_info anchor="bottom" id="Run with VisualVM" order="14" />
-      <window_info active="true" anchor="bottom" id="Messages" order="15" visible="true" weight="0.3296582" />
-      <window_info anchor="bottom" id="Debug with VisualVM" order="16" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -1072,12 +822,6 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -1101,7 +845,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Added a couple of different bigraph tests, reworked packages" />
     <MESSAGE value="Fixes during Jupyter integration road" />
     <MESSAGE value="Tons of updates and fixes starting from MAIN and CLIs" />
     <MESSAGE value="Interactive shell quite complete, remove check on filename" />
@@ -1126,7 +869,8 @@
     <MESSAGE value="Prism exporting fix for labels" />
     <MESSAGE value="Transition printing exception removed" />
     <MESSAGE value="Change BigMC importing mechanism" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change BigMC importing mechanism" />
+    <MESSAGE value="BigMC interfacing rewritten" />
+    <option name="LAST_COMMIT_MESSAGE" value="BigMC interfacing rewritten" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1135,152 +879,127 @@
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/functionalities/SyntaxVisitorTest.java</url>
           <line>20</line>
-          <properties />
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
           <line>22</line>
-          <properties />
           <option name="timeStamp" value="253" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java</url>
           <line>98</line>
-          <properties />
           <option name="timeStamp" value="270" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
           <line>380</line>
-          <properties />
           <option name="timeStamp" value="281" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/TransitionTest.java</url>
           <line>27</line>
-          <properties />
           <option name="timeStamp" value="307" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>145</line>
-          <properties />
-          <option name="timeStamp" value="312" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java</url>
-          <line>42</line>
-          <properties />
+          <line>56</line>
           <option name="timeStamp" value="415" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java</url>
-          <line>51</line>
-          <properties />
+          <line>65</line>
           <option name="timeStamp" value="416" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java</url>
           <line>33</line>
-          <properties />
           <option name="timeStamp" value="425" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java</url>
           <line>63</line>
-          <properties />
           <option name="timeStamp" value="436" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java</url>
           <line>91</line>
-          <properties />
           <option name="timeStamp" value="437" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java</url>
           <line>30</line>
-          <properties />
           <option name="timeStamp" value="446" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java</url>
           <line>33</line>
-          <properties />
           <option name="timeStamp" value="448" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java</url>
-          <line>22</line>
-          <properties />
+          <line>36</line>
           <option name="timeStamp" value="449" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
           <line>32</line>
-          <properties />
           <option name="timeStamp" value="460" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
           <line>109</line>
-          <properties />
           <option name="timeStamp" value="465" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
           <line>28</line>
-          <properties />
           <option name="timeStamp" value="467" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
           <line>149</line>
-          <properties />
           <option name="timeStamp" value="470" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
           <line>153</line>
-          <properties />
           <option name="timeStamp" value="471" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>50</line>
-          <properties />
+          <line>51</line>
           <option name="timeStamp" value="472" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java</url>
           <line>27</line>
-          <properties />
           <option name="timeStamp" value="474" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>208</line>
-          <properties />
-          <option name="timeStamp" value="478" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>111</line>
-          <properties />
+          <line>112</line>
           <option name="timeStamp" value="479" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java</url>
           <line>132</line>
-          <properties />
           <option name="timeStamp" value="480" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java</url>
           <line>71</line>
-          <properties />
           <option name="timeStamp" value="481" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="484" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="485" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1291,6 +1010,7 @@
       <configuration name="Application">
         <watch expression="ctx.UNLINKED().toString()" language="JAVA" />
         <watch expression="ctx.IDENTIFIER().toString()" language="JAVA" />
+        <watch expression="result" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -1299,280 +1019,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Synkrisis$TransitionImportingTest_executeModel.ic" NAME="TransitionImportingTest.executeModel Coverage Results" MODIFIED="1565538133424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Synkrisis$RunAllTests.ic" NAME="RunAllTests Coverage Results" MODIFIED="1565019696938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Synkrisis$Main.ic" NAME="Main Coverage Results" MODIFIED="1566222217215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$GraphBuildingTest_checkLinks.ic" NAME="GraphBuildingTest.checkLinks Coverage Results" MODIFIED="1562684131276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$ExportingTest.ic" NAME="ExportingTest Coverage Results" MODIFIED="1565484440730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Synkrisis$TransitionTest.ic" NAME="TransitionTest Coverage Results" MODIFIED="1565019691497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Synkrisis$RunAllTests.ic" NAME="RunAllTests Coverage Results" MODIFIED="1565019696938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$RunAllTests_executeTests.ic" NAME="RunAllTests.executeTests Coverage Results" MODIFIED="1562684706105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Synkrisis$Main.ic" NAME="Main Coverage Results" MODIFIED="1564878464037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Synkrisis$TransitionImportingTest_executeModel.ic" NAME="TransitionImportingTest.executeModel Coverage Results" MODIFIED="1565538133424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateCodeFragment">
-      <expression>
-        <expression-string>modelName</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>transitionFile</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>FilenameUtils.getBaseName(modelName)</expression-string>
-        <language-id>JAVA</language-id>
-        <custom-info>org.apache.commons.io.FilenameUtils</custom-info>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>new ArrayList&lt;&gt;(filesPerFormat.get(checker.toLowerCase()));</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>transitionGraph.getModelName()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>modelName</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>transitionGraph</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>String[] args</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>args</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tv.getVertexID()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tv</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tv.getProperties()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>markersMap</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/models/phospital.bigraph">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintReaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addition/addition-0.dot" />
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.desktop/javax/imageio/stream/FileImageOutputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="68" column="36" selection-start-line="68" selection-start-column="36" selection-end-line="68" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.desktop/com/sun/imageio/spi/FileImageOutputStreamSpi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/nio/file/Files.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="1420" column="21" selection-start-line="1420" selection-start-column="21" selection-end-line="1420" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/io/RandomAccessFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="344" selection-start-line="344" selection-end-line="344" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/sun/nio/fs/WindowsFileCopy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="350" selection-start-line="350" selection-end-line="350" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/sun/nio/fs/WindowsFileSystemProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="287" column="24" selection-start-line="287" selection-start-column="24" selection-end-line="287" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/models/hospital.dot">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-          <folding>
-            <element signature="e#1378#1379#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="109" selection-start-line="109" selection-end-line="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/AbstractPrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hospital/transition.png" />
-    <entry file="file://$PROJECT_DIR$/addition/transition.dot" />
-    <entry file="file://$PROJECT_DIR$/addition/addition.temp" />
-    <entry file="file://$PROJECT_DIR$/addition/transition.png" />
-    <entry file="file://$PROJECT_DIR$/addition/addition.png" />
-    <entry file="file://$PROJECT_DIR$/ilDwztttQQ" />
-    <entry file="file://$PROJECT_DIR$/tE3i18gTOA" />
-    <entry file="file://$PROJECT_DIR$/nRfEU4H1rE" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="27" column="131" selection-start-line="27" selection-start-column="131" selection-end-line="27" selection-end-column="131" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/functionalities/RunFunctionalityTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bBvx9l3ioj" />
-    <entry file="file://$PROJECT_DIR$/jebYmgtAGF" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OG3KMq7Q4X" />
-    <entry file="file://$PROJECT_DIR$/8IDvRTsTum" />
-    <entry file="file://$PROJECT_DIR$/nodes/transition.dot">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NOC1V2rUub" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/setup/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3036">
-          <caret line="153" selection-start-line="153" selection-end-line="153" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/setup/Setup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1584">
-          <caret line="90" column="73" selection-start-line="90" selection-start-column="73" selection-end-line="90" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/models/exportingTest1.bigraph">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2486">
-          <caret line="132" column="44" selection-start-line="132" selection-start-column="44" selection-end-line="132" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/exportingTest1.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="418">
-          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/models/addition.bigraph">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="89" selection-start-line="13" selection-start-column="89" selection-end-line="13" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
-          <folding>
-            <element signature="e#10396#10397#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
+    <SUITE FILE_PATH="coverage/Synkrisis$TransitionTest.ic" NAME="TransitionTest Coverage Results" MODIFIED="1565019691497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="masterDetails">
     <states>
