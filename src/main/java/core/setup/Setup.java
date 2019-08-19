@@ -83,6 +83,14 @@ class Setup {
         logger.log(Level.INFO,"Parsing tree creation concluded");
     }
 
+    void createFolder(){
+        String folderName = FilenameUtils.getBaseName(inputFile.getName());
+        File transitionFolder = new File(folderName);
+        if(!transitionFolder.exists())
+            if(!transitionFolder.mkdir())
+                System.out.println("Couldn't create a new " + folderName + "folder for the transition file");
+    }
+
     GraphBuildingVisitor setupGraphBuilder(String modelName){
         // I translate the graph into a JgraphT model
         logger.log(Level.INFO, "Jgraph translation from parsetree started");

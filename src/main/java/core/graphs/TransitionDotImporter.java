@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 public class TransitionDotImporter {
 
     private static Logger logger = Logger.getLogger("Report");
+    private String transitionPath;
     private String modelName;
 
     // Tells us if we want to use only the importing module
@@ -27,9 +28,10 @@ public class TransitionDotImporter {
     // Result of transition is saved
     private boolean successfulImporting = true;
 
-    public TransitionDotImporter(String modelName,boolean transitionOnly) {
-        this.modelName = modelName;
+    public TransitionDotImporter(String transitionPath,boolean transitionOnly,String modelName) {
+        this.transitionPath = transitionPath;
         this.transitionOnly = transitionOnly;
+        this.modelName = modelName;
     }
 
     @SuppressWarnings("Duplicates")
@@ -111,13 +113,10 @@ public class TransitionDotImporter {
         try {
             DOTImporter<TransitionVertex, TransitionEdge> importer = new DOTImporter<>(vertexProvider, edgeProvider, vertexUpdater);
             FileReader transitionFile;
-            if(transitionOnly)
-                transitionFile = new FileReader(modelName);
-            else
-                transitionFile = new FileReader(modelName + "/transition.dot");
+            transitionFile = new FileReader(transitionPath);
             importer.importGraph(transitionGraph, transitionFile);
             logger.log(Level.INFO,".dot transition file correctly translated to jgraph model");
-            graphsCollection.addTransition(transitionGraph,modelName, GraphDataEncapsulation.getInstance().markersMap);
+            graphsCollection.addTransition(transitionGraph, modelName, GraphDataEncapsulation.getInstance().markersMap);
         } catch (FileNotFoundException fe) {
             System.out.println("[FATAL ERROR] Can't find the transition file: problems with the model checker?");
             logger.log(Level.SEVERE, "Missing transition file; something went wrong when reading the output of the model checker (bigmc?) and printing it to file\nStack trace: " + fe.getMessage());

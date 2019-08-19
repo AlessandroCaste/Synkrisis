@@ -2,12 +2,10 @@ package core.modelcheckers;
 
 import core.clishell.ExecutionSettings;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +19,7 @@ public class Bigmc implements ModelChecker{
     private ExecutionSettings loadedSettings;
     private boolean isBigmcReady;
     private boolean successfulInitialization;
+    private String transitionFilename;
 
 
     public Bigmc(ExecutionSettings settings,ParseTree modelTree) {
@@ -44,8 +43,15 @@ public class Bigmc implements ModelChecker{
     private String createInputString() {
         StringBuilder input = new StringBuilder();
 
+
+        // Generating a random string for the transition file
+        int length = 10;
+        boolean useLetters = true;
+        boolean useNumbers = true;
+        transitionFilename = RandomStringUtils.random(length, useLetters, useNumbers);
+
         // Bigmc location is set
-        input.append("lib/bigmc -s ");
+        input.append("lib/bigmc -G ").append(transitionFilename);
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)
@@ -85,8 +91,8 @@ public class Bigmc implements ModelChecker{
             ProcessBuilder pb;
             //TODO wsl setup is temporary
             if(SystemUtils.IS_OS_WINDOWS)
-                pb = new ProcessBuilder("pengwin", "-c", input);
-            //TODO Don't know what to do with osx and has of now as the same linux commands
+                pb = new ProcessBuilder("bash", "-c", input);
+            //TODO Don't know what to do with osx
             else if (SystemUtils.IS_OS_MAC_OSX)
                 pb = new ProcessBuilder("echo",input);
             // Linux case!
@@ -94,8 +100,7 @@ public class Bigmc implements ModelChecker{
                 pb = new java.lang.ProcessBuilder("/bin/bash","-c",input);
             pb.directory(new File(workingDirectory));
             pb.redirectErrorStream(true);
-            // I redirect bigmc output to a temp file in order to scan it
-            pb.redirectOutput(new File(modelName+"/"+modelName+".temp"));
+            pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
             Process p = pb.start();
             logger.log(Level.INFO, "Waiting for bigmc process..");
             p.waitFor();
@@ -108,8 +113,11 @@ public class Bigmc implements ModelChecker{
             successfulInitialization = false;
         }
 
+
+
         // The scanner will separate the transition system from all the other messages (that get output to CLI)
         // Multiple transition systems can be output by the user; because of that we keep count of them through transition_counter
+        /*
         Scanner sc;
         try {
             File tempFile = new File(modelName+"/"+modelName+".temp");
@@ -148,12 +156,6 @@ public class Bigmc implements ModelChecker{
             transition_counter = transition_counter - 1;
             File lastTransitionFile = new File(modelName + "/" + modelName + "-" + (transition_counter) + ".dot");
 
-            //TODO WHY
-            // I create a new transition file, deleting an eventual old one
-            File oldFile = new File(modelName + "/" + "transition.dot");
-            boolean deleteResult = true;
-            if(oldFile.exists())
-                deleteResult = oldFile.delete();
             boolean renameResult = lastTransitionFile.renameTo(new File(modelName + "/" + "transition.dot"));
             if(!renameResult || !deleteResult)
                 logger.log(Level.WARNING,"Couldn't correctly rename the last .dot file!");
@@ -165,26 +167,31 @@ public class Bigmc implements ModelChecker{
                 for(int counter = 0; counter < transition_counter - 1; counter++)
                     FileUtils.moveFile(new File(modelName + "/" + modelName + "-" + counter + ".dot" ),
                             new File(modelName + "/" + "intermediate edges/" + modelName + "-" + counter + ".dot" ));
-
+            */
             // Deleting the temp file
-            boolean deletionResult;
-            deletionResult = tempFile.delete();
-            if(!deletionResult)
-                logger.log(Level.WARNING,"Couldn't correctly delete .temp file!");
+        try{
+            // If a previous transition file already exists I remove it
+            File transitionFile = new File(transitionFilename);
+            File newLocation = new File(modelName + "/transition.dot");
+            boolean result = true;
+            if(newLocation.exists())
+                result = newLocation.delete();
+            if(!result)
+                throw new IOException("Can't delete old transition file inside " + modelName);
+            result = transitionFile.renameTo(new File(modelName + "/transition.dot"));
+            if(!result)
+                throw new IOException("Can't move the temporary transition file inside " + modelName);
             if(!isBigmcReady) {
-                boolean result = new File(bigmcCompatibleFilepath).delete();
-                if(!result) {
-                    System.out.println("Can't delete bigmc-filtered file");
-                    throw new IOException();
-                }
-                logger.log(Level.INFO,"Temporary bigmc translation has been eliminated successfully");
+                boolean bigmFileDeletion = new File(bigmcCompatibleFilepath).delete();
+                if(!bigmFileDeletion)
+                    throw new IOException("Can't delete temporary bigmc file");
             }
         } catch (FileNotFoundException e) {
             System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
             logger.log(Level.SEVERE, "File not found when using the scanner\nStack trace: " + e.getMessage());
             successfulInitialization = false;
         } catch (IOException e) {
-            System.out.println("Inner error while scanning Bigmc output. Check the log file for further info");
+            System.out.println("Inner error while working on Bigmc output. Check the log file for further info");
             logger.log(Level.SEVERE, "Unexpected crash due to BufferWriter object\nStack trace: " + e.getMessage());
             successfulInitialization = false;
         }
