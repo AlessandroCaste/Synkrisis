@@ -108,7 +108,7 @@ public class SpotExporter {
             hoaWriter.write("--BODY--\n");
             for(TransitionVertex tv : transitionGraph.vertexSet()) {
                 hoaWriter.write("State: ");
-                hoaWriter.write(Integer.toString(tv.getVertexID()));
+                hoaWriter.write(tv.getVertexID());
                 hoaWriter.write(" ");
                 hoaWriter.write(acceptanceString(tv));
                 hoaWriter.write("\n");
@@ -117,7 +117,7 @@ public class SpotExporter {
                     hoaWriter.write(Integer.toString(reactionMap.get(te.getLabel())));
                     hoaWriter.write("]");
                     hoaWriter.write(" ");
-                    hoaWriter.write(Integer.toString(transitionGraph.getEdgeTarget(te).getVertexID()));
+                    hoaWriter.write(transitionGraph.getEdgeTarget(te).getVertexID());
                     hoaWriter.write("\n");
                 }
             }

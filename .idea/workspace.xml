@@ -6,11 +6,26 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="BigMC interfacing rewritten">
+    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="TransitionVertex now supports Strings!">
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/RemscheldVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/g4models/remscheld.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/interp/remscheld.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/interp/remscheldLexer.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldBaseListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldBaseVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldLexer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/tokens/remscheld.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/tokens/remscheldLexer.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/MDPReactum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/MDPReactum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/TransitionVertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/TransitionVertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +90,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/remscheld/antlr" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -93,25 +108,25 @@
     <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\test\java\models" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\interp" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph\tokens" />
-      <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr" />
+      <recent name="$PROJECT_DIR$/src/main/java/antlr/g4models" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\test\java\models" />
+      <recent name="$PROJECT_DIR$/src/test/java/models" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="core.syntaxAnalysis" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr/g4models" />
+      <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr/tokens" />
+      <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr/interp" />
+      <recent name="$PROJECT_DIR$/src/test/java/remscheld" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\test\java\models" />
-      <recent name="$PROJECT_DIR$/src/test/java/models" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\main\java\antlr\bigraph" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -136,7 +151,7 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/exportingTest1.bigraph -o spot -r 4" />
+      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/exportingTest1.bigraph -o spot -r 4 -G" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -456,14 +471,10 @@
       <workItem from="1566156636504" duration="831000" />
       <workItem from="1566151054647" duration="9356000" />
       <workItem from="1566211553839" duration="1832000" />
-      <workItem from="1566216828962" duration="3577000" />
-    </task>
-    <task id="LOCAL-00003" summary="CLI interface and bigmc chaining">
-      <created>1560164637092</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1560164637093</updated>
+      <workItem from="1566216828962" duration="3781000" />
+      <workItem from="1566222552822" duration="75000" />
+      <workItem from="1566255034140" duration="204000" />
+      <workItem from="1566288653793" duration="10778000" />
     </task>
     <task id="LOCAL-00004" summary="Step by step generation of transition systems">
       <created>1560166315888</created>
@@ -801,7 +812,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566157458975</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="BigMC interfacing rewritten">
+      <created>1566222398321</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1566222398321</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView">
@@ -943,43 +961,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="460" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
-          <line>109</line>
+          <line>122</line>
           <option name="timeStamp" value="465" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
-          <line>28</line>
+          <line>31</line>
           <option name="timeStamp" value="467" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
-          <line>149</line>
-          <option name="timeStamp" value="470" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
-          <line>153</line>
-          <option name="timeStamp" value="471" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="472" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java</url>
           <line>27</line>
           <option name="timeStamp" value="474" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>112</line>
-          <option name="timeStamp" value="479" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java</url>
@@ -992,14 +985,34 @@
           <option name="timeStamp" value="481" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>104</line>
-          <option name="timeStamp" value="484" />
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="487" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java</url>
-          <line>140</line>
-          <option name="timeStamp" value="485" />
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="488" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="491" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="492" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="494" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="495" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

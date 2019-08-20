@@ -40,34 +40,37 @@ public class TransitionDotImporter {
         transitionGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
 
         VertexProvider vertexProvider = (s, map) -> {
-            int currentID;
+
             // Extracting attributes from dot representation
             String labelString;
             ArrayList<String> markersLabels;
             TreeSet<Integer> markersID = new TreeSet<>();
             GraphDataEncapsulation graphData = GraphDataEncapsulation.getInstance();
 
-            if (map.get("label")!=null)
-                labelString = map.get("label").toString();
-            else
-                labelString = "";
-            if (map.get("synkrisis") != null) {
-                String propertiesAttribute = map.get("synkrisis").toString();
-                markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.split("\\s*,\\s*")));
-                for (String propertyName : markersLabels) {
-                    if(!graphData.markersContainKey(propertyName))
-                        graphData.insertMarker(propertyName);
-                    markersID.add(graphData.getMarkerID(propertyName));
+            if(!graphData.containsNode(s)) {
+                if (map.get("label") != null)
+                    labelString = map.get("label").toString();
+                else
+                    labelString = "";
+                if (map.get("synkrisis") != null) {
+                    String propertiesAttribute = map.get("synkrisis").toString();
+                    markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.split("\\s*,\\s*")));
+                    for (String propertyName : markersLabels) {
+                        if (!graphData.markersContainKey(propertyName))
+                            graphData.insertMarker(propertyName);
+                        markersID.add(graphData.getMarkerID(propertyName));
+                    }
                 }
-            }
+            /*
             if (graphData.hashesContainKey(s)) {
                 currentID = graphData.getVertexID(s);
             } else {
                 currentID = graphData.getCurrentVertexID();
                 graphData.insertHash(s);
-            }
-
-            return new TransitionVertex(currentID, labelString, markersID);
+            }*/
+                return new TransitionVertex(s, labelString, markersID);
+            } else
+                return graphData.getVertex(s);
         };
 
         EdgeProvider<TransitionVertex, TransitionEdge> edgeProvider;
@@ -136,8 +139,7 @@ public class TransitionDotImporter {
     // A static class encapsulates data so that it can be accessed by the different providers
     static class GraphDataEncapsulation {
 
-        private HashMap<String,Integer> hashToId;
-        private int vertexID;
+        private HashMap<String,TransitionVertex> nodeIDs;
         private HashMap<String,Integer> markersMap;
         private int markerID;
         private boolean transitionOnly;
@@ -161,8 +163,7 @@ public class TransitionDotImporter {
                 markersMap = new HashMap<>();
                 transitionOnly = true;
             }
-            hashToId  = new HashMap<>();
-            vertexID = 0;
+            nodeIDs  = new HashMap<>();
             // This "covers" the weird case a user specifies new, previously undefined properties in the transition graph
             if(!transitionOnly)
                 markerID = Collections.max(markersMap.values()) + 1;
@@ -174,6 +175,15 @@ public class TransitionDotImporter {
             return markersMap.containsKey(key);
         }
 
+        boolean containsNode(String key){
+            return nodeIDs.containsKey(key);
+        }
+
+        TransitionVertex getVertex(String key){
+            return nodeIDs.get(key);
+        }
+
+        /*
         boolean hashesContainKey(String key) {
             return hashToId.containsKey(key);
         }
@@ -181,7 +191,7 @@ public class TransitionDotImporter {
         void insertHash(String key){
             hashToId.put(key,vertexID);
             vertexID++;
-        }
+        }*/
 
         // I insert a marker only in case of transition graph importing
         void insertMarker(String key) {
@@ -195,13 +205,14 @@ public class TransitionDotImporter {
             }
         }
 
+        /*
         int getCurrentVertexID(){
             return vertexID;
         }
 
-        int getVertexID(String key){
-            return hashToId.get(key);
-        }
+        boolean containsID(String key){
+            return nodeIDs.contains(key);
+        }*/
 
         int getMarkerID(String key) {
             return markersMap.get(key);

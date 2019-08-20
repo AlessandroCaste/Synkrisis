@@ -93,9 +93,9 @@ public class PrismExporter {
                 for(TransitionVertex v : transitionGraph.vertexSet())
                     for(TransitionEdge e : transitionGraph.outgoingEdgesOf(v)) {
                         // Transitions specification
-                        traWriter.write(Integer.toString(v.getVertexID()));
+                        traWriter.write(v.getVertexID());
                         traWriter.write(" ");
-                        traWriter.write(Integer.toString(transitionGraph.getEdgeTarget(e).getVertexID()));
+                        traWriter.write(transitionGraph.getEdgeTarget(e).getVertexID());
                         traWriter.write(" ");
                         traWriter.write(Double.toString(transitionGraph.getEdgeWeight(e)));
                         traWriter.write("\n");
@@ -157,7 +157,7 @@ public class PrismExporter {
         }
     }
 
-    private void buildPermutations(BufferedWriter traWriter, int currentID, ArrayList<ArrayList<MDPReactum>> lists, ArrayList<MDPReactum> dReacta, int depth, ArrayList<MDPReactum> ndReacta) throws IOException {
+    private void buildPermutations(BufferedWriter traWriter, String currentID, ArrayList<ArrayList<MDPReactum>> lists, ArrayList<MDPReactum> dReacta, int depth, ArrayList<MDPReactum> ndReacta) throws IOException {
         if (depth == lists.size()) {
             for(MDPReactum mdpr : ndReacta) {
                 //TODO DISTINGUERE (mdp) o (dtmc)
@@ -175,8 +175,8 @@ public class PrismExporter {
         }
     }
 
-    private void writeDeterministicReacta(BufferedWriter traWriter, int id, MDPReactum mdpr) throws IOException {
-        traWriter.write(Integer.toString(id));
+    private void writeDeterministicReacta(BufferedWriter traWriter, String id, MDPReactum mdpr) throws IOException {
+        traWriter.write(id);
         traWriter.write(" ");
         traWriter.write(Integer.toString(choice));
         traWriter.write(" ");
@@ -196,7 +196,7 @@ public class PrismExporter {
             labWriter.write("\n0: 0\n");
             for(TransitionVertex v : transitionGraph.vertexSet())
                 if(!v.getPropertiesString().equals("")) {
-                    labWriter.write(Integer.toString(v.getVertexID()));
+                    labWriter.write(v.getVertexID());
                     labWriter.write(": ");
                     labWriter.write(v.getPropertiesString());
                     labWriter.write("\n");

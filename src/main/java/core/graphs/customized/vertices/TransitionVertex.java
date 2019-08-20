@@ -6,19 +6,20 @@ import java.util.TreeSet;
 
 public class TransitionVertex {
 
-    private int vertexID;
+    private String vertexID;
     private String label;
     private TreeSet<Integer> properties;
+    //TODO Check this out
     private TreeSet<Integer> acceptanceStates;
 
-    public TransitionVertex(int vertexID, String label, TreeSet<Integer> properties) {
+    public TransitionVertex(String vertexID, String label, TreeSet<Integer> properties) {
         this.vertexID = vertexID;
         this.label = label;
         this.properties = properties;
         acceptanceStates = new TreeSet<>();
     }
 
-    public int getVertexID() {
+    public String getVertexID() {
         return vertexID;
     }
 

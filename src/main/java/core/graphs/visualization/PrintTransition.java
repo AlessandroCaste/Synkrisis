@@ -13,6 +13,7 @@ import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,18 +21,30 @@ import static guru.nidi.graphviz.model.Factory.*;
 
 public class PrintTransition extends AbstractPrinter implements Runnable {
 
-    private TransitionGraph transitionGraph;
+    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> jgraphGraph;
+    private TransitionGraph referenceTransitionGraph;
     private String modelName;
     private static Logger logger = Logger.getLogger("Report");
 
     public PrintTransition(TransitionGraph transitionGraph){
-        this.transitionGraph = transitionGraph;
+        this.referenceTransitionGraph = transitionGraph;
+        this.jgraphGraph = transitionGraph.getGraph();
         this.modelName = transitionGraph.getModelName();
     }
 
     public void run() {
-        DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> jgraphGraph = transitionGraph.getGraph();
         logger.log(Level.INFO,"Graphviz transition drawing started");
+
+        // I substute the bigmc hashes with integers for a more readable graph
+        HashMap<String,String> idMap = new HashMap<>();
+        int counter = 0;
+        for(TransitionVertex tv : jgraphGraph.vertexSet()){
+            if(!idMap.containsKey(tv.getVertexID())){
+                idMap.put(tv.getVertexID(),Integer.toString(counter));
+                counter++;
+            }
+        }
+
         MutableGraph transitionOutputGraph =
                 mutGraph("Transitions").setDirected(true).use((gr, ctx) -> {
                     Graphviz.useEngine(new GraphvizCmdLineEngine());
@@ -55,14 +68,14 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                                 + " ("
                                 + jgraphGraph.getEdgeWeight(edge) + ")");
                         if (!Graphs.vertexHasSuccessors(jgraphGraph, edgeTarget))
-                            mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
-                                    mutNode(Integer.toString(edgeTarget.getVertexID()))
+                            mutNode(idMap.get(edgeSource.getVertexID())).addLink(
+                                    mutNode(idMap.get(edgeTarget.getVertexID()))
                                             .attrs().add(Shape.CIRCLE)
                                             .attrs().add(Color.DEEPSKYBLUE)
                                             .attrs().add("size", 1.2));
                         else
-                            mutNode(Integer.toString(edgeSource.getVertexID())).addLink(
-                                    mutNode(Integer.toString(edgeTarget.getVertexID()))
+                            mutNode(idMap.get(edgeSource.getVertexID())).addLink(
+                                    mutNode(idMap.get(edgeTarget.getVertexID()))
                                             .attrs().add(Shape.CIRCLE)
                                             .attrs().add(Color.LIGHTGREY)
                                             .attrs().add("size", 0.9));
@@ -76,17 +89,17 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
 
                     // Displaying id->labels association
                     StringBuilder labels = new StringBuilder();
-                    for (TransitionVertex v : jgraphGraph.vertexSet()) {
-                        labels.append("#").append(v.getVertexID()).append(": ").append(v.getLabel()).append("\n");
+                    for (TransitionVertex tv : jgraphGraph.vertexSet()) {
+                        labels.append("#").append(idMap.get(tv.getVertexID())).append(": ").append(tv.getLabel()).append("\n");
                         //TODO properties
                         //labels.append(v.getPropertiesString());
                     }
 
                     labels.append("\n\nList of markers by state:\n");
                     for(TransitionVertex tv : jgraphGraph.vertexSet()){
-                        String markers = transitionGraph.markerInVertex(tv);
+                        String markers = referenceTransitionGraph.markerInVertex(tv);
                         if(!markers.isEmpty())
-                            labels.append("#").append(tv.getVertexID()).append(" : ").append(markers).append("\n");
+                            labels.append("#").append(idMap.get(tv.getVertexID())).append(" : ").append(markers).append("\n");
                     }
 
                     graphAttrs().add("labelloc","b");
