@@ -1,0 +1,16 @@
+NTREE=1
+LPAR=2
+RPAR=3
+LSQUARE=4
+RSQUARE=5
+COMMA=6
+WHITESP=7
+NEWLINE=8
+ID=9
+'NTree'=1
+'('=2
+')'=3
+'['=4
+']'=5
+','=6
+' '=7

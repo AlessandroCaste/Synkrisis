@@ -7,25 +7,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="TransitionVertex now supports Strings!">
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/RemscheldVisitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/g4models/remscheld.g4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/interp/remscheld.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/interp/remscheldLexer.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldBaseListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldBaseVisitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldLexer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/remscheldVisitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/tokens/remscheld.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/remscheld/antlr/tokens/remscheldLexer.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/interp/remscheld.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/interp/remscheldLexer.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldBaseListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldBaseVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/tokens/remscheld.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/antlr/remscheld/tokens/remscheldLexer.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/TypedVertex.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/core/syntax/RemscheldVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/MDPReactum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/MDPReactum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/TransitionVertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/TransitionVertex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/ExecutionSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/customized/vertices/Vertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,14 +120,15 @@
       <recent name="$PROJECT_DIR$/src/test/java/models" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="core.syntax" />
       <recent name="core.syntaxAnalysis" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/antlr/g4models" />
       <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr/g4models" />
       <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr/tokens" />
       <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr/interp" />
       <recent name="$PROJECT_DIR$/src/test/java/remscheld" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\src\test\java\models" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -147,11 +149,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RunFunctionalityTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/exportingTest1.bigraph -o spot -r 4 -G" />
+      <option name="PROGRAM_PARAMETERS" value="-n ciao -o spot -r 4 -G" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -474,14 +476,7 @@
       <workItem from="1566216828962" duration="3781000" />
       <workItem from="1566222552822" duration="75000" />
       <workItem from="1566255034140" duration="204000" />
-      <workItem from="1566288653793" duration="10778000" />
-    </task>
-    <task id="LOCAL-00004" summary="Step by step generation of transition systems">
-      <created>1560166315888</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1560166315888</updated>
+      <workItem from="1566288653793" duration="17855000" />
     </task>
     <task id="LOCAL-00005" summary="Updated .temp file management">
       <created>1560365034973</created>
@@ -819,7 +814,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566222398321</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="TransitionVertex now supports Strings!">
+      <created>1566304580578</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1566304580578</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView">
@@ -863,7 +865,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Fixes during Jupyter integration road" />
     <MESSAGE value="Tons of updates and fixes starting from MAIN and CLIs" />
     <MESSAGE value="Interactive shell quite complete, remove check on filename" />
     <MESSAGE value="Spot loop added" />
@@ -888,7 +889,8 @@
     <MESSAGE value="Transition printing exception removed" />
     <MESSAGE value="Change BigMC importing mechanism" />
     <MESSAGE value="BigMC interfacing rewritten" />
-    <option name="LAST_COMMIT_MESSAGE" value="BigMC interfacing rewritten" />
+    <MESSAGE value="TransitionVertex now supports Strings!" />
+    <option name="LAST_COMMIT_MESSAGE" value="TransitionVertex now supports Strings!" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1013,6 +1015,26 @@
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
           <line>72</line>
           <option name="timeStamp" value="495" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
+          <line>120</line>
+          <option name="timeStamp" value="497" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="498" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="499" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/setup/Main.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="500" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

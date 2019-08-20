@@ -3,11 +3,13 @@ package core.graphs.customized.vertices;
 
 public class Vertex {
 
-    private int vertexId;
-    private String vertexLabel;
-    private boolean control;
-    private boolean activeControl;
-    private boolean outerName;
+    int vertexId;
+    String vertexLabel;
+    boolean control;
+    boolean activeControl;
+    boolean outerName;
+
+    Vertex(){}
 
     public Vertex(int vertexId,String vertexLabel,boolean control) {
         this.vertexId = vertexId;
@@ -40,5 +42,25 @@ public class Vertex {
     public boolean isActiveControl() { return activeControl; }
 
     public boolean isOuterName() { return outerName; }
+
+    public void setVertexId(int vertexId) {
+        this.vertexId = vertexId;
+    }
+
+    public void setVertexLabel(String vertexLabel) {
+        this.vertexLabel = vertexLabel;
+    }
+
+    public void setControl(boolean control) {
+        this.control = control;
+    }
+
+    public void setActiveControl(boolean activeControl) {
+        this.activeControl = activeControl;
+    }
+
+    public void setOuterName(boolean outerName) {
+        this.outerName = outerName;
+    }
 
 }
