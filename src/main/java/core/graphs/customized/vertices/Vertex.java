@@ -1,20 +1,23 @@
 package core.graphs.customized.vertices;
 
 
+import java.util.HashMap;
+
 public class Vertex {
 
-    int vertexId;
-    String vertexLabel;
-    boolean control;
-    boolean activeControl;
-    boolean outerName;
-
-    Vertex(){}
+    private int vertexId;
+    private String vertexLabel;
+    private boolean control;
+    private boolean activeControl;
+    private boolean outerName;
+    // An arbitrary number of additional features of a vertex can be defined
+    private HashMap<String,String> featuresMap;
 
     public Vertex(int vertexId,String vertexLabel,boolean control) {
         this.vertexId = vertexId;
         this.vertexLabel = vertexLabel;
         this.control = control;
+        this.featuresMap = new HashMap<>();
     }
 
     public void setActiveControl() {
@@ -37,6 +40,14 @@ public class Vertex {
 
     public boolean isControl() {
         return control;
+    }
+
+    public void addFeature(String key,String value){
+        this.featuresMap.put(key,value);
+    }
+
+    public String getFeature(String key){
+        return featuresMap.get(key);
     }
 
     public boolean isActiveControl() { return activeControl; }

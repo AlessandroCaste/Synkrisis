@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 2) Syntax Analysis
 3) If model can be submitted to bigmc it is, otherwise I use a visitor to strip elements
 4) Model and reaction printing
-5) Translation from transition graph into Jgraph
+5) Translation from transition graph into JgraphT
 6) Translation from transition graph into PRISM model
  */
 

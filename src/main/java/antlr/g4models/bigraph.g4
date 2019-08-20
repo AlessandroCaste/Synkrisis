@@ -66,7 +66,7 @@ spot_statement     : SPOT ASSIGNMENT acc_name? acceptance extra_properties
                    ;
 
 // Spot makes use of hyphens (and apparently no digits) for its identifiers, so I create a new token
-acc_name           : ACCNAME COLON (IDENTIFIER | SPOT_IDENTIFIER) (IDENTIFIER | DIGIT)+
+acc_name           : ACCNAME COLON IDENTIFIER (IDENTIFIER | DIGIT)+
                    ;
 
 
@@ -191,5 +191,4 @@ PROP_RBRACK : '\\}';
 DIGIT       : ('0'..'9')+ ;
 PROBABILITY : ('0' DOT DIGIT+) ;
 
-SPOT_IDENTIFIER : ('a'..'z'|'A'..'Z'|'_')+(('-')('a'..'z'|'A'..'Z'|'_')+)+ ;
-IDENTIFIER      : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')* ;
+IDENTIFIER      : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')* ;

@@ -104,7 +104,6 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
 
                     graphAttrs().add("labelloc","b");
                     graphAttrs().add("label", labels.toString());
-
                 });
         try {
             // I calculate the shrinking factor for long labels
