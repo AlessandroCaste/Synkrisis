@@ -135,7 +135,8 @@ public class Bigmc implements ModelChecker{
             boolean endCondition = false;
             if(new File(modelName + "/intermediate").exists())
                 FileUtils.deleteDirectory(new File(modelName+"/intermediate"));
-            result = new File(modelName+"/intermediate").mkdir();
+            if(loadedSettings.getStatisticsFrequency()!=0)
+                result = new File(modelName+"/intermediate").mkdir();
             while(!endCondition && result){
                 if(new File(transitionFilename + "-" + counter).exists()) {
                     result = new File(transitionFile + "-" + counter).renameTo(new File(modelName + "/intermediate/transition-" + counter));

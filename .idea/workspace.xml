@@ -7,27 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="TransitionVertex now supports Strings!">
+      <change afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/remscheld.bigraph" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models/remscheld.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/interp/remscheld.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/interp/remscheld.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/interp/remscheldLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/interp/remscheldLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldBaseVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/interp/remscheld.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/interp/remscheldLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldBaseListener.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/tokens/remscheld.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/tokens/remscheld.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/tokens/remscheldLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/tokens/remscheldLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/Decidability.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/Decidability.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/storing/RedexReactumPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/storing/RedexReactumPair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintReaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintReaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/RemscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/GraphBuildingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/GraphBuildingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/tokens/remscheld.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/tokens/remscheldLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/RemscheldVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/hospital.dot" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -154,13 +149,13 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/tradotto.bigraph -G" />
+      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/addition.bigraph -o prism" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="translator.remscheld.RemscheldVisitor" />
+    <configuration name="RemscheldTranslator" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="translator.remscheld.RemscheldTranslator" />
       <module name="Synkrisis" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -271,7 +266,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Application.RemscheldTranslator" />
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.SyntaxVisitorTest" />
       <item itemvalue="JUnit.RunFunctionalityTest.executeTests" />
@@ -488,14 +483,7 @@
       <workItem from="1566288653793" duration="19526000" />
       <workItem from="1566315486048" duration="11644000" />
       <workItem from="1566330264752" duration="241000" />
-      <workItem from="1566333090929" duration="2513000" />
-    </task>
-    <task id="LOCAL-00006" summary="Start of bigmc-adapting work, updated all workflow up to transition generation">
-      <created>1562275000072</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1562275000072</updated>
+      <workItem from="1566333090929" duration="5323000" />
     </task>
     <task id="LOCAL-00007" summary="ANTLR syntax, visitor and examples updated">
       <created>1562341737829</created>
@@ -833,7 +821,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566312293253</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Fixed transition importing without markers">
+      <created>1566335691256</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1566335691256</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TodoView">
@@ -877,7 +872,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Interactive shell quite complete, remove check on filename" />
     <MESSAGE value="Spot loop added" />
     <MESSAGE value="Model Checker interface" />
     <MESSAGE value="Bigmc model checker interface completed" />
@@ -902,7 +896,8 @@
     <MESSAGE value="BigMC interfacing rewritten" />
     <MESSAGE value="TransitionVertex now supports Strings!" />
     <MESSAGE value="Created new TypedVertex" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created new TypedVertex" />
+    <MESSAGE value="Fixed transition importing without markers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed transition importing without markers" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1000,12 +995,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
-          <line>72</line>
+          <line>71</line>
           <option name="timeStamp" value="494" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
-          <line>73</line>
+          <line>72</line>
           <option name="timeStamp" value="495" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1014,38 +1009,38 @@
           <option name="timeStamp" value="497" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldVisitor.java</url>
-          <line>125</line>
+          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java</url>
+          <line>126</line>
           <option name="timeStamp" value="510" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldVisitor.java</url>
-          <line>37</line>
+          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java</url>
+          <line>38</line>
           <option name="timeStamp" value="513" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldVisitor.java</url>
-          <line>134</line>
+          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java</url>
+          <line>135</line>
           <option name="timeStamp" value="515" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldVisitor.java</url>
-          <line>91</line>
+          <url>file://$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java</url>
+          <line>92</line>
           <option name="timeStamp" value="517" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
-          <line>42</line>
+          <line>41</line>
           <option name="timeStamp" value="523" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
-          <line>121</line>
+          <line>118</line>
           <option name="timeStamp" value="526" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
-          <line>45</line>
+          <line>44</line>
           <option name="timeStamp" value="528" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
