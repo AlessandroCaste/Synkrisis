@@ -4,7 +4,7 @@ import core.graphs.customized.vertices.Vertex;
 import core.graphs.storing.GraphsCollection;
 import core.graphs.storing.RedexReactumPair;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DirectedMultigraph;
 
 import java.util.ArrayList;
 
@@ -13,8 +13,8 @@ public class Decidability {
     public boolean isNonDeleting() {
 
         RedexReactumPair reactionGraph = GraphsCollection.getInstance().getReactionsList().get(0);
-        Multigraph<Vertex, DefaultEdge> redex = reactionGraph.getRedex();
-        Multigraph<Vertex,DefaultEdge> reactum = reactionGraph.getReactum();
+        DirectedMultigraph<Vertex, DefaultEdge> redex = reactionGraph.getRedex();
+        DirectedMultigraph<Vertex,DefaultEdge> reactum = reactionGraph.getReactum();
 
         // If vertex/edges set are bigger than reactum ones then a deletion took place
         if(redex.vertexSet().size() > reactum.vertexSet().size())

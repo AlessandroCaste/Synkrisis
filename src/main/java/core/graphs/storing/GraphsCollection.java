@@ -9,8 +9,8 @@ import core.graphs.visualization.PrintReaction;
 import core.graphs.visualization.PrintTransition;
 import org.apache.commons.io.FilenameUtils;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
-import org.jgrapht.graph.Multigraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class GraphsCollection {
 
     // Graphs
     private String modelName;
-    private Multigraph<Vertex, DefaultEdge> model;
+    private DirectedMultigraph<Vertex, DefaultEdge> model;
     private ArrayList<RedexReactumPair> reactionsList = new ArrayList<>();
     private TransitionGraph transitionGraph;
 
@@ -68,7 +68,7 @@ public class GraphsCollection {
             System.out.println("[WARNING] Transition graph is too big (>= 100 nodes), no printing shall be made by Synkrisis");
     }
 
-    public Multigraph<Vertex, DefaultEdge> getModel() {
+    public DirectedMultigraph<Vertex, DefaultEdge> getModel() {
         return model;
     }
 
@@ -96,7 +96,7 @@ public class GraphsCollection {
         return this.transitionGraph;
     }
 
-    public void addModel(Multigraph<Vertex, DefaultEdge> model) {
+    public void addModel(DirectedMultigraph<Vertex, DefaultEdge> model) {
         this.model = model;
     }
 

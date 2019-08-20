@@ -10,7 +10,7 @@ import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import org.apache.commons.lang3.SystemUtils;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DirectedMultigraph;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,12 +22,12 @@ import static guru.nidi.graphviz.model.Factory.*;
 
 public class PrintModel extends AbstractPrinter implements Runnable {
 
-    private Multigraph<Vertex, DefaultEdge> currentGraph;
+    private DirectedMultigraph<Vertex, DefaultEdge> currentGraph;
     private String modelName;
     private static Logger logger = Logger.getLogger("Report");
 
 
-    public PrintModel(Multigraph<Vertex, DefaultEdge> currentGraph,String modelName){
+    public PrintModel(DirectedMultigraph<Vertex, DefaultEdge> currentGraph,String modelName){
         this.currentGraph = currentGraph;
         this.modelName = modelName;
     }

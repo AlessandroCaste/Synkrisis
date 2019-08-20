@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DirectedMultigraph;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -29,7 +29,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private String modelName;
 
     // Keeping track of markers with their ID. Counter starts from 2 since 0 = 'init' and 1 = 'deadlock'
-    private HashMap<String,Integer> markerMap = new HashMap<>();
+    private HashMap<String,Integer> markersMap = new HashMap<>();
     private int markerCounter = 0;
 
     // Map to keep track of name nodes
@@ -61,9 +61,9 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
 
 
     // Graph Representation
-    private Multigraph<Vertex, DefaultEdge> currentGraph = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Vertex, DefaultEdge>  redex = new Multigraph<>(DefaultEdge.class);
-    private Multigraph<Vertex, DefaultEdge>  reactum = new Multigraph<>(DefaultEdge.class);
+    private DirectedMultigraph<Vertex, DefaultEdge> currentGraph = new DirectedMultigraph<>(DefaultEdge.class);
+    private DirectedMultigraph<Vertex, DefaultEdge>  redex = new DirectedMultigraph<>(DefaultEdge.class);
+    private DirectedMultigraph<Vertex, DefaultEdge>  reactum = new DirectedMultigraph<>(DefaultEdge.class);
     private boolean nested = false;
     private boolean parallel = false;
     private Stack<Vertex> nodeStack = new Stack<>();              // Stacking of parent nodes, used for parentheses
@@ -138,12 +138,12 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         else
             graphsCollection.addReactionWeight(reactionName,1f);
         // I reset the latest graph
-        currentGraph = new Multigraph<>(DefaultEdge.class);
+        currentGraph = new DirectedMultigraph<>(DefaultEdge.class);
         resetGraph();
         visit(ctx.getChild(0));
         redex = currentGraph;
         // Reset tree info for reactum tree
-        currentGraph = new Multigraph<>(DefaultEdge.class);
+        currentGraph = new DirectedMultigraph<>(DefaultEdge.class);
         resetGraph();
         if(ctx.PROBABILITY() != null)
             visit(ctx.getChild(5));
@@ -308,7 +308,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitModel (bigraphParser.ModelContext ctx){
 
         // I reset the latest graph
-        currentGraph = new Multigraph<>(DefaultEdge.class);
+        currentGraph = new DirectedMultigraph<>(DefaultEdge.class);
         resetGraph();
         modelVisited = true;
         modelName = ctx.IDENTIFIER().getText();
@@ -321,8 +321,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     @Override public Void visitMarker (bigraphParser.MarkerContext ctx){
         if(ctx.MARKER() != null) {
             String identifier = ctx.IDENTIFIER().getText();
-            if (!markerMap.containsKey(identifier)) {
-                markerMap.put(identifier,markerCounter);
+            if (!markersMap.containsKey(identifier)) {
+                markersMap.put(identifier,markerCounter);
                 markerCounter++;
             }
         }
@@ -335,7 +335,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override public Void visitProperties (bigraphParser.PropertiesContext ctx) {
-        graphsCollection.setMarkersMap(markerMap);
+        graphsCollection.setMarkersMap(markersMap);
         return visitChildren(ctx);
     }
 
@@ -395,23 +395,23 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
             if(token.getType() == bigraphParser.NOT)
                 isNegative = true;
             if(isNegative && token.getType() == bigraphParser.IDENTIFIER) {
-                markerID = markerMap.get(pt.getText());
+                markerID = markersMap.get(pt.getText());
                 if(!positiveMarkers.contains(markerID))
-                    negativeMarkers.add(markerMap.get(pt.getText()));
+                    negativeMarkers.add(markersMap.get(pt.getText()));
                 else {
                     spotErrorsString.append("Can't ask property ").append(pt.getText()).append(" and its negation to be true at the same time in an acceptance state\n");
                     spotReady = false;
                 }
                 isNegative = false;
             } else if (token.getType() == bigraphParser.IDENTIFIER) {
-                markerID = markerMap.get(pt.getText());
+                markerID = markersMap.get(pt.getText());
                 if (!negativeMarkers.contains(markerID))
-                    positiveMarkers.add(markerMap.get(pt.getText()));
+                    positiveMarkers.add(markersMap.get(pt.getText()));
                 else {
                     spotErrorsString.append("Can't ask property ").append(pt.getText()).append(" and its negation to be true at the same time in an acceptance state\n");
                     spotReady = false;
                 }
-                positiveMarkers.add(markerMap.get(pt.getText()));
+                positiveMarkers.add(markersMap.get(pt.getText()));
             }
         }
 
@@ -501,11 +501,11 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         return spotErrorsString.toString();
     }
 
-    private void createModelGraph(Multigraph<Vertex,DefaultEdge> model) {
+    private void createModelGraph(DirectedMultigraph<Vertex,DefaultEdge> model) {
         graphsCollection.addModel(model);
     }
 
-    private void createReactionGraph(Multigraph<Vertex,DefaultEdge> redex, Multigraph<Vertex,DefaultEdge> reactum, String ruleName) {
+    private void createReactionGraph(DirectedMultigraph<Vertex,DefaultEdge> redex, DirectedMultigraph<Vertex,DefaultEdge> reactum, String ruleName) {
         RedexReactumPair reaction = new RedexReactumPair(redex,reactum,ruleName);
         graphsCollection.addReaction(reaction);
     }

@@ -94,15 +94,14 @@ public class TransitionDotImporter {
 
         ComponentUpdater<TransitionVertex> vertexUpdater = (transitionVertex, map) -> {
             Attribute label = map.get("label");
-            Attribute propertiesAttribute = map.get("synkrisis");
             ArrayList<String> markersLabels;
             TreeSet<Integer> markersID = new TreeSet<>();
             GraphDataEncapsulation graphData = GraphDataEncapsulation.getInstance();
 
             if (label != null)
                 transitionVertex.setLabel(label.toString());
-            if (propertiesAttribute != null) {
-                markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.toString().split("\\s*,\\s*")));
+            if (map.get("synkrisis") != null) {
+                markersLabels = new ArrayList<>(Arrays.asList(map.get("synkrisis").toString().split("\\s*,\\s*")));
                 for (String propertyName : markersLabels) {
                     if(!graphData.markersContainKey(propertyName)) {
                         graphData.insertMarker(propertyName);
@@ -165,7 +164,7 @@ public class TransitionDotImporter {
             }
             nodeIDs  = new HashMap<>();
             // This "covers" the weird case a user specifies new, previously undefined properties in the transition graph
-            if(!transitionOnly)
+            if(!transitionOnly && !markersMap.isEmpty())
                 markerID = Collections.max(markersMap.values()) + 1;
             else
                 markerID = 0;
@@ -204,15 +203,6 @@ public class TransitionDotImporter {
                 markerID++;
             }
         }
-
-        /*
-        int getCurrentVertexID(){
-            return vertexID;
-        }
-
-        boolean containsID(String key){
-            return nodeIDs.contains(key);
-        }*/
 
         int getMarkerID(String key) {
             return markersMap.get(key);

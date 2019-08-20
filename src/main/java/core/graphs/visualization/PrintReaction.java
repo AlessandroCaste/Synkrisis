@@ -10,7 +10,7 @@ import guru.nidi.graphviz.engine.GraphvizException;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DirectedMultigraph;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,8 +38,8 @@ public class PrintReaction extends AbstractPrinter implements Runnable {
         Graphviz.useEngine(new GraphvizCmdLineEngine());
         HashMap<String, Color> colorHashMap = new HashMap<>();
 
-        Multigraph<Vertex, DefaultEdge> redexGraph = gr.getRedex();
-        Multigraph<Vertex, DefaultEdge>  reactumGraph = gr.getReactum();
+        DirectedMultigraph<Vertex, DefaultEdge> redexGraph = gr.getRedex();
+        DirectedMultigraph<Vertex, DefaultEdge>  reactumGraph = gr.getReactum();
         String ruleName = gr.getRulename();
 
 
@@ -59,7 +59,7 @@ public class PrintReaction extends AbstractPrinter implements Runnable {
         }
     }
 
-    private MutableGraph buildReactionGraph(Multigraph<Vertex, DefaultEdge>  currentGraph, HashMap<String,Color> colorHashMap, String ruleName) {
+    private MutableGraph buildReactionGraph(DirectedMultigraph<Vertex, DefaultEdge>  currentGraph, HashMap<String,Color> colorHashMap, String ruleName) {
         MutableGraph g = mutGraph("Reactions").setDirected(true).use((gr, ctx) -> {
 
             // Counter to keep adding new nodes ids

@@ -2,25 +2,25 @@ package core.graphs.storing;
 
 import core.graphs.customized.vertices.Vertex;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DirectedMultigraph;
 
 public class RedexReactumPair {
 
-    private Multigraph<Vertex, DefaultEdge> redex;
-    private Multigraph<Vertex, DefaultEdge> reactum;
+    private DirectedMultigraph<Vertex, DefaultEdge> redex;
+    private DirectedMultigraph<Vertex, DefaultEdge> reactum;
     private String rulename;
 
-    public RedexReactumPair(Multigraph<Vertex, DefaultEdge> redex, Multigraph<Vertex, DefaultEdge> reactum, String rulename) {
+    public RedexReactumPair(DirectedMultigraph<Vertex, DefaultEdge> redex, DirectedMultigraph<Vertex, DefaultEdge> reactum, String rulename) {
         this.redex = redex;
         this.reactum = reactum;
         this.rulename = rulename;
     }
 
-    public Multigraph<Vertex, DefaultEdge> getRedex() {
+    public DirectedMultigraph<Vertex, DefaultEdge> getRedex() {
         return redex;
     }
 
-    public Multigraph<Vertex, DefaultEdge> getReactum() {
+    public DirectedMultigraph<Vertex, DefaultEdge> getReactum() {
         return reactum;
     }
 

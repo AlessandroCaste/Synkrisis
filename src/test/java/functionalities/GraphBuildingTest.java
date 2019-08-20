@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Multigraph;
+import org.jgrapht.graph.DirectedMultigraph;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -45,7 +45,7 @@ class GraphBuildingTest {
     void completeAdditionCheck() {
 
         GraphBuildingVisitor graphBuildingVisitor = createVisitor(additionPath);
-        Multigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
+        DirectedMultigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
         assertEquals(graph.vertexSet().size(),17);
 
         // I compare the label to verify mapping is correct
@@ -213,7 +213,7 @@ class GraphBuildingTest {
     void checkLinks() {
 
         GraphBuildingVisitor graphBuildingVisitor = createVisitor(hospitalPath);
-        Multigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
+        DirectedMultigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
         assertEquals(graph.vertexSet().size(),13);
 
         // I compare the label to verify mapping is correct
@@ -269,7 +269,7 @@ class GraphBuildingTest {
     void checkNamesAndWeights() {
 
         GraphBuildingVisitor graphBuildingVisitor = createVisitor(namesWeightsTest);
-        Multigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
+        DirectedMultigraph<Vertex, DefaultEdge> graph = GraphsCollection.getInstance().getModel();
         assertEquals(graph.vertexSet().size(), 4);
 
         // I compare the label to verify mapping is correct
