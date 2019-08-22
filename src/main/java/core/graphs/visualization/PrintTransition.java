@@ -1,8 +1,8 @@
 package core.graphs.visualization;
 
-import core.graphs.customized.TransitionGraph;
-import core.graphs.customized.edges.TransitionEdge;
-import core.graphs.customized.vertices.TransitionVertex;
+import core.graphs.transitiongraph.TransitionEdge;
+import core.graphs.transitiongraph.TransitionGraph;
+import core.graphs.transitiongraph.TransitionVertex;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Graphviz;

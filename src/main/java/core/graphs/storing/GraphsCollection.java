@@ -1,9 +1,9 @@
 package core.graphs.storing;
 
-import core.graphs.customized.TransitionGraph;
-import core.graphs.customized.edges.TransitionEdge;
-import core.graphs.customized.vertices.TransitionVertex;
-import core.graphs.customized.vertices.Vertex;
+import core.graphs.modelgraph.Vertex;
+import core.graphs.transitiongraph.TransitionEdge;
+import core.graphs.transitiongraph.TransitionGraph;
+import core.graphs.transitiongraph.TransitionVertex;
 import core.graphs.visualization.PrintModel;
 import core.graphs.visualization.PrintReaction;
 import core.graphs.visualization.PrintTransition;

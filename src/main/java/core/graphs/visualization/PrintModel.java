@@ -1,6 +1,6 @@
 package core.graphs.visualization;
 
-import core.graphs.customized.vertices.Vertex;
+import core.graphs.modelgraph.Vertex;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;

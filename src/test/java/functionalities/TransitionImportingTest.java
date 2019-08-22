@@ -1,10 +1,10 @@
 package functionalities;
 
 import core.graphs.TransitionDotImporter;
-import core.graphs.customized.TransitionGraph;
-import core.graphs.customized.edges.TransitionEdge;
-import core.graphs.customized.vertices.TransitionVertex;
 import core.graphs.storing.GraphsCollection;
+import core.graphs.transitiongraph.TransitionEdge;
+import core.graphs.transitiongraph.TransitionGraph;
+import core.graphs.transitiongraph.TransitionVertex;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package core.graphs;
 
-import core.graphs.customized.vertices.Vertex;
+import core.graphs.modelgraph.Vertex;
 import core.graphs.storing.GraphsCollection;
 import core.graphs.storing.RedexReactumPair;
 import org.jgrapht.graph.DefaultEdge;

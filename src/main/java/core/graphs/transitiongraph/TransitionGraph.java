@@ -1,7 +1,5 @@
-package core.graphs.customized;
+package core.graphs.transitiongraph;
 
-import core.graphs.customized.edges.TransitionEdge;
-import core.graphs.customized.vertices.TransitionVertex;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.util.ArrayList;

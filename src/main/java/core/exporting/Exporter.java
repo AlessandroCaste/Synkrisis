@@ -3,8 +3,8 @@ package core.exporting;
 import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
 import core.exporting.spotExporting.SpotInfo;
-import core.graphs.customized.TransitionGraph;
 import core.graphs.storing.GraphsCollection;
+import core.graphs.transitiongraph.TransitionGraph;
 import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedWriter;

@@ -1,4 +1,4 @@
-package core.graphs.customized.edges;
+package core.graphs.transitiongraph;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 

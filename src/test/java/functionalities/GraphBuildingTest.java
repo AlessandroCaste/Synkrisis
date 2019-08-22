@@ -3,7 +3,7 @@ package functionalities;
 import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
 import core.graphs.GraphBuildingVisitor;
-import core.graphs.customized.vertices.Vertex;
+import core.graphs.modelgraph.Vertex;
 import core.graphs.storing.GraphsCollection;
 import core.graphs.storing.RedexReactumPair;
 import core.syntax.ErrorListener;
@@ -34,7 +34,7 @@ class GraphBuildingTest {
     GraphBuildingTest() {
         additionPath = "src/test/java/models/addition.bigraph";
         hospitalPath = "src/test/java/models/hospital.bigraph";
-        namesWeightsTest = "src/test/java/models/namesWeightsTest.bigraph";
+        namesWeightsTest = "src/test/java/models/weightsTest.bigraph";
 
         completeAdditionCheck();
         checkLinks();

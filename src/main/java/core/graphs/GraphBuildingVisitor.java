@@ -5,7 +5,7 @@ import antlr.bigraph.bigraphVisitor;
 import core.exporting.Exporter;
 import core.exporting.spotExporting.SpotAcceptanceState;
 import core.exporting.spotExporting.SpotInfo;
-import core.graphs.customized.vertices.Vertex;
+import core.graphs.modelgraph.Vertex;
 import core.graphs.storing.GraphsCollection;
 import core.graphs.storing.RedexReactumPair;
 import org.antlr.v4.runtime.Token;

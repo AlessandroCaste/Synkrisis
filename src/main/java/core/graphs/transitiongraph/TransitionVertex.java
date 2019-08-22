@@ -1,4 +1,4 @@
-package core.graphs.customized.vertices;
+package core.graphs.transitiongraph;
 
 
 import java.util.ArrayList;

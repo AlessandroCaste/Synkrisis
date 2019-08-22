@@ -1,6 +1,6 @@
 package core.graphs.visualization;
 
-import core.graphs.customized.vertices.Vertex;
+import core.graphs.modelgraph.Vertex;
 import core.graphs.storing.RedexReactumPair;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
@@ -79,7 +79,7 @@ public class PrintReaction extends AbstractPrinter implements Runnable {
             nodeAttrs().add("style", "rounded");
             linkAttrs().add("arrowsize", 0.8);
 
-            // Adding Nodes (first standard vertices, then name vertices)
+            // Adding Nodes (first standard modelgraph, then name modelgraph)
             for (Vertex v : currentGraph.vertexSet()) {
                 String nodeLabel = v.getLabel();
                 String nodeId = Integer.toString(v.getVertexId());

@@ -92,10 +92,12 @@ class SyntaxVisitorTest {
                     "[WARNING - Line 12:5] Names shouldn't share identifiers with controls!\n" +
                     "[WARNING - Line 13:5] Names shouldn't share identifiers with controls!\n" +
                     "[ERROR - Line 13:5] Repeated name declaration\n" +
+                    "[ERROR - Line 16:32] Ports in reaction rules are either scoped variables or declared names\n" +
                     "[WARNING - Line 18:1] Reaction rules shouldn't be named after controls\n" +
                     "[WARNING - Line 18:1] Reaction rules shouldn't be named after an outer/inner name\n" +
                     "[ERROR - Line 18:18] Control Test shouldn't have arity 0!\n" +
                     "[ERROR - Line 18:42] Control Test shouldn't have arity 0!\n" +
+                    "[ERROR - Line 18:47] Ports in reaction rules are either scoped variables or declared names\n" +
                     "[ERROR - Line 18:65] Control Test shouldn't have arity 0!\n" +
                     "[ERROR - Line 18:84] Control Test shouldn't have arity 0!\n" +
                     "[ERROR - Line 21:34] Variable used in model definition\n" +
