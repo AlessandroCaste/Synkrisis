@@ -188,20 +188,24 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
             variable = true;
 
         // I verify a variable is not getting declared inside a model definition
-       // if(markerVisiting && variable)
+        // if(markerVisiting && variable)
            // reportError(ctx,ERROR,"Variable used in marker definition");
         if(modelVisiting && variable)
             reportError(ctx,ERROR,"Variable used in model definition");
 
+        if(variable && ctx.IDENTIFIER()!=null){
+            if(namesUsage.containsKey(ctx.IDENTIFIER().getText()))
+                reportError(lastControl.getCtx(),ERROR,"Don't call variables after existing names!");
+        }
         // Usage tracking of names
-        if(ctx.IDENTIFIER() != null) {
-            String identifier = ctx.IDENTIFIER().getText();
-            if(namesUsage.containsKey(identifier))
-                namesUsage.put(identifier, namesUsage.get(identifier)+1);
-            else if(!namesUsage.containsKey(identifier)&& reactionsVisiting && !variable)
-                reportError(lastControl.getCtx(),ERROR,"Ports in reaction rules are either scoped variables or declared names");
-            else if(!namesUsage.containsKey(identifier)&& markerVisiting && !variable)
-                reportError(lastControl.getCtx(),ERROR,"Ports in markers are either scoped variables or declared names");
+        else if(!variable && ctx.IDENTIFIER()!=null) {
+                String identifier = ctx.IDENTIFIER().getText();
+                if (namesUsage.containsKey(identifier))
+                    namesUsage.put(identifier, namesUsage.get(identifier) + 1);
+                else if (!namesUsage.containsKey(identifier) && reactionsVisiting)
+                    reportError(lastControl.getCtx(), ERROR, "Ports in reaction rules are either scoped variables or declared names");
+                else if (!namesUsage.containsKey(identifier) && markerVisiting)
+                    reportError(lastControl.getCtx(), ERROR, "Ports in markers are either scoped variables or declared names");
         }
 
         // I evaluate the number of arguments in a link for arity checking

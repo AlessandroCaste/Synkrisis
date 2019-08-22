@@ -87,10 +87,15 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                     mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin",adjustMargins((modelName+" Transition").length()));
                     graphAttrs().add("rank","same");
 
+                    // Longest labels
+                    int maxLength = 0;
+
                     // Displaying id->labels association
                     StringBuilder labels = new StringBuilder();
                     for (TransitionVertex tv : jgraphGraph.vertexSet()) {
                         labels.append("#").append(idMap.get(tv.getVertexID())).append(": ").append(tv.getLabel()).append("\n");
+                        if(labels.length()>maxLength)
+                            maxLength = labels.length();
                         //TODO properties
                         //labels.append(v.getPropertiesString());
                     }
@@ -101,8 +106,8 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                         if(!markers.isEmpty())
                             labels.append("#").append(idMap.get(tv.getVertexID())).append(" : ").append(markers).append("\n");
                     }
-
-                    graphAttrs().add("labelloc","b");
+                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin",adjustMargins((maxLength)));
+                    //TODO SOMETIMES MARKERS ARE NOT PRINTED
                     graphAttrs().add("label", labels.toString());
                 });
         try {
@@ -119,6 +124,7 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                 factor = 0.85;
             if(maxSize > 105)
                 factor = 0.75;
+
             mergeGraphs(modelName,transitionOutputGraph,labelsGraph,null,factor);
         } catch (IOException e) {
             logger.log(Level.SEVERE,"Impossible to draw the transition graph");

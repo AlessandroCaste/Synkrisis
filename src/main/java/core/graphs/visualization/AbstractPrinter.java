@@ -31,7 +31,7 @@ abstract class AbstractPrinter {
         BufferedImage mergedImage = new BufferedImage( graphvizGraph1.getWidth()+graphvizGraph2.getWidth(),  maxHeight,BufferedImage.TYPE_INT_ARGB);
         Graphics2D finalPicture = mergedImage.createGraphics();
         finalPicture.setPaint(java.awt.Color.WHITE);
-        finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth()*2, maxHeight);
+        finalPicture.fillRect(0, 0, graphvizGraph1.getWidth()+graphvizGraph2.getWidth()*2, maxHeight*2);
         finalPicture.drawImage(graphvizGraph1,null,0,0);
         finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
         finalPicture.dispose();

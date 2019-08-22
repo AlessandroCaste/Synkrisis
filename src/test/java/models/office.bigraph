@@ -1,0 +1,12 @@
+controls:
+    active Printer 1
+    active User    1
+    active Job     1
+    active Room    1
+    active Spool   1
+
+
+rule r1 = Room[@c].(Printer[@a] | User[@b].$3 | $1) || Spool[@a].(Job[@b] | $2) -> Room[@c].(Printer[@a].Job[@b] | User[@b].$3 | $1) || Spool[@a].$2
+rule r2 = User[@x].(Job[-] | $1) || Spool[@y].$2 -> User[@x].$1 || Spool[@y].($2 | Job[@x])
+
+model m = Room[b].Printer[a] | Spool[a] | Room[b].User[User].Job[-]
