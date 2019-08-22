@@ -1,0 +1,16 @@
+controls:
+    active Printer 1
+    active User    1
+    active Job     1
+    active Room    1
+    active Spool   1
+
+names:
+    outer cecco
+    outer peppe
+
+rule r = Room[cecco] -> Room[peppe]
+
+model office = Room[cecco] | Room[peppe]
+
+marker m = matches(Room[cecco])

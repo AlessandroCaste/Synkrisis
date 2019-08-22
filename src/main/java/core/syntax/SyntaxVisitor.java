@@ -31,8 +31,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     private StringBuilder errorString = new StringBuilder();
 
     // This differentiates analysis for models' expressions
-    private boolean modelVisited = false;
-    private boolean markerVisited = false;
+    private boolean reactionsVisiting = false;
+    private boolean modelVisiting = false;
+    private boolean markerVisiting = false;
 
     // Model name to check file integrity
     private String modelName = "null";
@@ -123,6 +124,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     // Reactions rules should present distinct, unique names!
     @Override
     public Void visitReactions(bigraphParser.ReactionsContext ctx) {
+        reactionsVisiting = true;
         root = true;
         if (ctx.RULE() != null) {
             currentRule = ctx.IDENTIFIER().toString();
@@ -181,11 +183,14 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     // Links are checked for names/controls usages
     // Links also count the identifiers they contain in order to verify arity
     @Override public Void visitLinks (bigraphParser.LinksContext ctx){
+        boolean variable = false;
+        if(ctx.VARIABLE()!=null)
+            variable = true;
 
         // I verify a variable is not getting declared inside a model definition
-        if(markerVisited && ctx.VARIABLE()!=null)
-            reportError(ctx,ERROR,"Variable used in marker definition");
-        else if(modelVisited && ctx.VARIABLE() != null)
+       // if(markerVisiting && variable)
+           // reportError(ctx,ERROR,"Variable used in marker definition");
+        if(modelVisiting && variable)
             reportError(ctx,ERROR,"Variable used in model definition");
 
         // Usage tracking of names
@@ -193,6 +198,10 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
             String identifier = ctx.IDENTIFIER().getText();
             if(namesUsage.containsKey(identifier))
                 namesUsage.put(identifier, namesUsage.get(identifier)+1);
+            else if(!namesUsage.containsKey(identifier)&& reactionsVisiting && !variable)
+                reportError(lastControl.getCtx(),ERROR,"Ports in reaction rules are either scoped variables or declared names");
+            else if(!namesUsage.containsKey(identifier)&& markerVisiting && !variable)
+                reportError(lastControl.getCtx(),ERROR,"Ports in markers are either scoped variables or declared names");
         }
 
         // I evaluate the number of arguments in a link for arity checking
@@ -209,8 +218,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
 
     @Override public Void visitModel (bigraphParser.ModelContext ctx){
+        reactionsVisiting = false;
         root = true;
-        modelVisited = true;
+        modelVisiting = true;
         modelName = ctx.IDENTIFIER().getText();
         return visitChildren(ctx);
     }
@@ -218,7 +228,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     // This visitor serves the purpose of checking the uniqueness of marker names
     @Override public Void visitMarker (bigraphParser.MarkerContext ctx) {
-        markerVisited = true;
+        modelVisiting = false;
+        markerVisiting = true;
         if(ctx.MARKER() != null) {
             String identifier = ctx.IDENTIFIER().toString();
             if (controlsMap.containsKey(identifier))
@@ -244,6 +255,7 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     }
 
     @Override public Void visitProperties (bigraphParser.PropertiesContext ctx) {
+        markerVisiting = false;
         return visitChildren(ctx);
     }
 

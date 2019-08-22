@@ -74,7 +74,7 @@ public class Main {
                     dotImportingSuccessful = dotImporting(executionSettings);
                 }
                 else
-                    System.out.println("[GENERATION : ERROR] Couldn't find bigmc in this working machine");
+                    System.out.println("[GENERATION : ERROR] Couldn't retrieve the transition file");
                 exporting(dotImportingSuccessful,executionSettings,modelBuilder);
 
             } else
