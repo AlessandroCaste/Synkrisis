@@ -1,7 +1,6 @@
 package core.graphs.transitiongraph;
 
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class TransitionVertex {
@@ -27,13 +26,6 @@ public class TransitionVertex {
         return label;
     }
 
-    public String getPropertiesString() {
-        StringBuilder builder = new StringBuilder();
-        for(int value : properties)
-            builder.append(value).append(" ");
-        return builder.toString();
-    }
-
     public TreeSet<Integer> getProperties() {
         return properties;
     }
@@ -48,14 +40,6 @@ public class TransitionVertex {
 
     public void setProperties(TreeSet<Integer> properties) {
         this.properties = properties;
-    }
-
-    public void prismNormalization(){
-        // TODO a more efficient technique?
-        ArrayList<Integer> listConversion = new ArrayList<>(properties);
-        for (int i = 0; i < listConversion.size(); i += 1)
-            listConversion.set(i, listConversion.get(i) + 2);
-        properties = new TreeSet<>(listConversion);
     }
 
 }

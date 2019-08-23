@@ -5,6 +5,7 @@ import core.graphs.transitiongraph.TransitionGraph;
 import core.graphs.transitiongraph.TransitionVertex;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
+import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
 import guru.nidi.graphviz.engine.GraphvizException;
@@ -12,6 +13,7 @@ import guru.nidi.graphviz.model.MutableGraph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -32,9 +34,13 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
         this.modelName = transitionGraph.getModelName();
     }
 
+    public PrintTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> jgraphGraph,String modelName){
+        this.jgraphGraph = jgraphGraph;
+        this.modelName = modelName;
+    }
+
     public void run() {
         logger.log(Level.INFO,"Graphviz transition drawing started");
-
         // I substute the bigmc hashes with integers for a more readable graph
         HashMap<String,String> idMap = new HashMap<>();
         int counter = 0;
@@ -89,49 +95,51 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
 
                     // Longest labels
                     int maxLength = 0;
+                    boolean properties = false;
 
                     // Displaying id->labels association
                     StringBuilder labels = new StringBuilder();
                     for (TransitionVertex tv : jgraphGraph.vertexSet()) {
                         labels.append("#").append(idMap.get(tv.getVertexID())).append(": ").append(tv.getLabel()).append("\n");
-                        if(labels.length()>maxLength)
-                            maxLength = labels.length();
-                        //TODO properties
-                        //labels.append(v.getPropertiesString());
+                        if(tv.getLabel().length()>maxLength)
+                            maxLength = tv.getLabel().length();
+                        if(!tv.getProperties().isEmpty())
+                            properties = true;
                     }
-
-                    labels.append("\n\nList of markers by state:\n");
-                    for(TransitionVertex tv : jgraphGraph.vertexSet()){
-                        String markers = referenceTransitionGraph.markerInVertex(tv);
-                        if(!markers.isEmpty())
-                            labels.append("#").append(idMap.get(tv.getVertexID())).append(" : ").append(markers).append("\n");
+                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin", adjustMargins((maxLength)));
+                    if(properties && referenceTransitionGraph!=null) {
+                        labels.append("\n\nList of markers by state:\n");
+                        for (TransitionVertex tv : jgraphGraph.vertexSet()) {
+                            String markers = referenceTransitionGraph.markerInVertex(tv);
+                            if (!markers.isEmpty())
+                                labels.append("#").append(idMap.get(tv.getVertexID())).append(" : ").append(markers).append("\n");
+                        }
                     }
-                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin",adjustMargins((maxLength)));
-                    //TODO SOMETIMES MARKERS ARE NOT PRINTED
                     graphAttrs().add("label", labels.toString());
+
                 });
         try {
             // I calculate the shrinking factor for long labels
-            int maxSize = 1;
+            int maxLength = 1;
             for(TransitionVertex v : jgraphGraph.vertexSet()) {
                 int length = v.getLabel().length();
-                if(length > maxSize)
-                    maxSize = length;
+                if(length > maxLength)
+                    maxLength = length;
             }
             // Temporary solution
             double factor = 1;
-            if(75 <= maxSize && maxSize <= 105)
+            if(75 <= maxLength && maxLength <= 105)
                 factor = 0.85;
-            if(maxSize > 105)
+            if(maxLength > 105)
                 factor = 0.75;
-
+            Graphviz.fromGraph(labelsGraph).fontAdjust(factor).render(Format.PNG).toFile(new File("ciao"));
             mergeGraphs(modelName,transitionOutputGraph,labelsGraph,null,factor);
         } catch (IOException e) {
             logger.log(Level.SEVERE,"Impossible to draw the transition graph");
         } catch (GraphvizException e) {
-            System.out.println("[GRAPHVIZ ERROR] Can't print transition graph; check the log for further info\"");
             logger.log(Level.SEVERE, "Impossible to draw transition graph." +
                     "Graphviz was not properly configured or, more probably, transition printing run out of memory\nStack trace: " + e.getMessage());
+            System.out.println("[GRAPHVIZ ERROR] Can't print transition graph; check the log for further info");
         }
     }
 
