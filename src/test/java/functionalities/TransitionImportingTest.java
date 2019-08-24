@@ -28,7 +28,7 @@ class TransitionImportingTest {
         TransitionDotImporter transitionDotImporter = new TransitionDotImporter("src/test/java/models/hospital.dot",true,"hospital");
         transitionDotImporter.processTransition();
         TransitionGraph transitionGraph = GraphsCollection.getInstance().getTransitionGraph();
-        DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> graph = transitionGraph.getGraph();
+        DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> graph = transitionGraph.getTransitionJgraph();
         assertEquals(18, graph.vertexSet().size());
         for(TransitionVertex tv : graph.vertexSet()) {
             if(tv.getLabel().contains("Nurse[pager].nil | Doctor[-].nil")

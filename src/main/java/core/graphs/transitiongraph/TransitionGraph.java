@@ -8,23 +8,27 @@ import java.util.HashSet;
 
 public class TransitionGraph {
 
-    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> graph;
+    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionJgraph;
     private HashMap<String,Integer> markersMap;
     private String modelName;
     private ArrayList<String> reactionNames;
 
-    public TransitionGraph(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> graph, String modelName, HashMap<String,Integer> markersMap) {
-        this.graph = graph;
+    // Mapping the string ids to integer ids
+    private HashMap idMap;
+
+    public TransitionGraph(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionJgraph, String modelName, HashMap<String,Integer> markersMap) {
+        this.transitionJgraph = transitionJgraph;
         this.markersMap = markersMap;
         this.modelName = modelName;
         HashSet<String> reactions = new HashSet<>();
-        for(TransitionEdge te : graph.edgeSet())
+        for(TransitionEdge te : transitionJgraph.edgeSet())
             reactions.add(te.getLabel());
         this.reactionNames = new ArrayList<>(reactions);
+        createIntegerMap();
     }
 
-    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getGraph() {
-        return graph;
+    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getTransitionJgraph() {
+        return transitionJgraph;
     }
 
     public HashMap<String, Integer> getMarkersMap() {
@@ -36,6 +40,20 @@ public class TransitionGraph {
             return tv.getProperties().contains(markersMap.get(s));
         else
             return false;
+    }
+
+    // I associate to each vertex an integer ID
+    private void createIntegerMap(){
+        this.idMap = new HashMap<>();
+        int counterID = 0;
+        for(TransitionVertex tv : transitionJgraph.vertexSet()){
+            idMap.put(tv,Integer.toString(counterID));
+            counterID++;
+        }
+    }
+
+    public HashMap<TransitionVertex,String> getIDMap(){
+        return idMap;
     }
 
     public String markerInVertex(TransitionVertex tv){
@@ -56,6 +74,6 @@ public class TransitionGraph {
     }
 
     public int size() {
-        return graph.vertexSet().size();
+        return transitionJgraph.vertexSet().size();
     }
 }

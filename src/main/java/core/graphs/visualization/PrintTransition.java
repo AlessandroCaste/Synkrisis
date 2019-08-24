@@ -30,7 +30,7 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
 
     public PrintTransition(TransitionGraph transitionGraph){
         this.referenceTransitionGraph = transitionGraph;
-        this.jgraphGraph = transitionGraph.getGraph();
+        this.jgraphGraph = transitionGraph.getTransitionJgraph();
         this.modelName = transitionGraph.getModelName();
     }
 

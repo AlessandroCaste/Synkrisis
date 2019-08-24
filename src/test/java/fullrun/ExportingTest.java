@@ -34,13 +34,14 @@ class ExportingTest {
 
         File hoaFile = new File("nodes/spot/nodes.hoa");
         TransitionGraph transitionGraph = GraphsCollection.getInstance().getTransitionGraph();
-        DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> graph = transitionGraph.getGraph();
+        DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> graph = transitionGraph.getTransitionJgraph();
         HashMap<String,Integer> reactionMap = new HashMap<>();
         int counter = 0;
         for(String s : transitionGraph.getReactionNames()) {
             reactionMap.put(s, counter);
             counter++;
         }
+        HashMap<TransitionVertex,String> idMap = transitionGraph.getIDMap();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(hoaFile));
             assertEquals("HOA: v1", reader.readLine());
@@ -61,13 +62,13 @@ class ExportingTest {
             for(TransitionVertex tv : graph.vertexSet()) {
                 String stateLine = reader.readLine();
                 if(tv.getLabel().equals("(online_node[served_id].nil | online_node[served_id].nil | online_node[served_id].nil)"))
-                    assertEquals(("State: " + tv.getVertexID()) + " {0}",stateLine.trim());
+                    assertEquals(("State: " + idMap.get(tv)) + " {0}",stateLine.trim());
                 else if(tv.getLabel().equals("(online_node[id].nil | online_node[id].nil | online_node[id].nil)"))
-                    assertEquals(("State: " + tv.getVertexID() + " {1}"),stateLine.trim());
+                    assertEquals(("State: " + idMap.get(tv) + " {1}"),stateLine.trim());
                 else
-                    assertEquals(("State: " + tv.getVertexID()),stateLine.trim());
+                    assertEquals(("State: " + idMap.get(tv)),stateLine.trim());
                 for(TransitionEdge te : graph.outgoingEdgesOf(tv)) {
-                    assertEquals("["+ reactionMap.get(te.getLabel()) +"] " + graph.getEdgeTarget(te).getVertexID(),reader.readLine());
+                    assertEquals("["+ reactionMap.get(te.getLabel()) +"] " + idMap.get(graph.getEdgeTarget(te)),reader.readLine());
                 }
             }
             assertEquals("--END--",reader.readLine());

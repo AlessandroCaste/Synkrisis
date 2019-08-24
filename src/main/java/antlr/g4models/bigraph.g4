@@ -78,7 +78,7 @@ acceptance_cond1   : acceptance_cond2 ((CONJUNCTION | PAR) acceptance_cond1)?
                    ;
 
 acceptance_cond2   : (FIN|INF) LPAR (NOT)? IDENTIFIER (CONJUNCTION (NOT)? IDENTIFIER)* RPAR
-                   | SPOT_TRUE | SPOT_FALSE
+                   | IDENTIFIER
                    ;
 
 
@@ -133,7 +133,7 @@ RPAR    : ')' ;
 LOR     : '||';
 PAR     : '|' ;
 
-
+SEMI     : ';'   ;
 DOLLAR   : '$'   ;
 UNLINKED : '-'   ;
 ARROW    : '->'  ;
@@ -180,8 +180,6 @@ ACCEPTANCE : 'Acceptance' ;
 ACCNAME    : 'acc-name' ;
 FIN        : 'Fin' ;
 INF        : 'Inf' ;
-SPOT_TRUE  : 't'   ;
-SPOT_FALSE : 'f'   ;
 
 PROP_LBRACK : '\\{';
 PROP_RBRACK : '\\}';

@@ -1,7 +1,7 @@
 package functionalities;
 
-import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
+import antlr.g4models.bigraphLexer;
 import core.syntax.ErrorListener;
 import core.syntax.SyntaxVisitor;
 import org.antlr.v4.runtime.CharStreams;

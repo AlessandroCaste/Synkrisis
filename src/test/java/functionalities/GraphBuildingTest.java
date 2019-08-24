@@ -1,7 +1,7 @@
 package functionalities;
 
-import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
+import antlr.g4models.bigraphLexer;
 import core.graphs.GraphBuildingVisitor;
 import core.graphs.modelgraph.Vertex;
 import core.graphs.storing.GraphsCollection;

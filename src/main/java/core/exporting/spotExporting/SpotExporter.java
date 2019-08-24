@@ -29,9 +29,12 @@ public class SpotExporter {
     private ArrayList<SpotAcceptanceState> acceptanceStates;
     private String outputString;
 
+    // Mapping name strings to integer ids
+    private HashMap<TransitionVertex,String> idMap;
+
 
     public SpotExporter(TransitionGraph transitionGraph, SpotInfo spotInfo) {
-        this.transitionGraph = transitionGraph.getGraph();
+        this.transitionGraph = transitionGraph.getTransitionJgraph();
         this.modelName = transitionGraph.getModelName();
         this.reactionNames = transitionGraph.getReactionNames();
         this.acc_name = spotInfo.getAcc_name();
@@ -44,6 +47,7 @@ public class SpotExporter {
             reactionMap.put(s, counter);
             counter++;
         }
+        this.idMap = transitionGraph.getIDMap();
         normalization(counter);
     }
 
@@ -108,7 +112,7 @@ public class SpotExporter {
             hoaWriter.write("--BODY--\n");
             for(TransitionVertex tv : transitionGraph.vertexSet()) {
                 hoaWriter.write("State: ");
-                hoaWriter.write(tv.getVertexID());
+                hoaWriter.write(idMap.get(tv));
                 hoaWriter.write(" ");
                 hoaWriter.write(acceptanceString(tv));
                 hoaWriter.write("\n");
@@ -117,7 +121,7 @@ public class SpotExporter {
                     hoaWriter.write(Integer.toString(reactionMap.get(te.getLabel())));
                     hoaWriter.write("]");
                     hoaWriter.write(" ");
-                    hoaWriter.write(transitionGraph.getEdgeTarget(te).getVertexID());
+                    hoaWriter.write(idMap.get(transitionGraph.getEdgeTarget(te)));
                     hoaWriter.write("\n");
                 }
             }

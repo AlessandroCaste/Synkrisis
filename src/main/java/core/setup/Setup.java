@@ -1,8 +1,8 @@
 package core.setup;
 
 
-import antlr.bigraph.bigraphLexer;
 import antlr.bigraph.bigraphParser;
+import antlr.g4models.bigraphLexer;
 import core.graphs.GraphBuildingVisitor;
 import core.syntax.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;

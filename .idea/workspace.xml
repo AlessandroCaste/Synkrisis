@@ -9,16 +9,25 @@
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Package refactoring">
       <change afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models/remscheld.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionVertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionVertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/GraphBuildingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/GraphBuildingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/SyntaxVisitorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/SyntaxVisitorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/hospital.dot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/office.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/office.bigraph" afterDir="false" />
     </list>
@@ -118,11 +127,11 @@
       <recent name="core.syntaxAnalysis" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph" />
       <recent name="$PROJECT_DIR$/src/test/java/models" />
       <recent name="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models" />
       <recent name="$PROJECT_DIR$/src/main/java/translator/remscheld/tokens/tokens" />
       <recent name="$PROJECT_DIR$/src/main/java/translator" />
-      <recent name="$PROJECT_DIR$/translator/remscheld/src" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -143,11 +152,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.ExportingTest">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/sample -G -o prism" />
+      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/sample -o spot" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -170,22 +179,6 @@
       <option name="PACKAGE_NAME" value="fullrun" />
       <option name="MAIN_CLASS_NAME" value="fullrun.ExportingTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExportingTest.testSpot" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Synkrisis" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fullrun.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="fullrun" />
-      <option name="MAIN_CLASS_NAME" value="fullrun.ExportingTest" />
-      <option name="METHOD_NAME" value="testSpot" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -275,6 +268,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TransitionImportingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Synkrisis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="functionalities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="functionalities" />
+      <option name="MAIN_CLASS_NAME" value="functionalities.TransitionImportingTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TransitionImportingTest.executeModel" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Synkrisis" />
       <option name="PACKAGE_NAME" value="functionalities" />
@@ -294,18 +302,18 @@
       <item itemvalue="JUnit.RunFunctionalityTest" />
       <item itemvalue="JUnit.TransitionImportingTest.executeModel" />
       <item itemvalue="JUnit.ExportingTest" />
-      <item itemvalue="JUnit.ExportingTest.testSpot" />
       <item itemvalue="JUnit.GraphBuildingTest" />
       <item itemvalue="JUnit.GraphBuildingTest.checkNamesAndWeights" />
       <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
+      <item itemvalue="JUnit.TransitionImportingTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ExportingTest" />
+        <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
         <item itemvalue="JUnit.GraphBuildingTest" />
         <item itemvalue="JUnit.GraphBuildingTest.checkNamesAndWeights" />
-        <item itemvalue="JUnit.ExportingTest.testSpot" />
       </list>
     </recent_temporary>
   </component>
@@ -511,14 +519,10 @@
       <workItem from="1566490222194" duration="5624000" />
       <workItem from="1566489496819" duration="1014000" />
       <workItem from="1566516998095" duration="4308000" />
-      <workItem from="1566550814153" duration="13698000" />
-    </task>
-    <task id="LOCAL-00008" summary="Test fixing and flows adjusted">
-      <created>1562346859808</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1562346859808</updated>
+      <workItem from="1566550814153" duration="13919000" />
+      <workItem from="1566567987309" duration="718000" />
+      <workItem from="1566582030768" duration="3404000" />
+      <workItem from="1566601244574" duration="3641000" />
     </task>
     <task id="LOCAL-00009" summary="Weight checks enabled">
       <created>1562351038165</created>
@@ -856,7 +860,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566338473957</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Correct label shifting in PRISM exporting: cloned graph created">
+      <created>1566567547321</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1566567547321</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -891,15 +902,6 @@
       <configuration name="ExportingTest" configurationId="JUnit" />
     </history-entry>
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -932,7 +934,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Model Checker interface" />
     <MESSAGE value="Bigmc model checker interface completed" />
     <MESSAGE value="Testing, packaging and more polish" />
     <MESSAGE value="Fixed k=2 in grammar," />
@@ -957,7 +958,8 @@
     <MESSAGE value="Fixed transition importing without markers" />
     <MESSAGE value="Fixes to BigMC integration + remscheld bigraph" />
     <MESSAGE value="Package refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Package refactoring" />
+    <MESSAGE value="Correct label shifting in PRISM exporting: cloned graph created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correct label shifting in PRISM exporting: cloned graph created" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1000,7 +1002,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java</url>
-          <line>33</line>
+          <line>19</line>
           <option name="timeStamp" value="425" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1027,11 +1029,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java</url>
           <line>132</line>
           <option name="timeStamp" value="480" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="481" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
@@ -1070,7 +1067,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>104</line>
+          <line>102</line>
           <option name="timeStamp" value="555" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1080,12 +1077,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>265</line>
+          <line>252</line>
           <option name="timeStamp" value="565" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>281</line>
+          <line>268</line>
           <option name="timeStamp" value="566" />
         </line-breakpoint>
       </breakpoints>

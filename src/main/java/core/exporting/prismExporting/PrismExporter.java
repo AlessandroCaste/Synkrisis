@@ -44,19 +44,19 @@ public class PrismExporter {
     public PrismExporter(TransitionGraph transitionGraph, String path) {
         System.out.println("PRISM exporting started");
         this.transitionJgraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
-        for(TransitionVertex tv : transitionGraph.getGraph().vertexSet())
+        for(TransitionVertex tv : transitionGraph.getTransitionJgraph().vertexSet())
             transitionJgraph.addVertex(tv);
-        for(TransitionEdge te : transitionGraph.getGraph().edgeSet()){
+        for(TransitionEdge te : transitionGraph.getTransitionJgraph().edgeSet()){
             TransitionEdge newEdge = new TransitionEdge(te.getLabel());
-            transitionJgraph.addEdge(transitionGraph.getGraph().getEdgeSource(te),
-                                     transitionGraph.getGraph().getEdgeTarget(te),
+            transitionJgraph.addEdge(transitionGraph.getTransitionJgraph().getEdgeSource(te),
+                                     transitionGraph.getTransitionJgraph().getEdgeTarget(te),
                                      newEdge);
-            transitionJgraph.setEdgeWeight(newEdge,transitionGraph.getGraph().getEdgeWeight(te));
+            transitionJgraph.setEdgeWeight(newEdge,transitionGraph.getTransitionJgraph().getEdgeWeight(te));
         }
         this.modelName = transitionGraph.getModelName();
         this.markersMap = new HashMap<>(transitionGraph.getMarkersMap());
         this.path = path;
-        this.idMap = new HashMap<>();
+        this.idMap = transitionGraph.getIDMap();
         this.vertexMarkersMap = new HashMap<>();
     }
 
@@ -220,18 +220,8 @@ public class PrismExporter {
     }
 
     private void normalization() {
-        normalizeID();
         normalizeMarkers();
         normalizeEdges();
-    }
-
-    // I associate to each vertex an integer ID to comply with the transition file
-    private void normalizeID(){
-        int id = 0;
-        for(TransitionVertex tv : transitionJgraph.vertexSet()){
-            idMap.put(tv,Integer.toString(id));
-            id++;
-        }
     }
 
     // I update markers with correct values

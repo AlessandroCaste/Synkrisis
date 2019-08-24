@@ -285,8 +285,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
                                                                           .replace("]","")
                                                                           .split("\\s*,\\s*")));
             for(String marker : markers) {
-                if (!markersNames.contains(marker))
-                    reportError(ctx, ERROR, marker + " does not match any marker name!");
+                if(!marker.equals("t") && !marker.equals("f"))
+                    if (!markersNames.contains(marker))
+                        reportError(ctx, ERROR, marker + " does not match any marker name!");
             }
         }
         return visitChildren(ctx);
