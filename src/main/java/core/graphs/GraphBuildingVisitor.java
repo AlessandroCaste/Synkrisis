@@ -46,7 +46,8 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     private StringBuilder spotSpecifications;
     private boolean spotReady = true;
     private StringBuilder spotErrorsString = new StringBuilder();
-    private int acceptanceCounter = 0; // Accepting states counter
+    private int declaredAcceptanceStates = 0; // Number of states declared
+    private int acceptanceCounter = 0; // Unique states found
 
     // Storing external properties for all other model checkers
     private Exporter exporter = Exporter.getInstance();
@@ -356,8 +357,14 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
     }
 
     @Override public Void visitAcceptance(bigraphParser.AcceptanceContext ctx) {
-        if(ctx.DIGIT() != null)
-            spotInfo.setNumberAcceptanceSets(Integer.parseInt(ctx.DIGIT().toString()));
+        if(spotSpecifications == null)
+            spotSpecifications = new StringBuilder();
+        if(spotInfo == null)
+            spotInfo = new SpotInfo("acc-name: undefined-acceptance");
+        if(ctx.DIGIT() != null) {
+            declaredAcceptanceStates = Integer.parseInt(ctx.DIGIT().toString());
+            spotInfo.setNumberAcceptanceSets(declaredAcceptanceStates);
+        }
         return visitChildren(ctx);
     }
 
@@ -386,6 +393,7 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
         TreeSet<Integer> negativeMarkers = new TreeSet<>();
         String acceptanceSpecification = "";
         int associatedID = 0;
+        boolean degenerateSpot = false;
 
         // Generating the acceptance state by assigning to it its properties ID and verifying they don't directly negate each other
         boolean isNegative = false;
@@ -404,55 +412,68 @@ public class GraphBuildingVisitor extends AbstractParseTreeVisitor<Void> impleme
                 }
                 isNegative = false;
             } else if (token.getType() == bigraphParser.IDENTIFIER) {
-                markerID = markersMap.get(pt.getText());
-                if (!negativeMarkers.contains(markerID))
+                if((pt.getText().equals("t") || pt.getText().equals("f")) && ctx.FIN()==null && ctx.INF()==null) {
+                    spotInfo.addAcceptanceState(new SpotAcceptanceState(pt.getText()));
+                    degenerateSpot = true;
+                    spotInfo.setBooleanAcceptanceState();
+                } else {
+                    markerID = markersMap.get(pt.getText());
+                    if (!negativeMarkers.contains(markerID))
+                        positiveMarkers.add(markersMap.get(pt.getText()));
+                    else {
+                        spotErrorsString.append("Can't ask property ").append(pt.getText()).append(" and its negation to be true at the same time in an acceptance state\n");
+                        spotReady = false;
+                    }
                     positiveMarkers.add(markersMap.get(pt.getText()));
-                else {
-                    spotErrorsString.append("Can't ask property ").append(pt.getText()).append(" and its negation to be true at the same time in an acceptance state\n");
-                    spotReady = false;
                 }
-                positiveMarkers.add(markersMap.get(pt.getText()));
             }
         }
 
-        // Verifying that the acceptance state has never been inserted into our model
-        boolean found = false;
-        for(SpotAcceptanceState sp : spotInfo.getAcceptanceStates())
-            if(sp.verify(positiveMarkers,negativeMarkers)) {
-                found = true;
-                spotReady = false;
-                spotErrorsString.append("Found duplicated acceptance state: ").append(sp.getAcceptanceStateString()).append("\n");
+        if(!degenerateSpot) {
+            // Verifying that the acceptance state has never been inserted into our model
+            boolean found = false;
+            for (SpotAcceptanceState sp : spotInfo.getAcceptanceStates())
+                if (sp.verify(positiveMarkers, negativeMarkers)) {
+                    found = true;
+                    spotReady = false;
+                    spotErrorsString.append("Found duplicated acceptance state: ").append(sp.getAcceptanceStateString()).append("\n");
+                }
+            if (!found) {
+                int startPosition = ctx.start.getStartIndex();
+                int endPosition = ctx.stop.getStopIndex();
+                Interval interval = new Interval(startPosition, endPosition);
+                if (ctx.FIN() != null)
+                    acceptanceSpecification = ctx.start.getInputStream().getText(interval)
+                            .replaceAll("Fin", "")
+                            .replaceAll("\\)", "")
+                            .replaceAll("\\(", "");
+                else if (ctx.INF() != null)
+                    acceptanceSpecification = ctx.start.getInputStream().getText(interval)
+                            .replaceAll("Inf", "")
+                            .replaceAll("\\)", "")
+                            .replaceAll("\\(", "");
+                // I extract the property specification we're substituting in order to store it
+                spotInfo.addAcceptanceState(new SpotAcceptanceState(acceptanceCounter, acceptanceSpecification, positiveMarkers, negativeMarkers));
+                associatedID = acceptanceCounter;
+                acceptanceCounter++;
             }
-        if(!found) {
-            int startPosition = ctx.start.getStartIndex();
-            int endPosition = ctx.stop.getStopIndex();
-            Interval interval = new Interval(startPosition, endPosition);
-            if(ctx.FIN()!=null)
-                acceptanceSpecification = ctx.start.getInputStream().getText(interval)
-                        .replaceAll("Fin","")
-                        .replaceAll("\\)","")
-                        .replaceAll("\\(","");
-            else if(ctx.INF()!=null)
-                acceptanceSpecification = ctx.start.getInputStream().getText(interval)
-                        .replaceAll("Inf","")
-                        .replaceAll("\\)","")
-                        .replaceAll("\\(","");
-            // I extract the property specification we're substituting in order to store it
-            spotInfo.addAcceptanceState(new SpotAcceptanceState(acceptanceCounter, acceptanceSpecification, positiveMarkers, negativeMarkers));
-            associatedID = acceptanceCounter;
-            acceptanceCounter++;
+            if (ctx.FIN() != null)
+                spotSpecifications.append("Fin(").append(associatedID).append(")");
+            if (ctx.INF() != null)
+                spotSpecifications.append("Inf(").append(associatedID).append(")");
         }
-        if(ctx.FIN()!=null)
-            spotSpecifications.append("Fin(").append(associatedID).append(")");
-        if(ctx.INF()!=null)
-            spotSpecifications.append("Inf(").append(associatedID).append(")");
 
         return visitChildren(ctx);
     }
 
     @Override public Void visitExtra_properties(bigraphParser.Extra_propertiesContext ctx) {
-        if(spotSpecifications!=null)
+        if(spotSpecifications!=null) {
             spotInfo.setAcceptanceStatesSpecification(spotSpecifications.toString());
+            if (!spotInfo.checkStatesNumber()) {
+                spotReady = false;
+                spotErrorsString.append("Number of specified acceptance states doesn't match");
+            }
+        }
         if(ctx.IDENTIFIER()!=null && ctx.IDENTIFIER().size() > 0) {
             currentPropertyLanguage = ctx.IDENTIFIER(0).toString();
             currentFormat = ctx.IDENTIFIER(1).toString();

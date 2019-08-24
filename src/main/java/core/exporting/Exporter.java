@@ -114,7 +114,7 @@ public class Exporter {
     private void spotExporting() {
         boolean result = false;
         if(spotInfo==null)
-            System.out.println("SPOT properties have not correctly been specified");
+            System.out.println("SPOT properties can't be read");
         else {
             SpotExporter spotExporter = new SpotExporter(transitionGraph,spotInfo);
             result = spotExporter.translate();
@@ -122,7 +122,7 @@ public class Exporter {
         if(result)
             System.out.println("Spot exporting concluded");
         else
-            System.out.println("Problems recorded during spot exporting");
+            System.out.println("[SPOT-EXPORTING] Exporting failed");
     }
 
     private boolean printToFile(String format, String extension) {

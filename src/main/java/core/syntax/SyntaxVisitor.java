@@ -60,6 +60,9 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
     private final boolean invalidControl = false;
     private final boolean validControl = true;
 
+    // Boolean to avoid specifying further state acceptances after 't' or 'f' conditions
+    private boolean booleanAcceptance = false;
+
     @Override public Void visitBigraph(bigraphParser.BigraphContext ctx) {
         System.out.println("\nSYNTAX ANALYSIS STARTED");
         System.out.println("***********************");
@@ -279,17 +282,24 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
 
     @Override public Void visitAcceptance_cond2(bigraphParser.Acceptance_cond2Context ctx) {
         // I verify markers in SPOT properties have been already specified
-        if(ctx.IDENTIFIER() != null) {
-            String acceptanceIdentifier = ctx.IDENTIFIER().toString();
-            ArrayList<String> markers = new ArrayList<>(Arrays.asList(acceptanceIdentifier.replace("[","")
-                                                                          .replace("]","")
-                                                                          .split("\\s*,\\s*")));
-            for(String marker : markers) {
-                if(!marker.equals("t") && !marker.equals("f"))
-                    if (!markersNames.contains(marker))
-                        reportError(ctx, ERROR, marker + " does not match any marker name!");
+        if(!booleanAcceptance) {
+            if (ctx.IDENTIFIER() != null) {
+                String acceptanceIdentifier = ctx.IDENTIFIER().toString();
+                ArrayList<String> markers = new ArrayList<>(Arrays.asList(acceptanceIdentifier.replace("[", "")
+                        .replace("]", "")
+                        .split("\\s*,\\s*")));
+                for (String marker : markers) {
+                    if (!marker.equals("t") && !marker.equals("f")) {
+                        if (!markersNames.contains(marker))
+                            reportError(ctx, ERROR, marker + " does not match any marker name!");
+                    }
+                    else if(ctx.FIN()!=null && ctx.INF()!=null)
+                        booleanAcceptance = true;
+                }
             }
         }
+        else
+            reportError(ctx,ERROR,"Can't specify degenerate acceptance conditions and other acceptances at the same time");
         return visitChildren(ctx);
     }
 

@@ -9,27 +9,18 @@
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Package refactoring">
       <change afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/bigraph/bigraphParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/g4models/bigraph.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models/remscheld.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotAcceptanceState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotAcceptanceState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Setup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/GraphBuildingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/GraphBuildingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/SyntaxVisitorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/SyntaxVisitorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/addition.bigraph" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/hospital.dot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/office.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/office.bigraph" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +29,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="359" />
+    <option name="myElementSize" value="361" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -152,7 +143,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ExportingTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
@@ -523,13 +514,10 @@
       <workItem from="1566567987309" duration="718000" />
       <workItem from="1566582030768" duration="3404000" />
       <workItem from="1566601244574" duration="3641000" />
-    </task>
-    <task id="LOCAL-00009" summary="Weight checks enabled">
-      <created>1562351038165</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1562351038165</updated>
+      <workItem from="1566605098482" duration="191000" />
+      <workItem from="1566642282947" duration="1585000" />
+      <workItem from="1566647155910" duration="6874000" />
+      <workItem from="1566659175030" duration="4873000" />
     </task>
     <task id="LOCAL-00010" summary="Updated library for multiple marker recognition">
       <created>1562351979691</created>
@@ -867,40 +855,15 @@
       <option name="project" value="LOCAL" />
       <updated>1566567547321</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="SPOT and PRISM correct node marking set">
+      <created>1566605278855</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1566605278856</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="GraphBuildingTest - 2019.08.22 at 18h 00m 18s.xml">
-      <configuration name="GraphBuildingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GraphBuildingTest_checkNamesAndWeights - 2019.08.22 at 18h 00m 29s.xml">
-      <configuration name="GraphBuildingTest.checkNamesAndWeights" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GraphBuildingTest - 2019.08.22 at 18h 01m 51s.xml">
-      <configuration name="GraphBuildingTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="RunFunctionalityTest - 2019.08.22 at 18h 02m 04s.xml">
-      <configuration name="RunFunctionalityTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="RunFunctionalityTest_executeTests - 2019.08.22 at 18h 02m 09s.xml">
-      <configuration name="RunFunctionalityTest.executeTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="RunFunctionalityTest_executeTests - 2019.08.22 at 18h 03m 13s.xml">
-      <configuration name="RunFunctionalityTest.executeTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="RunFunctionalityTest_executeTests - 2019.08.22 at 18h 03m 39s.xml">
-      <configuration name="RunFunctionalityTest.executeTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="RunFunctionalityTest_executeTests - 2019.08.22 at 18h 04m 16s.xml">
-      <configuration name="RunFunctionalityTest.executeTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SyntaxVisitorTest_checkAcceptance - 2019.08.22 at 18h 06m 43s.xml">
-      <configuration name="SyntaxVisitorTest.checkAcceptance" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExportingTest - 2019.08.22 at 18h 10m 26s.xml">
-      <configuration name="ExportingTest" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -934,7 +897,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Bigmc model checker interface completed" />
     <MESSAGE value="Testing, packaging and more polish" />
     <MESSAGE value="Fixed k=2 in grammar," />
     <MESSAGE value="Transition tests experiments" />
@@ -959,7 +921,8 @@
     <MESSAGE value="Fixes to BigMC integration + remscheld bigraph" />
     <MESSAGE value="Package refactoring" />
     <MESSAGE value="Correct label shifting in PRISM exporting: cloned graph created" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correct label shifting in PRISM exporting: cloned graph created" />
+    <MESSAGE value="SPOT and PRISM correct node marking set" />
+    <option name="LAST_COMMIT_MESSAGE" value="SPOT and PRISM correct node marking set" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -982,7 +945,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
-          <line>380</line>
+          <line>387</line>
           <option name="timeStamp" value="281" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1085,6 +1048,36 @@
           <line>268</line>
           <option name="timeStamp" value="566" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
+          <line>391</line>
+          <option name="timeStamp" value="569" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
+          <line>460</line>
+          <option name="timeStamp" value="575" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
+          <line>431</line>
+          <option name="timeStamp" value="578" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
+          <line>409</line>
+          <option name="timeStamp" value="582" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="583" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotInfo.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="585" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -1104,7 +1097,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Synkrisis$TransitionImportingTest_executeModel.ic" NAME="TransitionImportingTest.executeModel Coverage Results" MODIFIED="1565538133424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$RunAllTests.ic" NAME="RunAllTests Coverage Results" MODIFIED="1565019696938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Synkrisis$Main.ic" NAME="Main Coverage Results" MODIFIED="1566558597163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Synkrisis$Main.ic" NAME="Main Coverage Results" MODIFIED="1566649022805" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$GraphBuildingTest_checkLinks.ic" NAME="GraphBuildingTest.checkLinks Coverage Results" MODIFIED="1562684131276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$ExportingTest.ic" NAME="ExportingTest Coverage Results" MODIFIED="1565484440730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Synkrisis$RunAllTests_executeTests.ic" NAME="RunAllTests.executeTests Coverage Results" MODIFIED="1562684706105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

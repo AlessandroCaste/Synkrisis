@@ -16,6 +16,11 @@ public class SpotAcceptanceState {
         this.negativeMarker = negativeMarker;
     }
 
+    // In case we submit t or f every state is an acceptance state
+    public SpotAcceptanceState(String acceptanceStateString){
+        this.acceptanceStateString = acceptanceStateString;
+    }
+
     int getAcceptanceStateID() {
         return acceptanceStateID;
     }
@@ -30,13 +35,19 @@ public class SpotAcceptanceState {
 
     // Method to compare if a vertex in transition graph matches the acceptance state
     // The vertex must contain all markers in 'positive' and no markers in negative
+    // In case we used "t" or "f" then result will always be positive
     boolean verify(TreeSet<Integer> vertexMarkers) {
-        boolean containsPositive;
-        boolean containsNegative = false;
-        containsPositive = vertexMarkers.containsAll(positiveMarker);
-        for(int marker : negativeMarker)
-            if(vertexMarkers.contains(marker))
-                containsNegative = true;
-        return (containsPositive & !containsNegative);
+        if(positiveMarker==null && negativeMarker==null)
+            return true;
+        else {
+            boolean containsPositive;
+            boolean containsNegative = false;
+            containsPositive = vertexMarkers.containsAll(positiveMarker);
+            for (int marker : negativeMarker)
+                if (vertexMarkers.contains(marker))
+                    containsNegative = true;
+            return (containsPositive & !containsNegative);
+        }
     }
+
 }

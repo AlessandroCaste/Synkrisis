@@ -171,6 +171,8 @@ public class Main {
             exporter.setTransitionGraph(graphsCollection.getTransitionGraph());
             if (modelBuilder.isSpotReady())
                 exporter.addSpotInfo(modelBuilder.getSpotInfo());
+            else
+                System.out.println(modelBuilder.getSpotErrorsString());
             exporter.execute();
         } else if(!executionSettings.isExportingEnabled())
             System.out.println("No exporting format has been specified");

@@ -29,8 +29,10 @@ public class SpotExporter {
     private ArrayList<SpotAcceptanceState> acceptanceStates;
     private String outputString;
 
+
     // Mapping name strings to integer ids
     private HashMap<TransitionVertex,String> idMap;
+
 
 
     public SpotExporter(TransitionGraph transitionGraph, SpotInfo spotInfo) {
@@ -40,7 +42,10 @@ public class SpotExporter {
         this.acc_name = spotInfo.getAcc_name();
         this.numberAcceptanceSets = spotInfo.getNumberAcceptanceSets();
         this.acceptanceStates = spotInfo.getAcceptanceStates();
-        this.outputString = spotInfo.getOutputString();
+        if(spotInfo.getOutputString()!=null)
+            this.outputString = spotInfo.getOutputString();
+        else
+            this.outputString = "";
         reactionMap = new HashMap<>();
         int counter = 0;
         for(String s : reactionNames) {
@@ -128,7 +133,9 @@ public class SpotExporter {
             hoaWriter.write("--END--\n");
 
             // Printing the acceptance - state mapping
-            hoaWriter.write("\n/* Acceptance states map\n");
+            if(numberAcceptanceSets > 0)
+                hoaWriter.write("\n/* Acceptance states map\n");
+
             try {
                 for (int i = 0; i <= numberAcceptanceSets - 1; i++) {
                     hoaWriter.write(Integer.toString(acceptanceStates.get(i).getAcceptanceStateID()));
@@ -136,14 +143,13 @@ public class SpotExporter {
                     hoaWriter.write(" ");
                     hoaWriter.write(acceptanceStates.get(i).getAcceptanceStateString());
                     hoaWriter.write("\n");
-                    hoaWriter.write("\n");
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("[SPOT-ACCEPTANCE ERROR] Number of spot acceptance sets doesn't match with acceptance specifications");
                 logger.log(Level.SEVERE,"Can't conclude spot translation, problem with the number of acceptance states specified after the 'Acceptance' keyword\nStack trace: " + e.getMessage());
             }
-
-            hoaWriter.write(("*/\n"));
+            if(numberAcceptanceSets > 0)
+                hoaWriter.write(("*/\n"));
             hoaWriter.close();
             isSuccessful = true;
         } catch (IOException e) {

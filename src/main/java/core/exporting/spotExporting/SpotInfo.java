@@ -7,7 +7,12 @@ public class SpotInfo {
     private int numberAcceptanceSets;
     private String acc_name;
     private ArrayList<SpotAcceptanceState> acceptanceStates;
-    // The string actually writen in the file
+    private boolean isSuccessful = true;
+
+    // If the condition is just the boolean
+    private boolean degenerateSpot = false;
+
+    // The string actually written in the file
     private String outputString;
 
     public SpotInfo(String acc_name) {
@@ -41,5 +46,23 @@ public class SpotInfo {
 
     public ArrayList<SpotAcceptanceState> getAcceptanceStates() {
         return acceptanceStates;
+    }
+
+    public void setBooleanAcceptanceState(){
+        degenerateSpot = true;
+    }
+
+
+    // Check that the number of acceptance states is coherent
+    public boolean checkStatesNumber() {
+        if (degenerateSpot) {
+            if (acceptanceStates.size() != 1 || numberAcceptanceSets != 0) {
+                isSuccessful = false;
+                System.out.println("Degenerate conditions require 0 acceptance states!");
+            }
+        } else if (acceptanceStates.size() != numberAcceptanceSets) {
+                isSuccessful = false;
+        }
+        return isSuccessful;
     }
 }
