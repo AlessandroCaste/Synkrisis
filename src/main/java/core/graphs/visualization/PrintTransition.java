@@ -5,7 +5,6 @@ import core.graphs.transitiongraph.TransitionGraph;
 import core.graphs.transitiongraph.TransitionVertex;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
-import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
 import guru.nidi.graphviz.engine.GraphvizException;
@@ -13,7 +12,6 @@ import guru.nidi.graphviz.model.MutableGraph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -132,7 +130,6 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                 factor = 0.85;
             if(maxLength > 105)
                 factor = 0.75;
-            Graphviz.fromGraph(labelsGraph).fontAdjust(factor).render(Format.PNG).toFile(new File("ciao"));
             mergeGraphs(modelName,transitionOutputGraph,labelsGraph,null,factor);
         } catch (IOException e) {
             logger.log(Level.SEVERE,"Impossible to draw the transition graph");

@@ -69,20 +69,30 @@ public class CLI {
             if(cmd.hasOption("g"))
                 settings.enablePrintModel();
             if(cmd.hasOption("m")) {
-                int steps = Integer.parseInt(cmd.getOptionValue("m"));
-                if(steps > 0)
-                    settings.setSteps(steps);
-                else
-                    System.out.println("Invalid number of steps specified: no step limit has been set\n");
+                try {
+                    int steps = Integer.parseInt(cmd.getOptionValue("m"));
+                    if (steps > 0)
+                        settings.setSteps(steps);
+                    else
+                        System.out.println("Invalid number of steps specified: no step limit has been set\n");
+                } catch(NumberFormatException ne){
+                    System.out.println("You shall input a valid integer for the number of steps.");
+                    acceptable = false;
+                }
             }
             if(cmd.hasOption("p"))
                 settings.enablePrintNewStates();
             if(cmd.hasOption("r")) {
-                int frequency = Integer.parseInt(cmd.getOptionValue("r"));
-                if(frequency > 0)
-                    settings.setStatisticsFrequency(frequency);
-                else
-                    System.out.println("Invalid frequency of edges print: it's been set to 0");
+                try {
+                    int frequency = Integer.parseInt(cmd.getOptionValue("r"));
+                    if (frequency > 0)
+                        settings.setStatisticsFrequency(frequency);
+                    else
+                        System.out.println("Invalid frequency of edges print: it's been set to 0");
+                } catch(NumberFormatException ne){
+                        System.out.println("You must input a valid integer for the frequency.");
+                        acceptable = false;
+                    }
             }
             if (cmd.hasOption("G")) {
                 settings.enablePrintModel();
