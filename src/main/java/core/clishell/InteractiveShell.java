@@ -65,7 +65,7 @@ public class InteractiveShell {
         loadedSettings.addExportingLanguage(modelChecker);
     }
 
-    @Command(name="transition",abbrev = "t")
+    @Command(name="tran",abbrev = "t")
         public void transition(@Param(name="filename") String filename){
             if(new File(filename).exists()) {
                 loadedSettings.setProcessTransitionOnly();

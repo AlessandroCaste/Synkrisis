@@ -131,7 +131,8 @@ public class SyntaxVisitor extends AbstractParseTreeVisitor<Void> implements big
         root = true;
         if (ctx.RULE() != null) {
             currentRule = ctx.IDENTIFIER().toString();
-
+            if(currentRule.matches("s-loop"))
+                reportError(ctx,ERROR,"s-loop reaction name is reserved");
             if (controlsMap.containsKey(currentRule))
                 reportError(ctx, WARNING, "Reaction rules shouldn't be named after controls");
             if (names.contains(currentRule))

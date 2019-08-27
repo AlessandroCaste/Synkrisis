@@ -53,10 +53,10 @@ public class Bigmc implements ModelChecker{
 
         // Bigmc location is set
         // This one is for IDE execution
-        input.append("lib/bigmc -G ").append(transitionFilename);
+        //input.append("lib/bigmc -G ").append(transitionFilename);
 
         // This one is for jar execution
-        //input.append("bigmc -G ").append(transitionFilename);
+        input.append("bigmc -G ").append(transitionFilename);
 
         // Setting a maximum number of steps. 0 means user didn't specify any
         if(loadedSettings.getSteps() != 0)

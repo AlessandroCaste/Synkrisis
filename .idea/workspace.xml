@@ -6,30 +6,21 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Package refactoring">
-      <change afterPath="$PROJECT_DIR$/.idea/Synkrisis.iml" afterDir="false" />
+    <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="New PRISM logic nd">
       <change afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/models/hospital.dot" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism2.bigraph" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models/remscheld.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/AbstractPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/AbstractPrinter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintReaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintReaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/box.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/box.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -541,14 +532,7 @@
       <workItem from="1566844769974" duration="6870000" />
       <workItem from="1566853522162" duration="2157000" />
       <workItem from="1566892840882" duration="1730000" />
-      <workItem from="1566905539904" duration="8112000" />
-    </task>
-    <task id="LOCAL-00012" summary="Transition printing! Bigmc fix!">
-      <created>1562434315840</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1562434315840</updated>
+      <workItem from="1566905539904" duration="10046000" />
     </task>
     <task id="LOCAL-00013" summary="Towards label file">
       <created>1562515476606</created>
@@ -886,7 +870,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566772563554</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="New PRISM logic">
+      <created>1566913806875</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1566913806876</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -921,7 +912,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Transition tests experiments" />
     <MESSAGE value="Exporting completely rewritten. WIP" />
     <MESSAGE value="Detaching transition importing from the rest of the workflow" />
     <MESSAGE value="Spot reintegrated" />
@@ -946,7 +936,8 @@
     <MESSAGE value="SPOT and PRISM correct node marking set" />
     <MESSAGE value="SPOT exporting and acceptances conditions reworked.&#10;idMapping of vertexes" />
     <MESSAGE value="Little tweaks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Little tweaks" />
+    <MESSAGE value="New PRISM logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="New PRISM logic" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1084,7 +1075,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>198</line>
+          <line>200</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -1092,12 +1083,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>218</line>
+          <line>220</line>
           <option name="timeStamp" value="627" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>190</line>
+          <line>192</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -1105,7 +1096,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>164</line>
+          <line>166</line>
           <option name="timeStamp" value="629" />
         </line-breakpoint>
       </breakpoints>
