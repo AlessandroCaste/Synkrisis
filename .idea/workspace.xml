@@ -7,20 +7,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="Package refactoring">
+      <change afterPath="$PROJECT_DIR$/.idea/Synkrisis.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/hospital.dot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism2.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models/remscheld.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotAcceptanceState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotAcceptanceState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/AbstractPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/AbstractPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintReaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintReaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/box.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/box.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/phospital.bigraph" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +94,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/models" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -95,7 +104,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15865384" />
     <property name="project.structure.side.proportion" value="0.25296444" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -107,9 +116,9 @@
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/models" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
-      <recent name="$PROJECT_DIR$/src/test/java/models" />
       <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr" />
       <recent name="$PROJECT_DIR$/src/main/java/antlr/g4models" />
     </key>
@@ -147,7 +156,7 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/sample -o spot" />
+      <option name="PROGRAM_PARAMETERS" value="-l sample -G -o prism" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -300,10 +309,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ExportingTest" />
-        <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
         <item itemvalue="JUnit.GraphBuildingTest" />
+        <item itemvalue="JUnit.ExportingTest" />
+        <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.GraphBuildingTest.checkNamesAndWeights" />
       </list>
     </recent_temporary>
@@ -517,21 +526,22 @@
       <workItem from="1566605098482" duration="191000" />
       <workItem from="1566642282947" duration="1585000" />
       <workItem from="1566647155910" duration="6874000" />
-      <workItem from="1566659175030" duration="4873000" />
-    </task>
-    <task id="LOCAL-00010" summary="Updated library for multiple marker recognition">
-      <created>1562351979691</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1562351979691</updated>
-    </task>
-    <task id="LOCAL-00011" summary="GraphBuilding revised and enhanced">
-      <created>1562372540466</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1562372540466</updated>
+      <workItem from="1566659175030" duration="5141000" />
+      <workItem from="1566664349237" duration="15000" />
+      <workItem from="1566681282047" duration="654000" />
+      <workItem from="1566682971567" duration="131000" />
+      <workItem from="1566721910749" duration="747000" />
+      <workItem from="1566723436565" duration="892000" />
+      <workItem from="1566764932132" duration="6120000" />
+      <workItem from="1566808932177" duration="343000" />
+      <workItem from="1566811765977" duration="1721000" />
+      <workItem from="1566820819464" duration="1902000" />
+      <workItem from="1566824228520" duration="1590000" />
+      <workItem from="1566827027105" duration="5636000" />
+      <workItem from="1566844769974" duration="6870000" />
+      <workItem from="1566853522162" duration="2157000" />
+      <workItem from="1566892840882" duration="1730000" />
+      <workItem from="1566905539904" duration="8112000" />
     </task>
     <task id="LOCAL-00012" summary="Transition printing! Bigmc fix!">
       <created>1562434315840</created>
@@ -862,7 +872,21 @@
       <option name="project" value="LOCAL" />
       <updated>1566605278856</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="SPOT exporting and acceptances conditions reworked.&#10;idMapping of vertexes">
+      <created>1566664087584</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1566664087584</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Little tweaks">
+      <created>1566772563554</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1566772563554</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -897,8 +921,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Testing, packaging and more polish" />
-    <MESSAGE value="Fixed k=2 in grammar," />
     <MESSAGE value="Transition tests experiments" />
     <MESSAGE value="Exporting completely rewritten. WIP" />
     <MESSAGE value="Detaching transition importing from the rest of the workflow" />
@@ -922,7 +944,9 @@
     <MESSAGE value="Package refactoring" />
     <MESSAGE value="Correct label shifting in PRISM exporting: cloned graph created" />
     <MESSAGE value="SPOT and PRISM correct node marking set" />
-    <option name="LAST_COMMIT_MESSAGE" value="SPOT and PRISM correct node marking set" />
+    <MESSAGE value="SPOT exporting and acceptances conditions reworked.&#10;idMapping of vertexes" />
+    <MESSAGE value="Little tweaks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Little tweaks" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1029,29 +1053,9 @@
           <option name="timeStamp" value="517" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="555" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
-          <line>37</line>
+          <line>36</line>
           <option name="timeStamp" value="562" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>252</line>
-          <option name="timeStamp" value="565" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>268</line>
-          <option name="timeStamp" value="566" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
-          <line>391</line>
-          <option name="timeStamp" value="569" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
@@ -1064,11 +1068,6 @@
           <option name="timeStamp" value="578" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/GraphBuildingVisitor.java</url>
-          <line>409</line>
-          <option name="timeStamp" value="582" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java</url>
           <line>116</line>
           <option name="timeStamp" value="583" />
@@ -1078,15 +1077,42 @@
           <line>57</line>
           <option name="timeStamp" value="585" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
+          <line>135</line>
+          <option name="timeStamp" value="593" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
+          <line>198</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="625" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
+          <line>218</line>
+          <option name="timeStamp" value="627" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
+          <line>190</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="628" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
+          <line>164</line>
+          <option name="timeStamp" value="629" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="tv.getVertexID()" language="JAVA" />
-      </configuration>
-      <configuration name="Application">
-        <watch expression="properties" language="JAVA" />
-        <watch expression="markers.isEmpty()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

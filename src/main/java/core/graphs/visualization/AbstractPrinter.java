@@ -20,7 +20,7 @@ abstract class AbstractPrinter {
 
     // This function merges two graphs into a single png image
     // Rule name arg is set to null in case we're merging a transition graph and its labels
-    void mergeGraphs(String modelName, MutableGraph g1, MutableGraph g2, String ruleName, double factor) throws IOException {
+    void mergeGraphs(String modelName, MutableGraph g1, MutableGraph g2, boolean isRule, String fileName, double factor) throws IOException {
         BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
         BufferedImage graphvizGraph2;
         if(factor!=1)
@@ -35,7 +35,7 @@ abstract class AbstractPrinter {
         finalPicture.drawImage(graphvizGraph1,null,0,0);
         finalPicture.drawImage(graphvizGraph2,null,graphvizGraph1.getWidth(),0);
         finalPicture.dispose();
-        if(ruleName != null) {
+        if(isRule) {
             String rulePath = modelName + "/rules";
             File ruleFolder = new File(rulePath);
             if(!ruleFolder.exists()) {
@@ -44,9 +44,9 @@ abstract class AbstractPrinter {
                     logger.log(Level.WARNING, "Can't create rules folder. A hideous bug");
                 }
             }
-            ImageIO.write(mergedImage,"png", new File(rulePath + "/" + ruleName + ".png"));
+            ImageIO.write(mergedImage,"png", new File(rulePath + "/" + fileName + ".png"));
         } else {
-            ImageIO.write(mergedImage, "png", new File(modelName + "/" + "transition.png"));
+            ImageIO.write(mergedImage, "png", new File(modelName + "/" + fileName + ".png"));
             logger.log(Level.INFO,"Transition graph successfully drawn");
         }
     }

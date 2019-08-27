@@ -47,7 +47,7 @@ public class PrintReaction extends AbstractPrinter implements Runnable {
         MutableGraph g2 = buildReactionGraph(reactumGraph,colorHashMap,ruleName + " : Reactum");
 
         try {
-            mergeGraphs(modelName,g1,g2,ruleName,1);
+            mergeGraphs(modelName,g1,g2,true,ruleName,1);
         } catch (IOException e) {
             System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
             logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());

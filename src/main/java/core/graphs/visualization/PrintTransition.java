@@ -25,6 +25,7 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
     private TransitionGraph referenceTransitionGraph;
     private String modelName;
     private static Logger logger = Logger.getLogger("Report");
+    private boolean prismTransition = false;
 
     public PrintTransition(TransitionGraph transitionGraph){
         this.referenceTransitionGraph = transitionGraph;
@@ -35,6 +36,7 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
     public PrintTransition(DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> jgraphGraph,String modelName){
         this.jgraphGraph = jgraphGraph;
         this.modelName = modelName;
+        this.prismTransition = true;
     }
 
     public void run() {
@@ -130,7 +132,10 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                 factor = 0.85;
             if(maxLength > 105)
                 factor = 0.75;
-            mergeGraphs(modelName,transitionOutputGraph,labelsGraph,null,factor);
+            if(prismTransition)
+                mergeGraphs(modelName,transitionOutputGraph,labelsGraph,false,"prism",factor);
+            else
+                mergeGraphs(modelName,transitionOutputGraph,labelsGraph,false,"transition",factor);
         } catch (IOException e) {
             logger.log(Level.SEVERE,"Impossible to draw the transition graph");
         } catch (GraphvizException e) {

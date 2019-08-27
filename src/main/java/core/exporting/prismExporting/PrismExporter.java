@@ -8,7 +8,10 @@ import org.jgrapht.graph.DirectedWeightedPseudograph;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -17,8 +20,6 @@ import java.util.stream.Collectors;
 public class PrismExporter {
 
     private static Logger logger = Logger.getLogger("Report");
-
-    private boolean mdp = false;
 
     // Importing the transition graph
     private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionJgraph;
@@ -30,9 +31,6 @@ public class PrismExporter {
     // These maps are required for correct mapping
     private HashMap<TransitionVertex,String> idMap;
     private HashMap<TransitionVertex,TreeSet<Integer>> vertexMarkersMap;
-
-    // Tracking mdp choices
-    private int choice = 0;
 
     /*
     PRISM exporting requires 3 files.
@@ -63,21 +61,9 @@ public class PrismExporter {
     public boolean translate() {
         isSuccessful = true;
         normalization();
-        checkMDP();
         writeTransitionFile();
         writeLabelFile();
         return isSuccessful;
-    }
-
-    // I check if all edges are unique (= MDP)
-    private void checkMDP() {
-        // I also track the number of possible choices
-        for(TransitionVertex tv : transitionJgraph.vertexSet()) {
-            ArrayList<TransitionEdge> edges = new ArrayList<>(transitionJgraph.outgoingEdgesOf(tv));
-            Set<String> set = edges.stream().map(TransitionEdge::getLabel).collect(Collectors.toSet());
-            if (set.size() < edges.size())
-                mdp = true;
-        }
     }
 
     // No string concatenation has been made for better write performance
@@ -86,107 +72,29 @@ public class PrismExporter {
         logger.log(Level.INFO,"Writing .tra file");
         try {
             BufferedWriter traWriter;
-            if(mdp)
-                traWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + "_mdp.tra",false));
-            else
-                traWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + "_dtmc.tra",false));
-            if(!mdp) {
-                // First line
-                traWriter.write(Integer.toString(transitionJgraph.vertexSet().size()));
-                traWriter.write(" ");
-                traWriter.write(Integer.toString(transitionJgraph.edgeSet().size()));
-                traWriter.write("\n");
-                // DTMC Case
-                for(TransitionVertex tv : transitionJgraph.vertexSet())
-                    for(TransitionEdge e : transitionJgraph.outgoingEdgesOf(tv)) {
-                        // Transitions specification
-                        traWriter.write(idMap.get(tv));
-                        traWriter.write(" ");
-                        traWriter.write(idMap.get(transitionJgraph.getEdgeTarget(e)));
-                        traWriter.write(" ");
-                        traWriter.write(Double.toString(transitionJgraph.getEdgeWeight(e)));
-                        traWriter.write("\n");
-                    }
-            } else {
-                // Number of choices can be omitted in PRISM -mdp specification, so we avoid an extra loop
-
-                // First line
-                traWriter.write(Integer.toString(transitionJgraph.vertexSet().size()));
-                traWriter.write(" 0 ");
-                traWriter.write(Integer.toString(transitionJgraph.edgeSet().size()));
-                traWriter.write("\n");
-
-                // List of MDP Reacta per non-deterministic reaction
-                ArrayList<ArrayList<MDPReactum>> lists;
-                // For each vertex we find the non-deterministic choices
-                for(TransitionVertex tv : transitionJgraph.vertexSet()) {
-                    choice = 0;
-                    ArrayList<String> nonDeterminism = new ArrayList<>();
-                    ArrayList<String> visitedLabels = new ArrayList<>();
-                    lists = new ArrayList<>();
-                    for (TransitionEdge te : transitionJgraph.outgoingEdgesOf(tv))
-                        if (visitedLabels.contains(te.getLabel()))
-                            nonDeterminism.add(te.getLabel());
-                        else
-                            visitedLabels.add(te.getLabel());
-
-                    // We separate reacta produced by non-deterministic reactions and states produced by all other reactions
-                    ArrayList<MDPReactum> dReacta = new ArrayList<>();
-                    ArrayList<MDPReactum> ndReacta = new ArrayList<>();
-
-                    for (String s : nonDeterminism) {
-                        for (TransitionEdge te : transitionJgraph.outgoingEdgesOf(tv))
-                            if (s.equals(te.getLabel()))
-                                ndReacta.add(new MDPReactum(idMap.get(transitionJgraph.getEdgeTarget(te)), transitionJgraph.getEdgeWeight(te)));
-                        if(!ndReacta.isEmpty())
-                            lists.add(ndReacta);
-                        ndReacta = new ArrayList<>();
-                    }
-                    for (TransitionEdge te : transitionJgraph.outgoingEdgesOf(tv))
-                        if (!nonDeterminism.contains(te.getLabel()))
-                            dReacta.add(new MDPReactum(idMap.get(transitionJgraph.getEdgeTarget(te)), transitionJgraph.getEdgeWeight(te)));
-                    // We generate permutations of arrival states with a recursive function (basically, a permutation)
-                    if(!lists.isEmpty()) {
-                        buildPermutations(traWriter, idMap.get(tv), lists, dReacta, 0, new ArrayList<>());
-                    }
-                    else
-                        for(MDPReactum mdpr : dReacta)
-                            writeDeterministicReacta(traWriter,idMap.get(tv),mdpr);
+            traWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + "_dtmc.tra",false));
+            // First line
+            traWriter.write(Integer.toString(transitionJgraph.vertexSet().size()));
+            traWriter.write(" ");
+            traWriter.write(Integer.toString(transitionJgraph.edgeSet().size()));
+            traWriter.write("\n");
+            // DTMC Case
+            for(TransitionVertex tv : transitionJgraph.vertexSet())
+                for(TransitionEdge e : transitionJgraph.outgoingEdgesOf(tv)) {
+                    // Transitions specification
+                    traWriter.write(idMap.get(tv));
+                    traWriter.write(" ");
+                    traWriter.write(idMap.get(transitionJgraph.getEdgeTarget(e)));
+                    traWriter.write(" ");
+                    traWriter.write(Double.toString(transitionJgraph.getEdgeWeight(e)));
+                    traWriter.write("\n");
                 }
-            }
             traWriter.close();
         } catch (IOException e) {
             System.out.println("Can't output the transition (.tra) file!");
             logger.log(Level.SEVERE, "Can't write .tra file, problem with BufferedWriter?\nStack trace: " + e.getMessage());
             isSuccessful = false;
         }
-    }
-
-    private void buildPermutations(BufferedWriter traWriter, String currentID, ArrayList<ArrayList<MDPReactum>> lists, ArrayList<MDPReactum> dReacta, int depth, ArrayList<MDPReactum> ndReacta) throws IOException {
-        if (depth == lists.size()) {
-            for(MDPReactum mdpr : ndReacta) {
-                //TODO DISTINGUERE (mdp) o (dtmc)
-                writeDeterministicReacta(traWriter,currentID,mdpr);
-            }
-            for(MDPReactum mdpr: dReacta)
-                writeDeterministicReacta(traWriter,currentID,mdpr);
-            choice++;
-            return;
-        }
-        for (int i = 0; i < lists.get(depth).size(); i++) {
-            ArrayList<MDPReactum> ndReactaReset = new ArrayList<>(ndReacta);
-            ndReactaReset.add(lists.get(depth).get(i));
-            buildPermutations(traWriter,currentID,lists, dReacta, depth + 1, ndReactaReset);
-        }
-    }
-
-    private void writeDeterministicReacta(BufferedWriter traWriter, String id, MDPReactum mdpr) throws IOException {
-        traWriter.write(id);
-        traWriter.write(" ");
-        traWriter.write(Integer.toString(choice));
-        traWriter.write(" ");
-        traWriter.write(mdpr.reactionToString());
-        traWriter.write("\n");
     }
 
     private void writeLabelFile() {
@@ -248,34 +156,78 @@ public class PrismExporter {
 
     // Normalizing edges probabilities
     private void normalizeEdges(){
-        // Edge Weights
-        System.out.println("Normalizing edge weights");
-        ArrayList<String> reactionsAlreadyChecked;
 
+        System.out.println("Normalizing edge weights");
+
+
+        // First, I read probabilities, then normalize based on the overall weights, then normalize based on the single rule
         for(TransitionVertex tv : transitionJgraph.vertexSet()) {
-            reactionsAlreadyChecked = new ArrayList<>();
+
+            // Creating the loop edge in case it was needed
+            TransitionEdge loop = new TransitionEdge("s-loop");
+            ArrayList<TransitionEdge> loopers = new ArrayList<>();
+            if (transitionJgraph.containsEdge(tv, tv))
+                loopers = new ArrayList<>(transitionJgraph.getAllEdges(tv, tv));
+
+            // Counting the occurences of edges and their weights
+            HashMap<String, Integer> rulesOccurrences = new HashMap<>();
+            HashMap<String, Double> rulesWeights = new HashMap<>();
+            rulesWeights.put("s-loop", 0.0);
+            rulesOccurrences.put("s-loop", 1);
+
             float weightSum = 0;
             for (TransitionEdge te : transitionJgraph.outgoingEdgesOf(tv)) {
-                if (!reactionsAlreadyChecked.contains(te.getLabel())) {
-                    reactionsAlreadyChecked.add(te.getLabel());
-                    weightSum += transitionJgraph.getEdgeWeight(te);
+                if (!rulesOccurrences.containsKey(te.getLabel())) {
+                    rulesOccurrences.put(te.getLabel(), 1);
+                    rulesWeights.put(te.getLabel(), transitionJgraph.getEdgeWeight(te));
+                } else
+                    rulesOccurrences.put(te.getLabel(), rulesOccurrences.get(te.getLabel()) + 1);
+                weightSum += transitionJgraph.getEdgeWeight(te);
+            }
+
+            if (weightSum < 1) {
+                double residualWeight = (1 - weightSum);
+                residualWeight = (double) Math.round(residualWeight * 1e3) / 1e3;
+                rulesWeights.put("s-loop", residualWeight);
+            } else if (weightSum > 1) {
+                double maxUniqueReactionsProbability = rulesWeights.values().stream().mapToDouble(i -> i).sum();
+                for (Map.Entry<String, Double> e : rulesWeights.entrySet()) {
+                    double value = (double) Math.round((e.getValue() / maxUniqueReactionsProbability) * 1e3) / 1e3;
+                    e.setValue(value);
                 }
             }
-            if(weightSum < 1) {
-                double weight = (1 - weightSum);
-                weight = (double) Math.round(weight * 1e3) / 1e3;
-                TransitionEdge te = new TransitionEdge("loop");
-                transitionJgraph.addEdge(tv, tv, te);
-                transitionJgraph.setEdgeWeight(te,weight);
+
+            // Normalizing rules that happen multiple times
+            rulesWeights.replaceAll((l, v) -> (double) Math.round((rulesWeights.get(l) / rulesOccurrences.get(l))*1e3) / 1e3);
+            double finalWeight = 0;
+            for (TransitionEdge te : transitionJgraph.outgoingEdgesOf(tv)) {
+                transitionJgraph.setEdgeWeight(te, rulesWeights.get(te.getLabel()));
+                finalWeight += rulesWeights.get(te.getLabel());
             }
-            else if(weightSum > 1) {
-                for (TransitionEdge te : transitionJgraph.outgoingEdgesOf(tv)) {
-                    double weight = transitionJgraph.getEdgeWeight(te)/weightSum;
-                    weight = Math.round(weight*1e2)/1e2;
-                    transitionJgraph.setEdgeWeight(te,weight);
+
+            // Eliminating multiple self-loops
+            if (!loopers.isEmpty()) {
+                for (TransitionEdge te : loopers) {
+                    rulesWeights.put("s-loop", (double) Math.round ((rulesWeights.get("s-loop") + rulesWeights.get(te.getLabel()))*1e3)/1e3);
+                    transitionJgraph.removeEdge(te);
                 }
+            }
+            if(rulesWeights.get("s-loop") != 0.0) {
+                transitionJgraph.addEdge(tv, tv, loop);
+                transitionJgraph.setEdgeWeight(loop, rulesWeights.get("s-loop"));
+            }
+
+            // The error is put inside the loop
+            if(finalWeight + rulesWeights.get("s-loop") != 1 ) {
+                double residualWeight = (1 - finalWeight);
+                residualWeight = (double) Math.round(residualWeight * 1e3) / 1e3;
+                if(!transitionJgraph.containsEdge(loop))
+                    transitionJgraph.addEdge(tv,tv,loop);
+                transitionJgraph.setEdgeWeight(loop,transitionJgraph.getEdgeWeight(loop)+residualWeight);
             }
         }
+        // To quickly verify if verything's ok
+        //new PrintTransition(transitionJgraph,modelName).run();
     }
 
 }

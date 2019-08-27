@@ -178,7 +178,6 @@ public class Main {
             System.out.println("No exporting format has been specified");
         else
             System.out.println("[EXPORTING FAILURE] Impossible to export to external formats");
-        graphsCollection.printTransition();
     }
 
     private static void exportingNoAnalysis(boolean dotImportingSuccessful,ExecutionSettings executionSettings) {

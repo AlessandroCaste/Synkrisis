@@ -1,9 +1,9 @@
 # Two boxes are moved around three rooms
 
 controls:
-    passive A    1
-    passive B    1
-    passive C    1
+    passive A    0
+    passive B    0
+    passive C    0
     active box 0
 
 rule mv_A = box (0.8) ->  A.box
