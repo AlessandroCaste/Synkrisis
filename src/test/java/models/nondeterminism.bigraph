@@ -11,4 +11,4 @@ names:
 rule r1 = box[@a].($0) -> $0
 rule r2 = box[unassigned].$0   -> box[id].$0
 
-model unboxing = box[unassigned].box[id]
+model unboxing = box[unassigned].box[id] | box[unassigned]

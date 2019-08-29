@@ -8,18 +8,16 @@
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="New PRISM logic nd">
       <change afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/models/hospital.dot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/Building.bigraph" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism2.bigraph" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models/remscheld.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/CLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/clishell/InteractiveShell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/syntax/SyntaxVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -85,7 +83,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/models" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -103,26 +101,26 @@
     <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/models" />
+      <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph" />
+      <recent name="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models" />
+      <recent name="$PROJECT_DIR$/src/main/java/translator/remscheld/tokens/tokens" />
+      <recent name="$PROJECT_DIR$/src/main/java/translator" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/test/java/models" />
-      <recent name="$PROJECT_DIR$/lib" />
-      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
-      <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr" />
-      <recent name="$PROJECT_DIR$/src/main/java/antlr/g4models" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="core.syntax" />
       <recent name="core.syntaxAnalysis" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/antlr/bigraph" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/test/java/models" />
-      <recent name="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models" />
-      <recent name="$PROJECT_DIR$/src/main/java/translator/remscheld/tokens/tokens" />
-      <recent name="$PROJECT_DIR$/src/main/java/translator" />
+      <recent name="C:\Users\Utente\Documents\GitHub\Synkrisis\lib" />
+      <recent name="$PROJECT_DIR$/src/test/java/remscheld/antlr" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -143,11 +141,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.ExportingTest">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l sample -G -o prism" />
+      <option name="PROGRAM_PARAMETERS" value="-l Building.bigraph -G " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -300,9 +298,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ExportingTest" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
         <item itemvalue="JUnit.GraphBuildingTest" />
-        <item itemvalue="JUnit.ExportingTest" />
         <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.GraphBuildingTest.checkNamesAndWeights" />
       </list>
@@ -532,14 +530,14 @@
       <workItem from="1566844769974" duration="6870000" />
       <workItem from="1566853522162" duration="2157000" />
       <workItem from="1566892840882" duration="1730000" />
-      <workItem from="1566905539904" duration="10046000" />
-    </task>
-    <task id="LOCAL-00013" summary="Towards label file">
-      <created>1562515476606</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1562515476606</updated>
+      <workItem from="1566905539904" duration="10685000" />
+      <workItem from="1566920571808" duration="1000" />
+      <workItem from="1566985134043" duration="81000" />
+      <workItem from="1566985298614" duration="328000" />
+      <workItem from="1566989655516" duration="3997000" />
+      <workItem from="1566995600365" duration="1407000" />
+      <workItem from="1567016870754" duration="66000" />
+      <workItem from="1567072140152" duration="15000" />
     </task>
     <task id="LOCAL-00014" summary="Visitor update for .prop printing">
       <created>1562619059341</created>
@@ -877,7 +875,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566913806876</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Small tweaks">
+      <created>1566916853614</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1566916853614</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -912,7 +917,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Exporting completely rewritten. WIP" />
     <MESSAGE value="Detaching transition importing from the rest of the workflow" />
     <MESSAGE value="Spot reintegrated" />
     <MESSAGE value="Transition printing from .dot" />
@@ -937,7 +941,8 @@
     <MESSAGE value="SPOT exporting and acceptances conditions reworked.&#10;idMapping of vertexes" />
     <MESSAGE value="Little tweaks" />
     <MESSAGE value="New PRISM logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="New PRISM logic" />
+    <MESSAGE value="Small tweaks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small tweaks" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

@@ -1,0 +1,41 @@
+controls:
+    active Road  1
+    active Crossroad  1
+    active Cr2Rs  0
+    active Conn  1
+    active Bg2Bg  0
+    active Bg2Rs  0
+    active Rs2Cr  0
+    active Rs2Bg  0
+    active Building  1
+    active RoadSegment  1
+    active Block 1
+    active UAV 1
+
+names:
+    outer uavone
+    outer uavtwo
+
+
+# from building to building
+rule btb1 = Block[@w].(Building[@a].(UAV[@uav].($11) | Bg2Bg.(Conn[@b]|$1) |$5) | Building[@b].(Bg2Bg.(Conn[@a]|$4) |$3 ) | $2 ) |$9 ->
+Block[@w].(Building[@a].(Bg2Bg.(Conn[@b]|$1) |$5) | Building[@b].(UAV[@uav].($11) | Bg2Bg.(Conn[@a]|$4)    |$3 ) | $2 ) |$9
+
+# from building to roadsegment
+rule btr1 = Block[@w].( Building[@a].(UAV[@uav].($11) | Bg2Rs.(Conn[@b]|$1) ) | $2) | Road[@r].(RoadSegment[@b].(Rs2Bg.(Conn[@a]|$4)|$3 ) |$5) |$9 ->
+Block[@w].( Building[@a].(Bg2Rs.(Conn[@b]|$1)  ) | $2) | Road[@r].(RoadSegment[@b].(UAV[@uav].($11) | Rs2Bg.(Conn[@a]|$4)|$3 ) |$5) |$9
+
+# from roadsegment to building
+rule rtb1 = Road[@r].(RoadSegment[@b].(UAV[@uav].($11) | Rs2Bg.(Conn[@a]|$4) |$3) |$5) | Block[@w].( Building[@a].(Bg2Rs.(Conn[@b]|$1) |$6) | $2) |$9 ->
+Road[@r].(RoadSegment[@b].(Rs2Bg.(Conn[@a]|$4)|$3) |$5) | Block[@w].( Building[@a].(UAV[@uav].($11) | Bg2Rs.(Conn[@b]|$1) |$6) | $2) |$9
+
+# from road segment to crossroad
+rule rtc1 = Road[@w].( RoadSegment[@a].(UAV[@uav].($11) | Rs2Cr.(Conn[@b]|$1) |$5) | Crossroad[@b].(Cr2Rs.(Conn[@a]|$4)|$3 ) | $2 ) |$9 ->
+Road[@w].( RoadSegment[@a].(Rs2Cr.(Conn[@b]|$1)|$5) | Crossroad[@b].(UAV[@uav].($11) | Cr2Rs.(Conn[@a]|$4) |$3 ) | $2 ) |$9
+
+# from crossroad to road segment
+rule ctr1 = Road[@w].( RoadSegment[@a].(Rs2Cr.(Conn[@b] |$1)|$5) | Crossroad[@b].(UAV[@uav].($11) | Cr2Rs.(Conn[@a]|$4) |$3 ) | $2 ) |$9 ->
+Road[@w].( RoadSegment[@a].(UAV[@uav].($11) | Rs2Cr.(Conn[@b] |$1) |$5) | Crossroad[@b].(Cr2Rs.(Conn[@a]|$4)|$3 ) | $2 ) |$9
+
+
+model city = Road[id1].(Crossroad[id16].(Cr2Rs.(Conn[id20] | Conn[id21])) | Crossroad[id17].(Cr2Rs.(Conn[id24] | Conn[id22] | Conn[id25])) | Crossroad[id14].(Cr2Rs.(Conn[id21] | Conn[id22])) | Crossroad[id15].(Cr2Rs.(Conn[id23] | Conn[id20] | Conn[id24])) | Crossroad[id18].(Cr2Rs.(Conn[id23] | Conn[id26])) | Crossroad[id19].(Cr2Rs.(Conn[id26] | Conn[id25])) | RoadSegment[id20].(Rs2Cr.(Conn[id15] | Conn[id16]) | Rs2Bg.(Conn[id4] | Conn[id7] | Conn[id10])) | RoadSegment[id21].(Rs2Cr.(Conn[id16] | Conn[id14]) | Rs2Bg.(Conn[id4] | Conn[id6] | Conn[id5])) | RoadSegment[id22].(Rs2Bg.(Conn[id12] | Conn[id6] | Conn[id9]) | Rs2Cr.(Conn[id14] | Conn[id17])) | RoadSegment[id23].(Rs2Cr.(Conn[id18] | Conn[id15]) | Rs2Bg.(Conn[id13])) | RoadSegment[id24].(Rs2Cr.(Conn[id17] | Conn[id15]) | Rs2Bg.(Conn[id13] | Conn[id12] | Conn[id11] | Conn[id10])) | RoadSegment[id25].(Rs2Bg.(Conn[id13]) | Rs2Cr.(Conn[id17] | Conn[id19])) | RoadSegment[id26].(Rs2Cr.(Conn[id19] | Conn[id18]) | Rs2Bg.(Conn[id13]))) | Block[id3].(Building[id13].(UAV[uavtwo] | Bg2Bg | Bg2Rs.(Conn[id26] | Conn[id24] | Conn[id25] | Conn[id23]))) | Block[id2].(Building[id9].(UAV[uavone] |  Bg2Rs.(Conn[id22]) | Bg2Bg.(Conn[id6] | Conn[id8] | Conn[id12])) | Building[id8].(Bg2Bg.(Conn[id5] | Conn[id7] | Conn[id11] | Conn[id9]) | Bg2Rs) | Building[id7].(Bg2Rs.(Conn[id20]) | Bg2Bg.(Conn[id4] | Conn[id8] | Conn[id10])) | Building[id6].(Bg2Rs.(Conn[id21] | Conn[id22]) | Bg2Bg.(Conn[id9] | Conn[id5])) | Building[id5].(Bg2Bg.(Conn[id4] | Conn[id8] | Conn[id6]) | Bg2Rs.(Conn[id21])) | Building[id4].(Bg2Rs.(Conn[id21] | Conn[id20]) | Bg2Bg.(Conn[id5] | Conn[id7])) | Building[id12].(Bg2Rs.(Conn[id22] | Conn[id24]) | Bg2Bg.(Conn[id9] | Conn[id11])) | Building[id11].(Bg2Bg.(Conn[id8] | Conn[id10] | Conn[id12]) | Bg2Rs.(Conn[id24])) | Building[id10].(Bg2Bg.(Conn[id11] | Conn[id7]) | Bg2Rs.(Conn[id24] | Conn[id20])))

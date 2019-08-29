@@ -1,0 +1,11 @@
+controls:
+  active A 0
+
+
+rule r = A.$0 -> $0
+
+# With this model we should have 4 different possibilities of r, each with p = 0.25
+# Only 3 are print though, so probabilities wouldn't match
+# Isn't it more correct to assign to the state the same probability and then randomly choose across its possible configurations?
+model m = A | A.A | A
+
