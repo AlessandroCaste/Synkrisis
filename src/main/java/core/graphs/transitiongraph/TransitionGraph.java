@@ -36,8 +36,8 @@ public class TransitionGraph {
     }
 
     public boolean vertexContainsMarker(TransitionVertex tv, String s) {
-        if(tv.getProperties()!=null)
-            return tv.getProperties().contains(markersMap.get(s));
+        if(tv.getMarkers()!=null)
+            return tv.getMarkers().contains(markersMap.get(s));
         else
             return false;
     }
@@ -59,7 +59,7 @@ public class TransitionGraph {
     public String markerInVertex(TransitionVertex tv){
         StringBuilder sb = new StringBuilder();
         for(String marker : markersMap.keySet()){
-            if(tv.getProperties().contains(markersMap.get(marker)))
+            if(tv.getMarkers().contains(markersMap.get(marker)))
                 sb.append(marker).append(" ");
         }
         return sb.toString();

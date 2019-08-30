@@ -109,7 +109,7 @@ public class PrismExporter {
             labWriter.write("\n0: 0\n");
             for(TransitionVertex tv : transitionJgraph.vertexSet()) {
 
-                if (!tv.getProperties().isEmpty()) {
+                if (!tv.getMarkers().isEmpty()) {
                     labWriter.write(idMap.get(tv));
                     labWriter.write(": ");
                     labWriter.write(vertexMarkersMap.get(tv).toString()
@@ -146,7 +146,7 @@ public class PrismExporter {
 
         for(TransitionVertex tv : this.transitionJgraph.vertexSet()){
             // Properties are copied and adjusted (increased) in a custom TreeSet
-            ArrayList<Integer> conversionList = new ArrayList<>(tv.getProperties());
+            ArrayList<Integer> conversionList = new ArrayList<>(tv.getMarkers());
             for (int i = 0; i < conversionList.size(); i += 1)
                 conversionList.set(i, conversionList.get(i) + 2);
             TreeSet<Integer> copiedProperties = new TreeSet<>(conversionList);
@@ -218,7 +218,7 @@ public class PrismExporter {
             }
 
             // The error is put inside the loop
-            if(finalWeight + rulesWeights.get("s-loop") != 1 ) {
+            if(finalWeight + rulesWeights.get("s-loop") < 1) {
                 double residualWeight = (1 - finalWeight);
                 residualWeight = (double) Math.round(residualWeight * 1e3) / 1e3;
                 if(!transitionJgraph.containsEdge(loop))
@@ -226,8 +226,8 @@ public class PrismExporter {
                 transitionJgraph.setEdgeWeight(loop,transitionJgraph.getEdgeWeight(loop)+residualWeight);
             }
         }
-        // To quickly verify if verything's ok
-        //new PrintTransition(transitionJgraph,modelName).run();
+        // Old way to quickly verify if verything's ok, may crash the program
+        // new Thread(new PrintTransition(transitionJgraph,modelName)).start();
     }
 
 }

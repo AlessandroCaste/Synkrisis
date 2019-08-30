@@ -95,7 +95,7 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
 
                     // Longest labels
                     int maxLength = 0;
-                    boolean properties = false;
+                    boolean hasMarkers = false;
 
                     // Displaying id->labels association
                     StringBuilder labels = new StringBuilder();
@@ -103,11 +103,11 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                         labels.append("#").append(idMap.get(tv.getVertexID())).append(": ").append(tv.getLabel()).append("\n");
                         if(tv.getLabel().length()>maxLength)
                             maxLength = tv.getLabel().length();
-                        if(!tv.getProperties().isEmpty())
-                            properties = true;
+                        if(!tv.getMarkers().isEmpty())
+                            hasMarkers = true;
                     }
                     mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin", adjustMargins((maxLength)));
-                    if(properties && referenceTransitionGraph!=null) {
+                    if(hasMarkers && referenceTransitionGraph!=null) {
                         labels.append("\n\nList of markers by state:\n");
                         for (TransitionVertex tv : jgraphGraph.vertexSet()) {
                             String markers = referenceTransitionGraph.markerInVertex(tv);

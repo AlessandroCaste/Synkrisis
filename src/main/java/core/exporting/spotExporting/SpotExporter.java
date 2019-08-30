@@ -172,7 +172,7 @@ public class SpotExporter {
         boolean firstElement = true;
 
         for(SpotAcceptanceState sap : acceptanceStates)
-            if(sap.verify(tv.getProperties())) {
+            if(sap.verify(tv.getMarkers())) {
                 tv.addAcceptanceState(sap.getAcceptanceStateID());
                 if(firstElement) {
                     builder.append("{");

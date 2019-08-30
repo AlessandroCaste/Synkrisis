@@ -26,7 +26,7 @@ public class TransitionVertex {
         return label;
     }
 
-    public TreeSet<Integer> getProperties() {
+    public TreeSet<Integer> getMarkers() {
         return properties;
     }
 

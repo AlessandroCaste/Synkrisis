@@ -8,17 +8,18 @@
   <component name="ChangeListManager">
     <list default="true" id="d5f11dac-15ee-4a8c-8d89-6c4eee0fd8d6" name="Default Changelist" comment="New PRISM logic nd">
       <change afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/RemscheldTranslator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/models/Building.bigraph" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism2.bigraph" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/g4models/remscheld.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/g4models/remscheld.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/remscheld/remscheldVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/translator/remscheld/remscheldVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/modelcheckers/Bigmc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/nondeterminism.bigraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionVertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionVertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/models/Building.bigraph" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/Building.bigraph" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -141,11 +142,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ExportingTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l Building.bigraph -G " />
+      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/Virtualizations.bigraph -G " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -157,7 +158,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExportingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExportingTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Synkrisis" />
       <extension name="coverage">
         <pattern>
@@ -298,7 +299,6 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ExportingTest" />
         <item itemvalue="JUnit.SyntaxVisitorTest.checkAcceptance" />
         <item itemvalue="JUnit.GraphBuildingTest" />
         <item itemvalue="JUnit.TransitionImportingTest" />
@@ -538,13 +538,11 @@
       <workItem from="1566995600365" duration="1407000" />
       <workItem from="1567016870754" duration="66000" />
       <workItem from="1567072140152" duration="15000" />
-    </task>
-    <task id="LOCAL-00014" summary="Visitor update for .prop printing">
-      <created>1562619059341</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1562619059341</updated>
+      <workItem from="1567072853618" duration="50000" />
+      <workItem from="1567081639499" duration="4023000" />
+      <workItem from="1567089161953" duration="511000" />
+      <workItem from="1567107104600" duration="14148000" />
+      <workItem from="1567153129522" duration="259000" />
     </task>
     <task id="LOCAL-00015" summary="Some jupyter testing">
       <created>1562630135460</created>
@@ -882,7 +880,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566916853614</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="New PRISM logic nd">
+      <created>1567072890543</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1567072890543</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -917,7 +922,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Detaching transition importing from the rest of the workflow" />
     <MESSAGE value="Spot reintegrated" />
     <MESSAGE value="Transition printing from .dot" />
     <MESSAGE value="Interactive Shell updated with logger and new transition loading" />
@@ -942,7 +946,8 @@
     <MESSAGE value="Little tweaks" />
     <MESSAGE value="New PRISM logic" />
     <MESSAGE value="Small tweaks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small tweaks" />
+    <MESSAGE value="New PRISM logic nd" />
+    <option name="LAST_COMMIT_MESSAGE" value="New PRISM logic nd" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1007,11 +1012,6 @@
           <url>file://$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java</url>
           <line>27</line>
           <option name="timeStamp" value="474" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java</url>
-          <line>132</line>
-          <option name="timeStamp" value="480" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/graphs/TransitionDotImporter.java</url>
@@ -1080,7 +1080,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>200</line>
+          <line>201</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -1088,12 +1088,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>220</line>
+          <line>221</line>
           <option name="timeStamp" value="627" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>192</line>
+          <line>193</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -1101,14 +1101,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>166</line>
+          <line>167</line>
           <option name="timeStamp" value="629" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java</url>
+          <line>129</line>
+          <option name="timeStamp" value="635" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="tv.getVertexID()" language="JAVA" />
+      </configuration>
+      <configuration name="Application">
+        <watch expression="tv.getMarkers()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
