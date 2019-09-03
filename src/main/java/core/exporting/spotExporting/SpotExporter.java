@@ -20,7 +20,7 @@ public class SpotExporter {
     private static Logger logger = Logger.getLogger("Report");
 
 
-    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionGraph;
+    private DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> transitionJgraph;
     private String modelName;
     private ArrayList<String> reactionNames;
     private HashMap<String,Integer> reactionMap;
@@ -36,7 +36,7 @@ public class SpotExporter {
 
 
     public SpotExporter(TransitionGraph transitionGraph, SpotInfo spotInfo) {
-        this.transitionGraph = transitionGraph.getTransitionJgraph();
+        this.transitionJgraph = transitionGraph.cloneJgraph();
         this.modelName = transitionGraph.getModelName();
         this.reactionNames = transitionGraph.getReactionNames();
         this.acc_name = spotInfo.getAcc_name();
@@ -59,10 +59,10 @@ public class SpotExporter {
     // Check if it's not a w-automaton, in that case add self-loops
     private void normalization(int counter) {
         boolean result = true;
-        for(TransitionVertex v : this.transitionGraph.vertexSet())
-            if(!Graphs.vertexHasSuccessors(this.transitionGraph,v)) {
+        for(TransitionVertex v : this.transitionJgraph.vertexSet())
+            if(!Graphs.vertexHasSuccessors(this.transitionJgraph,v)) {
                 result = false;
-                this.transitionGraph.addEdge(v,v,new TransitionEdge("spot self-loop"));
+                this.transitionJgraph.addEdge(v,v,new TransitionEdge("spot self-loop"));
             }
         if(!result) {
             this.reactionNames.add("spot self-loop");
@@ -90,7 +90,7 @@ public class SpotExporter {
 
             // States and start
             hoaWriter.write("States: ");
-            hoaWriter.write(Integer.toString(transitionGraph.vertexSet().size()));
+            hoaWriter.write(Integer.toString(transitionJgraph.vertexSet().size()));
             hoaWriter.write("\n");
             hoaWriter.write("Start: 0\n");
 
@@ -115,18 +115,18 @@ public class SpotExporter {
             // Printing states and edges
             System.out.println("Printing SPOT states and edges");
             hoaWriter.write("--BODY--\n");
-            for(TransitionVertex tv : transitionGraph.vertexSet()) {
+            for(TransitionVertex tv : transitionJgraph.vertexSet()) {
                 hoaWriter.write("State: ");
                 hoaWriter.write(idMap.get(tv));
                 hoaWriter.write(" ");
                 hoaWriter.write(acceptanceString(tv));
                 hoaWriter.write("\n");
-                for(TransitionEdge te : transitionGraph.outgoingEdgesOf(tv)) {
+                for(TransitionEdge te : transitionJgraph.outgoingEdgesOf(tv)) {
                     hoaWriter.write("[");
                     hoaWriter.write(Integer.toString(reactionMap.get(te.getLabel())));
                     hoaWriter.write("]");
                     hoaWriter.write(" ");
-                    hoaWriter.write(idMap.get(transitionGraph.getEdgeTarget(te)));
+                    hoaWriter.write(idMap.get(transitionJgraph.getEdgeTarget(te)));
                     hoaWriter.write("\n");
                 }
             }

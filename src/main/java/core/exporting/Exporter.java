@@ -3,7 +3,6 @@ package core.exporting;
 import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
 import core.exporting.spotExporting.SpotInfo;
-import core.graphs.storing.GraphsCollection;
 import core.graphs.transitiongraph.TransitionGraph;
 import org.apache.commons.io.FileUtils;
 
@@ -16,8 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Exporter {
-
-    private GraphsCollection graphsCollection = GraphsCollection.getInstance();
 
     private TransitionGraph transitionGraph;
     private Properties properties;
@@ -116,7 +113,7 @@ public class Exporter {
         if(spotInfo==null)
             System.out.println("SPOT properties can't be read");
         else {
-            SpotExporter spotExporter = new SpotExporter(transitionGraph,spotInfo);
+            spotExporter = new SpotExporter(transitionGraph,spotInfo);
             result = spotExporter.translate();
         }
         if(result)

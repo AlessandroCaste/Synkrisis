@@ -76,4 +76,17 @@ public class TransitionGraph {
     public int size() {
         return transitionJgraph.vertexSet().size();
     }
+
+    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> cloneJgraph() {
+        DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> duplicatedGraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
+        for(TransitionVertex tv : transitionJgraph.vertexSet())
+            duplicatedGraph.addVertex(tv);
+        for(TransitionEdge te : transitionJgraph.edgeSet()){
+            TransitionEdge newEdge = new TransitionEdge(te.getLabel());
+            duplicatedGraph.addEdge(transitionJgraph.getEdgeSource(te), transitionJgraph.getEdgeTarget(te),newEdge);
+            duplicatedGraph.setEdgeWeight(newEdge,transitionJgraph.getEdgeWeight(te));
+        }
+        return duplicatedGraph;
+    }
+
 }

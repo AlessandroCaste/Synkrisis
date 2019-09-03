@@ -41,16 +41,7 @@ public class PrismExporter {
      */
     public PrismExporter(TransitionGraph transitionGraph, String path) {
         System.out.println("PRISM exporting started");
-        this.transitionJgraph = new DirectedWeightedPseudograph<>(TransitionEdge.class);
-        for(TransitionVertex tv : transitionGraph.getTransitionJgraph().vertexSet())
-            transitionJgraph.addVertex(tv);
-        for(TransitionEdge te : transitionGraph.getTransitionJgraph().edgeSet()){
-            TransitionEdge newEdge = new TransitionEdge(te.getLabel());
-            transitionJgraph.addEdge(transitionGraph.getTransitionJgraph().getEdgeSource(te),
-                                     transitionGraph.getTransitionJgraph().getEdgeTarget(te),
-                                     newEdge);
-            transitionJgraph.setEdgeWeight(newEdge,transitionGraph.getTransitionJgraph().getEdgeWeight(te));
-        }
+        this.transitionJgraph = transitionGraph.cloneJgraph();
         this.modelName = transitionGraph.getModelName();
         this.markersMap = new HashMap<>(transitionGraph.getMarkersMap());
         this.path = path;
