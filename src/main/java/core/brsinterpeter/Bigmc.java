@@ -1,4 +1,4 @@
-package core.modelcheckers;
+package core.brsinterpeter;
 
 import core.clishell.ExecutionSettings;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Bigmc implements ModelChecker{
+public class Bigmc implements BRSInterpreterInterface {
 
     private static Logger logger = Logger.getLogger("Report");
 

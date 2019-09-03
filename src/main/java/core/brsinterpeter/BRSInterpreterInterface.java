@@ -1,6 +1,6 @@
-package core.modelcheckers;
+package core.brsinterpeter;
 
-public interface ModelChecker {
+public interface BRSInterpreterInterface {
 
     // Note that a model Checker can have whatever arguments for input
     boolean needsTranslation();
