@@ -3,7 +3,7 @@ package core.setup;
 
 import antlr.bigraph.bigraphParser;
 import antlr.g4models.bigraphLexer;
-import core.graphs.GraphBuildingVisitor;
+import core.graphs.parsing.GraphBuildingVisitor;
 import core.syntax.ErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

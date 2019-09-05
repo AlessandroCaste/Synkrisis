@@ -1,6 +1,6 @@
 package core.graphs.visualization;
 
-import core.graphs.modelgraph.Vertex;
+import core.graphs.specificationgraph.Vertex;
 import core.graphs.storing.RedexReactumPair;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;

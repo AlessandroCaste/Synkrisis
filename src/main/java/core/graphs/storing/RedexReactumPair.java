@@ -1,6 +1,6 @@
 package core.graphs.storing;
 
-import core.graphs.modelgraph.Vertex;
+import core.graphs.specificationgraph.Vertex;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedMultigraph;
 

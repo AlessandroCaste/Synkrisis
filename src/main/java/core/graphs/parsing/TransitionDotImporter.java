@@ -1,4 +1,4 @@
-package core.graphs;
+package core.graphs.parsing;
 
 import core.graphs.storing.GraphsCollection;
 import core.graphs.transitiongraph.TransitionEdge;

@@ -1,28 +1,31 @@
-# We distinguish landside and airside
-
 controls:
-	active Landside  0
-	active Airside 	 0
-	active Gates 	 0
+
+# We distinguish Landside and Airside
+
+	active Landside   0
+	active Airside 	  0
+	active Gates 	  0
 
 # We distinguish zone types
 # The two links are [entry, exit]
 
-	active Zone 	 2
+	active Zone 	  2
 
 # A gate is simply linked to a flight
-	active Gate      1
+	active Gate       1
 
 # A passenger is linked to a flight
-	passive Pax 	 1
+	passive Passenger 1
 
 # The database store
-	active DB  	     0
-	active PaxRecord 2 # Links [passenger,gate]
+	active DB         0
+	active Record     2 # The DB Entry: links are [passenger,gate]
+
+
+names:
 
 # Names that represent zones
 
-names:
 	outer CheckIn
 	outer Security
 	outer DutyFree
@@ -31,48 +34,48 @@ names:
 # A gate status at the departure lounge
 	outer Boarding
 
-# Some flights
+# Some flights ID
 	outer SK100
 	outer SK101
 	outer SK102
 
 # A passenger ID
-	outer Gian
+	outer User
 
 # Rules that allow passengers to move through the airport
-rule airportMove = 	Zone[@w,@x].Pax[@y] || Zone[@x,@z] -> Zone[@w,@x] || Zone[@x,@z].Pax[@y];
+rule airportMove = 	Zone[@w,@x].Passenger[@y] || Zone[@x,@z] -> Zone[@w,@x] || Zone[@x,@z].Passenger[@y]
 
 
-# A passenger linked to a PaxRecord can proceed to the gate
-rule linkedPassenger =  Zone[@m,Boarding].Pax[@y] || Gate[@x] || PaxRecord[@y,@x] ->
-						Zone[@m,Boarding] || Gate[@x].Pax[@y] || PaxRecord[@y,@x]
-
-#Zone[m,Boarding].Pax[y] || PaxRecord[y,x] -> Zone[m,Boarding] || PaxRecord[y,x]
+# A passenger linked to a PassRecord can proceed to the gate
+rule linkedPassenger =  Zone[@m,Boarding].Passenger[@y] || Gate[@x] || Record[@y,@x] ->
+						Zone[@m,Boarding] || Gate[@x].Passenger[@y] || Record[@y,@x]
 
 # A passenger magically disappears once they board the aircraft
-rule leavingPassenger = Gate[@x].Pax[@y] -> Gate[@x]
-
-# Passengers can spontaneously spawn
-
-#Zone[-,CheckIn] -> Zone[-,CheckIn].Pax[Gian];
+rule leavingPassenger = Gate[@x].Passenger[@y] -> Gate[@x]
 
 # Airport Model:
 
 model airport =
 
 Landside.(
-	Zone[-,CheckIn].Pax[Gian] |
+	Zone[-,CheckIn].Passenger[Gian] |
 	Zone[CheckIn,Security]
 ) |
 Airside.(
 	Zone[Security,GateLounge] |
-	#Zone[DutyFree,GateLounge] |
+	Zone[DutyFree,GateLounge] |
 	Zone[GateLounge,Boarding]
 ) |
 Gates.(
 	Gate[SK100] |
-	Gate[-] |
-	Gate[-]
+	Gate[SK101] |
+	Gate[SK102]
 ) | DB.(
-	PaxRecord[Gian,SK100]
+	Record[Gian,SK100]
 )
+
+# Marking the state where the passenger took of
+marker passenger_left = !matches(Passenger[@id])
+
+# Marking the state in which the passenger has reached her Gate
+marker gate_reached = matches(Gate[@flight].Passenger[@id])

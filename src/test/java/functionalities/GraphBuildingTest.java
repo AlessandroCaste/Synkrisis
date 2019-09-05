@@ -2,8 +2,8 @@ package functionalities;
 
 import antlr.bigraph.bigraphParser;
 import antlr.g4models.bigraphLexer;
-import core.graphs.GraphBuildingVisitor;
-import core.graphs.modelgraph.Vertex;
+import core.graphs.parsing.GraphBuildingVisitor;
+import core.graphs.specificationgraph.Vertex;
 import core.graphs.storing.GraphsCollection;
 import core.graphs.storing.RedexReactumPair;
 import core.syntax.ErrorListener;

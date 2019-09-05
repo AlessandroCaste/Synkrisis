@@ -1,4 +1,4 @@
-package core.graphs.modelgraph;
+package core.graphs.specificationgraph;
 
 
 import java.util.HashMap;

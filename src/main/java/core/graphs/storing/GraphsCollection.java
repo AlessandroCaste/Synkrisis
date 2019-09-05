@@ -1,6 +1,6 @@
 package core.graphs.storing;
 
-import core.graphs.modelgraph.Vertex;
+import core.graphs.specificationgraph.Vertex;
 import core.graphs.transitiongraph.TransitionEdge;
 import core.graphs.transitiongraph.TransitionGraph;
 import core.graphs.transitiongraph.TransitionVertex;

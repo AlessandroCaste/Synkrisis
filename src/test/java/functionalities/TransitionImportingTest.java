@@ -1,6 +1,6 @@
 package functionalities;
 
-import core.graphs.TransitionDotImporter;
+import core.graphs.parsing.TransitionDotImporter;
 import core.graphs.storing.GraphsCollection;
 import core.graphs.transitiongraph.TransitionEdge;
 import core.graphs.transitiongraph.TransitionGraph;
