@@ -3,7 +3,7 @@
 Synkrisis is a bigraph modelling and engineering toolchain sporting a modular approach aimed at streamlining support for bigraphical model checking.
 
 ## How it works
-***
+
 Synkrisis toolchain allows to: 
 - Specify Bigraphical Models 
 - Produce Labeled Transition Graphs from such Model Specifications
@@ -22,7 +22,7 @@ Further infos on bigraph and the syntax behind Synkrisis can be found in the its
 If you'd like to give Synkrisis a try, there's a ready-to-use Jupyter notebook (and it also supports Prism and Spot from its command line!).
 
 ## Installation
-***
+
 Synkrisis was built and tested on UNIX-Linux systems (Ubuntu/Debian/Arch); execution has also been tested in Windows WSL.  
 There are two ways to install Synkrisis: 
 1. Standard Installation
@@ -48,7 +48,7 @@ Where the latest tag can be found in the (you guessed it)
 You will be able to run Synkrisis from the Dockerized environment, together with Spot and Prism instances ready to use
 
 ## Running Synkrisis
-***
+
 Synkrisis can be run both via CLI and its interactive shell, you can find more info in the Wiki.  
 The standard and simpley way of executing Synkrisis is by running its jar:  
 ``` java -jar Synkrisis.jar ```
