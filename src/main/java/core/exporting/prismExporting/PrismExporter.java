@@ -8,10 +8,7 @@ import org.jgrapht.graph.DirectedWeightedPseudograph;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -63,7 +60,7 @@ public class PrismExporter {
         logger.log(Level.INFO,"Writing .tra file");
         try {
             BufferedWriter traWriter;
-            traWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + "_dtmc.tra",false));
+            traWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + ".tra",false));
             // First line
             traWriter.write(Integer.toString(transitionJgraph.vertexSet().size()));
             traWriter.write(" ");
@@ -95,8 +92,14 @@ public class PrismExporter {
             BufferedWriter labWriter = new BufferedWriter(new FileWriter(path + "/" + modelName + ".lab",false));
             // I write by deafult built-in properties
             labWriter.write("0=\"init\" 1=\"deadlock\" ");
-            for(String marker : markersMap.keySet())
-                labWriter.write(markersMap.get(marker) + "=\"" + marker + "\" ");
+
+            // Since I want to order by values I reverse my markersMap for a clearer visualization sake
+            TreeMap<Integer,String> orderedMap = new TreeMap<>();
+            for(String marker: markersMap.keySet())
+                orderedMap.put(markersMap.get(marker),marker);
+
+            for(int number : orderedMap.keySet())
+                labWriter.write(number + "=\"" + orderedMap.get(number) + "\" ");
             labWriter.write("\n0: 0\n");
             for(TransitionVertex tv : transitionJgraph.vertexSet()) {
 

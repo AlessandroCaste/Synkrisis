@@ -155,7 +155,7 @@ public class Main {
         dotImporter = new TransitionDotImporter(dotInput, executionSettings.isProcessTransitionOnly(),modelName);
         dotImporter.processTransition();
         if (executionSettings.isPrintTransitionEnabled() && dotImporter.isSuccessful()) {
-            System.out.println("Printing the transition graph");
+            System.out.println("Trying to print the transition graph..");
             graphsCollection.printTransition();
         }
         if(dotImporter.isSuccessful())

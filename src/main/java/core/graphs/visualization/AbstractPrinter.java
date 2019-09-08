@@ -21,7 +21,7 @@ abstract class AbstractPrinter {
     // This function merges two graphs into a single png image
     // Rule name arg is set to null in case we're merging a transition graph and its labels
     void mergeGraphs(String modelName, MutableGraph g1, MutableGraph g2, boolean isRule, String fileName, double factor) throws IOException {
-        BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).render(Format.PNG).toImage();
+        BufferedImage graphvizGraph1 = Graphviz.fromGraph(g1).fontAdjust(factor).render(Format.PNG).toImage();
         BufferedImage graphvizGraph2;
         if(factor!=1)
             graphvizGraph2 = Graphviz.fromGraph(g2).fontAdjust(factor).render(Format.PNG).toImage();

@@ -50,8 +50,10 @@ You will be able to run Synkrisis from the Dockerized environment, together with
 ## Running Synkrisis
 
 Synkrisis can be run both via CLI and its interactive shell, you can find more info in the Wiki.  
-The standard and simpley way of executing Synkrisis is by running its jar:  
-``` java -jar Synkrisis.jar ```
+The standard and simple way of executing Synkrisis is by running its jar:  
+``` java -jar /path/to/Synkrisis.jar ```  
+That has been already aliased to ``` synkrisis ``` in the dockerized environment.  
+
 
 ## Related Repos
 1. Synkrisis for Jupyter Notebook: a sample (and simple) jupyter notebook to test out Synkrisis capabilities  

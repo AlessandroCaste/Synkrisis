@@ -5,6 +5,7 @@ import core.graphs.transitiongraph.TransitionGraph;
 import core.graphs.transitiongraph.TransitionVertex;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Shape;
+import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.engine.GraphvizCmdLineEngine;
 import guru.nidi.graphviz.engine.GraphvizException;
@@ -12,6 +13,11 @@ import guru.nidi.graphviz.model.MutableGraph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.geom.Arc2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -106,7 +112,7 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                         if(!tv.getMarkers().isEmpty())
                             hasMarkers = true;
                     }
-                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin", adjustMargins((maxLength)));
+                    mutNode(modelName + " Transition").attrs().add(Shape.RECTANGLE).add("margin", adjustMargins(maxLength));
                     if(hasMarkers && referenceTransitionGraph!=null) {
                         labels.append("\n\nList of markers by state:\n");
                         for (TransitionVertex tv : jgraphGraph.vertexSet()) {
@@ -132,16 +138,19 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                 factor = 0.85;
             if(maxLength > 105)
                 factor = 0.75;
-            if(prismTransition)
-                mergeGraphs(modelName,transitionOutputGraph,labelsGraph,false,"prism",factor);
-            else
-                mergeGraphs(modelName,transitionOutputGraph,labelsGraph,false,"transition",factor);
+            // if(prismTransition)
+                // mergeGraphs(modelName,transitionOutputGraph,labelsGraph,false,"prism",factor);
+
+            // Printing Single files
+            Graphviz.fromGraph(transitionOutputGraph).fontAdjust(factor).render(Format.PNG).toFile(new File(modelName + "/" + "tr_graph.png"));
+            Graphviz.fromGraph(labelsGraph).fontAdjust(factor).render(Format.PNG).toFile(new File(modelName + "/"  +"tr_labels.png"));
+
+            // Printing for standard case
+            mergeGraphs(modelName,transitionOutputGraph,labelsGraph,false,"transition",factor);
         } catch (IOException e) {
-            logger.log(Level.SEVERE,"Impossible to draw the transition graph");
+            System.out.println("[GRAPHVIZ ERROR] Impossible to draw the transition graph");
         } catch (GraphvizException e) {
-            logger.log(Level.SEVERE, "Impossible to draw transition graph." +
-                    "Graphviz was not properly configured or, more probably, transition printing run out of memory\nStack trace: " + e.getMessage());
-            System.out.println("[GRAPHVIZ ERROR] Can't print transition graph; check the log for further info");
+            System.out.println("[GRAPHVIZ ERROR] Impossible to draw transition graph. Graphviz was not properly configured or, more probably, transition printing run out of memory\nStack trace: " + e.getMessage());
         }
     }
 

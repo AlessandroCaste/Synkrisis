@@ -93,22 +93,14 @@ public class PrintModel extends AbstractPrinter implements Runnable {
             }
         });
         try {
-            // TODO : I could let users to choose
+            // TODO : SVG printing?
             //Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File(modelName + "/" + modelName +".svg"));
             Graphviz.fromGraph(g).render(Format.PNG).toFile(new File(modelName + "/" + modelName +".png"));
-            logger.log(Level.INFO,"Graphviz model successfully drawn");
         } catch (IOException e) {
-            System.out.println("[GRAPHVIZ ERROR] Can't print out model");
-            logger.log(Level.SEVERE,"Impossible to draw the model\nStack trace: " + e.getMessage());
+            System.out.println("[GRAPHVIZ ERROR] Can't print out model\nImpossible to draw the model\nStack trace: \" + e.getMessage()");
         } catch(guru.nidi.graphviz.engine.GraphvizException e) {
-            System.out.println("[GRAPHVIZ ERROR] Can't print model; check the log for further info");
-            if(SystemUtils.IS_OS_WINDOWS)
-                System.out.println("Be sure to add graphviz folder to your path before trying again");
-            else
-                System.out.println("Install graphviz before trying again");
-            logger.log(Level.SEVERE,"Couldn't find graphviz, so no models can be output. Check you've installed it and, if you're using windows, that you've added to your path\n" +
-                    "Note that this may also have to do with graphs so big that run out of memory before printing out the model!\nStack trace: " + e.getMessage());
-        }
+            System.out.println("[GRAPHVIZ ERROR] Can't print model: is graphviz on the path? This error may also have to do with graphs so big that run out of memory before printing out the model!\nStack trace:" + e.getMessage() + ")");
+           }
         logger.log(Level.INFO,"Model drawing completed");
     }
 

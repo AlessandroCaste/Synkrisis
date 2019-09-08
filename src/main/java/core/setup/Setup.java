@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
@@ -56,31 +57,38 @@ class Setup {
     // File setup for analysis
     @SuppressWarnings("Duplicates")
     void setupParser() {
-        try {
-            logger.log(Level.INFO, "Parsing tree creation started");
-            InputStream inputStream = new FileInputStream(inputFile);
-            Lexer lexer = new bigraphLexer(CharStreams.fromStream(inputStream));
-            TokenStream tokenStream = new CommonTokenStream(lexer);
-            bigraphParser parser = new bigraphParser(tokenStream);
-            parser.removeErrorListeners();
-            parser.addErrorListener(ErrorListener.INSTANCE);
-            modelTree = parser.bigraph();
-        } catch(FileNotFoundException e) {
-            // TODO : Execution halts goes on and throws unexpected errors
+        if(!FilenameUtils.getExtension(inputFile.toString()).equals("bigraph")){
             successfulSetup = false;
-            System.out.println("[FATAL ERROR] File \"" + inputFile.getPath() + "\" not found");
-            logger.log(Level.SEVERE,"Couldn't find the requested file " + inputFile.getAbsolutePath() + "\nStack trace:" + e.getMessage());
-        } catch (IOException e) {
-            successfulSetup = false;
-            System.out.println("[FATAL ERROR] Can't create the Lexer to start analysis" + inputFile.getName());
-            logger.log(Level.SEVERE, "Can't create CharStreams from the InputStream of " + inputFile.getName() + "\nStack trace:" + e.getMessage());
-        } catch (ParseCancellationException | NumberFormatException e) {
-            successfulSetup = false;
-            System.out.println(e.getMessage());
-            System.out.println("Parsing can't proceed");
-            logger.log(Level.SEVERE,e.getMessage());
+            System.out.println("Please, submit a .bigraph file for a correct execution!");
+            logger.log(Level.SEVERE,"Wrong file submitted, expecting a .bigraph");
         }
-        logger.log(Level.INFO,"Parsing tree creation concluded");
+        if(successfulSetup){
+            try {
+                logger.log(Level.INFO, "Parsing tree creation started");
+                InputStream inputStream = new FileInputStream(inputFile);
+                Lexer lexer = new bigraphLexer(CharStreams.fromStream(inputStream));
+                TokenStream tokenStream = new CommonTokenStream(lexer);
+                bigraphParser parser = new bigraphParser(tokenStream);
+                parser.removeErrorListeners();
+                parser.addErrorListener(ErrorListener.INSTANCE);
+                modelTree = parser.bigraph();
+            } catch(FileNotFoundException e) {
+                // TODO : Execution halts goes on and throws unexpected errors
+                successfulSetup = false;
+                System.out.println("[FATAL ERROR] File \"" + inputFile.getPath() + "\" not found");
+                logger.log(Level.SEVERE,"Couldn't find the requested file " + inputFile.getAbsolutePath() + "\nStack trace:" + e.getMessage());
+            } catch (IOException e) {
+                successfulSetup = false;
+                System.out.println("[FATAL ERROR] Can't create the Lexer to start analysis" + inputFile.getName());
+                logger.log(Level.SEVERE, "Can't create CharStreams from the InputStream of " + inputFile.getName() + "\nStack trace:" + e.getMessage());
+            } catch (ParseCancellationException | NumberFormatException e) {
+                successfulSetup = false;
+                System.out.println(e.getMessage());
+                System.out.println("Parsing can't proceed");
+                logger.log(Level.SEVERE,e.getMessage());
+            }
+            logger.log(Level.INFO,"Parsing tree creation concluded");
+        }
     }
 
     void createFolder(){

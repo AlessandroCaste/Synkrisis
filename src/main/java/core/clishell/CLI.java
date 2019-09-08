@@ -30,7 +30,7 @@ public class CLI {
         options.addOption("g","graph-print",false,"print model and reactions graphs");
         options.addOption("G","print-everything",false,"print all graphs produced, including transition graph");
         options.addOption("m","steps",true,"maximum number of execution steps");
-        options.addOption("p","print",false,"print newly discovered states during execution");
+        options.addOption("p","print-states",false,"print newly discovered states during execution");
         options.addOption("r","statistics",true,"set frequency (steps) with which statistics about graph and edges are output");
         options.addOption("h", "help", false, "show help.");
 

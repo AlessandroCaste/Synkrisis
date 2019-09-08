@@ -49,13 +49,9 @@ public class PrintReaction extends AbstractPrinter implements Runnable {
         try {
             mergeGraphs(modelName,g1,g2,true,ruleName,1);
         } catch (IOException e) {
-            System.out.println("[GRAPHVIZ ERROR] Can't print out reactions");
-            logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
+            System.out.println("[GRAPHVIZ ERROR] Impossible to draw reaction graphs " + ruleName + "\nStack trace: " + e.getMessage());
         } catch (GraphvizException e) {
-            System.out.println("[GRAPHVIZ ERROR] Can't print reaction " + ruleName +"; check the log for further info");
-            logger.log(Level.SEVERE,"Impossible to draw reaction graphs " + ruleName + "\n" +
-                    "This was probably due to problems configuring graphviz or because printing run out of memory;" +
-                    "Check if the same kind of error happened for model and transition graph\nStack trace: " + e.getMessage());
+            System.out.println("[GRAPHVIZ ERROR] Can't print reaction " + ruleName +"\nThis was probably due to problems configuring graphviz or because printing run out of memory.\nStack trace: " + e.getMessage());
         }
     }
 
