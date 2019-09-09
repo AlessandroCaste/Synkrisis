@@ -62,11 +62,11 @@ public class SpotExporter {
         for(TransitionVertex v : this.transitionJgraph.vertexSet())
             if(!Graphs.vertexHasSuccessors(this.transitionJgraph,v)) {
                 result = false;
-                this.transitionJgraph.addEdge(v,v,new TransitionEdge("spot self-loop"));
+                this.transitionJgraph.addEdge(v,v,new TransitionEdge("s-loop"));
             }
         if(!result) {
-            this.reactionNames.add("spot self-loop");
-            reactionMap.put("spot self-loop",counter);
+            this.reactionNames.add("s-loop");
+            reactionMap.put("s-loop",counter);
             System.out.println("[SPOT-TRANSLATION] Model has been transformed into an ω-automaton by addition of self-loops");
         }
     }
