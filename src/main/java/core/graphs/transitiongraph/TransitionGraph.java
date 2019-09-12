@@ -36,7 +36,7 @@ public class TransitionGraph {
     }
 
     public boolean vertexContainsMarker(TransitionVertex tv, String s) {
-        if(tv.getMarkers()!=null)
+        if(!tv.getMarkers().isEmpty())
             return tv.getMarkers().contains(markersMap.get(s));
         else
             return false;

@@ -52,8 +52,8 @@ public class TransitionDotImporter {
                     labelString = map.get("label").toString();
                 else
                     labelString = "";
-                if (map.get("synkrisis") != null) {
-                    String propertiesAttribute = map.get("synkrisis_tag").toString();
+                if (map.get("synkrisistag") != null) {
+                    String propertiesAttribute = map.get("synkrisistag").toString();
                     markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.split("\\s*,\\s*")));
                     for (String propertyName : markersLabels) {
                         if (!graphData.markersContainKey(propertyName))
@@ -100,8 +100,8 @@ public class TransitionDotImporter {
 
             if (label != null)
                 transitionVertex.setLabel(label.toString());
-            if (map.get("synkrisis") != null) {
-                markersLabels = new ArrayList<>(Arrays.asList(map.get("synkrisis").toString().split("\\s*,\\s*")));
+            if (map.get("synkrisistag") != null) {
+                markersLabels = new ArrayList<>(Arrays.asList(map.get("synkrisistag").toString().split("\\s*,\\s*")));
                 for (String propertyName : markersLabels) {
                     if(!graphData.markersContainKey(propertyName)) {
                         graphData.insertMarker(propertyName);

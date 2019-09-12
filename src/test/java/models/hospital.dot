@@ -18,7 +18,7 @@ N_14639850421326225136 [ shape = none, label="(Room[nursestation].(Agent.nil | D
    N_14639850421326225136 -> N_13824190530834693616 [ label = "doctor_moves" ];
    N_14639850421326225136 -> N_8454101844028474352 [ label = "doctor_moves" ];
    N_14639850421326225136 -> N_14291061634300475016 [ label = "nurse_moves" ];
-N_17190566979081356614 [ shape = none, synkrisis="he_forgot_the_pager",label="(Room[nursestation].Agent.nil | Room[corridor].(Agent.nil | Agent.nil) | Room[neurology].(Doctor[-].nil | Agent.nil | Nurse[pager].nil))"];
+N_17190566979081356614 [ shape = none, synkrisistag="he_forgot_the_pager",label="(Room[nursestation].Agent.nil | Room[corridor].(Agent.nil | Agent.nil) | Room[neurology].(Doctor[-].nil | Agent.nil | Nurse[pager].nil))"];
    N_17190566979081356614 -> N_3407348774471475558 [ label = "nurse_moves" ];
    N_17190566979081356614 -> N_17871044258739931388 [ label = "nurse_moves" ];
 N_3407348774471475558 [ shape = none, label="(Room[nursestation].Agent.nil | Room[corridor].(Nurse[pager].nil | Agent.nil | Agent.nil) | Room[neurology].(Doctor[-].nil | Agent.nil))"];
@@ -36,13 +36,13 @@ N_9134579123687049126 [ shape = none, label="(Room[neurology].Agent.nil | Room[c
    N_9134579123687049126 -> N_8454101844028474352 [ label = "nurse_moves" ];
    N_9134579123687049126 -> N_12292793736804825992 [ label = "nurse_moves" ];
    N_9134579123687049126 -> N_12763828730317816060 [ label = "dreamy_doctor" ];
-N_2604869488515234138 [ shape = none, synkrisis="nursestation_meeting,objective_met",label="(Room[neurology].Agent.nil | Room[nursestation].(Agent.nil | Nurse[pager].nil | Doctor[pager].nil) | Room[corridor].(Agent.nil | Agent.nil))"];
+N_2604869488515234138 [ shape = none, synkrisistag="nursestation_meeting,objective_met",label="(Room[neurology].Agent.nil | Room[nursestation].(Agent.nil | Nurse[pager].nil | Doctor[pager].nil) | Room[corridor].(Agent.nil | Agent.nil))"];
    N_2604869488515234138 -> N_14504667810493268390 [ label = "doctor_moves" ];
    N_2604869488515234138 -> N_14639850421326225136 [ label = "nurse_moves" ];
    N_2604869488515234138 -> N_9134579123687049126 [ label = "doctor_moves" ];
    N_2604869488515234138 -> N_14291061634300475016 [ label = "nurse_moves" ];
    N_2604869488515234138 -> N_9157151619032904836 [ label = "dreamy_doctor" ];
-N_13824190530834693616 [ shape = none, synkrisis="objective_met",label="(Room[nursestation].Agent.nil | Room[neurology].(Doctor[pager].nil | Agent.nil | Nurse[pager].nil) | Room[corridor].(Agent.nil | Agent.nil))"];
+N_13824190530834693616 [ shape = none, synkrisistag="objective_met",label="(Room[nursestation].Agent.nil | Room[neurology].(Doctor[pager].nil | Agent.nil | Nurse[pager].nil) | Room[corridor].(Agent.nil | Agent.nil))"];
    N_13824190530834693616 -> N_14504667810493268390 [ label = "nurse_moves" ];
    N_13824190530834693616 -> N_14639850421326225136 [ label = "doctor_moves" ];
    N_13824190530834693616 -> N_17190566979081356614 [ label = "dreamy_doctor" ];
@@ -63,7 +63,7 @@ N_8454101844028474352 [ shape = none, label="(Room[neurology].(Nurse[pager].nil 
    N_8454101844028474352 -> N_9134579123687049126 [ label = "nurse_moves" ];
    N_8454101844028474352 -> N_13824190530834693616 [ label = "doctor_moves" ];
    N_8454101844028474352 -> N_12292793736804825992 [ label = "nurse_moves" ];
-N_12292793736804825992 [ shape = none, synkrisis="objective_met",label="(Room[nursestation].Agent.nil | Room[corridor].(Agent.nil | Agent.nil | Doctor[pager].nil | Nurse[pager].nil) | Room[neurology].Agent.nil)"];
+N_12292793736804825992 [ shape = none, synkrisistag="objective_met",label="(Room[nursestation].Agent.nil | Room[corridor].(Agent.nil | Agent.nil | Doctor[pager].nil | Nurse[pager].nil) | Room[neurology].Agent.nil)"];
    N_12292793736804825992 -> N_9134579123687049126 [ label = "nurse_moves" ];
    N_12292793736804825992 -> N_18242118316785799484 [ label = "doctor_moves" ];
    N_12292793736804825992 -> N_8454101844028474352 [ label = "nurse_moves" ];
@@ -78,10 +78,10 @@ N_14291061634300475016 [ shape = none, label="(Room[nursestation].(Agent.nil | D
    N_14291061634300475016 -> N_2604869488515234138 [ label = "nurse_moves" ];
    N_14291061634300475016 -> N_18242118316785799484 [ label = "doctor_moves" ];
    N_14291061634300475016 -> N_12292793736804825992 [ label = "doctor_moves" ];
-N_9157151619032904836 [ shape = none, synkrisis="he_forgot_the_pager",label="(Room[neurology].Agent.nil | Room[nursestation].(Doctor[-].nil | Agent.nil | Nurse[pager].nil) | Room[corridor].(Agent.nil | Agent.nil))"];
+N_9157151619032904836 [ shape = none, synkrisistag="he_forgot_the_pager",label="(Room[neurology].Agent.nil | Room[nursestation].(Doctor[-].nil | Agent.nil | Nurse[pager].nil) | Room[corridor].(Agent.nil | Agent.nil))"];
    N_9157151619032904836 -> N_1336073368819877958 [ label = "nurse_moves" ];
    N_9157151619032904836 -> N_284368957274961886 [ label = "nurse_moves" ];
-N_15922043343435592926 [ shape = none, synkrisis="he_forgot_the_pager",label="(Room[neurology].Agent.nil | Room[nursestation].Agent.nil | Room[corridor].(Agent.nil | Nurse[pager].nil | Agent.nil | Doctor[-].nil))"];
+N_15922043343435592926 [ shape = none, synkrisistag="he_forgot_the_pager",label="(Room[neurology].Agent.nil | Room[nursestation].Agent.nil | Room[corridor].(Agent.nil | Nurse[pager].nil | Agent.nil | Doctor[-].nil))"];
    N_15922043343435592926 -> N_12083351450659241286 [ label = "nurse_moves" ];
    N_15922043343435592926 -> N_12763828730317816060 [ label = "nurse_moves" ];
 }

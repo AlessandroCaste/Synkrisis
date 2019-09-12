@@ -29,7 +29,7 @@ class ExportingTest {
         String filepath = "src/test/java/models/exportingTest1.bigraph";
         Main.main(new String[] {"-l",filepath,"-o","spot"});
         assertTrue(new File("nodes").exists());
-        assertTrue(new File("nodes/transition.dot").exists());
+        assertTrue(new File("nodes/hospital.dot").exists());
         assertTrue(new File("nodes/spot/nodes.hoa").exists());
 
         File hoaFile = new File("nodes/spot/nodes.hoa");

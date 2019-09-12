@@ -150,8 +150,8 @@ public class Main {
         if(executionSettings.isProcessTransitionOnly()) {
             dotInput = executionSettings.getFilePath();
         } else
-            // Note that the DotImporter will ALWAYS look for a modelName/transition.dot file!
-            dotInput = modelName + "/transition.dot";
+            // Note that the DotImporter will ALWAYS look for a modelName/hospital.dot file!
+            dotInput = modelName + "/hospital.dot";
         dotImporter = new TransitionDotImporter(dotInput, executionSettings.isProcessTransitionOnly(),modelName);
         dotImporter.processTransition();
         if (executionSettings.isPrintTransitionEnabled() && dotImporter.isSuccessful()) {
@@ -161,7 +161,7 @@ public class Main {
         if(dotImporter.isSuccessful())
             System.out.println("Transition file correctly imported");
         else
-            System.out.println("[FATAL ERROR] Can't import the transition file correctly: ensure transition.dot has been written inside " + modelName + " folder or .dot path was correct");
+            System.out.println("[FATAL ERROR] Can't import the transition file correctly: ensure hospital.dot has been written inside " + modelName + " folder or .dot path was correct");
         return dotImporter.isSuccessful();
     }
 
