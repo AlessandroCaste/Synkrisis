@@ -7,9 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="547a138b-6aa2-4d29-8554-aac2d3808381" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Synkrisis_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +97,7 @@
       <workItem from="1567900168269" duration="2425000" />
       <workItem from="1567940796346" duration="520000" />
       <workItem from="1567955642587" duration="11109000" />
+      <workItem from="1568023086077" duration="1403000" />
     </task>
     <task id="LOCAL-00001" summary="Further tweaking in graph printing. UAV model added">
       <created>1567971975136</created>
@@ -106,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567971975136</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Spot self-loops are now labelled 's-loop'">
+      <created>1568023243403</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568023243403</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,7 +134,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Further tweaking in graph printing. UAV model added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Further tweaking in graph printing. UAV model added" />
+    <MESSAGE value="Spot self-loops are now labelled 's-loop'" />
+    <option name="LAST_COMMIT_MESSAGE" value="Spot self-loops are now labelled 's-loop'" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

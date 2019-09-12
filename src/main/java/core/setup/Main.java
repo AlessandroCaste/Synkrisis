@@ -38,7 +38,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("****************************\n" +
-                            "Synkrisis Toolchain (2019)\n" +
+                            "Synkrisis Toolchain (1.0)\n" +
                            "****************************");
         if (args.length == 0)
             interactiveShell();

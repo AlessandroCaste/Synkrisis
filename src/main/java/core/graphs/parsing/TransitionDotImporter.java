@@ -53,7 +53,7 @@ public class TransitionDotImporter {
                 else
                     labelString = "";
                 if (map.get("synkrisis") != null) {
-                    String propertiesAttribute = map.get("synkrisis").toString();
+                    String propertiesAttribute = map.get("synkrisis_tag").toString();
                     markersLabels = new ArrayList<>(Arrays.asList(propertiesAttribute.split("\\s*,\\s*")));
                     for (String propertyName : markersLabels) {
                         if (!graphData.markersContainKey(propertyName))
