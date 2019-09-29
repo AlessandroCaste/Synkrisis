@@ -8,12 +8,10 @@
   <component name="ChangeListManager">
     <list default="true" id="547a138b-6aa2-4d29-8554-aac2d3808381" name="Default Changelist" comment="Graphviz 'synkrisistag', new bigmc included">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bigmc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bigmc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/parsing/TransitionDotImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/parsing/TransitionDotImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/transitiongraph/TransitionGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/brsinterpeter/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/brsinterpeter/Bigmc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/setup/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fullrun/ExportingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/hospital.dot" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/hospital.dot" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +37,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/java/models" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,16 +69,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TransitionImportingTest.executeModel">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/hospital.bigraph -m 4000" />
+      <option name="PROGRAM_PARAMETERS" value="-l ciao.bigraph -G" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExportingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExportingTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Synkrisis" />
       <extension name="coverage">
         <pattern>
@@ -95,7 +93,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GraphBuildingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GraphBuildingTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Synkrisis" />
       <extension name="coverage">
         <pattern>
@@ -169,8 +167,6 @@
         <item itemvalue="JUnit.TransitionImportingTest.executeModel" />
         <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.RunFunctionalityTest" />
-        <item itemvalue="JUnit.ExportingTest" />
-        <item itemvalue="JUnit.GraphBuildingTest" />
       </list>
     </recent_temporary>
   </component>
@@ -201,6 +197,9 @@
       <workItem from="1567955642587" duration="11109000" />
       <workItem from="1568023086077" duration="1403000" />
       <workItem from="1568303870844" duration="1989000" />
+      <workItem from="1568666411580" duration="50000" />
+      <workItem from="1568673589906" duration="1000" />
+      <workItem from="1569274429710" duration="4979000" />
     </task>
     <task id="LOCAL-00001" summary="Further tweaking in graph printing. UAV model added">
       <created>1567971975136</created>
@@ -255,16 +254,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
           <line>100</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/storing/GraphsCollection.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/graphs/visualization/PrintTransition.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/setup/Setup.java</url>

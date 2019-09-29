@@ -132,14 +132,13 @@ public class PrintTransition extends AbstractPrinter implements Runnable {
                 if(length > maxLength)
                     maxLength = length;
             }
-            // Temporary solution
-            double factor = 1;
+
+            // Factor values are empirical and dictated by Graphviz behavior
+            double factor = 0.9;
             if(75 <= maxLength && maxLength <= 105)
                 factor = 0.85;
             if(maxLength > 105)
                 factor = 0.75;
-            // if(prismTransition)
-                // mergeGraphs(modelName,transitionOutputGraph,labelsGraph,false,"prism",factor);
 
             // Printing Single files
             Graphviz.fromGraph(transitionOutputGraph).fontAdjust(factor).render(Format.PNG).toFile(new File(modelName + "/" + "tr_graph.png"));

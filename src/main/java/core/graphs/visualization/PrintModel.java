@@ -36,7 +36,7 @@ public class PrintModel extends AbstractPrinter implements Runnable {
         logger.log(Level.INFO,"Model drawing started");
         Graphviz.useEngine(new GraphvizCmdLineEngine());
 
-        MutableGraph g = mutGraph("example1").setDirected(true).use((gr, ctx) -> {
+        MutableGraph g = mutGraph("model_graph").setDirected(true).use((gr, ctx) -> {
 
 
             // Counter to keep adding new nodes original node ids
@@ -55,7 +55,7 @@ public class PrintModel extends AbstractPrinter implements Runnable {
             // Required only for better spacing
             mutNode("a").add(Shape.RECTANGLE).add("style","invis");
 
-            //  Adjusting shapes
+            // Adjusting shapes
             nodeAttrs().add("shape","box");
             nodeAttrs().add("style", "rounded");
             linkAttrs().add("arrowsize", 0.8);
@@ -93,8 +93,6 @@ public class PrintModel extends AbstractPrinter implements Runnable {
             }
         });
         try {
-            // TODO : SVG printing?
-            //Graphviz.fromGraph(g).width((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()).render(Format.SVG).toFile(new File(modelName + "/" + modelName +".svg"));
             Graphviz.fromGraph(g).render(Format.PNG).toFile(new File(modelName + "/" + modelName +".png"));
         } catch (IOException e) {
             System.out.println("[GRAPHVIZ ERROR] Can't print out model\nImpossible to draw the model\nStack trace: \" + e.getMessage()");
