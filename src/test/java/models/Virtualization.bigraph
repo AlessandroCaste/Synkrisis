@@ -1,0 +1,46 @@
+controls:
+    active VM 0
+    active FrontEnd 0
+    active User 1
+    active Message 0
+    active AuthServer 1
+    active LocalStorage 0
+    active CredStorage 1
+    active GlobalMsgStorage 0
+    active UnauthorizedUser 1
+    passive Failure 0
+
+names:
+    outer served
+
+rule a = FrontEnd.User[@userid].Message ||  AuthServer[@net].($1)                         ||  CredStorage[@net] (0.95) ->
+            FrontEnd.User[@userid]         ||  AuthServer[@net].(User[@userid].Message | $1) ||  CredStorage[@net]
+rule af = FrontEnd.User[@userid].Message     ||  AuthServer[@net].($1)                    ||  CredStorage[@net] (0.05) ->
+                FrontEnd.UnauthorizedUser[@userid] ||  AuthServer[@net].($1)                    ||  CredStorage[@net]
+
+rule c = AuthServer[@net].(User[@userid].Message | LocalStorage)           ->
+             AuthServer[@net].(User[@userid]         | LocalStorage.Message)
+
+# Probability of logging out?
+rule l = FrontEnd.User[@id]    || AuthServer[@net].(User[@id].$0 | LocalStorage.nil) ->
+              FrontEnd.User[served] || AuthServer[@net].LocalStorage.nil
+
+rule t = AuthServer[@net].(User[@id] | LocalStorage.Message ) || GlobalMsgStorage             (0.9) ->
+                AuthServer[@net].(User[@id] | LocalStorage         ) || GlobalMsgStorage.Message
+
+rule f = AuthServer[@net].(User[@id] | LocalStorage.Message) || GlobalMsgStorage (0.07) ->
+            AuthServer[@net].(LocalStorage.Failure)             || GlobalMsgStorage
+
+model virtualization = VM.FrontEnd.(User[id].Message) | VM.(AuthServer[network].(LocalStorage)) | VM.CredStorage[network] | VM.(GlobalMsgStorage)
+
+marker success = matches(GlobalMsgStorage.Message)
+marker loggedout  = matches(User[served])
+marker failure = matches(LocalStorage.Failure)
+marker immediateLogout = matches (VM.FrontEnd.User[served] | VM.AuthServer[@net].LocalStorage.nil | VM.GlobalMsgStorage.nil)
+
+properties:
+    PRISM (prop) = \{P <= 0.001 [true U "failure"] = P <= 0.001 [F "failure"]
+    P>=0.001 [F "success"]
+    P>=0.001 [X "immediateLogout"]
+    P=? [F "success"]
+    \}
