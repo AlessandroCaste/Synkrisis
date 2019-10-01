@@ -3,8 +3,11 @@ package core.exporting;
 import core.exporting.prismExporting.PrismExporter;
 import core.exporting.spotExporting.SpotExporter;
 import core.exporting.spotExporting.SpotInfo;
+import core.graphs.transitiongraph.TransitionEdge;
 import core.graphs.transitiongraph.TransitionGraph;
+import core.graphs.transitiongraph.TransitionVertex;
 import org.apache.commons.io.FileUtils;
+import org.jgrapht.graph.DirectedWeightedPseudograph;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -165,6 +168,14 @@ public class Exporter {
             }
         }
         return path;
+    }
+
+    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getPrismGraph(){
+        return prismExporter.getJgraph();
+    }
+
+    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getSpotGraph(){
+        return spotExporter.getJgraph();
     }
 
 }

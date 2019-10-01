@@ -6,8 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="547a138b-6aa2-4d29-8554-aac2d3808381" name="Default Changelist" comment="">
+    <list default="true" id="547a138b-6aa2-4d29-8554-aac2d3808381" name="Default Changelist" comment="Tuning on model printing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/brsinterpeter/Bigmc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/brsinterpeter/Bigmc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/Exporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/exporting/spotExporting/SpotExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fullrun/PrismExporting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fullrun/PrismExporting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fullrun/SpotTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fullrun/SpotTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +75,7 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.setup.Main" />
       <module name="Synkrisis" />
-      <option name="PROGRAM_PARAMETERS" value="-l ciao.bigraph -G" />
+      <option name="PROGRAM_PARAMETERS" value="-l src/test/java/models/Virtualization.bigraph -G" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -100,6 +106,37 @@
       <option name="PACKAGE_NAME" value="functionalities" />
       <option name="MAIN_CLASS_NAME" value="functionalities.GraphBuildingTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PrismTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Synkrisis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fullrun.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fullrun" />
+      <option name="MAIN_CLASS_NAME" value="fullrun.PrismTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PrismTest.testPrism" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Synkrisis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fullrun.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fullrun" />
+      <option name="MAIN_CLASS_NAME" value="fullrun.PrismTest" />
+      <option name="METHOD_NAME" value="testPrism" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -157,9 +194,13 @@
       <item itemvalue="JUnit.RunFunctionalityTest" />
       <item itemvalue="JUnit.TransitionImportingTest" />
       <item itemvalue="JUnit.TransitionImportingTest.executeModel" />
+      <item itemvalue="JUnit.PrismTest" />
+      <item itemvalue="JUnit.PrismTest.testPrism" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PrismTest.testPrism" />
+        <item itemvalue="JUnit.PrismTest" />
         <item itemvalue="JUnit.TransitionImportingTest.executeModel" />
         <item itemvalue="JUnit.TransitionImportingTest" />
         <item itemvalue="JUnit.RunFunctionalityTest" />
@@ -198,6 +239,8 @@
       <workItem from="1569274429710" duration="4979000" />
       <workItem from="1569789755949" duration="145000" />
       <workItem from="1569789914900" duration="380000" />
+      <workItem from="1569948327008" duration="98000" />
+      <workItem from="1569948642281" duration="2624000" />
     </task>
     <task id="LOCAL-00001" summary="Further tweaking in graph printing. UAV model added">
       <created>1567971975136</created>
@@ -257,11 +300,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/core/exporting/prismExporting/PrismExporter.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/core/setup/Setup.java</url>
           <line>60</line>
           <option name="timeStamp" value="4" />
@@ -270,6 +308,21 @@
           <url>file://$PROJECT_DIR$/src/test/java/functionalities/TransitionImportingTest.java</url>
           <line>43</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/fullrun/PrismExporting.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/fullrun/PrismExporting.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/fullrun/PrismExporting.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

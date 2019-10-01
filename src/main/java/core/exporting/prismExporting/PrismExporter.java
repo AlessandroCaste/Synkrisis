@@ -224,5 +224,9 @@ public class PrismExporter {
         // new Thread(new PrintTransition(transitionJgraph,modelName)).start();
     }
 
+    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getJgraph(){
+        return transitionJgraph;
+    }
+
 }
 

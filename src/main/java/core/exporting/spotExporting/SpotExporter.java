@@ -187,6 +187,10 @@ public class SpotExporter {
         return builder.toString();
         }
 
+    public DirectedWeightedPseudograph<TransitionVertex, TransitionEdge> getJgraph(){
+        return transitionJgraph;
+    }
+
     }
 
 

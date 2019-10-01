@@ -20,6 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SpotTest {
 
+    // Checking the HOA output of a spot exporting
+    // Test mainly verifies acceptance states are correctly assigned
+
     SpotTest(){
         testSpot();
     }
